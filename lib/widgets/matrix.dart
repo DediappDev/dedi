@@ -1079,6 +1079,10 @@ class MatrixState extends State<Matrix>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     Logs().i('didChangeAppLifecycleState: AppLifecycleState = $state');
     Logs().i('didChangeAppLifecycleState: currentTime: ${DateTime.now()}');
+    if (!client.isLogged()) {
+      Logs().w('Skip lifecycle sync - client not logged in');
+      return;
+    }
     final foreground = state != AppLifecycleState.detached &&
         state != AppLifecycleState.paused;
     client.backgroundSync = foreground;

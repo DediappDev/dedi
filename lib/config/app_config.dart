@@ -10,6 +10,8 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:matrix/matrix.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
+import 'environment.dart';
+
 abstract class AppConfig {
   static ResponsiveUtils responsive = getIt.get<ResponsiveUtils>();
 
@@ -25,7 +27,7 @@ abstract class AppConfig {
   static String? _applicationWelcomeMessage;
 
   static String? get applicationWelcomeMessage => _applicationWelcomeMessage;
-  static String _defaultHomeserver = 'matrix.linagora.com';
+  static String _defaultHomeserver = 'matrix.dedim.com.tr';
 
   static String get defaultHomeserver => _defaultHomeserver;
   static double bubbleSizeFactor = 1;
@@ -37,26 +39,30 @@ abstract class AppConfig {
 
   static const double defaultMaxHeightReactionsView = 400;
 
-  static String sampleValue = 'sampleValue';
-
   ///`REGISTRATION_URL`: Registration URL for public platform, sample is `https://example.com`
-  static String registrationUrl = sampleValue;
+  static String registrationUrl = Environment.registrationUrl;
 
   ///`TWAKE_WORKPLACE_HOMESERVER`: Twake workplace homeserver, sample is `https://example.com`
-  static String twakeWorkplaceHomeserver = sampleValue;
+  static String twakeWorkplaceHomeserver = Environment.matrixHomeserver;
 
   ///`HOME_SERVER`: Homeserver, sample is `https://example.com`
-  static String homeserver = sampleValue;
+  static String homeserver = Environment.matrixHomeserver;
 
   static String appParameter = 'chat';
 
   static String? platform;
 
-  static String _appPolicy = 'https://twake.app/policy';
+  static String _appPolicy = Environment.privacyUrl;
 
-  static String appTermsOfUse = 'https://twake.app/terms';
+  static String appTermsOfUse = 'https://dedim.com.tr/terms';
 
-  static String qrCodeDownloadUrl = 'https://sign-up.twake.app/download/chat';
+  static String qrCodeDownloadUrl = Environment.qrCodeDownloadUrl;
+
+  /// OTP API endpoints (development defaults)
+  static const String otpApiBaseUrl = Environment.identityServer;
+  static const String otpRequestEndpoint = '/otp/request';
+  static const String otpVerifyEndpoint = '/otp/verify';
+  static const String otpMatrixTokenEndpoint = '/otp/matrix-token';
 
   static String twakeChatAppleStore =
       'https://apps.apple.com/us/app/twake-chat/id6473384641';
@@ -90,12 +96,12 @@ abstract class AppConfig {
   static const String encryptionTutorial =
       'https://gitlab.com/famedly/fluffychat/-/wikis/How-to-use-end-to-end-encryption-in-FluffyChat';
   static const String appOpenUrlScheme = 'twake.chat';
-  static String _webBaseUrl = 'https://fluffychat.im/web';
+  static String _webBaseUrl = Environment.chatWeb;
 
   static String get webBaseUrl => _webBaseUrl;
   static const String sourceCodeUrl =
       'https://github.com/linagora/twake-on-matrix';
-  static String supportUrl = 'https://twake.app/support';
+  static String supportUrl = Environment.supportUrl;
   static String cozyExternalBridgeVersion = '0.16.1';
   static bool renderHtml = true;
   static bool hideRedactedEvents = false;
@@ -124,7 +130,7 @@ abstract class AppConfig {
 
   static const String _pushNotificationsGatewayUrlEnv = String.fromEnvironment(
     'PUSH_NOTIFICATIONS_GATEWAY_URL',
-    defaultValue: 'https://push.twake.app/_matrix/push/v1/notify',
+    defaultValue: Environment.pushGatewayUrl,
   );
 
   static String pushNotificationsGatewayUrl = _pushNotificationsGatewayUrlEnv;

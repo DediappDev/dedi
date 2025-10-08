@@ -33,7 +33,7 @@ void main() {
         () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://settings.twake.app/',
+        applicationUrl: 'https://settings.dedim.com.tr/',
       );
       expect(
         commonSettings.completedApplicationUrl('@testuser:matrix.org'),
@@ -45,7 +45,7 @@ void main() {
         () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://{username}-settings.twake.app/',
+        applicationUrl: 'https://{username}-settings.dedim.com.tr/',
       );
       expect(
         commonSettings.completedApplicationUrl('testuser:matrix.org'),
@@ -57,7 +57,7 @@ void main() {
         () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://{username}-settings.twake.app/',
+        applicationUrl: 'https://{username}-settings.dedim.com.tr/',
       );
       expect(commonSettings.completedApplicationUrl('@testuser'), isNull);
     });
@@ -65,7 +65,7 @@ void main() {
     test('completedApplicationUrl returns null when userId has double @', () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://{username}-settings.twake.app/',
+        applicationUrl: 'https://{username}-settings.dedim.com.tr/',
       );
       expect(
         commonSettings.completedApplicationUrl('@@testuser:matrix.org'),
@@ -77,7 +77,7 @@ void main() {
         () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://{username}-settings.twake.app/',
+        applicationUrl: 'https://{username}-settings.dedim.com.tr/',
       );
       expect(
         commonSettings.completedApplicationUrl('testuser@:matrix.org'),
@@ -88,7 +88,7 @@ void main() {
     test('completedApplicationUrl returns null when userId has double :', () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://{username}-settings.twake.app/',
+        applicationUrl: 'https://{username}-settings.dedim.com.tr/',
       );
       expect(
         commonSettings.completedApplicationUrl('@testuser::matrix.org'),
@@ -101,7 +101,7 @@ void main() {
         () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://{username}-settings.twake.app/',
+        applicationUrl: 'https://{username}-settings.dedim.com.tr/',
       );
       expect(commonSettings.completedApplicationUrl('@:matrix.org'), isNull);
     });
@@ -111,7 +111,7 @@ void main() {
         () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://{username}-settings.twake.app/',
+        applicationUrl: 'https://{username}-settings.dedim.com.tr/',
       );
       expect(commonSettings.completedApplicationUrl('@testuser:'), isNull);
     });
@@ -119,22 +119,22 @@ void main() {
     test('completedApplicationUrl returns correct URL for valid userId', () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://{username}-settings.twake.app/',
+        applicationUrl: 'https://{username}-settings.dedim.com.tr/',
       );
       expect(
         commonSettings.completedApplicationUrl('@testuser:matrix.org'),
-        'https://testuser-settings.twake.app/',
+        'https://testuser-settings.dedim.com.tr/',
       );
     });
 
     test('completedApplicationUrl handles different usernames', () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://{username}-settings.twake.app/',
+        applicationUrl: 'https://{username}-settings.dedim.com.tr/',
       );
       expect(
         commonSettings.completedApplicationUrl('@anotheruser:matrix.org'),
-        'https://anotheruser-settings.twake.app/',
+        'https://anotheruser-settings.dedim.com.tr/',
       );
     });
 
@@ -142,12 +142,12 @@ void main() {
     test('completedApplicationUrl handles userIds with special characters', () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://{username}-settings.twake.app/',
+        applicationUrl: 'https://{username}-settings.dedim.com.tr/',
       );
       expect(
         commonSettings
             .completedApplicationUrl('@test.user_name-123:matrix.org'),
-        'https://test.user_name-123-settings.twake.app/',
+        'https://test.user_name-123-settings.dedim.com.tr/',
       );
     });
 
@@ -155,25 +155,25 @@ void main() {
         () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://{username}-settings.twake.app/',
+        applicationUrl: 'https://{username}-settings.dedim.com.tr/',
       );
       expect(
         commonSettings.completedApplicationUrl(
           '@verylongusernamewithalotofcharacters:verylonghomeserverwithalotofcharacters.com',
         ),
-        'https://verylongusernamewithalotofcharacters-settings.twake.app/',
+        'https://verylongusernamewithalotofcharacters-settings.dedim.com.tr/',
       );
     });
 
     test('completedApplicationUrl handles homeservers with subdomains', () {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
-        applicationUrl: 'https://{username}-settings.twake.app/',
+        applicationUrl: 'https://{username}-settings.dedim.com.tr/',
       );
       expect(
         commonSettings
             .completedApplicationUrl('@testuser:sub.domain.matrix.org'),
-        'https://testuser-settings.twake.app/',
+        'https://testuser-settings.dedim.com.tr/',
       );
     });
 
@@ -183,11 +183,11 @@ void main() {
       final commonSettings = CommonSettingsInformation(
         enabled: true,
         applicationUrl:
-            'https://{username}-settings.twake.app/{username}/dashboard',
+            'https://{username}-settings.dedim.com.tr/{username}/dashboard',
       );
       expect(
         commonSettings.completedApplicationUrl('@testuser:matrix.org'),
-        'https://testuser-settings.twake.app/testuser/dashboard',
+        'https://testuser-settings.dedim.com.tr/testuser/dashboard',
       );
     });
   });

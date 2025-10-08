@@ -18,102 +18,186 @@ import 'utils/background_push.dart';
 import 'widgets/twake_app.dart';
 import 'widgets/lock_screen.dart';
 
+/// ============================================================================
+/// UYGULAMA BAŞLATMA NOKTASI - main() fonksiyonu
+/// ============================================================================
+/// Bu fonksiyon Flutter uygulamasının giriş noktasıdır.
+/// Uygulama başlatma süreci şu adımları takip eder:
+/// 1. Flutter binding'lerini başlat
+/// 2. Platform ayarlarını yapılandır
+/// 3. Veritabanı (Hive) başlat
+/// 4. Dependency injection (GetIt) kur
+/// 5. Matrix client'ları yükle
+/// 6. Background/foreground modunu belirle
+/// 7. GUI'yi başlat
 void main() async {
-  // Our background push shared isolate accesses flutter-internal things very early in the startup proccess
-  // To make sure that the parts of flutter needed are started up already, we need to ensure that the
-  // widget bindings are initialized already.
+  // ============================================================================
+  // ADIM 1: Flutter Binding'lerini Başlat
+  // ============================================================================
+  // Background push notification'lar için Flutter'ın internal bileşenlerine
+  // erken erişim gerekiyor. Bu yüzden widget binding'lerini başlatıyoruz.
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // ============================================================================
+  // ADIM 2: Platform Ayarlarını Yapılandır
+  // ============================================================================
+  // Sadece dikey (portrait) yönelimi destekle
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  
+  // Media kit'i başlat (video/audio oynatma için)
   MediaKit.ensureInitialized();
+  
+  // GoRouter URL yansıtma ayarını etkinleştir
   GoRouter.optionURLReflectsImperativeAPIs = true;
+  
+  // ============================================================================
+  // ADIM 3: Veritabanı (Hive) Başlat
+  // ============================================================================
+  // Linux için özel dizin, diğer platformlar için Flutter'ın varsayılan dizini
   if (PlatformInfos.isLinux) {
     Hive.init((await getApplicationSupportDirectory()).path);
   } else {
     await Hive.initFlutter();
   }
 
+  // ============================================================================
+  // ADIM 4: Dependency Injection (GetIt) Kurulumu
+  // ============================================================================
+  // Tüm servislerin ve dependency'lerin kayıt edildiği merkezi sistem
   GetItInitializer().setUp();
 
+  // ============================================================================
+  // ADIM 5: Matrix Client'larını Yükle ve Hazırla
+  // ============================================================================
+  // iOS hariç tüm platformlarda native renkleri kullan
   Logs().nativeColors = !PlatformInfos.isIOS;
+  
+  // Kayıtlı Matrix client'larını getir
   final clients = await ClientManager.getClients();
-  // Preload first client
+  
+  // İlk client'ı önceden yükle (performans için)
   final firstClient = clients.firstOrNull;
+  
+  // Web hariç tüm platformlarda collection silme özelliğini etkinleştir
   firstClient?.isSupportDeleteCollections = !PlatformInfos.isWeb;
+  
+  // Client'ın odalarını ve hesap verilerini yükle
   await firstClient?.roomsLoading;
   await firstClient?.accountDataLoading;
 
-  // If the app starts in detached mode, we assume that it is in
-  // background fetch mode for processing push notifications. This is
-  // currently only supported on Android.
+  // ============================================================================
+  // ADIM 6: Background/Foreground Modunu Belirle
+  // ============================================================================
+  // Android'de uygulama detached (ayrılmış) modda başlarsa, bu background
+  // push notification işleme modu demektir. GUI başlatmadan sadece
+  // notification'ları işle.
   if (PlatformInfos.isAndroid &&
       AppLifecycleState.detached == WidgetsBinding.instance.lifecycleState) {
-    // In the background fetch mode we do not want to waste ressources with
-    // starting the Flutter engine but process incoming push notifications.
+    // Background modda sadece push notification'ları işle
     BackgroundPush.clientOnly(clients.first);
-    // To start the flutter engine afterwards we add an custom observer.
+    
+    // Uygulama detached moddan çıktığında GUI'yi başlatmak için observer ekle
     WidgetsBinding.instance.addObserver(AppStarter(clients));
+    
     Logs().i(
       '${AppConfig.applicationName} started in background-fetch mode. No GUI will be created unless the app is no longer detached.',
     );
-    return;
+    return; // GUI başlatma, sadece notification işleme
   }
 
+  // ============================================================================
+  // ADIM 7: Web Platform Özel Ayarları
+  // ============================================================================
   if (PlatformInfos.isWeb) {
     CozyConfigManager().injectCozyScript(AppConfig.cozyExternalBridgeVersion);
   }
 
-  // Started in foreground mode.
+  // ============================================================================
+  // ADIM 8: GUI'yi Başlat (Foreground Modu)
+  // ============================================================================
   Logs().i(
     '${AppConfig.applicationName} started in foreground mode. Rendering GUI...',
   );
   await startGui(clients);
 }
 
-/// Fetch the pincode for the applock and start the flutter engine.
+/// ============================================================================
+/// GUI BAŞLATMA FONKSİYONU - startGui()
+/// ============================================================================
+/// Bu fonksiyon Flutter uygulamasının GUI'sini başlatır.
+/// İşlem sırası:
+/// 1. Mobil cihazlarda app lock PIN'ini kontrol et
+/// 2. App lock varsa TwakeApp'i AppLock ile sar
+/// 3. App lock yoksa doğrudan TwakeApp'i başlat
+/// 4. runApp() ile Flutter widget tree'sini başlat
 Future<void> startGui(List<Client> clients) async {
-  // Fetch the pin for the applock if existing for mobile applications.
+  // ============================================================================
+  // ADIM 1: App Lock PIN'ini Kontrol Et (Sadece Mobil)
+  // ============================================================================
+  // Mobil cihazlarda güvenlik için app lock PIN'i kontrol et
   String? pin;
   if (PlatformInfos.isMobile) {
     try {
-      pin =
-          await const FlutterSecureStorage().read(key: SettingKeys.appLockKey);
+      // Güvenli depolamadan PIN'i oku
+      pin = await const FlutterSecureStorage().read(key: SettingKeys.appLockKey);
     } catch (e, s) {
+      // PIN okuma hatası durumunda log'la ama uygulamayı durdurma
       Logs().d('Unable to read PIN from Secure storage', e, s);
     }
   }
 
-  // Start rendering the Flutter app and wrap it in an Applock.
-  // We do this only for mobile applications as we saw routing
-  // problems on other platforms if we wrap it always.
+  // ============================================================================
+  // ADIM 2: Uygulamayı Başlat (App Lock ile veya doğrudan)
+  // ============================================================================
+  // Mobil cihazlarda app lock varsa TwakeApp'i AppLock ile sar
+  // Diğer platformlarda doğrudan TwakeApp'i başlat
+  // (Çünkü diğer platformlarda AppLock routing sorunlarına neden oluyor)
   runApp(
     PlatformInfos.isMobile
         ? AppLock(
-            builder: (args) => TwakeApp(clients: clients),
-            lockScreen: const LockScreen(),
-            enabled: pin?.isNotEmpty ?? false,
+            builder: (args) => TwakeApp(clients: clients), // Ana uygulama widget'ı
+            lockScreen: const LockScreen(), // Kilit ekranı widget'ı
+            enabled: pin?.isNotEmpty ?? false, // PIN varsa app lock'u etkinleştir
           )
-        : TwakeApp(clients: clients),
+        : TwakeApp(clients: clients), // Desktop/web için doğrudan ana uygulama
   );
 }
 
-/// Watches the lifecycle changes to start the application when it
-/// is no longer detached.
+/// ============================================================================
+/// UYGULAMA YAŞAM DÖNGÜSÜ İZLEYİCİSİ - AppStarter
+/// ============================================================================
+/// Bu sınıf Android'de background moddan foreground moda geçişi izler.
+/// 
+/// ÇALIŞMA PRENSİBİ:
+/// 1. Uygulama background'da push notification işlerken GUI başlatılmaz
+/// 2. Kullanıcı uygulamayı açtığında (detached moddan çıktığında) GUI başlatılır
+/// 3. GUI sadece bir kez başlatılır (guiStarted flag'i ile kontrol edilir)
 class AppStarter with WidgetsBindingObserver {
-  final List<Client> clients;
-  bool guiStarted = false;
+  final List<Client> clients; // Matrix client'ları
+  bool guiStarted = false; // GUI'nin başlatılıp başlatılmadığını takip eder
 
   AppStarter(this.clients);
 
+  /// ============================================================================
+  /// UYGULAMA YAŞAM DÖNGÜSÜ DEĞİŞİKLİK İZLEYİCİSİ
+  /// ============================================================================
+  /// Bu metod uygulamanın yaşam döngüsü değişikliklerini izler.
+  /// Background'dan foreground'a geçişte GUI'yi başlatır.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    // GUI zaten başlatıldıysa tekrar başlatma
     if (guiStarted) return;
+    
+    // Hala detached modda ise GUI başlatma
     if (state == AppLifecycleState.detached) return;
 
+    // Detached moddan çıktığında GUI'yi başlat
     Logs().i(
       '${AppConfig.applicationName} switches from the detached background-fetch mode to ${state.name} mode. Rendering GUI...',
     );
     startGui(clients);
-    // We must make sure that the GUI is only started once.
+    
+    // GUI'nin sadece bir kez başlatılmasını garanti et
     guiStarted = true;
   }
 }

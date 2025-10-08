@@ -1,9 +1,11 @@
+import '../environment.dart';
+
 class ConfigurationSaas {
-  static const String registrationUrl = 'https://sign-up.twake.app/';
+  static const String registrationUrl = Environment.registrationUrl;
 
-  static const String twakeWorkplaceHomeserver = 'https://matrix.twake.app';
+  static const String twakeWorkplaceHomeserver = Environment.matrixHomeserver;
 
-  static const String homeserver = 'https://matrix.twake.app';
+  static const String homeserver = Environment.matrixHomeserver;
 
   static const String platform = 'saas';
 }
