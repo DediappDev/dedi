@@ -176,3 +176,7 @@ lib/
 - App lock with PIN/biometric authentication
 - Keychain sharing between app and extensions (iOS)
 - Encrypted local storage via Hive + encryption
+
+## Task Master AI Instructions
+**Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
+@./.taskmaster/CLAUDE.md

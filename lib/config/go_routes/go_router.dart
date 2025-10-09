@@ -21,6 +21,10 @@ import 'package:fluffychat/pages/settings_dashboard/settings_profile/settings_pr
 import 'package:fluffychat/pages/splash/splash.dart';
 import 'package:fluffychat/pages/story/story_page.dart';
 import 'package:fluffychat/pages/twake_welcome/twake_welcome.dart';
+import 'package:fluffychat/pages/phone_auth/splash_screen.dart';
+import 'package:fluffychat/pages/phone_auth/onboarding_screen.dart';
+import 'package:fluffychat/pages/phone_auth/phone_input_page.dart';
+import 'package:fluffychat/pages/phone_auth/otp_verification_page.dart';
 import 'package:fluffychat/presentation/model/chat/chat_router_input_argument.dart';
 import 'package:fluffychat/presentation/model/forward/forward_argument.dart';
 import 'package:fluffychat/presentation/model/contact/presentation_contact.dart';
@@ -62,15 +66,55 @@ abstract class AppRoutes {
     BuildContext context,
     GoRouterState state,
   ) =>
-      Matrix.of(context).client.isLogged() ? null : '/home/twakeWelcome';
+      Matrix.of(context).client.isLogged() ? null : '/splash';
 
   AppRoutes();
 
   static final _responsive = getIt.get<ResponsiveUtils>();
 
   static final List<RouteBase> routes = [
+    // New native auth flow routes
     GoRoute(
       path: '/splash',
+      pageBuilder: (context, state) => defaultPageBuilder(
+        context,
+        const SplashScreen(),
+      ),
+    ),
+    GoRoute(
+      path: '/onboarding',
+      pageBuilder: (context, state) => defaultPageBuilder(
+        context,
+        const OnboardingScreen(),
+      ),
+    ),
+    GoRoute(
+      path: '/phone-input',
+      pageBuilder: (context, state) => defaultPageBuilder(
+        context,
+        const PhoneInputPage(),
+      ),
+    ),
+    GoRoute(
+      path: '/otp-verify',
+      pageBuilder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+        final phone = extra?['phone'] as String? ?? '';
+        final devOTP = extra?['dev_otp'] as String?;
+
+        return defaultPageBuilder(
+          context,
+          OTPVerificationPage(
+            phoneNumber: phone,
+            devOTP: devOTP,
+          ),
+        );
+      },
+    ),
+
+    // Legacy splash route (keeping for compatibility)
+    GoRoute(
+      path: '/legacy-splash',
       pageBuilder: (context, state) => defaultPageBuilder(
         context,
         const Splash(),
@@ -79,7 +123,7 @@ abstract class AppRoutes {
     GoRoute(
       path: '/',
       redirect: (context, state) =>
-          Matrix.of(context).client.isLogged() ? '/rooms' : '/home',
+          Matrix.of(context).client.isLogged() ? '/rooms' : '/splash',
     ),
     GoRoute(
       path: '/home',

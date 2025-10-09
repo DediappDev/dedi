@@ -1,47 +1,199 @@
+````prompt
 <context>
 # Overview  
-[Provide a high-level overview of your product here. Explain what problem it solves, who it's for, and why it's valuable.]
+**Dedi** is a self-hosted, privacy-first rebrand of Twake Chat that runs on our own domain **`*.dedim.com.tr`**. It replaces web-based phone/OTP login with **native Flutter screens**, persists the user’s Matrix session for seamless re-entry, and swaps ToM-server’s **Octopush** SMS dependency for a **multi-provider** SMS layer (**Turkcell MesajÜssü v2**, **NetGSM**, **İletiMerkezi**, **TurkTelekom**, optional **Twilio**).  
+It’s built for teams who want Matrix-based messaging with first-class phone OTP onboarding while **owning** the infra, domains, and SMS routing.
 
 # Core Features  
-[List and describe the main features of your product. For each feature, include:
-- What it does
-- Why it's important
-- How it works at a high level]
+- **Native Phone OTP Login (Flutter)**
+  - *What*: Splash → Onboarding (first run only) → Phone Input → OTP Verify → Rooms.  
+  - *Why*: Removes WebView SSO friction; consistent UX; faster and more secure.  
+  - *How*: Flutter widgets (designs in `/Users/liberyus/development/dedi/login_flow`), talking directly to **@twake/matrix-identity-server** OTP/3PID endpoints (reuse-first).
+
+- **Multi-Provider SMS with Ordered Fallback**
+  - *What*: Pluggable providers with env-driven order; failover on transient errors only.  
+  - *Why*: Resilience, cost control, local compliance.  
+  - *How*: Provider interface + `MultiProvider` (Node.js) replacing Octopush in identity server internals.
+
+- **Self-Hosted Domains & Infra**
+  - *What*: All endpoints repointed to `*.dedim.com.tr`.  
+  - *Why*: Full control over routing, TLS, and compliance.  
+  - *How*: Centralized config in client & server; CI guard that blocks non-`dedim.com.tr` hosts.
+
+- **Session Persistence**
+  - *What*: OTP appears only once; on relaunch, go straight to Rooms.  
+  - *Why*: Zero-friction daily use.  
+  - *How*: Matrix SDK session storage (Hive/Isar) + small flags via `shared_preferences`.
+
+- **Optional Self-Hosted Push (ntfy)**
+  - *What*: Notifications without Firebase.  
+  - *Why*: De-Google the stack; simpler EU/hosting posture.  
+  - *How*: Dockerized ntfy at `notification.dedim.com.tr` + light client integration.
 
 # User Experience  
-[Describe the user journey and experience. Include:
-- User personas
-- Key user flows
-- UI/UX considerations]
+- **Personas**
+  - *End Users*: Join with phone number, receive OTP, start chatting; never see SSO/web login again.  
+  - *Admins*: Choose SMS provider order via env, manage domains, monitor delivery.
+
+- **Key Flows**
+  - First run: Splash → Onboarding (only once) → Phone → OTP → Matrix Init → Rooms.  
+  - Subsequent runs: Splash → Rooms (if session valid).  
+  - Re-login (user-initiated logout): Phone → OTP again.
+
+- **UI/UX Considerations**
+  - Follow **exact** designs & assets from `/Users/liberyus/development/dedi/login_flow` (spacing, copy, interactions).  
+  - Accessible input masks for TR numbers; clear error states; resend cooldown; progress indicators.
 </context>
+
 <PRD>
 # Technical Architecture  
-[Outline the technical implementation details:
-- System components
-- Data models
-- APIs and integrations
-- Infrastructure requirements]
+- **System Components**
+  - **Flutter Client (Dedi)**: Replaces WebView SSO with native OTP screens; centralizes endpoints; persists Matrix session.  
+  - **ToM-server Monorepo**: Contains **@twake/matrix-identity-server** and `packages/matrix-invite/`. We **remove Octopush** and route SMS via `MultiProvider`.  
+  - **Matrix Homeserver**: Synapse at `matrix.dedim.com.tr`.  
+  - **Reverse Proxy**: Nginx-proxy handling TLS/host routing.  
+  - **Optional Push**: ntfy at `notification.dedim.com.tr`.
+
+- **Data Models**
+  - **Client Flags**: `first_time: bool` (SharedPreferences), `logged_in: bool`.  
+  - **Matrix Session**: Stored by Matrix SDK (Hive/Isar).  
+  - **(If thin adapter used)** transient OTP req/verify payloads only; no new server-side OTP store (reuse identity v2).
+
+- **APIs & Integrations**
+  - **Identity v2 / Invite** (reuse-first): request/submit/bind phone tokens; `store-invite` for `msisdn`.  
+  - **Multi-SMS Provider (Node.js)**
+    - Provider interface:
+      ```ts
+      interface SMSProvider {
+        readonly name: string;
+        sendSMS(args:{to:string;text:string;sender?:string;campaignName?:string}):Promise<{ok:boolean;provider:string;id?:string;raw?:any}>;
+        validateConfig?():void;
+      }
+      ```
+    - **Turkcell MesajÜssü v2**
+      - Login: `POST ${TURKCELL_BASE_URL}/integration/v2/login` `{ username, password }` → `{ token, tokenExpireDate, sessionInactivityPeriod }` (cache/refresh).  
+      - Send: `POST ${TURKCELL_BASE_URL}/integration/v2/sms/job/json` headers: `token: <token>`; body:
+        `{"messageText":"...","sender":"<SENDER>","campaignName":"OTP","receivers":["5XXXXXXXXX"]}`  
+        Convert `+905XXXXXXXXX` → `5XXXXXXXXX`.
+    - **NetGSM**:  
+      GET `https://api.netgsm.com.tr/sms/send/get?usercode=<U>&password=<P>&gsmno=<MSISDN>&message=<TEXT>&msgheader=<SENDER>`  
+      `"00*"` → success.
+    - **İletiMerkezi**:  
+      GET `https://api.iletimerkezi.com/v1/send-sms/get/?key=<KEY>&hash=<HASH>&text=<TEXT>&receipents=<MSISDN>&sender=<TITLE>`  
+      `status==="success"` → success.
+    - **TurkTelekom**: scaffold with TODOs (env keys in place).  
+    - **Twilio**: optional standard REST.
+    - **Env & Fallback**
+      - Either `SMS_PROVIDERS=turkcell,netgsm,iletimerkezi,twilio` **or**:
+        `MAIN_SMS_PROVIDER=turkcell` + `FALLBACK_SMS1=netgsm` + `FALLBACK_SMS2=iletimerkezi` + `FALLBACK_SMS3=twilio`  
+      - Fallback only on transient errors (timeout/network/5xx); **no** fallback on 4xx/auth/validation.
+
+- **Infrastructure Requirements**
+  - Domains: `matrix|identity|chat|notification.dedim.com.tr`.  
+  - Docker: synapse, identity-server, (optional) msisdn-auth thin adapter, ntfy, redis (if already used elsewhere).  
+  - CI guard: fail builds when non-`dedim.com.tr` hosts present in client/server.
 
 # Development Roadmap  
-[Break down the development process into phases:
-- MVP requirements
-- Future enhancements
-- Do not think about timelines whatsoever -- all that matters is scope and detailing exactly what needs to be build in each phase so it can later be cut up into tasks]
+- **MVP Requirements**
+  - Client: Centralized endpoints → migrate to `*.dedim.com.tr`; native OTP flow per `/login_flow`; persisted login; remove WebView.  
+  - Server: Replace Octopush with `MultiProvider` in identity internals; implement Turkcell/NetGSM/İletiMerkezi; env-ordered fallback; keep identity APIs stable.  
+  - Docs: Update `IMPLEMENTATION_PLAN.md`; add `SMS_PROVIDERS.md` and `FRONTEND_FLOW.md`.  
+  - Tests: Provider success/error mapping; fallback rules; Turkcell token cache; Flutter widget tests for onboarding skip & OTP resend.
+
+- **Future Enhancements**
+  - Add finalized **TurkTelekom** provider once spec confirmed.  
+  - Optional `msisdn-auth` **thin adapter** proxying identity v2 if mobile needs clean JSON.  
+  - Optional **ntfy** push end-to-end and client subscriptions.  
+  - Metrics & delivery receipts; rate-limit tuning; observability dashboards.
 
 # Logical Dependency Chain
-[Define the logical order of development:
-- Which features need to be built first (foundation)
-- Getting as quickly as possible to something usable/visible front end that works
-- Properly pacing and scoping each feature so it is atomic but can also be built upon and improved as development approaches]
+1. **Discovery & Plan Sync**  
+   - Read `/Users/liberyus/development/dedi/docs/UNIFIED_IMPLEMENTATION_GUIDE.md` and current repos; update **Progress Snapshot** in `IMPLEMENTATION_PLAN.md`.
+2. **Client Foundation (Visible Fast)**  
+   - Centralize/migrate domains; CI guard.  
+   - Implement native OTP screens per `/login_flow`; remove WebView; persist session.
+3. **Server Foundation (Non-breaking)**  
+   - Swap Octopush → `MultiProvider` inside identity; keep public endpoints unchanged; verify invite/OTP still emit SMS.
+4. **Optional Thin Adapter**  
+   - Only if the mobile client needs normalized payloads; proxy to identity v2.
+5. **Optional Push (ntfy)**  
+   - Add dockerized ntfy; wire minimal publisher + client listener.
+6. **Hardening**  
+   - Tests, rate limiting, phone normalization, error UX polish, docs.
 
 # Risks and Mitigations  
-[Identify potential risks and how they'll be addressed:
-- Technical challenges
-- Figuring out the MVP that we can build upon
-- Resource constraints]
+- **Provider Protocol Variance**  
+  - *Risk*: Different HTTP methods, response codes, phone formats.  
+  - *Mitigation*: Strict provider adapters; normalize to `{ok,provider,id?,raw}`; convert E.164 → provider format; comprehensive unit tests.
+
+- **Turkcell Token Lifecycle**  
+  - *Risk*: Token expiry/inactivity causing hidden failures.  
+  - *Mitigation*: Cache with expiry; auto-refresh on 401; circuit-breaker metrics.
+
+- **Accidental OTP Re-Implementation**  
+  - *Risk*: Duplicating identity v2 logic.  
+  - *Mitigation*: **Reuse-first** mandate; thin adapter only if payloads need normalization.
+
+- **Domain Drift**  
+  - *Risk*: Missed URLs causing mixed-content or auth failures.  
+  - *Mitigation*: CI grep blocking non-`dedim.com.tr`; single Environment config.
+
+- **UX Drift from Designs**  
+  - *Risk*: Screens diverge from `/login_flow`.  
+  - *Mitigation*: Pixel-checklist; design review gate; snapshot tests.
 
 # Appendix  
-[Include any additional information:
-- Research findings
-- Technical specifications]
+- **Research Findings & Sources**
+  - Designs & assets: `/Users/liberyus/development/dedi/login_flow`  
+  - Guide: `/Users/liberyus/development/dedi/docs/UNIFIED_IMPLEMENTATION_GUIDE.md`  
+  - Plan: `/Users/liberyus/development/dedi-server/docs/IMPLEMENTATION_PLAN.md`  
+  - Provider references (for understanding shapes):  
+    - Turkcell MesajÜssü v2 (login + job/json send)  
+    - NetGSM GET API (`"00*"` success)  
+    - İletiMerkezi GET API (`status==="success"`)  
+    - smsQuick (multi-provider pattern)
+
+- **Key Env Sample**
+````
+
+# Domains
+
+MATRIX_HOMESERVER=[https://matrix.dedim.com.tr](https://matrix.dedim.com.tr)
+IDENTITY_SERVER=[https://identity.dedim.com.tr](https://identity.dedim.com.tr)
+CHAT_SERVER=[https://chat.dedim.com.tr](https://chat.dedim.com.tr)
+NOTIFICATION_SERVER=[https://notification.dedim.com.tr](https://notification.dedim.com.tr)
+
+# Providers (order)
+
+SMS_PROVIDERS=turkcell,netgsm,iletimerkezi,twilio
+SMS_TIMEOUT_MS=7000
+
+# Turkcell
+
+TURKCELL_BASE_URL=[https://mesajussu.turkcell.com.tr/api/api](https://mesajussu.turkcell.com.tr/api/api)
+TURKCELL_USERNAME=
+TURKCELL_PASSWORD=
+TURKCELL_SENDER=DEDIM
+TURKCELL_CAMPAIGN_NAME=OTP
+
+# NetGSM
+
+NETGSM_USERCODE=
+NETGSM_PASSWORD=
+NETGSM_HEADER=DEDIM
+
+# İletiMerkezi
+
+ILETIMERKEZI_API_KEY=
+ILETIMERKEZI_API_HASH=
+ILETIMERKEZI_SENDER=DEDIM
+
+# Twilio (optional)
+
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTH_TOKEN=
+TWILIO_FROM_NUMBER=
+
+```
 </PRD>
+```
