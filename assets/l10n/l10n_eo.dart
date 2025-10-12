@@ -3248,4 +3248,93 @@ class L10nEo extends L10n {
 
   @override
   String get audioMessageFailedToSend => 'Audio message failed to send.';
+
+  @override
+  String get dediMainTitle => 'DNA Algorithm';
+
+  @override
+  String get dediMainDescription =>
+      'Dedi uses an encryption system that belongs only to Dedi, messages cannot be read outside of Dedi';
+
+  @override
+  String get phoneAuthTitle => 'Phone Verification';
+
+  @override
+  String get phoneAuthDescription =>
+      'Enter your phone number, we will send you a verification code';
+
+  @override
+  String get otpVerificationTitle => 'Verification Code';
+
+  @override
+  String get otpVerificationDescription =>
+      'Enter the 6-digit code sent to your phone';
+
+  @override
+  String get splashTagline => 'Turkey\'s messaging platform';
+
+  @override
+  String get loginTitle => 'Sign In';
+
+  @override
+  String get welcomeMessage => 'Welcome!';
+
+  @override
+  String get loginDescription =>
+      'Just a few steps left for secure and unlimited messaging';
+
+  @override
+  String get phoneNumberLabel => 'Phone Number *';
+
+  @override
+  String get getVerificationCode => 'Get Verification Code';
+
+  @override
+  String get enterVerificationCode => 'Enter Verification Code';
+
+  @override
+  String otpSentMessage(Object phone) {
+    return 'We sent a verification code to $phone.';
+  }
+
+  @override
+  String get otpProblemQuestion => 'Having trouble receiving the code?';
+
+  @override
+  String get resendCode => 'Resend';
+
+  @override
+  String get pleaseEnterValidPhone => 'Please enter a valid phone number';
+
+  @override
+  String get otpRequestFailed => 'Failed to send code. Please try again.';
+
+  @override
+  String get pleaseEnterCompleteCode =>
+      'Please enter the complete 6-digit code';
+
+  @override
+  String get invalidOtp => 'Verification code is incorrect. Please check.';
+
+  @override
+  String get connectionError =>
+      'Connection error. Please check your internet connection.';
+
+  @override
+  String get expiredOtp => 'Verification code has expired. Request a new code.';
+
+  @override
+  String get verificationFailed => 'Connection error. Please try again.';
+
+  @override
+  String get codeSentAgain => 'Verification code sent again';
+
+  @override
+  String get codeSendFailed => 'Failed to send code. Please try again.';
+
+  @override
+  String get loginSuccess => '✅ Login successful!';
+
+  @override
+  String get seconds => 's';
 }

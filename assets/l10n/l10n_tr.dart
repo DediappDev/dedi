@@ -2604,27 +2604,6 @@ class L10nTr extends L10n {
       'An open source messenger encrypt\nyour data with matrix protocol';
 
   @override
-  String get dediMainTitle => 'DNA Algoritması';
-
-  @override
-  String get dediMainDescription =>
-      'Dedi, algoritması sadece dedi\'ye ait olan bir şifreleme sistemi kullanır, yazışmalar Dedi\'nin dışında okunamaz';
-
-  @override
-  String get phoneAuthTitle => 'Telefon Doğrulama';
-
-  @override
-  String get phoneAuthDescription =>
-      'Telefon numaranızı girin, size doğrulama kodu gönderelim';
-
-  @override
-  String get otpVerificationTitle => 'Doğrulama Kodu';
-
-  @override
-  String get otpVerificationDescription =>
-      'Telefonunuza gönderilen 6 haneli kodu girin';
-
-  @override
   String countFilesSendPerDialog(Object count) {
     return 'The maximum files when sending is $count.';
   }
@@ -3268,4 +3247,93 @@ class L10nTr extends L10n {
 
   @override
   String get audioMessageFailedToSend => 'Audio message failed to send.';
+
+  @override
+  String get dediMainTitle => 'DNA Algoritması';
+
+  @override
+  String get dediMainDescription =>
+      'Dedi, algoritması sadece dedi\'ye ait olan bir şifreleme sistemi kullanır, yazışmalar Dedi\'nin dışında okunamaz';
+
+  @override
+  String get phoneAuthTitle => 'Telefon Doğrulama';
+
+  @override
+  String get phoneAuthDescription =>
+      'Telefon numaranızı girin, size doğrulama kodu gönderelim';
+
+  @override
+  String get otpVerificationTitle => 'Doğrulama Kodu';
+
+  @override
+  String get otpVerificationDescription =>
+      'Telefonunuza gönderilen 6 haneli kodu girin';
+
+  @override
+  String get splashTagline => 'Türkiye\'nin mesajlaşma platformu';
+
+  @override
+  String get loginTitle => 'Giriş Yap';
+
+  @override
+  String get welcomeMessage => 'Hoş geldiniz!';
+
+  @override
+  String get loginDescription =>
+      'Güvenli ve sınırsız mesajlaşma için sadece bir kaç adım kaldı';
+
+  @override
+  String get phoneNumberLabel => 'Telefon Numarası *';
+
+  @override
+  String get getVerificationCode => 'Doğrulama Kodu Al';
+
+  @override
+  String get enterVerificationCode => 'Onay Kodunu Gir';
+
+  @override
+  String otpSentMessage(Object phone) {
+    return '$phone numarasına bir onay kodu gönderdik.';
+  }
+
+  @override
+  String get otpProblemQuestion => 'Kodu alırken sorun mu yaşıyorsunuz?';
+
+  @override
+  String get resendCode => 'Yeniden gönder';
+
+  @override
+  String get pleaseEnterValidPhone => 'Geçerli bir telefon numarası giriniz';
+
+  @override
+  String get otpRequestFailed =>
+      'Kod gönderme başarısız. Lütfen tekrar deneyiniz.';
+
+  @override
+  String get pleaseEnterCompleteCode => 'Lütfen 6 haneli kodu eksiksiz giriniz';
+
+  @override
+  String get invalidOtp => 'Doğrulama kodu hatalı. Lütfen kontrol edin.';
+
+  @override
+  String get connectionError =>
+      'Bağlantı hatası. İnternet bağlantınızı kontrol edin.';
+
+  @override
+  String get expiredOtp => 'Doğrulama kodu süresi dolmuş. Yeni kod isteyin.';
+
+  @override
+  String get verificationFailed => 'Bağlantı hatası. Lütfen tekrar deneyin.';
+
+  @override
+  String get codeSentAgain => 'Doğrulama kodu tekrar gönderildi';
+
+  @override
+  String get codeSendFailed => 'Kod gönderilemedi. Lütfen tekrar deneyin.';
+
+  @override
+  String get loginSuccess => '✅ Başarıyla giriş yapıldı!';
+
+  @override
+  String get seconds => 's';
 }

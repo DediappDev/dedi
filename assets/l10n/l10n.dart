@@ -4666,42 +4666,6 @@ abstract class L10n {
   /// **'An open source messenger encrypt\nyour data with matrix protocol'**
   String get descriptionTwakeId;
 
-  /// No description provided for @dediMainTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'DNA Algoritması'**
-  String get dediMainTitle;
-
-  /// No description provided for @dediMainDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Dedi, algoritması sadece dedi'ye ait olan bir şifreleme sistemi kullanır, yazışmalar Dedi'nin dışında okunamaz'**
-  String get dediMainDescription;
-
-  /// No description provided for @phoneAuthTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Telefon Doğrulama'**
-  String get phoneAuthTitle;
-
-  /// No description provided for @phoneAuthDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Telefon numaranızı girin, size doğrulama kodu gönderelim'**
-  String get phoneAuthDescription;
-
-  /// No description provided for @otpVerificationTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Doğrulama Kodu'**
-  String get otpVerificationTitle;
-
-  /// No description provided for @otpVerificationDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Telefonunuza gönderilen 6 haneli kodu girin'**
-  String get otpVerificationDescription;
-
   /// No description provided for @countFilesSendPerDialog.
   ///
   /// In en, this message translates to:
@@ -5817,6 +5781,168 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Audio message failed to send.'**
   String get audioMessageFailedToSend;
+
+  /// No description provided for @dediMainTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'DNA Algorithm'**
+  String get dediMainTitle;
+
+  /// No description provided for @dediMainDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Dedi uses an encryption system that belongs only to Dedi, messages cannot be read outside of Dedi'**
+  String get dediMainDescription;
+
+  /// No description provided for @phoneAuthTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Verification'**
+  String get phoneAuthTitle;
+
+  /// No description provided for @phoneAuthDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number, we will send you a verification code'**
+  String get phoneAuthDescription;
+
+  /// No description provided for @otpVerificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification Code'**
+  String get otpVerificationTitle;
+
+  /// No description provided for @otpVerificationDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the 6-digit code sent to your phone'**
+  String get otpVerificationDescription;
+
+  /// No description provided for @splashTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Turkey\'s messaging platform'**
+  String get splashTagline;
+
+  /// No description provided for @loginTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get loginTitle;
+
+  /// No description provided for @welcomeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome!'**
+  String get welcomeMessage;
+
+  /// No description provided for @loginDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Just a few steps left for secure and unlimited messaging'**
+  String get loginDescription;
+
+  /// No description provided for @phoneNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number *'**
+  String get phoneNumberLabel;
+
+  /// No description provided for @getVerificationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Verification Code'**
+  String get getVerificationCode;
+
+  /// No description provided for @enterVerificationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Verification Code'**
+  String get enterVerificationCode;
+
+  /// No description provided for @otpSentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a verification code to {phone}.'**
+  String otpSentMessage(Object phone);
+
+  /// No description provided for @otpProblemQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Having trouble receiving the code?'**
+  String get otpProblemQuestion;
+
+  /// No description provided for @resendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend'**
+  String get resendCode;
+
+  /// No description provided for @pleaseEnterValidPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid phone number'**
+  String get pleaseEnterValidPhone;
+
+  /// No description provided for @otpRequestFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send code. Please try again.'**
+  String get otpRequestFailed;
+
+  /// No description provided for @pleaseEnterCompleteCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the complete 6-digit code'**
+  String get pleaseEnterCompleteCode;
+
+  /// No description provided for @invalidOtp.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code is incorrect. Please check.'**
+  String get invalidOtp;
+
+  /// No description provided for @connectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection error. Please check your internet connection.'**
+  String get connectionError;
+
+  /// No description provided for @expiredOtp.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code has expired. Request a new code.'**
+  String get expiredOtp;
+
+  /// No description provided for @verificationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection error. Please try again.'**
+  String get verificationFailed;
+
+  /// No description provided for @codeSentAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code sent again'**
+  String get codeSentAgain;
+
+  /// No description provided for @codeSendFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send code. Please try again.'**
+  String get codeSendFailed;
+
+  /// No description provided for @loginSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'✅ Login successful!'**
+  String get loginSuccess;
+
+  /// No description provided for @seconds.
+  ///
+  /// In en, this message translates to:
+  /// **'s'**
+  String get seconds;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

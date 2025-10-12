@@ -21,10 +21,10 @@ import 'package:fluffychat/pages/settings_dashboard/settings_profile/settings_pr
 import 'package:fluffychat/pages/splash/splash.dart';
 import 'package:fluffychat/pages/story/story_page.dart';
 import 'package:fluffychat/pages/twake_welcome/twake_welcome.dart';
-import 'package:fluffychat/pages/phone_auth/splash_screen.dart';
+import 'package:fluffychat/pages/phone_auth/splash/splash_view.dart';
 import 'package:fluffychat/pages/phone_auth/onboarding_screen.dart';
-import 'package:fluffychat/pages/phone_auth/phone_input_page.dart';
-import 'package:fluffychat/pages/phone_auth/otp_verification_page.dart';
+import 'package:fluffychat/pages/phone_auth/phone_input/phone_input_view.dart';
+import 'package:fluffychat/pages/phone_auth/otp_verify/otp_verify_view.dart';
 import 'package:fluffychat/presentation/model/chat/chat_router_input_argument.dart';
 import 'package:fluffychat/presentation/model/forward/forward_argument.dart';
 import 'package:fluffychat/presentation/model/contact/presentation_contact.dart';
@@ -78,7 +78,7 @@ abstract class AppRoutes {
       path: '/splash',
       pageBuilder: (context, state) => defaultPageBuilder(
         context,
-        const SplashScreen(),
+        const SplashView(),
       ),
     ),
     GoRoute(
@@ -92,7 +92,7 @@ abstract class AppRoutes {
       path: '/phone-input',
       pageBuilder: (context, state) => defaultPageBuilder(
         context,
-        const PhoneInputPage(),
+        const PhoneInputView(),
       ),
     ),
     GoRoute(
@@ -104,7 +104,7 @@ abstract class AppRoutes {
 
         return defaultPageBuilder(
           context,
-          OTPVerificationPage(
+          OTPVerifyView(
             phoneNumber: phone,
             devOTP: devOTP,
           ),
