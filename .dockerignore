@@ -1,0 +1,150 @@
+# ============================================================================
+# DOCKER IGNORE FILE FOR DEDI FLUTTER CLIENT
+# ============================================================================
+# Based on DEDI_FILE_USAGE_ANALYSIS.md - Excludes files not needed in Docker builds
+
+# Git and Version Control
+.git/
+.gitignore
+.gitattributes
+
+# Documentation and Research Files
+docs/
+send_to_ai/
+login_flow/
+login_flow.zip
+
+# Root Documentation Files
+AGENTS.md
+API_MIGRATION_GUIDE.md
+CHANGELOG.md
+CLAUDE.md
+DEPLOYMENT_CHECKLIST.md
+ENVIRONMENT_SETUP.md
+PRIVACY.md
+README.md
+REFACTORING_QUICKSTART.md
+TESTFLIGHT_BRANDING_PLAN.md
+TRANSLATORS_GUIDE.md
+DEDI_URL_ANALYSIS.md
+DEDI_FILE_USAGE_ANALYSIS.md
+
+# Build and Development Tools
+appimage/
+fdroid/
+fastlane/
+scripts/
+server/
+
+# Development Environment Files
+devenv.lock
+devenv.nix
+devenv.yaml
+Dockerfile
+
+# Unused Platform Support
+winuwp/
+
+# Configuration Templates (except icons which are used)
+configurations/
+!configurations/icons/
+
+# Unused Assets
+assets/blur.png
+assets/favicon.png
+assets/info-logo.png
+assets/share.png
+assets/twake.svg
+
+# Generated Localization Files (keep .arb source files)
+# Note: l10n_*.dart files are generated and needed for build
+# assets/l10n/l10n_*.dart
+!assets/l10n/*.arb
+
+# Flutter/Dart Build Artifacts
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+**/build/
+
+# Generated Files
+*.g.dart
+**/*.mocks.dart
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS Specific Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Logs and Temporary Files
+*.log
+*.tmp
+*.temp
+*.analysis
+
+# Test Files (not needed in production builds)
+test/
+integration_test/
+test_driver/
+
+# Platform Specific Build Outputs
+android/.gradle/
+android/app/build/
+android/build/
+ios/Pods/
+ios/build/
+linux/build/
+macos/build/
+windows/build/
+
+# Environment and Configuration
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+local.properties
+android/key.properties
+android/key.jks
+android/keys.json
+
+# Node.js (if any)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Miscellaneous
+*.class
+*.pyc
+*.snap
+.DS_Store
+.local/
+.atom/
+.buildlog/
+.history
+.svn/
+prime
+.direnv/
+.vs
+olm
+
+# Pre-commit
+.pre-commit-config.yaml
+
+# Task files
+tasks.json
+tasks/

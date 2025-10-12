@@ -102,3 +102,66 @@ node_modules/
 # Task files
 tasks.json
 tasks/ 
+
+# ============================================================================
+# UNUSED/REMOVABLE FILES AND DIRECTORIES
+# ============================================================================
+# Based on DEDI_FILE_USAGE_ANALYSIS.md - Files that are not required by the app
+
+# Documentation and Research Files
+docs/
+send_to_ai/
+login_flow/
+login_flow.zip
+
+# Root Documentation Files
+AGENTS.md
+API_MIGRATION_GUIDE.md
+CHANGELOG.md
+CLAUDE.md
+DEPLOYMENT_CHECKLIST.md
+ENVIRONMENT_SETUP.md
+PRIVACY.md
+README.md
+REFACTORING_QUICKSTART.md
+TESTFLIGHT_BRANDING_PLAN.md
+TRANSLATORS_GUIDE.md
+DEDI_URL_ANALYSIS.md
+DEDI_FILE_USAGE_ANALYSIS.md
+
+# Build and Development Tools
+appimage/
+fdroid/
+fastlane/
+scripts/
+server/
+
+# Development Environment Files
+devenv.lock
+devenv.nix
+devenv.yaml
+Dockerfile
+
+# Unused Platform Support
+winuwp/
+
+# Configuration Templates (except icons which are used)
+configurations/
+!configurations/icons/
+
+# Unused Assets
+assets/blur.png
+assets/favicon.png
+assets/info-logo.png
+assets/share.png
+assets/twake.svg
+
+# Generated Localization Files (keep .arb source files)
+# Note: l10n_*.dart files are generated and needed for build
+# !assets/l10n/l10n_*.dart
+!assets/l10n/*.arb
+
+# Analysis and temporary files
+*.analysis
+*.tmp
+*.temp
