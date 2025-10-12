@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
 
 class LocalizationService {
-  static const defaultLocale = Locale(LanguageCodeConstants.english);
+  static const defaultLocale = Locale(LanguageCodeConstants.turkish);
   static const fallbackLocale = Locale(LanguageCodeConstants.english);
 
   static ValueNotifier<Locale> currentLocale = ValueNotifier(defaultLocale);
 
   static const List<Locale> supportedLocales = <Locale>[
+    Locale(LanguageCodeConstants.turkish),
     Locale(LanguageCodeConstants.english),
     Locale(LanguageCodeConstants.vietnamese),
     Locale(LanguageCodeConstants.french),
@@ -77,7 +78,7 @@ class LocalizationService {
       return;
     }
 
-    await changeLocale(context, LanguageCodeConstants.english);
+    await changeLocale(context, LanguageCodeConstants.turkish);
   }
 
   static bool _isLanguageSupported(String langCode) {
