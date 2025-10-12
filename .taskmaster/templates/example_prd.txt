@@ -1,8 +1,13 @@
 ````prompt
 <context>
 # Overview  
-**Dedi** is a self-hosted, privacy-first rebrand of Twake Chat that runs on our own domain **`*.dedim.com.tr`**. It replaces web-based phone/OTP login with **native Flutter screens**, persists the user’s Matrix session for seamless re-entry, and swaps ToM-server’s **Octopush** SMS dependency for a **multi-provider** SMS layer (**Turkcell MesajÜssü v2**, **NetGSM**, **İletiMerkezi**, **TurkTelekom**, optional **Twilio**).  
-It’s built for teams who want Matrix-based messaging with first-class phone OTP onboarding while **owning** the infra, domains, and SMS routing.
+**Dedi** is a self-hosted, privacy-first rebrand of Twake Chat that runs on our own domain **`*.dedim.com.tr`**. It replaces web-based phone/OTP login with **native Flutter screens**, persists the user's Matrix session for seamless re-entry, and swaps ToM-server's **Octopush** SMS dependency for a **multi-provider** SMS layer (**Turkcell MesajÜssü v2**, **NetGSM**, **İletiMerkezi**, **TurkTelekom**, optional **Twilio**).  
+It's built for teams who want Matrix-based messaging with first-class phone OTP onboarding while **owning** the infra, domains, and SMS routing.
+
+# REFACTORING CONTEXT
+**Current Status**: Native login flow implemented, domain migration completed, SMS multi-provider working.
+**Next Phase**: Complete rebranding from Twake → Dedi across all Flutter client components.
+**Approach**: Testflight branding first, then comprehensive refactoring.
 
 # Core Features  
 - **Native Phone OTP Login (Flutter)**

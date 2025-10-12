@@ -2521,5 +2521,17 @@
   "noOtherDevicesFound": "Başka aygıt bulunamadı",
   "@noOtherDevicesFound": {},
   "fileIsTooBigForServer": "Sunucu, dosyanın gönderilemeyecek kadar büyük olduğunu bildiriyor.",
-  "@fileIsTooBigForServer": {}
+  "@fileIsTooBigForServer": {},
+  "dediMainTitle": "DNA Algoritması",
+  "@dediMainTitle": {},
+  "dediMainDescription": "Dedi, algoritması sadece dedi'ye ait olan bir şifreleme sistemi kullanır, yazışmalar Dedi'nin dışında okunamaz",
+  "@dediMainDescription": {},
+  "phoneAuthTitle": "Telefon Doğrulama",
+  "@phoneAuthTitle": {},
+  "phoneAuthDescription": "Telefon numaranızı girin, size doğrulama kodu gönderelim",
+  "@phoneAuthDescription": {},
+  "otpVerificationTitle": "Doğrulama Kodu",
+  "@otpVerificationTitle": {},
+  "otpVerificationDescription": "Telefonunuza gönderilen 6 haneli kodu girin",
+  "@otpVerificationDescription": {}
 }

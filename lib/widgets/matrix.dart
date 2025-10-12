@@ -81,6 +81,14 @@ class Matrix extends StatefulWidget {
   static MatrixState of(BuildContext context) =>
       Provider.of<MatrixState>(context, listen: false);
 
+  static MatrixState? maybeOf(BuildContext context) {
+    try {
+      return Provider.of<MatrixState>(context, listen: false);
+    } on ProviderNotFoundException {
+      return null;
+    }
+  }
+
   static MatrixState read(BuildContext context) => context.read<MatrixState>();
 }
 

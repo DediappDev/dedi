@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fluffychat/services/otp_api_service.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 class PhoneInputPage extends StatefulWidget {
   const PhoneInputPage({super.key});
@@ -22,16 +24,17 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
   }
 
   void _onPhoneChanged() {
-    if (_errorMessage.isNotEmpty) {
-      setState(() {
+    setState(() {
+      if (_errorMessage.isNotEmpty) {
         _errorMessage = '';
-      });
-    }
+      }
+    });
   }
 
+  String _digitsOnly(String input) => input.replaceAll(RegExp(r'\D'), '');
+
   String _formatPhoneNumber(String input) {
-    // Remove all non-digit characters
-    final digits = input.replaceAll(RegExp(r'\D'), '');
+    final digits = _digitsOnly(input);
 
     // Limit to 10 digits (Turkish mobile numbers)
     final limitedDigits = digits.length > 10 ? digits.substring(0, 10) : digits;
@@ -50,7 +53,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
 
   bool _isValidPhoneNumber(String phone) {
     // Remove spaces and check if it's a valid Turkish mobile number
-    final digits = phone.replaceAll(' ', '');
+    final digits = _digitsOnly(phone);
 
     // Turkish mobile numbers: 5XX XXX XX XX (10 digits starting with 5)
     if (digits.length != 10) return false;
@@ -84,20 +87,26 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
     });
 
     try {
-      // Format phone number for API (+90 prefix)
-      final phoneDigits = phone.replaceAll(' ', '');
+      final phoneDigits = _digitsOnly(phone);
       final formattedPhone = '+90$phoneDigits';
 
       final response = await OTPApiService.requestOTP(formattedPhone);
+      if (kDebugMode) {
+        debugPrint('OTP request success for $formattedPhone: $response');
+      }
 
       if (mounted) {
         // Navigate to OTP verification with phone number and dev OTP
-        context.push('/otp-verify', extra: {
-          'phone': formattedPhone,
-          'dev_otp': response['dev_otp'],
-        });
+        context.push(
+          '/otp-verify',
+          extra: {
+            'phone': formattedPhone,
+            'dev_otp': response['dev_otp'],
+          },
+        );
       }
     } catch (e) {
+      debugPrint('OTP request failed: $e');
       if (mounted) {
         String errorMsg = 'Bir hata oluştu. Lütfen tekrar deneyin.';
 
@@ -109,6 +118,10 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
           errorMsg = 'İstek zaman aşımına uğradı. Tekrar deneyin.';
         } else if (errorStr.contains('invalid phone')) {
           errorMsg = 'Geçersiz telefon numarası.';
+        } else if (errorStr.contains('invalid_phone')) {
+          errorMsg = 'Geçersiz telefon numarası.';
+        } else if (errorStr.contains('rate')) {
+          errorMsg = 'Çok fazla deneme yaptınız. Lütfen kısa bir süre bekleyin.';
         }
 
         setState(() {
@@ -126,7 +139,8 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isButtonEnabled = _phoneController.text.isNotEmpty && !_isLoading;
+    final isButtonEnabled =
+        !_isLoading && _isValidPhoneNumber(_phoneController.text);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -147,9 +161,9 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
               const SizedBox(height: 32),
 
               // Title
-              const Text(
-                'Telefon Numaranız',
-                style: TextStyle(
+              Text(
+                L10n.of(context)!.phoneAuthTitle,
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF1D1D1D),
@@ -160,7 +174,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
 
               // Subtitle
               Text(
-                'Size bir doğrulama kodu göndereceğiz',
+                L10n.of(context)!.phoneAuthDescription,
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey[600],
@@ -195,7 +209,9 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                         final formatted = _formatPhoneNumber(newValue.text);
                         return newValue.copyWith(
                           text: formatted,
-                          selection: TextSelection.collapsed(offset: formatted.length),
+                          selection: TextSelection.collapsed(
+                            offset: formatted.length,
+                          ),
                         );
                       }),
                     ],

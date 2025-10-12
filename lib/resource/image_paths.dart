@@ -54,6 +54,9 @@ class ImagePaths {
   static String get icTwakeImageLogoBeta =>
       _getImagePath('ic_twake_image_beta.svg');
   static String get logoPng => _getAssetPath('logo.png');
+  static String get dediSplashLogo => _getImagePath('dedi_splash_logo.png');
+  static String get dediWordmarkLight =>
+      _getImagePath('dedi_logo_light.png');
   static String get appStore => _getImagePath('app_store.svg');
   static String get googlePlay => _getImagePath('google_play.svg');
   static String get icTwakeSupport =>

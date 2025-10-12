@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluffychat/services/otp_api_service.dart';
 import 'package:fluffychat/widgets/matrix.dart';
 import 'package:matrix/matrix.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'dart:async';
 
 class OTPVerificationPage extends StatefulWidget {
@@ -299,9 +300,9 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
               const SizedBox(height: 32),
 
               // Title
-              const Text(
-                'Doğrulama Kodu',
-                style: TextStyle(
+              Text(
+                L10n.of(context)!.otpVerificationTitle,
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF1D1D1D),
@@ -312,7 +313,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
 
               // Description
               Text(
-                '${widget.phoneNumber} numarasına gönderilen 6 haneli kodu giriniz',
+                L10n.of(context)!.otpVerificationDescription,
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey[600],

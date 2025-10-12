@@ -51,9 +51,7 @@ mixin ConnectPageMixin {
     return queryParams[key];
   }
 
-  bool get homeserverIsConfigured =>
-      AppConfig.homeserver != AppConfig.sampleValue ||
-      AppConfig.homeserver.isNotEmpty;
+  bool get homeserverIsConfigured => AppConfig.homeserver.isNotEmpty;
 
   String _getRedirectUrlScheme(String redirectUrl) {
     return Uri.parse(redirectUrl).scheme;

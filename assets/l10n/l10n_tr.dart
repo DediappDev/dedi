@@ -2604,6 +2604,27 @@ class L10nTr extends L10n {
       'An open source messenger encrypt\nyour data with matrix protocol';
 
   @override
+  String get dediMainTitle => 'DNA Algoritması';
+
+  @override
+  String get dediMainDescription =>
+      'Dedi, algoritması sadece dedi\'ye ait olan bir şifreleme sistemi kullanır, yazışmalar Dedi\'nin dışında okunamaz';
+
+  @override
+  String get phoneAuthTitle => 'Telefon Doğrulama';
+
+  @override
+  String get phoneAuthDescription =>
+      'Telefon numaranızı girin, size doğrulama kodu gönderelim';
+
+  @override
+  String get otpVerificationTitle => 'Doğrulama Kodu';
+
+  @override
+  String get otpVerificationDescription =>
+      'Telefonunuza gönderilen 6 haneli kodu girin';
+
+  @override
   String countFilesSendPerDialog(Object count) {
     return 'The maximum files when sending is $count.';
   }

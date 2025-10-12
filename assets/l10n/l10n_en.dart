@@ -2597,6 +2597,27 @@ class L10nEn extends L10n {
       'An open source messenger encrypt\nyour data with matrix protocol';
 
   @override
+  String get dediMainTitle => 'DNA Algorithm';
+
+  @override
+  String get dediMainDescription =>
+      'Dedi uses an encryption system that belongs only to Dedi, messages cannot be read outside of Dedi';
+
+  @override
+  String get phoneAuthTitle => 'Phone Verification';
+
+  @override
+  String get phoneAuthDescription =>
+      'Enter your phone number, we will send you a verification code';
+
+  @override
+  String get otpVerificationTitle => 'Verification Code';
+
+  @override
+  String get otpVerificationDescription =>
+      'Enter the 6-digit code sent to your phone';
+
+  @override
   String countFilesSendPerDialog(Object count) {
     return 'The maximum files when sending is $count.';
   }

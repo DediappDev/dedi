@@ -4666,6 +4666,42 @@ abstract class L10n {
   /// **'An open source messenger encrypt\nyour data with matrix protocol'**
   String get descriptionTwakeId;
 
+  /// No description provided for @dediMainTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'DNA Algoritması'**
+  String get dediMainTitle;
+
+  /// No description provided for @dediMainDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Dedi, algoritması sadece dedi'ye ait olan bir şifreleme sistemi kullanır, yazışmalar Dedi'nin dışında okunamaz'**
+  String get dediMainDescription;
+
+  /// No description provided for @phoneAuthTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Telefon Doğrulama'**
+  String get phoneAuthTitle;
+
+  /// No description provided for @phoneAuthDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Telefon numaranızı girin, size doğrulama kodu gönderelim'**
+  String get phoneAuthDescription;
+
+  /// No description provided for @otpVerificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Doğrulama Kodu'**
+  String get otpVerificationTitle;
+
+  /// No description provided for @otpVerificationDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Telefonunuza gönderilen 6 haneli kodu girin'**
+  String get otpVerificationDescription;
+
   /// No description provided for @countFilesSendPerDialog.
   ///
   /// In en, this message translates to:

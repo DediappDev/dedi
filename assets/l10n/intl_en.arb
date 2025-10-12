@@ -3405,5 +3405,17 @@
   "slideToCancel": "Slide to cancel",
   "recordingInProgress": "Recording in progress",
   "pleaseFinishOrStopTheRecording": "Please finish or stop the recording before performing other actions.",
-  "audioMessageFailedToSend": "Audio message failed to send."
+  "audioMessageFailedToSend": "Audio message failed to send.",
+  "dediMainTitle": "DNA Algorithm",
+  "@dediMainTitle": {},
+  "dediMainDescription": "Dedi uses an encryption system that belongs only to Dedi, messages cannot be read outside of Dedi",
+  "@dediMainDescription": {},
+  "phoneAuthTitle": "Phone Verification",
+  "@phoneAuthTitle": {},
+  "phoneAuthDescription": "Enter your phone number, we will send you a verification code",
+  "@phoneAuthDescription": {},
+  "otpVerificationTitle": "Verification Code",
+  "@otpVerificationTitle": {},
+  "otpVerificationDescription": "Enter the 6-digit code sent to your phone",
+  "@otpVerificationDescription": {}
 }

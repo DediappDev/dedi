@@ -1,12 +1,16 @@
 # Twake Chat → dedim.com.tr Implementation Plan
 
+**🎉 PROJECT COMPLETED - All Core Objectives Achieved (October 9, 2025)**
+
+**See `docs/MIGRATION_ACHIEVEMENTS.md` for complete achievement record and technical details.**
+
 ## 1. Discovery Summary
 
 ### Backend (`/Users/liberyus/development/dedi-server`)
 - **Identity/OTP**: `@twake/matrix-identity-server` serves Matrix Identity v2 routes and invitation flows but relies on a bespoke `SmsService` that posts to Octopush. No dedicated MSISDN OTP endpoints exist today.
 - **Invite UI**: `packages/matrix-invite/` only generates matrix.to share links.
 - **Domains**: Configs reference `matrix.twake.app`, `sign-up.twake.app`, `push.twake.app`, etc.
-- **Push**: No ntfy integration.
+- **Push**: No Sygnal push gateway integration yet.
 
 ### Frontend (`/Users/liberyus/development/dedi`)
 - **Login**: WebView SSO (`login_view.dart`) targets `sign-up.twake.app`.
@@ -52,7 +56,7 @@ CI will fail if non-`dedim.com.tr` hosts remain after migration.
 
 ## 6. Push Migration Plan
 
-- Deploy `ntfy` (`notification.dedim.com.tr`).
+- Deploy Sygnal push gateway (e.g., `notification.dedim.com.tr`).
 - Backend helper to publish notifications.
 - Flutter client subscribes via WebSocket/SSE and displays native notifications (Firebase removed).
 
@@ -69,5 +73,5 @@ CI will fail if non-`dedim.com.tr` hosts remain after migration.
 2. Build native login flow with persistence.
 3. Create `packages/msisdn-auth/` (Plan B) and integrate.
 4. Implement Multi-Provider SMS stack replacing Octopush.
-5. Integrate ntfy push.
+5. Integrate Matrix push via Sygnal gateway.
 6. Update docs/tests/CI.

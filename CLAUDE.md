@@ -4,7 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Twake Chat** - An open-source Matrix protocol-based chat application built with Flutter. Uses clean architecture with feature-based organization and MVC pattern.
+**Dedi (formerly Twake Chat)** - An open-source Matrix protocol-based chat application built with Flutter. Uses clean architecture with feature-based organization and MVC pattern.
+
+### 🎉 Migration Status: COMPLETED (October 9, 2025)
+
+**Project successfully migrated from Twake Chat to dedim.com.tr infrastructure:**
+- ✅ **Domain centralization** to `*.dedim.com.tr`
+- ✅ **Native login flow** implemented (4 new screens)
+- ✅ **SMS provider refactor** (Octopush → MultiProvider with Turkish carriers)
+- ✅ **Production ready** with comprehensive documentation
+
+**See `docs/MIGRATION_ACHIEVEMENTS.md` for complete implementation details.**
 
 ## Development Setup
 
@@ -96,6 +106,12 @@ lib/
 - **State Management**: Provider pattern with custom controllers
 - **Routing**: go_router with declarative navigation
 - **Feature Organization**: Each feature has `*_view.dart` (UI) and `*_controller.dart` (logic)
+
+### Phone Authentication Flow
+- **Native screens**: Splash → Onboarding → Phone Input → OTP Verification → Matrix login
+- **Persistent state**: SharedPreferences for one-time onboarding
+- **Turkish localization**: Complete Turkish phone number validation (+90 5XX XXX XX XX)
+- **Matrix integration**: JWT token exchange with full Matrix SDK login
 
 ### Data Layer
 - **Local Storage**: Hive key-value database

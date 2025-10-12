@@ -25,9 +25,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       icon: Icons.lock,
     ),
     OnboardingData(
-      title: 'Açık Kaynak',
-      description: 'Matrix protokolü üzerine inşa edilmiş, tamamen açık kaynak kodlu.',
-      icon: Icons.code,
+      title: 'Kurumunuza Özel',
+      description:
+          'Dedi, Matrix altyapınıza bağlanır ve tüm iletişim verileriniz kurumunuzda kalır.',
+      icon: Icons.apartment,
     ),
   ];
 
