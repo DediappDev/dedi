@@ -16,6 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="LaunchBackground" translatesAutoresizingMaskIntoConstraints="NO" id="tWc-Dq-wcI">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="YRO-k0-Ey4">
                                 <rect key="frame" x="131" y="331" width="131" height="131"/>
                                 <constraints>
@@ -33,10 +36,14 @@
                         <viewLayoutGuide key="safeArea" id="VYh-SQ-kyU"/>
                         <color key="backgroundColor" red="0.12941176470588234" green="0.58823529411764708" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="tWc-Dq-wcI" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="bg-top"/>
+                            <constraint firstItem="tWc-Dq-wcI" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="bg-leading"/>
+                            <constraint firstItem="tWc-Dq-wcI" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="bg-trailing"/>
+                            <constraint firstItem="tWc-Dq-wcI" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="bg-bottom"/>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="logo-center-x"/>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-30" id="logo-center-y"/>
-                            <constraint firstItem="tag-lb-001" firstAttribute="top" secondItem="YRO-k0-Ey4" secondAttribute="bottom" constant="32" id="tag-top"/>
                             <constraint firstItem="tag-lb-001" firstAttribute="leading" secondItem="VYh-SQ-kyU" secondAttribute="leading" constant="20" id="tag-leading"/>
+                            <constraint firstItem="tag-lb-001" firstAttribute="top" secondItem="YRO-k0-Ey4" secondAttribute="bottom" constant="32" id="tag-top"/>
                             <constraint firstItem="VYh-SQ-kyU" firstAttribute="trailing" secondItem="tag-lb-001" secondAttribute="trailing" constant="20" id="tag-trailing"/>
                         </constraints>
                     </view>
@@ -47,6 +54,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchImage" width="341.33334350585938" height="341.33334350585938"/>
+        <image name="LaunchBackground" width="1" height="1"/>
+        <image name="LaunchImage" width="133.33332824707031" height="141.33332824707031"/>
     </resources>
 </document>
