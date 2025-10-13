@@ -13,7 +13,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:matrix/matrix.dart';
-import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+// TEMPORARILY DISABLED - PLUGIN HAS HEADER ISSUES
+// import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 mixin ReceiveSharingIntentMixin<T extends StatefulWidget> on State<T> {
   MatrixState get matrixState;
@@ -28,10 +29,12 @@ mixin ReceiveSharingIntentMixin<T extends StatefulWidget> on State<T> {
     return text.contains('dedi://openApp');
   }
 
-  Future<void> _processIncomingSharedFiles(List<SharedMediaFile> files) async {
+  Future<void> _processIncomingSharedFiles(List<dynamic> files) async {
     Logs().d('ReceiveSharingIntentMixin::_processIncomingSharedFiles: $files');
     if (files.isEmpty) return;
-    if (files.length == 1 && files.first.type == SharedMediaType.text) {
+    // TEMPORARILY DISABLED - PLUGIN HAS HEADER ISSUES
+    // if (files.length == 1 && files.first.type == SharedMediaType.text) {
+    if (false) {
       Logs().d('Received text: ${files.first.path}');
       _processIncomingSharedText(files.first.path);
       return;
@@ -113,14 +116,15 @@ mixin ReceiveSharingIntentMixin<T extends StatefulWidget> on State<T> {
   Future<void> initReceiveSharingIntent() async {
     if (!PlatformInfos.isMobile) return;
 
+    // TEMPORARILY DISABLED - PLUGIN HAS HEADER ISSUES
     // For sharing images coming from outside the app while the app is in the memory
-    intentFileStreamSubscription =
-        ReceiveSharingIntent.instance.getMediaStream().listen(
-      (shareMedia) async {
-        await _processIncomingSharedFiles(shareMedia);
-      },
-      onError: print,
-    );
+    // intentFileStreamSubscription =
+    //     ReceiveSharingIntent.instance.getMediaStream().listen(
+    //   (shareMedia) async {
+    //     await _processIncomingSharedFiles(shareMedia);
+    //   },
+    //   onError: print,
+    // );
 
     // For receiving shared Uris
     final appLinks = AppLinks();
@@ -136,11 +140,12 @@ mixin ReceiveSharingIntentMixin<T extends StatefulWidget> on State<T> {
   Future<void> checkInitialSharingMedia() async {
     if (!PlatformInfos.isMobile) return;
 
+    // TEMPORARILY DISABLED - PLUGIN HAS HEADER ISSUES
     // For sharing images coming from outside the app while the app is closed
-    await ReceiveSharingIntent.instance.getInitialMedia().then((value) {
-      _clearPendingSharedFiles();
-      _processIncomingSharedFiles(value);
-      ReceiveSharingIntent.instance.reset();
-    });
+    // await ReceiveSharingIntent.instance.getInitialMedia().then((value) {
+    //   _clearPendingSharedFiles();
+    //   _processIncomingSharedFiles(value);
+    //   ReceiveSharingIntent.instance.reset();
+    // });
   }
 }

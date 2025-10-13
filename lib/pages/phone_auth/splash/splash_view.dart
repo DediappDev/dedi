@@ -134,8 +134,8 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                         children: [
                           // Dedi logo with glow effect
                           Container(
-                            width: 180,
-                            height: 180,
+                            width: 200,
+                            height: 200,
                             decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.15),
                               borderRadius: BorderRadius.circular(90),
@@ -149,16 +149,16 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                             ),
                             child: Center(
                               child: Image.asset(
-                                'assets/images/dedi_splash_logo.png',
-                                width: 140,
-                                height: 140,
+                                'assets/images/splash_logo@2x.png',
+                                width: 180,
+                                height: 180,
                                 fit: BoxFit.contain,
                                 errorBuilder: (context, error, stackTrace) {
                                   // Fallback to splash_logo if dedi_splash_logo doesn't exist
                                   return Image.asset(
-                                    'assets/images/splash_logo@2x.png',
-                                    width: 140,
-                                    height: 140,
+                                    'assets/images/splash_logo.svg',
+                                    width: 180,
+                                    height: 180,
                                     fit: BoxFit.contain,
                                     errorBuilder: (context, error, stackTrace) {
                                       // Final fallback to icon

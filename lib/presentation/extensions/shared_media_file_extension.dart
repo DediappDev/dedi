@@ -1,3 +1,6 @@
+// TEMPORARILY DISABLED - ENTIRE FILE DEPENDS ON receive_sharing_intent PLUGIN THAT HAS HEADER ISSUES
+// WILL RESTORE AFTER PLUGIN IS FIXED
+/*
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -41,3 +44,4 @@ extension SharedMediaFileExtension on SharedMediaFile {
     );
   }
 }
+*/

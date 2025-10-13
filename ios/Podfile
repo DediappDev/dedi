@@ -51,6 +51,22 @@ post_install do |installer|
       xcconfig_mod = xcconfig.gsub(/DT_TOOLCHAIN_DIR/, "TOOLCHAIN_DIR")
       File.open(xcconfig_path, "w") { |file| file << xcconfig_mod }
 
+      # Fix for Flutter header search paths - needed for receive_sharing_intent plugin
+      if target.name == 'receive_sharing_intent'
+        config.build_settings['HEADER_SEARCH_PATHS'] ||= ['$(inherited)']
+        config.build_settings['HEADER_SEARCH_PATHS'] += [
+          '"$(FLUTTER_BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Flutter.framework/Headers"',
+          '"$(FLUTTER_ROOT)/packages/flutter_tools/bin/xcode_backend.sh"/../../../bin/cache/artifacts/engine/ios/Flutter.framework/Headers',
+          '"$(FLUTTER_ROOT)/bin/cache/artifacts/engine/ios/Flutter.framework/Headers"',
+          '"$(SRCROOT)/Flutter/Flutter.framework/Headers"'
+        ]
+        config.build_settings['FRAMEWORK_SEARCH_PATHS'] ||= ['$(inherited)']
+        config.build_settings['FRAMEWORK_SEARCH_PATHS'] += [
+          '"$(FLUTTER_BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)"',
+          '"$(SRCROOT)/Flutter"'
+        ]
+      end
+
       config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
         '$(inherited)',
         ## dart: PermissionGroup.microphone

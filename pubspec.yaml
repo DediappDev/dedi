@@ -14,10 +14,11 @@ dependencies:
       url: git@github.com:linagora/matrix-dart-sdk.git
       ref: twake-supported-0.22.6
 
-  receive_sharing_intent:
-    git:
-      url: https://github.com/linagora/receive_sharing_intent.git
-      ref: main
+  # TEMPORARILY DISABLED FOR BACKEND TESTING - PLUGIN HAS HEADER ISSUES
+  # receive_sharing_intent:
+  #   git:
+  #     url: https://github.com/linagora/receive_sharing_intent.git
+  #     ref: main
 
   # TODO: Android native lib build error: https://github.com/jonataslaw/VideoCompress/issues/240
   # video_compress: ^3.1.1
