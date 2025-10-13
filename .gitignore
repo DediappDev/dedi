@@ -89,6 +89,9 @@ dev-debug.log
 node_modules/
 # Environment variables
 .env
+
+# GitHub configuration with sensitive tokens
+github_config.json
 # Editor directories and files
 .idea
 .vscode
