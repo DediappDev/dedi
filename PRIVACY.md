@@ -1,6 +1,6 @@
 # Privacy
 
-Twake is available on Android, iOS and as a web version. Desktop versions for Windows, Linux and macOS may follow.
+Dedi is available on Android, iOS and as a web version. Desktop versions for Windows, Linux and macOS may follow.
 
 *   [Matrix](#matrix)
 *   [Database](#database)
@@ -10,35 +10,30 @@ Twake is available on Android, iOS and as a web version. Desktop versions for Wi
 *   [Stories](#stories)
 
 ## Matrix<a id="matrix"/>
-Twake uses the Matrix protocol. This means that Twake is just a client that can be connected to any compatible matrix server. The respective data protection agreement of the server selected by the user then applies.
+Dedi uses the Matrix protocol. This means that Dedi is just a client that can be connected to any compatible matrix server. The respective data protection agreement of the server selected by the user then applies.
 
-For convenience, one or more servers are set as default that the Twake developers consider trustworthy. The developers of Twake do not guarantee their trustworthiness. Before the first communication, users are informed which server they are connecting to.
-
-More information is available at: [https://matrix.org](https://matrix.org)
+For convenience, one or more servers are set as default that the Dedi developers consider trustworthy. The developers of Dedi do not guarantee their trustworthiness. Before the first communication, users are informed which server they are connecting to.
 
 ## Database<a id="database"/>
-Twake caches some data received from the server in a local database on the device of the user.
-
-More information is available at: [https://pub.dev/packages/hive](https://pub.dev/packages/hive)
+Dedi caches some data received from the server in a local database on the device of the user.
 
 ## Encryption<a id="encryption"/>
-All communication of substantive content between Twake and any server is done in secure way, using transport encryption to protect it.
+All communication of substantive content between Dedi and any server is done in secure way, using transport encryption to protect it.
 
-Twake is able to use End-To-End-Encryption as a tech preview.
+Dedi is able to use End-To-End-Encryption as a tech preview.
 
 ## App Permissions<a id="app-permissions"/>
 
 The permissions are the same on Android and iOS but may differ in the name. This are the Android Permissions:
 
 #### Internet Access
-Twake needs to have internet access to communicate with the Matrix Server.
+Dedi needs to have internet access to communicate with the Matrix Server.
 
 #### Vibrate
-Twake uses vibration for local notifications. More informations about this are at the used package:
-[https://pub.dev/packages/flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications)
+Dedi uses vibration for local notifications.
 
 #### Record Audio
-Twake can send voice messages in a chat and therefore needs to have the permission to record audio.
+Dedi can send voice messages in a chat and therefore needs to have the permission to record audio.
 
 #### Write External Storage
 The user is able to save received files and therefore app needs this permission.
@@ -47,17 +42,14 @@ The user is able to save received files and therefore app needs this permission.
 The user is able to send files from the device's file system.
 
 #### Location
-Twake makes it possible to share the current location via the chat. When the user shares their location, Twake uses the device location service and sends the geo-data via Matrix.
+Dedi makes it possible to share the current location via the chat. When the user shares their location, Dedi uses the device location service and sends the geo-data via Matrix.
 
 ## Push Notifications<a id="push-notifications"/>
-Twake uses the Firebase Cloud Messaging/Apple Push Notification service for push notifications on Android and iOS. This takes place in the following steps:
-1. The matrix server sends the push notification to the Twake Push Gateway
-2. The Twake Push Gateway forwards the message in a different format to Firebase Cloud Messaging/Apple Push Notification
+Dedi uses the Firebase Cloud Messaging/Apple Push Notification service for push notifications on Android and iOS. This takes place in the following steps:
+1. The matrix server sends the push notification to the Dedi Push Gateway
+2. The Dedi Push Gateway forwards the message in a different format to Firebase Cloud Messaging/Apple Push Notification
 3. Firebase Cloud Messaging/Apple Push Notification waits until the user's device is online again
 4. The device receives the push notification from Firebase Cloud Messaging/Apple Push Notification and displays it as a notification
-
-The source code of the push gateway can be viewed here:
-[https://github.com/matrix-org/sygnal](https://github.com/matrix-org/sygnal)
 
 `event_id_only` is used as the format for the push notification. A typical push notification therefore only contains:
 - Event ID
@@ -77,7 +69,7 @@ A typical push notification could look like this:
     },
     "devices": [
       {
-        "app_id": "app.twake.android.chat",
+        "app_id": "app.dedi.android.chat",
         "pushkey": "V2h5IG9uIGVhcnRoIGRpZCB5b3UgZGVjb2RlIHRoaXM/",
         "pushkey_ts": 12345678,
         "data": {},
@@ -90,13 +82,11 @@ A typical push notification could look like this:
 }
 ```
 
-Twake sets the `event_id_only` flag at the Matrix Server. This server is then responsible to send the correct data.
+Dedi sets the `event_id_only` flag at the Matrix Server. This server is then responsible to send the correct data.
 
 ## Stories<a id="stories"/>
 
-Twake supports stories which is a feature similar to WhatsApp status or Instagram stories. However it is just a different GUI for the same room-related communication. More information about the feature can be found here:
-
-https://github.com/krillefear/matrix-doc/blob/main/proposals/3588-stories-as-rooms.md
+Dedi supports stories which is a feature similar to WhatsApp status or Instagram stories. However it is just a different GUI for the same room-related communication.
 
 Stories are basically:
 

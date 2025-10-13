@@ -1,36 +1,12 @@
-# Twake Chat Client
-[![Contributors](https://img.shields.io/github/contributors/linagora/twake-on-matrix?label=Contributors
-)](
-  https://github.com/linagora/twake-on-matrix/graphs/contributors
-)
-[![Issues](https://img.shields.io/github/issues/linagora/twake-on-matrix?label=Issues
-)](https://github.com/linagora/twake-on-matrix/issues)
-[![Documentation](https://img.shields.io/badge/Documentation-green.svg)](docs)
-[![Android application](https://img.shields.io/badge/App-Android-blue.svg)](https://play.google.com/store/apps/dev?id=8845244706987756601)
-[![Ios application](https://img.shields.io/badge/App-iOS-red.svg)](https://apps.apple.com/gr/developer/linagora/id1110867042)
+# Dedi Chat Client
 
 <br />
 <div align="center">
-  <a href="https://github.com/linagora/twake-on-matrix">
-     <img src="https://github.com/linagora/twake-on-matrix/assets/146178981/3e395e0e-5796-4986-97ab-814ae28745b2">
-  </a>
-
-
-
-  <p align="center">
-    <a href="https://twake-chat.com">Website</a>
-    •
-    <a href="https://beta.twake.app/web/#/rooms">View Demo</a>
-    •
-    <a href="https://github.com/linagora/twake-on-matrix/issues">Report Bug</a>
-    •
-    <a href="https://github.com/orgs/linagora/projects/6/views/5">Roadmap</a>
-    •
-    <a href="https://hosted.weblate.org/projects/linagora/twake-matrix/#repository">Translate Twake</a>
-  </p>
+  <h2>Dedi Chat</h2>
+  <p>A secure, decentralized Matrix-based chat application</p>
 </div>
 
-Twake Chat is an open source, decentralized chat app based on the Matrix protocol. It was developed by [Linagora](https://linagora.com). Twake Chat is a good option for individuals and organizations who are looking for a secure and decentralized chat app. It is also a good choice for developers who want to build their own Matrix-based chat apps.
+Dedi Chat is an open source, decentralized chat app based on the Matrix protocol. It was developed by DediApp. Dedi Chat is a good option for individuals and organizations who are looking for a secure and decentralized chat app. It is also a good choice for developers who want to build their own Matrix-based chat apps.
 
 ## Features
 
@@ -97,7 +73,7 @@ sudo chown $(id -u):$(id -g) ./assets/js/package -Rv
   - [ ] Android NDK: 26.1.10909125
   - [ ] Google APIs: enabled
 
-*Note: Gradle will try to install the JDK 8. If for any reasons the operation failed, try to install your own and use [this method](https://github.com/pm-McFly/twake-on-matrix/issues/1#issuecomment-2581428804) to tell Gradle where to find it.*
+*Note: Gradle will try to install the JDK 8. If for any reasons the operation failed, try to install your own JDK manually.*
 
 #### Linux
 
@@ -121,7 +97,7 @@ In addition, the Linux build requires Rust. For macOS or Linux, execute the foll
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
-For Windows, you can use the [Rust Installer](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe).
+For Windows, download and install the official Rust installer.
 
 In case you have Rust already installed, make sure to update it to latest version:
 
@@ -131,10 +107,9 @@ rustup update
 
 #### [`devenv.nix`](devenv.nix)
 
-A `devenv.nix` is provided in order to ease the process of setting up your dev environment. Check out the install instructions: https://devenv.sh/getting-started/
+A `devenv.nix` is provided in order to ease the process of setting up your dev environment.
 
 Then you can use `devenv shell` to fire up your environment.
-*This can be automated thanks to: `[nix-direnv](https://github.com/nix-community/nix-direnv/)`*
 
 Supported platforms:
 
@@ -150,10 +125,10 @@ Here is an example working with `matrix.org`:
 
 ```json
 {
-  "application_name": "Twake Chat",
-  "application_welcome_message": "Welcome to Twake Chat!",
+  "application_name": "Dedi Chat",
+  "application_welcome_message": "Welcome to Dedi Chat!",
   "default_homeserver": "matrix.org",
-  "privacy_url": "https://twake.app/en/privacy/",
+  "privacy_url": "https://dedim.com.tr/en/privacy/",
   "render_html": true,
   "hide_redacted_events": true,
   "hide_unknown_events": true,
@@ -163,9 +138,9 @@ Here is an example working with `matrix.org`:
   "platform": "localDebug",
   "default_max_upload_avatar_size_in_bytes": 1000000,
   "dev_mode": true,
-  "qr_code_download_url": "https://sign-up.twake.app/download/chat",
+  "qr_code_download_url": "https://sign-up.dedim.com.tr/download/chat",
   "enable_logs": true,
-  "support_url": "https://twake.app/support",
+  "support_url": "https://dedim.com.tr/support",
   "cozy_external_bridge_version": "0.16.1"
 }
 ```
@@ -213,60 +188,9 @@ Please use the helper script corresponding to your target in order to build:
 ./scripts/build-android-debug.sh
 ```
 
-## Deployment
+## Development Notes
 
-### Web version using Docker
-
-- Create a config file `config.json` in the root of the project with the following
-  [docs](https://github.com/linagora/twake-on-matrix/blob/main/docs/configurations/config_web_app_for_public_platform.md)
-
-- Run the image using the following command:
-```
-docker run -d -p <host port>:<host port> -e TWAKECHAT_LISTEN_PORT=<host port> --name <container name> -v <host path>:/usr/share/nginx/html/web/config.json linagora/twake-web:<tag>
-```
-
-- Open the browser and go to `http://localhost:<hostport>`
-
-### Sample to run Twake Chat web client with `matrix.org`
-
-- Create a config file `config.json` with `matrix.org`
-
-```json
-{
-  "app_grid_dashboard_available": true,
-  "application_name": "Twake Chat",
-  "application_welcome_message": "Welcome to Twake Chat!",
-  "default_homeserver": "matrix.org",
-  "hide_redacted_events": false,
-  "hide_unknown_events": false,
-  "homeserver": "https://matrix.org/",
-  "issue_id": "",
-  "privacy_url": "https://twake.app/en/privacy/",
-  "render_html": true
-}
-```
-
-- Run the image using the following command with my port is `6868`:
-```
-docker run -d -p 6868:6868 -e TWAKECHAT_LISTEN_PORT=6868 --name twake-web -v /path/to/config.json:/usr/share/nginx/html/web/config.json linagora/twake-web:v2.6.5
-```
-
-- Open the browser and go to `http://localhost:6868`
-
-# Special thanks
-
-* <a href="https://github.com/krille-chan/fluffychat">FluffyChat</a> is the original repository of this project. A huge thanks to the upstream repository for their vital contributions, not only for this project but also for [Matrix SDK in Dart](https://github.com/famedly/matrix-dart-sdk)
-
-* <a href="https://github.com/fabiyamada">Fabiyamada</a> is a graphics designer from Brasil and has made the fluffychat logo and the banner. Big thanks for her great designs.
-
-* <a href="https://github.com/advocatux">Advocatux</a> has made the Spanish translation with great love and care. He always stands by my side and supports my work with great commitment.
-
-* Thanks to MTRNord and Sorunome for developing.
-
-* Also thanks to all translators and testers! With your help, fluffychat is now available in more than 12 languages.
-
-* <a href="https://github.com/googlefonts/noto-emoji/">Noto Emoji Font</a> for the awesome emojis.
-
-* <a href="https://github.com/madsrh/WoodenBeaver">WoodenBeaver</a> sound theme for the notification sound.
-
-* The Matrix Foundation for making and maintaining the [emoji translations](https://github.com/matrix-org/matrix-doc/blob/main/data-definitions/sas-emoji.json) used for emoji verification, licensed Apache 2.0
+- This project uses FVM (Flutter Version Management) for version control
+- All Flutter commands should be prefixed with `fvm`
+- The project follows Matrix protocol standards for compatibility
+- For development setup, refer to the requirements section above

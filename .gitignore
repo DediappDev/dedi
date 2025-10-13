@@ -170,3 +170,29 @@ assets/twake.svg
 *.temp
 
 .config/
+
+# ============================================================================
+# REFACTORING AND DEVELOPMENT EXCLUSIONS (Added by GitOps Security Workflow)
+# ============================================================================
+# Development artifacts and refactoring work that should not be committed
+
+# Refactoring directories
+refactor/
+rebrand/
+legacy_backups/
+screenshots/
+.claude/
+.cursor/
+.taskmaster/
+
+# Development notes and drafts
+*_draft.md
+*_notes.txt
+*.draft.md
+*.notes.txt
+WARP.md
+
+# Temporary development files
+*.iml
+*.log
+github_config.json
