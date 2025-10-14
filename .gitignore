@@ -176,6 +176,25 @@ assets/twake.svg
 # ============================================================================
 # Development artifacts and refactoring work that should not be committed
 
+# ============================================================================
+# DOCUMENTATION AND REFACTORING FILES EXCLUSIONS
+# ============================================================================
+# Only exclude documentation and refactoring files, NOT working code
+
+# Migration and refactoring documents
+docs/migration/
+docs/status/*IMPLEMENTATION*
+docs/status/*PHONE*AUTH*
+docs/deployment/*TESTFLIGHT*
+docs/deployment/*BRANDING*
+
+# Legacy documentation with old branding in docs
+docs/adr/*twake*
+docs/adr/*linagora*
+
+# Root level documentation files with legacy references
+TESTFLIGHT_BRANDING_PLAN.md
+
 # Refactoring directories
 refactor/
 rebrand/
