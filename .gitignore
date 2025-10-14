@@ -204,6 +204,20 @@ screenshots/
 .cursor/
 .taskmaster/
 
+# Development Tool Configuration Files
+.cursorrules
+.cursor-tutor
+.ai-commands
+.ai-conversation
+WARP.md
+docs/reference/AGENTS.md
+
+# AI Tool Directories
+.anthropic/
+.openai/
+.copilot/
+send_to_ai/
+
 # Development notes and drafts
 *_draft.md
 *_notes.txt
