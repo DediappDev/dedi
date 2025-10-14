@@ -1,4 +1,4 @@
-import 'package:dedi/services/otp_api_service.dart';
+import 'package:fluffychat/services/otp_api_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -12,7 +12,7 @@ void main() {
 
       final verifyResponse =
           await OTPApiService.verifyOTP(phoneNumber, '123456');
-      expect(verifyResponse['user_id'], contains(phoneNumber.replace('+', '')));
+      expect(verifyResponse['user_id'], contains(phoneNumber.replaceAll('+', '')));
 
       final jwtToken = verifyResponse['access_token'] as String;
       expect(jwtToken, startsWith('mock_jwt_'));

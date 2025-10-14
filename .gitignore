@@ -209,7 +209,6 @@ screenshots/
 .cursor-tutor
 .ai-commands
 .ai-conversation
-WARP.md
 docs/reference/AGENTS.md
 
 # AI Tool Directories
@@ -223,7 +222,6 @@ send_to_ai/
 *_notes.txt
 *.draft.md
 *.notes.txt
-WARP.md
 
 # Temporary development files
 *.iml
