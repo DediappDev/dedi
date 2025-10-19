@@ -1,7 +1,7 @@
 {
-  "application_name": "Twake Chat",
-  "application_welcome_message": "Welcome to Twake Chat!",
-  "default_homeserver": "matrix.linagora.com",
+  "application_name": "Dedi",
+  "application_welcome_message": "Welcome to Dedi!",
+  "default_homeserver": "matrix.dedim.com.tr",
   "privacy_url": "https://dedim.com.tr/en/privacy/",
   "render_html": true,
   "hide_redacted_events": false,

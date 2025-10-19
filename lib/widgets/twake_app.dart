@@ -64,10 +64,7 @@ class TwakeAppState extends State<TwakeApp> {
     super.initState();
     networkConnectionService.onInit();
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      LocalizationService.currentLocale.value =
-          await LocalizationService.getLocaleFromLanguage(
-        context: context,
-      );
+      await LocalizationService.initializeLanguage(context);
     });
   }
 

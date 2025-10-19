@@ -59,11 +59,7 @@ class LocalizationService {
     BuildContext context, {
     String? serverLanguage,
   }) async {
-    if (serverLanguage != null && _isLanguageSupported(serverLanguage)) {
-      await changeLocale(context, serverLanguage);
-      return;
-    }
-
+    // Priority 1: Stored user preference (if exists and supported)
     final storedLanguage =
         await getIt.get<LanguageCacheManager>().getStoredLanguage();
     if (storedLanguage != null &&
@@ -72,12 +68,14 @@ class LocalizationService {
       return;
     }
 
+    // Priority 2: Device language (if supported)
     final deviceLanguage = View.of(context).platformDispatcher.locale;
     if (_isLanguageSupported(deviceLanguage.languageCode)) {
       await changeLocale(context, deviceLanguage.languageCode);
       return;
     }
 
+    // Priority 3: Turkish as fallback
     await changeLocale(context, LanguageCodeConstants.turkish);
   }
 
