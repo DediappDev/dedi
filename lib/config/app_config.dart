@@ -21,7 +21,7 @@ abstract class AppConfig {
 
   static bool get hasReachedMaxRetries => retryCompleterCount == 3;
 
-  static String _applicationName = 'Twake Chat';
+  static String _applicationName = 'Dedi';
 
   static String get applicationName => _applicationName;
   static String? _applicationWelcomeMessage;
@@ -42,8 +42,8 @@ abstract class AppConfig {
   ///`REGISTRATION_URL`: Registration URL for public platform, sample is `https://example.com`
   static String registrationUrl = Environment.registrationUrl;
 
-  ///`TWAKE_WORKPLACE_HOMESERVER`: Twake workplace homeserver, sample is `https://example.com`
-  static String twakeWorkplaceHomeserver = Environment.matrixHomeserver;
+  ///`DEDI_WORKPLACE_HOMESERVER`: Dedi workplace homeserver, sample is `https://example.com`
+  static String dediWorkplaceHomeserver = Environment.matrixHomeserver;
 
   ///`HOME_SERVER`: Homeserver, sample is `https://example.com`
   static String homeserver = Environment.matrixHomeserver;
@@ -58,17 +58,26 @@ abstract class AppConfig {
 
   static String qrCodeDownloadUrl = Environment.qrCodeDownloadUrl;
 
-  /// OTP API endpoints (development defaults)
-  static const String otpApiBaseUrl = Environment.identityServer;
-  static const String otpRequestEndpoint = '/otp/request';
-  static const String otpVerifyEndpoint = '/otp/verify';
-  static const String otpMatrixTokenEndpoint = '/otp/matrix-token';
+  /// ✅ OTP API endpoints - Updated for DEDI Server integration
+  static String otpApiBaseUrl =
+      Environment.tomServer; // Changed from identityServer to tomServer
+  static String otpRequestEndpoint =
+      '/otp/request'; // Simplified path for DEDI Server
+  static String otpVerifyEndpoint =
+      '/otp/verify'; // Simplified path for DEDI Server
+  static String otpMatrixTokenEndpoint =
+      '/otp/matrix-token'; // Simplified path for DEDI Server
 
-  static String twakeChatAppleStore =
-      'https://apps.apple.com/us/app/twake-chat/id6473384641';
+  /// Matrix and identity configuration - Maintain existing URLs
+  static String matrixIdentityServer = Environment.identityServer;
+  static String matrixHomeserver = Environment.matrixHomeserver;
+  static String tomServerUrl = Environment.tomServer;
 
-  static String twakeChatGooglePlay =
-      'https://play.google.com/store/apps/details?id=app.twake.android.chat';
+  static String dediChatAppleStore =
+      'https://apps.apple.com/us/app/dedi-chat/id6473384641';
+
+  static String dediChatGooglePlay =
+      'https://play.google.com/store/apps/details?id=app.dedi.android.chat';
 
   static double toolbarHeight(BuildContext context) =>
       responsive.isMobile(context) ? 48 : 56;
@@ -95,12 +104,11 @@ abstract class AppConfig {
       'https://gitlab.com/famedly/fluffychat/-/wikis/Push-Notifications-without-Google-Services';
   static const String encryptionTutorial =
       'https://gitlab.com/famedly/fluffychat/-/wikis/How-to-use-end-to-end-encryption-in-FluffyChat';
-  static const String appOpenUrlScheme = 'twake.chat';
+  static const String appOpenUrlScheme = 'dedi.chat';
   static String _webBaseUrl = Environment.chatWeb;
 
   static String get webBaseUrl => _webBaseUrl;
-  static const String sourceCodeUrl =
-      'https://github.com/linagora/twake-on-matrix';
+  static const String sourceCodeUrl = 'https://github.com/dediapp/dedi';
   static String supportUrl = Environment.supportUrl;
   static String cozyExternalBridgeVersion = '0.16.1';
   static bool renderHtml = true;
@@ -116,17 +124,17 @@ abstract class AppConfig {
   static const bool hideTypingUsernames = false;
   static const bool hideAllStateEvents = false;
   static const String inviteLinkPrefix = 'https://matrix.to/#/';
-  static const String deepLinkPrefix = 'im.fluffychat://chat/';
+  static const String deepLinkPrefix = 'im.dedi://chat/';
   static const String schemePrefix = 'matrix:';
-  static const String pushNotificationsChannelId = 'twake_push';
-  static const String pushNotificationsChannelName = 'Twake Chat push channel';
+  static const String pushNotificationsChannelId = 'dedi_push';
+  static const String pushNotificationsChannelName = 'Dedi Chat push channel';
   static const String pushNotificationsChannelDescription =
-      'Push notifications for Twake Chat';
+      'Push notifications for Dedi Chat';
   static String pushNotificationsAppId = Platform.isIOS
       ? kReleaseMode
-          ? "app.twake.ios.chat"
-          : "app.twake.ios.chat.sandbox"
-      : "app.twake.android.chat";
+          ? "app.dedi.ios.chat"
+          : "app.dedi.ios.chat.sandbox"
+      : "app.dedi.android.chat";
 
   static const String _pushNotificationsGatewayUrlEnv = String.fromEnvironment(
     'PUSH_NOTIFICATIONS_GATEWAY_URL',
@@ -135,7 +143,7 @@ abstract class AppConfig {
 
   static String pushNotificationsGatewayUrl = _pushNotificationsGatewayUrlEnv;
   static const String pushNotificationsPusherFormat = 'event_id_only';
-  static const String emojiFontName = 'Noto Emoji';
+  static const String emojiFontName = 'Dedi Emoji';
   static const String emojiFontUrl =
       'https://github.com/googlefonts/noto-emoji/';
   static const double borderRadius = 20.0;
@@ -148,8 +156,8 @@ abstract class AppConfig {
   static const int thumbnailQuality = 70;
   static const int blurHashSize = 32;
   static const int imageQuality = 50;
-  static const String iOSKeychainSharingId = 'KUT463DS29.app.twake.ios.chat';
-  static const String iOSKeychainSharingAccount = 'app.twake.ios.chat.sessions';
+  static const String iOSKeychainSharingId = 'KUT463DS29.app.dedi.ios.chat';
+  static const String iOSKeychainSharingAccount = 'app.dedi.ios.chat.sessions';
   static const int maxFilesSendPerDialog = 6;
   static const bool supportMultipleAccountsInTheSameHomeserver = false;
   static const imageCompressFormmat = CompressFormat.jpeg;
@@ -168,6 +176,9 @@ abstract class AppConfig {
 
   static bool devMode = false;
 
+  /// Debug toast configuration - shows detailed server errors when enabled
+  static bool enableDebugToasts = false;
+
   static const int maxRecentReactionsSize = 12;
 
   static const String appGridConfigurationPath =
@@ -178,9 +189,14 @@ abstract class AppConfig {
     defaultValue: ConfigurationSaas.platform,
   );
 
-  static const String _twakeWorkplaceHomeserverEnv = String.fromEnvironment(
-    'TWAKE_WORKPLACE_HOMESERVER',
-    defaultValue: ConfigurationSaas.twakeWorkplaceHomeserver,
+  static const bool _enableDebugToastsEnv = bool.fromEnvironment(
+    'ENABLE_DEBUG_TOASTS',
+    defaultValue: false,
+  );
+
+  static const String _dediWorkplaceHomeserverEnv = String.fromEnvironment(
+    'DEDI_WORKPLACE_HOMESERVER',
+    defaultValue: ConfigurationSaas.dediWorkplaceHomeserver,
   );
 
   static const String _registrationUrlEnv = String.fromEnvironment(
@@ -194,10 +210,10 @@ abstract class AppConfig {
   );
 
   static void loadEnvironment() {
-    twakeWorkplaceHomeserver = _twakeWorkplaceHomeserverEnv;
+    dediWorkplaceHomeserver = _dediWorkplaceHomeserverEnv;
 
     Logs().i(
-      '[Public Platform] AppConfig():: TWAKE_WORKPLACE_HOMESERVER $_twakeWorkplaceHomeserverEnv',
+      '[Public Platform] AppConfig():: DEDI_WORKPLACE_HOMESERVER $_dediWorkplaceHomeserverEnv',
     );
 
     registrationUrl = _registrationUrlEnv;
@@ -217,11 +233,50 @@ abstract class AppConfig {
     Logs().i(
       '[Public Platform] AppConfig():: HOME_SERVER $_homeserverEnv',
     );
+
+    enableDebugToasts = _enableDebugToastsEnv;
+
+    Logs().i(
+      '[Debug] AppConfig():: ENABLE_DEBUG_TOASTS $_enableDebugToastsEnv',
+    );
+
+    // Debug: Print debug toast status
+    if (kDebugMode) {
+      debugPrint('🐛 AppConfig: enableDebugToasts = $enableDebugToasts');
+      debugPrint(
+        '🐛 AppConfig: _enableDebugToastsEnv = $_enableDebugToastsEnv',
+      );
+    }
+
+    // ✅ DEDI Server Configuration Debug Logging
+    if (kDebugMode && enableDebugToasts) {
+      debugPrint('🚀 DEDI Server Configuration Loaded:');
+      debugPrint('⚡ OTP API Base URL: $otpApiBaseUrl');
+      debugPrint('📤 OTP Request Endpoint: $otpRequestEndpoint');
+      debugPrint('✅ OTP Verify Endpoint: $otpVerifyEndpoint');
+      debugPrint('🔗 Matrix Token Endpoint: $otpMatrixTokenEndpoint');
+      debugPrint('🔐 Matrix Identity Server: $matrixIdentityServer');
+      debugPrint('📡 Matrix Homeserver: $matrixHomeserver');
+      debugPrint('🏗️ ToM Server URL: $tomServerUrl');
+      debugPrint('✅ DEDI Server configuration logging complete');
+    }
+
+    // ✅ Log environment variables for troubleshooting
+    Environment.logEnvironmentVariables();
   }
 
   static bool get isSaasPlatForm => _platformEnv == 'saas';
 
   static void loadFromJson(Map<String, dynamic> json) {
+    // ✅ Debug logging for configuration loading start
+    if (kDebugMode && enableDebugToasts) {
+      debugPrint('🔧 AppConfig: Starting loadFromJson configuration loading');
+      debugPrint('📋 AppConfig: JSON keys found: ${json.keys.toList()}');
+      debugPrint(
+        '🔍 AppConfig: Configuration source contains ${json.length} parameters',
+      );
+    }
+
     if (json['homeserver'] != null && json['homeserver'] is String) {
       if (json['homeserver'] != '') {
         homeserver = json['homeserver'];
@@ -235,10 +290,10 @@ abstract class AppConfig {
       }
     }
 
-    if (json['twake_workplace_homeserver'] != null &&
-        json['twake_workplace_homeserver'] is String) {
-      if (json['twake_workplace_homeserver'] != '') {
-        twakeWorkplaceHomeserver = json['twake_workplace_homeserver'];
+    if (json['dedi_workplace_homeserver'] != null &&
+        json['dedi_workplace_homeserver'] is String) {
+      if (json['dedi_workplace_homeserver'] != '') {
+        dediWorkplaceHomeserver = json['dedi_workplace_homeserver'];
       }
     }
 
@@ -292,6 +347,14 @@ abstract class AppConfig {
     if (json['dev_mode'] is bool) {
       devMode = json['dev_mode'];
     }
+    if (json['enable_debug_toasts'] is bool) {
+      enableDebugToasts = json['enable_debug_toasts'];
+      if (kDebugMode) {
+        debugPrint(
+          '🐛 AppConfig: Loaded enableDebugToasts from config.json = $enableDebugToasts',
+        );
+      }
+    }
     if (json['qr_code_download_url'] is String) {
       qrCodeDownloadUrl = json['qr_code_download_url'];
     }
@@ -305,6 +368,78 @@ abstract class AppConfig {
     if (json['cozy_external_bridge_version'] is String &&
         json['cozy_external_bridge_version'].isNotEmpty) {
       cozyExternalBridgeVersion = json['cozy_external_bridge_version'];
+    }
+
+    // ✅ DEDI Server Configuration - Load new fields
+    if (json['tom_server_url'] is String) {
+      tomServerUrl = json['tom_server_url'];
+    }
+    if (json['identity_server_url'] is String) {
+      matrixIdentityServer = json['identity_server_url'];
+    }
+    if (json['otp_api_base_url'] is String) {
+      otpApiBaseUrl = json['otp_api_base_url'];
+    }
+    if (json['otp_request_endpoint'] is String) {
+      otpRequestEndpoint = json['otp_request_endpoint'];
+    }
+    if (json['otp_verify_endpoint'] is String) {
+      otpVerifyEndpoint = json['otp_verify_endpoint'];
+    }
+    if (json['otp_matrix_token_endpoint'] is String) {
+      otpMatrixTokenEndpoint = json['otp_matrix_token_endpoint'];
+    }
+
+    // ✅ Debug logging for DEDI Server specific configuration
+    if (kDebugMode && enableDebugToasts) {
+      debugPrint(
+          '🏗️ AppConfig: Checking for DEDI Server specific configuration...');
+
+      // Log DEDI Server URLs if present in JSON
+      if (json['tom_server_url'] != null) {
+        debugPrint(
+            '⚡ AppConfig: Found tom_server_url in config: ${json['tom_server_url']}');
+      }
+      if (json['identity_server_url'] != null) {
+        debugPrint(
+            '🔐 AppConfig: Found identity_server_url in config: ${json['identity_server_url']}');
+      }
+      if (json['otp_api_base_url'] != null) {
+        debugPrint(
+            '📡 AppConfig: Found otp_api_base_url in config: ${json['otp_api_base_url']}');
+      }
+
+      // Log OTP endpoints if present in JSON
+      if (json['otp_request_endpoint'] != null) {
+        debugPrint(
+            '📤 AppConfig: Found otp_request_endpoint in config: ${json['otp_request_endpoint']}');
+      }
+      if (json['otp_verify_endpoint'] != null) {
+        debugPrint(
+            '✅ AppConfig: Found otp_verify_endpoint in config: ${json['otp_verify_endpoint']}');
+      }
+      if (json['otp_matrix_token_endpoint'] != null) {
+        debugPrint(
+            '🔗 AppConfig: Found otp_matrix_token_endpoint in config: ${json['otp_matrix_token_endpoint']}');
+      }
+
+      // Log debug configuration if present
+      if (json['debug_configuration'] != null) {
+        debugPrint(
+            '🐛 AppConfig: Found debug_configuration in config: ${json['debug_configuration']}');
+      }
+      if (json['server_mapping'] != null) {
+        debugPrint(
+            '🗺️ AppConfig: Found server_mapping in config: ${json['server_mapping']}');
+      }
+
+      // Final configuration summary
+      debugPrint('✅ AppConfig: loadFromJson configuration loading completed');
+      debugPrint('🎯 AppConfig: Current homeserver: $homeserver');
+      debugPrint('📝 AppConfig: Current registration URL: $registrationUrl');
+      debugPrint('🏗️ AppConfig: Current application name: $applicationName');
+      debugPrint('🔧 AppConfig: Dev mode: $devMode');
+      debugPrint('🐛 AppConfig: Debug toasts enabled: $enableDebugToasts');
     }
   }
 }
