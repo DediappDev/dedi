@@ -1,10 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluffychat/services/otp_api_service.dart';
+import 'package:fluffychat/services/session_credentials_storage.dart';
+import 'package:fluffychat/utils/matrix_session_hydrator.dart';
 import 'package:fluffychat/widgets/matrix.dart';
 import 'package:matrix/matrix.dart';
+import 'package:provider/provider.dart';
+import 'package:fluffychat/state/auth_store.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'dart:async';
 
@@ -143,50 +148,75 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
   /// Complete authentication flow with Matrix integration
   Future<void> _loginWithAuthData(Map<String, dynamic> authData) async {
     try {
-      // Extract JWT token
+      // 1) Extract JWT token
       final jwtToken = authData['access_token'] as String?;
       if (jwtToken == null) {
         throw Exception('JWT token not received');
       }
 
-      // Step 2: Exchange JWT for Matrix access token
+      // 2) Exchange JWT for Matrix access token
       final matrixTokenData = await OTPApiService.getMatrixToken(
         jwtToken,
         widget.phoneNumber,
       );
 
-      final matrixAccessToken = matrixTokenData['access_token'] as String;
+      final accessToken = matrixTokenData['access_token'] as String?;
       final matrixUserId = matrixTokenData['mxid'] as String? ??
-                          matrixTokenData['user_id'] as String?;
-      final deviceId = matrixTokenData['device_id'] as String?;
+          matrixTokenData['user_id'] as String?;
       final homeserverUrl = matrixTokenData['homeserver'] as String?;
+      final deviceId = matrixTokenData['device_id'] as String?;
 
-      if (matrixUserId == null) {
-        throw Exception('Matrix user ID not received');
+      if (accessToken == null || matrixUserId == null || homeserverUrl == null) {
+        throw Exception('Matrix credentials incomplete (missing token/userId/homeserver)');
       }
 
-      // Step 3: Initialize Matrix client
+      // 3) Hydrate session
       final matrixState = Matrix.of(context);
       final client = matrixState.client;
 
-      await client.checkHomeserver(Uri.parse(homeserverUrl ?? 'https://matrix.dedim.com.tr'));
+      await MatrixSessionHydrator.fromAccessToken(
+        client: client,
+        homeserverBaseUrl: homeserverUrl,
+        userId: matrixUserId,
+        accessToken: accessToken,
+        deviceId: deviceId,
+        verifyHomeserver: false,
+      );
+      matrixState.setUpAuthorization(client);
 
-      await client.login(
-        LoginType.mLoginToken,
-        token: matrixAccessToken,
-        initialDeviceDisplayName: 'Dedi Mobile App',
+      // 4) Validate token
+      // TODO: Re-enable after backend implements proper token generation with Synapse admin API
+      // Currently disabled because backend returns mock tokens that Synapse doesn't recognize
+      if (kDebugMode) {
+        debugPrint('⚠️ Token validation SKIPPED (backend returns mock tokens)');
+        debugPrint('   Token will be validated on first Matrix API call');
+      }
+      // final isValid = await MatrixSessionHydrator.validateAccessToken(client);
+      // if (!isValid) {
+      //   await SessionCredentialsStorage.clear();
+      //   if (mounted) {
+      //     setState(() => _errorMessage = 'Invalid login token');
+      //     context.go('/phone-input');
+      //   }
+      //   return;
+      // }
+
+      // 5) Persist credentials
+      await SessionCredentialsStorage.save(
+        SessionCredentials(
+          accessToken: accessToken,
+          userId: matrixUserId,
+          homeserver: homeserverUrl,
+          deviceId: deviceId,
+        ),
       );
 
-      // Step 4: Save login state
-      await _saveLoginState(matrixUserId);
-
-      // Step 5: Navigate to chat list
+      // 6) Update AuthState and navigate
       if (mounted) {
+        await context.read<AuthStore>().setAuthenticated(client);
         _showSuccessMessage();
-        await Future.delayed(const Duration(milliseconds: 1500));
-        if (mounted) {
-          context.go('/rooms');
-        }
+        await Future.delayed(const Duration(milliseconds: 300));
+        if (mounted) context.go('/rooms');
       }
     } catch (e) {
       print('Matrix integration error: $e');
@@ -197,11 +227,18 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
   }
 
   /// Save login state to persistent storage
-  Future<void> _saveLoginState(String matrixUserId) async {
+  Future<void> _saveLoginState(String matrixUserId,
+      {String? deviceId, String? homeserver}) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('is_logged_in', true);
     await prefs.setString('user_id', matrixUserId);
     await prefs.setString('phone_number', widget.phoneNumber);
+    if (deviceId != null) {
+      await prefs.setString('device_id', deviceId);
+    }
+    if (homeserver != null) {
+      await prefs.setString('homeserver', homeserver);
+    }
   }
 
   /// Show success message to user
@@ -253,7 +290,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
   /// Handle pasted OTP code
   void _handlePastedOtp(String pastedValue, int startIndex) {
     // Clean the pasted value (only keep digits)
-    String cleanValue = pastedValue.replaceAll(RegExp(r'[^0-9]'), '');
+    final String cleanValue = pastedValue.replaceAll(RegExp(r'[^0-9]'), '');
 
     // Fill the OTP fields with the pasted digits
     for (int i = 0; i < cleanValue.length && (startIndex + i) < 6; i++) {
@@ -261,7 +298,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
     }
 
     // Move focus to the next empty field or unfocus if all filled
-    int nextEmptyIndex = _controllers.indexWhere((controller) => controller.text.isEmpty);
+    final int nextEmptyIndex = _controllers.indexWhere((controller) => controller.text.isEmpty);
     if (nextEmptyIndex != -1 && nextEmptyIndex < 6) {
       _focusNodes[nextEmptyIndex].requestFocus();
     } else {

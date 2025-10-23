@@ -7,8 +7,12 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'dart:async';
 
 import 'package:fluffychat/services/otp_api_service.dart';
+import 'package:fluffychat/services/session_credentials_storage.dart';
+import 'package:fluffychat/utils/matrix_session_hydrator.dart';
 import 'package:fluffychat/widgets/matrix.dart';
 import 'package:matrix/matrix.dart';
+import 'package:provider/provider.dart';
+import 'package:fluffychat/state/auth_store.dart';
 
 /// Modern OTP verification screen using pin_code_fields package
 /// Replaces the old 6-TextField implementation
@@ -159,51 +163,81 @@ class _OTPVerifyViewState extends State<OTPVerifyView> {
 
   Future<void> _loginWithAuthData(Map<String, dynamic> authData) async {
     try {
-      // Extract JWT token
+      // 1) Extract JWT token (from DEDI auth server)
       final jwtToken = authData['access_token'] as String?;
       if (jwtToken == null) {
         throw Exception('JWT token not received');
       }
 
-      // Step 2: Exchange JWT for Matrix access token
+      // 2) Exchange JWT for Matrix access token (from /otp/matrix-token)
       final matrixTokenData = await OTPApiService.getMatrixToken(
         jwtToken,
         widget.phoneNumber,
       );
 
-      final matrixAccessToken = matrixTokenData['access_token'] as String;
+      final accessToken = matrixTokenData['access_token'] as String?;
       final matrixUserId = matrixTokenData['mxid'] as String? ??
-                          matrixTokenData['user_id'] as String?;
+          matrixTokenData['user_id'] as String?;
       final homeserverUrl = matrixTokenData['homeserver'] as String?;
+      final deviceId = matrixTokenData['device_id'] as String?;
 
-      if (matrixUserId == null) {
-        throw Exception('Matrix user ID not received');
+      if (accessToken == null || matrixUserId == null || homeserverUrl == null) {
+        throw Exception('Matrix credentials incomplete (missing token/userId/homeserver)');
       }
 
-      // Step 3: Initialize Matrix client
+      // 3) Hydrate session (no /login calls)
       final matrixState = Matrix.of(context);
       final client = matrixState.client;
 
-      await client.checkHomeserver(
-        Uri.parse(homeserverUrl ?? 'https://matrix.dedim.com.tr'),
+      await MatrixSessionHydrator.fromAccessToken(
+        client: client,
+        homeserverBaseUrl: homeserverUrl,
+        userId: matrixUserId,
+        accessToken: accessToken,
+        deviceId: deviceId,
+        // Avoid checkHomeserver() here due to possible malformed .well-known on current Synapse
+        verifyHomeserver: false,
       );
 
-      await client.login(
-        LoginType.mLoginToken,
-        token: matrixAccessToken,
-        initialDeviceDisplayName: 'Dedi Mobile App',
+      // Keep app-level authorization interceptor in sync
+      matrixState.setUpAuthorization(client);
+
+      // 4) Optional token validation to catch M_UNKNOWN_TOKEN early
+      // TODO: Re-enable after backend implements proper token generation with Synapse admin API
+      // Currently disabled because backend returns mock tokens that Synapse doesn't recognize
+      if (kDebugMode) {
+        debugPrint('⚠️ Token validation SKIPPED (backend returns mock tokens)');
+        debugPrint('   Token will be validated on first Matrix API call');
+      }
+      // final isValid = await MatrixSessionHydrator.validateAccessToken(client);
+      // if (!isValid) {
+      //   // Clear any stored state and route back to OTP flow
+      //   await SessionCredentialsStorage.clear();
+      //   if (mounted) {
+      //     setState(() {
+      //       _errorMessage = L10n.of(context)!.invalidLoginToken;
+      //     });
+      //     context.go('/phone-input');
+      //   }
+      //   return;
+      // }
+
+      // 5) Persist credentials for auto-restore on next launch
+      await SessionCredentialsStorage.save(
+        SessionCredentials(
+          accessToken: accessToken,
+          userId: matrixUserId,
+          homeserver: homeserverUrl,
+          deviceId: deviceId,
+        ),
       );
 
-      // Step 4: Save login state
-      await _saveLoginState(matrixUserId);
-
-      // Step 5: Navigate to chat list
+      // 6) Update AuthState and navigate
       if (mounted) {
+        await context.read<AuthStore>().setAuthenticated(client);
         _showSuccessMessage();
-        await Future.delayed(const Duration(milliseconds: 1500));
-        if (mounted) {
-          context.go('/rooms');
-        }
+        await Future.delayed(const Duration(milliseconds: 300));
+        if (mounted) context.go('/rooms');
       }
     } catch (e) {
       if (kDebugMode) {
@@ -217,11 +251,18 @@ class _OTPVerifyViewState extends State<OTPVerifyView> {
     }
   }
 
-  Future<void> _saveLoginState(String matrixUserId) async {
+  Future<void> _saveLoginState(String matrixUserId,
+      {String? deviceId, String? homeserver}) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('is_logged_in', true);
     await prefs.setString('user_id', matrixUserId);
     await prefs.setString('phone_number', widget.phoneNumber);
+    if (deviceId != null) {
+      await prefs.setString('device_id', deviceId);
+    }
+    if (homeserver != null) {
+      await prefs.setString('homeserver', homeserver);
+    }
   }
 
   void _showSuccessMessage() {
@@ -472,4 +513,3 @@ class _OTPVerifyViewState extends State<OTPVerifyView> {
     );
   }
 }
-
