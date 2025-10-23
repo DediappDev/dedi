@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
-class TwakeWelcomeView extends StatelessWidget {
-  final TwakeWelcomeController controller;
+class DediWelcomeView extends StatelessWidget {
+  final DediWelcomeController controller;
 
-  const TwakeWelcomeView({super.key, required this.controller});
+  const DediWelcomeView({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -112,8 +112,8 @@ class TwakeWelcomeView extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    onPressed: controller.onClickCreateTwakeId,
-                    child: Text(l10n.createTwakeId),
+                    onPressed: controller.onClickCreateDediId,
+                    child: Text(l10n.createDediId),
                   ),
                   const SizedBox(height: 12),
                 ],
