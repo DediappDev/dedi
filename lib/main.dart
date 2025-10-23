@@ -17,6 +17,8 @@ import 'package:path_provider/path_provider.dart';
 import 'utils/background_push.dart';
 import 'widgets/twake_app.dart';
 import 'widgets/lock_screen.dart';
+import 'package:provider/provider.dart';
+import 'state/auth_store.dart';
 
 /// ============================================================================
 /// UYGULAMA BAŞLATMA NOKTASI - main() fonksiyonu
@@ -37,19 +39,19 @@ void main() async {
   // Background push notification'lar için Flutter'ın internal bileşenlerine
   // erken erişim gerekiyor. Bu yüzden widget binding'lerini başlatıyoruz.
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // ============================================================================
   // ADIM 2: Platform Ayarlarını Yapılandır
   // ============================================================================
   // Sadece dikey (portrait) yönelimi destekle
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  
+
   // Media kit'i başlat (video/audio oynatma için)
   MediaKit.ensureInitialized();
-  
+
   // GoRouter URL yansıtma ayarını etkinleştir
   GoRouter.optionURLReflectsImperativeAPIs = true;
-  
+
   // ============================================================================
   // ADIM 3: Veritabanı (Hive) Başlat
   // ============================================================================
@@ -71,16 +73,16 @@ void main() async {
   // ============================================================================
   // iOS hariç tüm platformlarda native renkleri kullan
   Logs().nativeColors = !PlatformInfos.isIOS;
-  
+
   // Kayıtlı Matrix client'larını getir
   final clients = await ClientManager.getClients();
   
   // İlk client'ı önceden yükle (performans için)
   final firstClient = clients.firstOrNull;
-  
+
   // Web hariç tüm platformlarda collection silme özelliğini etkinleştir
   firstClient?.isSupportDeleteCollections = !PlatformInfos.isWeb;
-  
+
   // Client'ın odalarını ve hesap verilerini yükle
   await firstClient?.roomsLoading;
   await firstClient?.accountDataLoading;
@@ -95,10 +97,10 @@ void main() async {
       AppLifecycleState.detached == WidgetsBinding.instance.lifecycleState) {
     // Background modda sadece push notification'ları işle
     BackgroundPush.clientOnly(clients.first);
-    
+
     // Uygulama detached moddan çıktığında GUI'yi başlatmak için observer ekle
     WidgetsBinding.instance.addObserver(AppStarter(clients));
-    
+
     Logs().i(
       '${AppConfig.applicationName} started in background-fetch mode. No GUI will be created unless the app is no longer detached.',
     );
@@ -113,12 +115,18 @@ void main() async {
   }
 
   // ============================================================================
-  // ADIM 8: GUI'yi Başlat (Foreground Modu)
+  // ADIM 8: Auth bootstrap ve GUI'yi Başlat (Foreground Modu)
   // ============================================================================
+  final authStore = AuthStore();
+  if (firstClient != null) {
+    await authStore.bootstrap(client: firstClient);
+  } else {
+    authStore.state = AuthState.unauthenticated;
+  }
   Logs().i(
     '${AppConfig.applicationName} started in foreground mode. Rendering GUI...',
   );
-  await startGui(clients);
+  await startGui(clients, authStore);
 }
 
 /// ============================================================================
@@ -127,10 +135,10 @@ void main() async {
 /// Bu fonksiyon Flutter uygulamasının GUI'sini başlatır.
 /// İşlem sırası:
 /// 1. Mobil cihazlarda app lock PIN'ini kontrol et
-/// 2. App lock varsa TwakeApp'i AppLock ile sar
-/// 3. App lock yoksa doğrudan TwakeApp'i başlat
+/// 2. App lock varsa DediApp'i AppLock ile sar
+/// 3. App lock yoksa doğrudan DediApp'i başlat
 /// 4. runApp() ile Flutter widget tree'sini başlat
-Future<void> startGui(List<Client> clients) async {
+Future<void> startGui(List<Client> clients, AuthStore authStore) async {
   // ============================================================================
   // ADIM 1: App Lock PIN'ini Kontrol Et (Sadece Mobil)
   // ============================================================================
@@ -139,7 +147,8 @@ Future<void> startGui(List<Client> clients) async {
   if (PlatformInfos.isMobile) {
     try {
       // Güvenli depolamadan PIN'i oku
-      pin = await const FlutterSecureStorage().read(key: SettingKeys.appLockKey);
+      pin =
+          await const FlutterSecureStorage().read(key: SettingKeys.appLockKey);
     } catch (e, s) {
       // PIN okuma hatası durumunda log'la ama uygulamayı durdurma
       Logs().d('Unable to read PIN from Secure storage', e, s);
@@ -149,17 +158,26 @@ Future<void> startGui(List<Client> clients) async {
   // ============================================================================
   // ADIM 2: Uygulamayı Başlat (App Lock ile veya doğrudan)
   // ============================================================================
-  // Mobil cihazlarda app lock varsa TwakeApp'i AppLock ile sar
-  // Diğer platformlarda doğrudan TwakeApp'i başlat
+  // Mobil cihazlarda app lock varsa DediApp'i AppLock ile sar
+  // Diğer platformlarda doğrudan DediApp'i başlat
   // (Çünkü diğer platformlarda AppLock routing sorunlarına neden oluyor)
+  final app = DediApp(clients: clients);
+  final providedApp = MultiProvider(
+    providers: [
+      ChangeNotifierProvider<AuthStore>.value(value: authStore),
+    ],
+    child: app,
+  );
+
   runApp(
     PlatformInfos.isMobile
         ? AppLock(
-            builder: (args) => TwakeApp(clients: clients), // Ana uygulama widget'ı
+            builder: (args) => providedApp, // Ana uygulama widget'ı
             lockScreen: const LockScreen(), // Kilit ekranı widget'ı
-            enabled: pin?.isNotEmpty ?? false, // PIN varsa app lock'u etkinleştir
+            enabled:
+                pin?.isNotEmpty ?? false, // PIN varsa app lock'u etkinleştir
           )
-        : TwakeApp(clients: clients), // Desktop/web için doğrudan ana uygulama
+        : providedApp, // Desktop/web için doğrudan ana uygulama
   );
 }
 
@@ -167,7 +185,7 @@ Future<void> startGui(List<Client> clients) async {
 /// UYGULAMA YAŞAM DÖNGÜSÜ İZLEYİCİSİ - AppStarter
 /// ============================================================================
 /// Bu sınıf Android'de background moddan foreground moda geçişi izler.
-/// 
+///
 /// ÇALIŞMA PRENSİBİ:
 /// 1. Uygulama background'da push notification işlerken GUI başlatılmaz
 /// 2. Kullanıcı uygulamayı açtığında (detached moddan çıktığında) GUI başlatılır
@@ -184,10 +202,10 @@ class AppStarter with WidgetsBindingObserver {
   /// Bu metod uygulamanın yaşam döngüsü değişikliklerini izler.
   /// Background'dan foreground'a geçişte GUI'yi başlatır.
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
     // GUI zaten başlatıldıysa tekrar başlatma
     if (guiStarted) return;
-    
+
     // Hala detached modda ise GUI başlatma
     if (state == AppLifecycleState.detached) return;
 
@@ -195,8 +213,18 @@ class AppStarter with WidgetsBindingObserver {
     Logs().i(
       '${AppConfig.applicationName} switches from the detached background-fetch mode to ${state.name} mode. Rendering GUI...',
     );
-    startGui(clients);
     
+    // AuthStore'u oluştur ve bootstrap et
+    final authStore = AuthStore();
+    final firstClient = clients.firstOrNull;
+    if (firstClient != null) {
+      await authStore.bootstrap(client: firstClient);
+    } else {
+      authStore.state = AuthState.unauthenticated;
+    }
+    
+    await startGui(clients, authStore);
+
     // GUI'nin sadece bir kez başlatılmasını garanti et
     guiStarted = true;
   }
