@@ -120,7 +120,7 @@ class _ImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (PlatformInfos.isWeb) {
-      if (event.mimeType == TwakeMimeTypeExtension.avifMimeType) {
+      if (event.mimeType == DediMimeTypeExtension.avifMimeType) {
         return AvifImage.network(
           event
               .attachmentOrThumbnailMxcUrl()!
@@ -149,7 +149,7 @@ class _ImageWidget extends StatelessWidget {
       );
     } else {
       if (controller.filePath != null) {
-        if (event.mimeType == TwakeMimeTypeExtension.avifMimeType) {
+        if (event.mimeType == DediMimeTypeExtension.avifMimeType) {
           return AvifImage.file(
             File(controller.filePath!),
             height: height,

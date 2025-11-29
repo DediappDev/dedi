@@ -178,7 +178,7 @@ class LoginController extends State<Login> {
     );
     if (input == null) return;
     final clientSecret = DateTime.now().millisecondsSinceEpoch.toString();
-    final response = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final response = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () =>
           Matrix.of(context).getLoginClient().requestTokenToResetPasswordEmail(
                 clientSecret,
@@ -225,7 +225,7 @@ class LoginController extends State<Login> {
         ),
       ).toJson(),
     };
-    final success = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final success = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => Matrix.of(context).getLoginClient().request(
             RequestType.POST,
             '/client/r0/account/password',
@@ -233,7 +233,7 @@ class LoginController extends State<Login> {
           ),
     );
     if (success.error == null) {
-      TwakeSnackBar.show(context, L10n.of(context)!.passwordHasBeenChanged);
+      DediSnackBar.show(context, L10n.of(context)!.passwordHasBeenChanged);
       usernameController.text = input.single;
       passwordController.text = password.single;
       login();

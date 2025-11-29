@@ -18,7 +18,7 @@ class ArchiveView extends StatelessWidget {
       future: controller.getArchive(context),
       builder: (BuildContext context, snapshot) => Scaffold(
         appBar: AppBar(
-          leading: TwakeIconButton(
+          leading: DediIconButton(
             icon: Icons.chevron_left_outlined,
             tooltip: L10n.of(context)!.back,
             onTap: () => context.pop(),

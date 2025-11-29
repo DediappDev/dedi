@@ -313,7 +313,7 @@ class FederationLookUpPhonebookContactInteractor {
           );
           progress++;
           updatedContact.addAll(chunkContacts);
-          chunkError = TwakeLookupChunkException(e.toString());
+          chunkError = DediLookupChunkException(e.toString());
         }
       }
     } catch (e) {

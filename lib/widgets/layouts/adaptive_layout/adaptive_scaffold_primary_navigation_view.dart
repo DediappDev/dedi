@@ -48,7 +48,7 @@ class AdaptiveScaffoldPrimaryNavigationView extends StatelessWidget {
                     AdaptiveScaffoldPrimaryNavigationStyle.labelTextStyle(
                   context,
                 ),
-                indicatorColor: LinagoraSysColors.material().secondaryContainer,
+                indicatorColor: DediSysColors.material().secondaryContainer,
               ),
             ),
             Column(

@@ -12,11 +12,11 @@ class HomeRobot extends CoreRobot {
   HomeRobot(super.$);
 
   Future<PatrolFinder> getContactTab() async {
-    return $(TwakeNavigationIcon).at(0);
+    return $(DediNavigationIcon).at(0);
   }
 
   Future<PatrolFinder> getChatTab() async {
-    return $(TwakeNavigationIcon).at(1);
+    return $(DediNavigationIcon).at(1);
   }
 
   Future<PatrolFinder> getSettingTab() async {

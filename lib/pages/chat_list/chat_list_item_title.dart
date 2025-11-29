@@ -89,7 +89,7 @@ class ChatListItemTitle extends StatelessWidget with ChatListItemMixin {
               if (room.isTypingText(context)) ...[
                 Icon(
                   Icons.schedule,
-                  color: LinagoraRefColors.material().tertiary[30],
+                  color: DediRefColors.material().tertiary[30],
                   size: ChatListItemTitleStyle.iconScheduleSize,
                 ),
               ],
@@ -99,7 +99,7 @@ class ChatListItemTitle extends StatelessWidget with ChatListItemMixin {
                   (originServerTs ?? room.timeCreated)
                       .localizedTimeShort(context),
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: LinagoraRefColors.material().tertiary[30],
+                        color: DediRefColors.material().tertiary[30],
                       ),
                 ),
               ),

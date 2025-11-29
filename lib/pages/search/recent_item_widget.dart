@@ -29,11 +29,11 @@ class RecentItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TwakeInkWell(
+    return DediInkWell(
       onTap: onTap,
       child: SizedBox(
         height: RecentItemStyle.recentItemHeight,
-        child: TwakeListItem(
+        child: DediListItem(
           height: RecentItemStyle.recentItemHeight,
           child: Padding(
             padding: RecentItemStyle.paddingRecentItem,
@@ -258,7 +258,7 @@ class _ContactInformation extends StatelessWidget {
                       contactPresentationSearch.matrixId!
                           .isCurrentMatrixId(context)) ...[
                     const SizedBox(width: 8.0),
-                    TwakeChip(
+                    DediChip(
                       text: L10n.of(context)!.owner,
                       textColor: Theme.of(context).colorScheme.primary,
                     ),

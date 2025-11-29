@@ -123,7 +123,7 @@ class _OnAuthRedirectState extends State<OnAuthRedirect> with ConnectPageMixin {
       body: Center(
         child: CupertinoActivityIndicator(
           animating: true,
-          color: LinagoraSysColors.material().onSurfaceVariant,
+          color: DediSysColors.material().onSurfaceVariant,
         ),
       ),
     );

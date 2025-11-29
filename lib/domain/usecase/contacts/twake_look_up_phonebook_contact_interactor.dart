@@ -19,7 +19,7 @@ import 'package:fluffychat/modules/federation_identity_lookup/domain/models/fede
 import 'package:fluffychat/modules/federation_identity_lookup/manager/identity_lookup_manager.dart';
 import 'package:matrix/matrix.dart';
 
-class TwakeLookupPhonebookContactInteractor {
+class DediLookupPhonebookContactInteractor {
   final PhonebookContactRepository _phonebookContactRepository =
       getIt.get<PhonebookContactRepository>();
   final IdentityLookupManager _identityLookupManager =
@@ -34,7 +34,7 @@ class TwakeLookupPhonebookContactInteractor {
 
   Stream<Either<Failure, Success>> execute({
     int lookupChunkSize = 10,
-    required TwakeLookUpArgument argument,
+    required DediLookUpArgument argument,
   }) async* {
     int progress = 0;
     Exception? chunkError;
@@ -53,7 +53,7 @@ class TwakeLookupPhonebookContactInteractor {
       contacts.addAll(res);
     } catch (e) {
       Logs().e(
-        'TwakeLookupPhonebookContactInteractor::execute: Register: $e',
+        'DediLookupPhonebookContactInteractor::execute: Register: $e',
       );
       yield Left(
         GetPhoneBookContactFailure(exception: e),
@@ -202,10 +202,10 @@ class TwakeLookupPhonebookContactInteractor {
         );
       } catch (e) {
         Logs().e(
-          'TwakeLookupPhonebookContactInteractor::execute: $e',
+          'DediLookupPhonebookContactInteractor::execute: $e',
         );
         updatedContact.addAll(chunkContacts);
-        chunkError = TwakeLookupChunkException(e.toString());
+        chunkError = DediLookupChunkException(e.toString());
         continue;
       }
     }
@@ -250,7 +250,7 @@ class TwakeLookupPhonebookContactInteractor {
       return {};
     } catch (e) {
       Logs().e(
-        'TwakeLookupPhonebookContactInteractor::handleMappings: $e',
+        'DediLookupPhonebookContactInteractor::handleMappings: $e',
       );
       return {};
     }
@@ -271,7 +271,7 @@ class TwakeLookupPhonebookContactInteractor {
         ContactsHiveErrorEnum.storeError,
       );
       Logs().e(
-        'TwakeLookupPhonebookContactInteractor::storeContactsInHive: $e',
+        'DediLookupPhonebookContactInteractor::storeContactsInHive: $e',
       );
     }
   }

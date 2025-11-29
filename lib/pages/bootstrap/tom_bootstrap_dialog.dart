@@ -29,7 +29,7 @@ class TomBootstrapDialog extends StatefulWidget {
     this.wipeRecovery = false,
   });
 
-  Future<bool?> show(BuildContext context) => TwakeDialog.showDialogFullScreen(
+  Future<bool?> show(BuildContext context) => DediDialog.showDialogFullScreen(
         builder: () => this,
         barrierColor: TomBootstrapDialogStyle.barrierColor(context),
       );
@@ -205,7 +205,7 @@ class TomBootstrapDialogState extends State<TomBootstrapDialog>
         break;
       case UploadRecoveryKeyState.wipeRecoveryFailed:
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          TwakeSnackBar.show(context, L10n.of(context)!.cannotEnableKeyBackup);
+          DediSnackBar.show(context, L10n.of(context)!.cannotEnableKeyBackup);
           Matrix.of(context).showToMBootstrap.value = false;
 
           Navigator.of(context, rootNavigator: false).pop<bool>();
@@ -390,7 +390,7 @@ class TomBootstrapDialogState extends State<TomBootstrapDialog>
           Logs().i(
             'TomBootstrapDialogState::_wipeRecoveryWord(): wipe recoveryWords failed',
           );
-          if (Matrix.of(context).twakeSupported) {
+          if (Matrix.of(context).dediSupported) {
             setState(
               () => _uploadRecoveryKeyState =
                   UploadRecoveryKeyState.wipeRecoveryFailed,

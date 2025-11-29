@@ -93,10 +93,10 @@ class StoryPageController extends State<StoryPage> {
       await client.getRoomById(roomId)!.sendTextEvent(message);
       replyController.clear();
       replyFocus.unfocus();
-      TwakeSnackBar.show(context, L10n.of(context)!.replyHasBeenSent);
+      DediSnackBar.show(context, L10n.of(context)!.replyHasBeenSent);
     } catch (e, s) {
       Logs().w('Unable to reply to story', e, s);
-      TwakeSnackBar.show(context, e.toLocalizedString(context));
+      DediSnackBar.show(context, e.toLocalizedString(context));
     } finally {
       setState(() {
         replyLoading = false;
@@ -294,7 +294,7 @@ class StoryPageController extends State<StoryPage> {
         OkCancelResult.ok) {
       return;
     }
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: event.redactEvent,
     );
     setState(() {
@@ -338,7 +338,7 @@ class StoryPageController extends State<StoryPage> {
       textFields: [DialogTextField(hintText: L10n.of(context)!.reason)],
     );
     if (reason == null || reason.single.isEmpty) return;
-    final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final result = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => Matrix.of(context).client.reportContent(
             roomId,
             event.eventId,
@@ -348,7 +348,7 @@ class StoryPageController extends State<StoryPage> {
     );
     _modalOpened = false;
     if (result.error != null) return;
-    TwakeSnackBar.show(context, L10n.of(context)!.contentHasBeenReported);
+    DediSnackBar.show(context, L10n.of(context)!.contentHasBeenReported);
   }
 
   Future<MatrixFile> downloadAndDecryptAttachment(
@@ -490,8 +490,7 @@ class StoryPageController extends State<StoryPage> {
         _delete();
         break;
       case PopupStoryAction.message:
-        final roomIdResult =
-            await TwakeDialog.showFutureLoadingDialogFullScreen(
+        final roomIdResult = await DediDialog.showFutureLoadingDialogFullScreen(
           future: () =>
               currentEvent!.senderFromMemoryOrFallback.startDirectChat(),
         );

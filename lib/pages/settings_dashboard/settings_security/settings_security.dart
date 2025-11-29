@@ -60,13 +60,13 @@ class SettingsSecurityController extends State<SettingsSecurity> {
       ],
     );
     if (input == null) return;
-    final success = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final success = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => Matrix.of(context)
           .client
           .changePassword(input.last, oldPassword: input.first),
     );
     if (success.error == null) {
-      TwakeSnackBar.show(context, L10n.of(context)!.passwordHasBeenChanged);
+      DediSnackBar.show(context, L10n.of(context)!.passwordHasBeenChanged);
     }
   }
 
@@ -127,7 +127,7 @@ class SettingsSecurityController extends State<SettingsSecurity> {
     if (response != OkCancelResult.ok) {
       return;
     }
-    final file = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final file = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         final export = await Matrix.of(context).client.exportDump();
         if (export == null) throw Exception('Export data is null.');
@@ -150,7 +150,7 @@ class SettingsSecurityController extends State<SettingsSecurity> {
     Clipboard.setData(
       ClipboardData(text: Matrix.of(context).client.fingerprintKey.beautified),
     );
-    TwakeSnackBar.show(
+    DediSnackBar.show(
       context,
       L10n.of(context)!.copiedPublicKeyToClipboard,
     );

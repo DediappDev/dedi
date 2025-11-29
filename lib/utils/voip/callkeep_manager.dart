@@ -86,7 +86,7 @@
 //   late FlutterCallkeep _callKeep;
 //   VoipPlugin? _voipPlugin;
 
-//   String get appName => 'Twake Chat';
+//   String get appName => 'Dedi';
 
 //   Future<bool> get hasPhoneAccountEnabled async =>
 //       await _callKeep.hasPhoneAccount();
@@ -231,8 +231,8 @@
 //     addCall(call.callId, callKeeper);
 //     await _callKeep.displayIncomingCall(
 //       uuid: call.callId,
-//       handle: '${call.room.getLocalizedDisplayname()} (Twake Chat)',
-//       callerName: '${call.room.getLocalizedDisplayname()} (Twake Chat)',
+//       handle: '${call.room.getLocalizedDisplayname()} (Dedi)',
+//       callerName: '${call.room.getLocalizedDisplayname()} (Dedi)',
 //       handleType: 'number',
 //       hasVideo: call.type == CallType.kVideo,
 //     );

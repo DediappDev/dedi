@@ -21,7 +21,7 @@ class ProfileBottomSheet extends StatelessWidget {
 
   void _startDirectChat(BuildContext context) async {
     final client = Matrix.of(context).client;
-    final result = await TwakeDialog.showFutureLoadingDialogFullScreen<String>(
+    final result = await DediDialog.showFutureLoadingDialogFullScreen<String>(
       future: () => client.startDirectChat(userId),
     );
     if (result.error == null) {

@@ -230,14 +230,14 @@ class DraftChatController extends State<DraftChat>
   }
 
   Future<void> sendVoiceMessageAction({
-    required TwakeAudioFile audioFile,
+    required DediAudioFile audioFile,
     required Duration time,
     required List<int> waveform,
   }) async {
     _createRoom(
       onRoomCreatedSuccess: (room) async {
         if (audioFile.filePath == null || audioFile.filePath?.isEmpty == true) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.audioMessageFailedToSend,
           );
@@ -275,7 +275,7 @@ class DraftChatController extends State<DraftChat>
             },
           },
         ).catchError((e) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.audioMessageFailedToSend,
           );
@@ -393,7 +393,7 @@ class DraftChatController extends State<DraftChat>
   void onInputBarSubmitted() {
     sendText(
       onCreateRoomFailed: () {
-        TwakeSnackBar.show(context, L10n.of(context)!.roomCreationFailed);
+        DediSnackBar.show(context, L10n.of(context)!.roomCreationFailed);
         inputFocus.requestFocus();
       },
     );
@@ -453,7 +453,7 @@ class DraftChatController extends State<DraftChat>
     List<MatrixFile> matrixFilesList,
   ) async {
     if (matrixFilesList.isEmpty) {
-      TwakeSnackBar.show(
+      DediSnackBar.show(
         context,
         L10n.of(context)!.failedToSendFiles,
       );

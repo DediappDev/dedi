@@ -9,7 +9,7 @@ import 'package:linagora_design_flutter/linagora_design_flutter.dart';
 
 void main() {
   group(
-    '[WIDGET TEST] - TwakeLinkPreviewItem is own message\n',
+    '[WIDGET TEST] - DediLinkPreviewItem is own message\n',
     () {
       const ownMessage = true;
 
@@ -25,51 +25,50 @@ void main() {
             description: 'Test Description',
           );
 
-          final twakeLinkPreviewItem = TwakeLinkPreviewItem(
-            key: TwakeLinkPreviewController.twakeLinkPreviewItemKey,
+          final dediLinkPreviewItem = DediLinkPreviewItem(
+            key: DediLinkPreviewController.dediLinkPreviewItemKey,
             ownMessage: ownMessage,
             urlPreviewPresentation: urlPreviewPresentation,
           );
 
-          // Build the TwakeLinkPreviewItem widget
+          // Build the DediLinkPreviewItem widget
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
-                body: twakeLinkPreviewItem,
+                body: dediLinkPreviewItem,
               ),
             ),
           );
 
-          expect(twakeLinkPreviewItem.ownMessage, true);
+          expect(dediLinkPreviewItem.ownMessage, true);
 
-          final twakeLinkPreviewItemFind = find.byKey(
-            TwakeLinkPreviewItem.linkPreviewBodyKey,
+          final dediLinkPreviewItemFind = find.byKey(
+            DediLinkPreviewItem.linkPreviewBodyKey,
           );
 
-          expect(twakeLinkPreviewItemFind, findsOneWidget);
+          expect(dediLinkPreviewItemFind, findsOneWidget);
 
-          final Container twakeLinkPreviewItemBody =
-              tester.widget(twakeLinkPreviewItemFind);
+          final Container dediLinkPreviewItemBody =
+              tester.widget(dediLinkPreviewItemFind);
 
-          expect(twakeLinkPreviewItemBody.decoration != null, true);
+          expect(dediLinkPreviewItemBody.decoration != null, true);
 
-          final ShapeDecoration twakeLinkPreviewItemBodyDecoration =
-              twakeLinkPreviewItemBody.decoration as ShapeDecoration;
+          final ShapeDecoration dediLinkPreviewItemBodyDecoration =
+              dediLinkPreviewItemBody.decoration as ShapeDecoration;
 
           expect(
-            twakeLinkPreviewItemBodyDecoration.color,
-            LinagoraSysColors.material().primaryContainer,
+            dediLinkPreviewItemBodyDecoration.color,
+            DediSysColors.material().primaryContainer,
           );
 
-          expect(twakeLinkPreviewItemBodyDecoration.shape, isNotNull);
+          expect(dediLinkPreviewItemBodyDecoration.shape, isNotNull);
 
           final RoundedRectangleBorder shape =
-              twakeLinkPreviewItemBodyDecoration.shape
-                  as RoundedRectangleBorder;
+              dediLinkPreviewItemBodyDecoration.shape as RoundedRectangleBorder;
 
           expect(
             shape.borderRadius,
-            BorderRadius.circular(TwakeLinkPreviewItemStyle.radiusBorder),
+            BorderRadius.circular(DediLinkPreviewItemStyle.radiusBorder),
           );
 
           final linkPreviewNoImageBody = find.byKey(
@@ -96,12 +95,12 @@ void main() {
 
           expect(
             paddingTitleWidget.padding,
-            TwakeLinkPreviewItemStyle.paddingTitle,
+            DediLinkPreviewItemStyle.paddingTitle,
           );
 
           expect(
             paddingSubtitleWidget.padding,
-            TwakeLinkPreviewItemStyle.paddingSubtitle,
+            DediLinkPreviewItemStyle.paddingSubtitle,
           );
 
           final titleTextFind = find.byKey(
@@ -148,22 +147,22 @@ void main() {
             description: 'Test Description',
           );
 
-          final twakeLinkPreviewItem = TwakeLinkPreviewItem(
-            key: TwakeLinkPreviewController.twakeLinkPreviewItemKey,
+          final dediLinkPreviewItem = DediLinkPreviewItem(
+            key: DediLinkPreviewController.dediLinkPreviewItemKey,
             ownMessage: ownMessage,
             urlPreviewPresentation: urlPreviewPresentation,
           );
 
-          // Build the TwakeLinkPreviewItem widget
+          // Build the DediLinkPreviewItem widget
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
-                body: twakeLinkPreviewItem,
+                body: dediLinkPreviewItem,
               ),
             ),
           );
 
-          expect(twakeLinkPreviewItem.ownMessage, true);
+          expect(dediLinkPreviewItem.ownMessage, true);
 
           final linkPreviewNoImageBody = find.byKey(
             LinkPreviewBuilder.imageDefaultKey,
@@ -189,12 +188,12 @@ void main() {
 
           expect(
             paddingTitleWidget.padding,
-            TwakeLinkPreviewItemStyle.paddingTitle,
+            DediLinkPreviewItemStyle.paddingTitle,
           );
 
           expect(
             paddingSubtitleWidget.padding,
-            TwakeLinkPreviewItemStyle.paddingSubtitle,
+            DediLinkPreviewItemStyle.paddingSubtitle,
           );
 
           final titleTextFind = find.byKey(
@@ -242,17 +241,17 @@ void main() {
             imageHeight: 123,
           );
 
-          final twakeLinkPreviewItem = TwakeLinkPreviewItem(
-            key: TwakeLinkPreviewController.twakeLinkPreviewItemKey,
+          final dediLinkPreviewItem = DediLinkPreviewItem(
+            key: DediLinkPreviewController.dediLinkPreviewItemKey,
             ownMessage: ownMessage,
             urlPreviewPresentation: urlPreviewPresentation,
           );
 
-          // Build the TwakeLinkPreviewItem widget
+          // Build the DediLinkPreviewItem widget
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
-                body: twakeLinkPreviewItem,
+                body: dediLinkPreviewItem,
               ),
             ),
           );
@@ -281,22 +280,22 @@ void main() {
             imageWidth: 123,
           );
 
-          final twakeLinkPreviewItem = TwakeLinkPreviewItem(
-            key: TwakeLinkPreviewController.twakeLinkPreviewItemKey,
+          final dediLinkPreviewItem = DediLinkPreviewItem(
+            key: DediLinkPreviewController.dediLinkPreviewItemKey,
             ownMessage: ownMessage,
             urlPreviewPresentation: urlPreviewPresentation,
           );
 
-          // Build the TwakeLinkPreviewItem widget
+          // Build the DediLinkPreviewItem widget
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
-                body: twakeLinkPreviewItem,
+                body: dediLinkPreviewItem,
               ),
             ),
           );
 
-          expect(twakeLinkPreviewItem.ownMessage, true);
+          expect(dediLinkPreviewItem.ownMessage, true);
 
           final linkPreviewNoImageBody = find.byKey(
             LinkPreviewBuilder.imageDefaultKey,
@@ -324,25 +323,25 @@ void main() {
             imageHeight: 201,
           );
 
-          final twakeLinkPreviewItem = TwakeLinkPreviewItem(
-            key: TwakeLinkPreviewController.twakeLinkPreviewItemKey,
+          final dediLinkPreviewItem = DediLinkPreviewItem(
+            key: DediLinkPreviewController.dediLinkPreviewItemKey,
             ownMessage: ownMessage,
             urlPreviewPresentation: urlPreviewPresentation,
           );
 
-          // Build the TwakeLinkPreviewItem widget
+          // Build the DediLinkPreviewItem widget
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
-                body: twakeLinkPreviewItem,
+                body: dediLinkPreviewItem,
               ),
             ),
           );
 
-          expect(twakeLinkPreviewItem.ownMessage, true);
+          expect(dediLinkPreviewItem.ownMessage, true);
 
           final linkPreviewLargeBody = find.byKey(
-            TwakeLinkPreviewItem.linkPreviewLargeKey,
+            DediLinkPreviewItem.linkPreviewLargeKey,
           );
 
           expect(linkPreviewLargeBody, findsOneWidget);
@@ -360,10 +359,10 @@ void main() {
             equals(
               const BorderRadius.vertical(
                 top: Radius.circular(
-                  TwakeLinkPreviewItemStyle.radiusBorder,
+                  DediLinkPreviewItemStyle.radiusBorder,
                 ),
                 bottom: Radius.circular(
-                  TwakeLinkPreviewItemStyle.radiusBorder,
+                  DediLinkPreviewItemStyle.radiusBorder,
                 ),
               ),
             ),
@@ -401,22 +400,22 @@ void main() {
             imageHeight: 199,
           );
 
-          final twakeLinkPreviewItem = TwakeLinkPreviewItem(
-            key: TwakeLinkPreviewController.twakeLinkPreviewItemKey,
+          final dediLinkPreviewItem = DediLinkPreviewItem(
+            key: DediLinkPreviewController.dediLinkPreviewItemKey,
             ownMessage: ownMessage,
             urlPreviewPresentation: urlPreviewPresentation,
           );
 
-          // Build the TwakeLinkPreviewItem widget
+          // Build the DediLinkPreviewItem widget
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
-                body: twakeLinkPreviewItem,
+                body: dediLinkPreviewItem,
               ),
             ),
           );
 
-          expect(twakeLinkPreviewItem.ownMessage, true);
+          expect(dediLinkPreviewItem.ownMessage, true);
 
           final mxcImageFinder = find.byKey(
             LinkPreviewBuilder.mxcImageKey,
@@ -437,7 +436,7 @@ void main() {
   );
 
   group(
-    '[WIDGET TEST] - TwakeLinkPreviewItem is not own message\n',
+    '[WIDGET TEST] - DediLinkPreviewItem is not own message\n',
     () {
       const ownMessage = false;
       testWidgets(
@@ -452,22 +451,22 @@ void main() {
             description: 'Test Description',
           );
 
-          final twakeLinkPreviewItem = TwakeLinkPreviewItem(
-            key: TwakeLinkPreviewController.twakeLinkPreviewItemKey,
+          final dediLinkPreviewItem = DediLinkPreviewItem(
+            key: DediLinkPreviewController.dediLinkPreviewItemKey,
             ownMessage: ownMessage,
             urlPreviewPresentation: urlPreviewPresentation,
           );
 
-          // Build the TwakeLinkPreviewItem widget
+          // Build the DediLinkPreviewItem widget
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
-                body: twakeLinkPreviewItem,
+                body: dediLinkPreviewItem,
               ),
             ),
           );
 
-          expect(twakeLinkPreviewItem.ownMessage, false);
+          expect(dediLinkPreviewItem.ownMessage, false);
 
           expect(
             find.byKey(LinkPreviewBuilder.imageDefaultKey),

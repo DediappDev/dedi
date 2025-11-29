@@ -26,8 +26,8 @@ class LockScreenState extends State<LockScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: TwakeThemes.buildTheme(context, Brightness.light),
-      darkTheme: TwakeThemes.buildTheme(context, Brightness.dark),
+      theme: DediThemes.buildTheme(context, Brightness.light),
+      darkTheme: DediThemes.buildTheme(context, Brightness.dark),
       localizationsDelegates: L10n.localizationsDelegates,
       supportedLocales: L10n.supportedLocales,
       home: Builder(

@@ -23,20 +23,20 @@ class ChatListViewStyle {
   static const double slidableIconSize = 24.0;
   static Color? pinSlidableColor(bool isFavourite) {
     return isFavourite
-        ? LinagoraRefColors.material().tertiary[40]
+        ? DediRefColors.material().tertiary[40]
         : Colors.tealAccent[700];
   }
 
   static Color? readSlidableColor(bool isUnread) {
     return isUnread
-        ? LinagoraRefColors.material().tertiary[40]
+        ? DediRefColors.material().tertiary[40]
         : Colors.deepPurpleAccent[200];
   }
 
   static Color? muteSlidableColor(bool isMuted) {
     return isMuted
-        ? LinagoraRefColors.material().primary[50]
-        : LinagoraRefColors.material().primary[40];
+        ? DediRefColors.material().primary[50]
+        : DediRefColors.material().primary[40];
   }
 
   static double dividerHeight = 1.0;

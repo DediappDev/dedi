@@ -16,7 +16,7 @@ class ChatDetailsLinksStyle {
       Theme.of(context).textTheme.titleMedium;
   static TextStyle? descriptionTextStyle(BuildContext context) =>
       Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: LinagoraRefColors.material().tertiary[20],
+            color: DediRefColors.material().tertiary[20],
           );
   static TextStyle? linkTextStyle(BuildContext context) =>
       Theme.of(context).textTheme.bodyMedium?.copyWith(

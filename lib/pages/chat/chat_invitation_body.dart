@@ -214,7 +214,7 @@ class InvitationBottomBar extends StatelessWidget {
             Icon(
               Icons.info_outline,
               size: ChatInvitationBodyStyle.chatInvitationBottomBarIconSize,
-              color: LinagoraRefColors.material().tertiary[30],
+              color: DediRefColors.material().tertiary[30],
             ),
             const SizedBox(
               width: ChatInvitationBodyStyle.chatInvitationBottomBarIconSpacing,
@@ -225,7 +225,7 @@ class InvitationBottomBar extends StatelessWidget {
                 maxLines: 2,
                 textAlign: TextAlign.start,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: LinagoraRefColors.material().tertiary[30],
+                      color: DediRefColors.material().tertiary[30],
                     ),
               ),
             ),

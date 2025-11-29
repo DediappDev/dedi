@@ -56,10 +56,10 @@ class ServerSearchMessagesList extends StatelessWidget {
                 final event = Event.fromMatrixEvent(searchResult, room);
                 final originServerTs = searchResult.originServerTs;
 
-                return TwakeInkWell(
+                return DediInkWell(
                   onTap: () =>
                       context.goToRoomWithEvent(event.room.id, event.eventId),
-                  child: TwakeListItem(
+                  child: DediListItem(
                     child: Padding(
                       padding: ServerSearchViewStyle.paddingInsideListItem,
                       child: Row(

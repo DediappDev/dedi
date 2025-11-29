@@ -15,34 +15,34 @@ import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
 
-enum TwakeWelcomeType {
+enum DediWelcomeType {
   firstAccount,
   otherAccounts,
 }
 
-class TwakeWelcomeArg extends Equatable {
-  final TwakeWelcomeType twakeIdType;
+class DediWelcomeArg extends Equatable {
+  final DediWelcomeType dediIdType;
 
-  const TwakeWelcomeArg({
-    this.twakeIdType = TwakeWelcomeType.firstAccount,
+  const DediWelcomeArg({
+    this.dediIdType = DediWelcomeType.firstAccount,
   });
 
-  bool get isAddAnotherAccount => twakeIdType == TwakeWelcomeType.otherAccounts;
+  bool get isAddAnotherAccount => dediIdType == DediWelcomeType.otherAccounts;
 
   @override
-  List<Object?> get props => [twakeIdType];
+  List<Object?> get props => [dediIdType];
 }
 
-class TwakeWelcome extends StatefulWidget {
-  final TwakeWelcomeArg? arg;
+class DediWelcome extends StatefulWidget {
+  final DediWelcomeArg? arg;
 
-  const TwakeWelcome({super.key, this.arg});
+  const DediWelcome({super.key, this.arg});
 
   @override
-  State<TwakeWelcome> createState() => TwakeWelcomeController();
+  State<DediWelcome> createState() => DediWelcomeController();
 }
 
-class TwakeWelcomeController extends State<TwakeWelcome> with ConnectPageMixin {
+class DediWelcomeController extends State<DediWelcome> with ConnectPageMixin {
   void goToHomeserverPicker() {
     if (widget.arg != null && widget.arg?.isAddAnotherAccount == true) {
       context.push('/rooms/addaccount/homeserverpicker');
@@ -66,21 +66,21 @@ class TwakeWelcomeController extends State<TwakeWelcome> with ConnectPageMixin {
   MatrixState get matrix => Matrix.of(context);
 
   void onClickSignIn() {
-    Logs().d("TwakeIdController::onClickSignIn: Login Url - $loginUrl");
+    Logs().d("DediIdController::onClickSignIn: Login Url - $loginUrl");
     _redirectRegistrationUrl(loginUrl);
   }
 
   void _redirectRegistrationUrl(String url) async {
     try {
-      TwakeDialog.showLoadingTwakeWelcomeDialog(context);
+      DediDialog.showLoadingDediWelcomeDialog(context);
       final homeserverExisted = await _homeserverExisted();
       if (homeserverExisted) {
-        TwakeDialog.hideLoadingDialog(context);
+        DediDialog.hideLoadingDialog(context);
         return;
       }
       matrix.loginHomeserverSummary =
           await matrix.getLoginClient().checkHomeserver(
-                Uri.parse(AppConfig.twakeWorkplaceHomeserver),
+                Uri.parse(AppConfig.dediWorkplaceHomeserver),
               );
       final uri = await FlutterWebAuth2.authenticate(
         url: url,
@@ -89,19 +89,19 @@ class TwakeWelcomeController extends State<TwakeWelcome> with ConnectPageMixin {
           intentFlags: ephemeralIntentFlags,
         ),
       );
-      Logs().d("TwakeIdController:_redirectRegistrationUrl: URI - $uri");
+      Logs().d("DediIdController:_redirectRegistrationUrl: URI - $uri");
       await handleTokenFromRegistrationSite(matrix: matrix, uri: uri);
-      Logs().d("TwakeIdController:_redirectRegistrationUrl: DONE");
-      TwakeDialog.hideLoadingDialog(context);
+      Logs().d("DediIdController:_redirectRegistrationUrl: DONE");
+      DediDialog.hideLoadingDialog(context);
     } catch (e) {
-      Logs().e("TwakeIdController::_redirectRegistrationUrl: $e");
-      TwakeDialog.hideLoadingDialog(context);
+      Logs().e("DediIdController::_redirectRegistrationUrl: $e");
+      DediDialog.hideLoadingDialog(context);
     }
   }
 
-  void onClickCreateTwakeId() {
+  void onClickCreateDediId() {
     Logs().d(
-      "TwakeIdController::onClickCreateTwakeId: Signup Url - $signupUrl",
+      "DediIdController::onClickCreateDediId: Signup Url - $signupUrl",
     );
     _redirectRegistrationUrl(signupUrl);
   }
@@ -122,14 +122,14 @@ class TwakeWelcomeController extends State<TwakeWelcome> with ConnectPageMixin {
 
       if (homeserverExists &&
           !AppConfig.supportMultipleAccountsInTheSameHomeserver) {
-        TwakeSnackBar.show(
+        DediSnackBar.show(
           context,
           L10n.of(context)!.isSingleAccountOnHomeserver,
         );
         return true;
       }
     } catch (e) {
-      Logs().e('TwakeIdController::_homeserverExisted: $e');
+      Logs().e('DediIdController::_homeserverExisted: $e');
       return false;
     }
     return false;
@@ -144,7 +144,7 @@ class TwakeWelcomeController extends State<TwakeWelcome> with ConnectPageMixin {
 
   @override
   Widget build(BuildContext context) {
-    return TwakeWelcomeView(
+    return DediWelcomeView(
       controller: this,
     );
   }

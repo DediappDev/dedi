@@ -25,7 +25,7 @@ class BottomNavigationAvatar extends StatelessWidget {
                     side: BorderSide(
                       width:
                           BottomNavigationAvatarStyle.selectedavatarBorderWidth,
-                      color: LinagoraSysColors.material().primary,
+                      color: DediSysColors.material().primary,
                     ),
                   ),
                 )

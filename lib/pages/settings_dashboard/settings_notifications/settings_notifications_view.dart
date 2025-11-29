@@ -22,20 +22,20 @@ class SettingsNotificationsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
-      appBar: TwakeAppBar(
+      backgroundColor: DediSysColors.material().onPrimary,
+      appBar: DediAppBar(
         title: L10n.of(context)!.notifications,
         context: context,
         centerTitle: true,
         withDivider: true,
         leading: responsive.isMobile(context)
             ? Padding(
-                padding: TwakeAppBarStyle.leadingIconPadding,
+                padding: DediAppBarStyle.leadingIconPadding,
                 child: IconButton(
                   tooltip: L10n.of(context)!.back,
                   icon: const Icon(Icons.chevron_left_outlined),
                   onPressed: () => context.pop(),
-                  iconSize: TwakeAppBarStyle.leadingIconSize,
+                  iconSize: DediAppBarStyle.leadingIconSize,
                 ),
               )
             : const SizedBox.shrink(),
@@ -59,7 +59,7 @@ class SettingsNotificationsView extends StatelessWidget {
                         : L10n.of(context)!.disable_notifications,
                   ),
                   onChanged: (_) =>
-                      TwakeDialog.showFutureLoadingDialogFullScreen(
+                      DediDialog.showFutureLoadingDialogFullScreen(
                     future: () => Matrix.of(context)
                         .client
                         .setMuteAllPushNotifications(

@@ -94,7 +94,7 @@ class ContactsSelectionList extends StatelessWidget {
                 );
               }
               return SliverExpandableList(
-                title: L10n.of(context)!.linagoraContactsCount(contacts.length),
+                title: L10n.of(context)!.dediContactsCount(contacts.length),
                 itemCount: contacts.length,
                 itemBuilder: (context, index) {
                   final disabled = disabledContactIds.contains(

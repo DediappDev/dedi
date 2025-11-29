@@ -4,7 +4,7 @@ import 'package:matrix/matrix.dart';
 
 import 'package:fluffychat/widgets/mxc_image.dart';
 
-class TwakeAvatar extends StatelessWidget {
+class DediAvatar extends StatelessWidget {
   final Uri? mxContent;
   final String? name;
   final double size;
@@ -13,7 +13,7 @@ class TwakeAvatar extends StatelessWidget {
   final Client? client;
   final double fontSize;
 
-  const TwakeAvatar({
+  const DediAvatar({
     this.mxContent,
     this.name,
     this.size = defaultSize,

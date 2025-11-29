@@ -87,7 +87,7 @@ class PermissionHandlerService {
         return PermissionDialog(
           icon: Icon(
             Icons.keyboard_voice_outlined,
-            color: LinagoraSysColors.material().primary,
+            color: DediSysColors.material().primary,
           ),
           permission: Permission.microphone,
           explainTextRequestPermission: Text(
@@ -131,7 +131,7 @@ class PermissionHandlerService {
                   vertical: 10.0,
                 ),
                 decoration: BoxDecoration(
-                  color: LinagoraSysColors.material().primary,
+                  color: DediSysColors.material().primary,
                   borderRadius: BorderRadius.circular(100.0),
                 ),
                 onPressed: () async {

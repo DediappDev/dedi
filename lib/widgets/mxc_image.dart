@@ -66,7 +66,7 @@ class MxcImage extends StatefulWidget {
     this.animated = false,
     this.animationDuration = const Duration(milliseconds: 500),
     this.retryDuration = const Duration(seconds: 2),
-    this.animationCurve = TwakeThemes.animationCurve,
+    this.animationCurve = DediThemes.animationCurve,
     this.thumbnailMethod = ThumbnailMethod.scale,
     this.cacheKey,
     this.rounded = false,
@@ -386,7 +386,7 @@ class _ImageWidget extends StatelessWidget {
             imageErrorWidgetBuilder: imageErrorWidgetBuilder,
           )
         : data != null
-            ? event?.mimeType == TwakeMimeTypeExtension.avifMimeType
+            ? event?.mimeType == DediMimeTypeExtension.avifMimeType
                 ? AvifImage.memory(
                     data!,
                     height: height,
@@ -441,7 +441,7 @@ class _ImageNativeBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (event?.mimeType == TwakeMimeTypeExtension.avifMimeType) {
+    if (event?.mimeType == DediMimeTypeExtension.avifMimeType) {
       return AvifImage.file(
         File(filePath!),
         height: height,

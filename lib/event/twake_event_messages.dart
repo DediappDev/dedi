@@ -1,4 +1,4 @@
-class TwakeEventMessages {
+class DediEventMessages {
   static Map<String, Map<String, Map<String, dynamic>>>
       updateAddressBookMessage(String clientId, String senderDeviceId) {
     return {

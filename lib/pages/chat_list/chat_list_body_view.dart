@@ -37,7 +37,7 @@ class ChatListBodyView extends StatelessWidget {
             animation: primaryAnimation,
             secondaryAnimation: secondaryAnimation,
             transitionType: SharedAxisTransitionType.vertical,
-            fillColor: LinagoraSysColors.material().onPrimary,
+            fillColor: DediSysColors.material().onPrimary,
             child: child,
           );
         },
@@ -91,7 +91,7 @@ class ChatListBodyView extends StatelessWidget {
                             return Column(
                               children: [
                                 Text(
-                                  L10n.of(context)!.welcomeToTwake(name),
+                                  L10n.of(context)!.welcomeToDedi(name),
                                   style: Theme.of(context).textTheme.titleLarge,
                                   textAlign: TextAlign.center,
                                 ),
@@ -124,8 +124,8 @@ class ChatListBodyView extends StatelessWidget {
                         height: ChatListBodyViewStyle.heightIsTorBrowser(
                           controller.isTorBrowser,
                         ),
-                        duration: TwakeThemes.animationDuration,
-                        curve: TwakeThemes.animationCurve,
+                        duration: DediThemes.animationDuration,
+                        curve: DediThemes.animationCurve,
                         clipBehavior: Clip.hardEdge,
                         decoration: const BoxDecoration(),
                         child: Material(
@@ -207,7 +207,7 @@ class ExpandableTitleBuilder extends StatelessWidget {
             Text(
               title,
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: LinagoraRefColors.material().neutral[40],
+                    color: DediRefColors.material().neutral[40],
                   ),
             ),
             Padding(

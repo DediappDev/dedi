@@ -18,8 +18,8 @@ class Settings3PidView extends StatelessWidget {
   Widget build(BuildContext context) {
     controller.request ??= Matrix.of(context).client.getAccount3PIDs();
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
-      appBar: TwakeAppBar(
+      backgroundColor: DediSysColors.material().onPrimary,
+      appBar: DediAppBar(
         title: L10n.of(context)!.passwordRecovery,
         actions: [
           IconButton(

@@ -39,7 +39,7 @@ class _AdaptiveScaffoldAppBarState extends State<AdaptiveScaffoldAppBar> {
             return Container(
               height: AppScaffoldViewStyle.appBarSize,
               decoration: BoxDecoration(
-                color: LinagoraSysColors.material().onPrimary,
+                color: DediSysColors.material().onPrimary,
               ),
               child: Padding(
                 padding: AdaptiveScaffoldAppBarStyle.appBarPadding,
@@ -78,9 +78,9 @@ class _LeadingAppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
-      ImagePaths.icTwakeImageLogoBeta,
-      width: AdaptiveScaffoldAppBarStyle.sizeWidthIcTwakeImageLogo,
-      height: AdaptiveScaffoldAppBarStyle.sizeHeightIcTwakeImageLogo,
+      ImagePaths.icDediImageLogoBeta,
+      width: AdaptiveScaffoldAppBarStyle.sizeWidthIcDediImageLogo,
+      height: AdaptiveScaffoldAppBarStyle.sizeHeightIcDediImageLogo,
     );
   }
 }

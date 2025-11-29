@@ -27,11 +27,11 @@ class AutoHomeserverPickerView extends StatelessWidget {
                 Text(
                   L10n.of(context)!.welcomeTo,
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        color: LinagoraSysColors.material().onSurfaceVariant,
+                        color: DediSysColors.material().onSurfaceVariant,
                       ),
                 ),
                 SvgPicture.asset(
-                  ImagePaths.logoTwakeWelcome,
+                  ImagePaths.logoDediWelcome,
                   width: AutoHomeserverPickerViewStyle.logoWidth,
                   height: AutoHomeserverPickerViewStyle.logoHeight,
                 ),
@@ -41,7 +41,7 @@ class AutoHomeserverPickerView extends StatelessWidget {
                     L10n.of(context)!.descriptionWelcomeTo,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: LinagoraSysColors.material().onSurfaceVariant,
+                          color: DediSysColors.material().onSurfaceVariant,
                         ),
                   ),
                 ),
@@ -98,8 +98,8 @@ class AutoHomeserverPickerView extends StatelessWidget {
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                        color: LinagoraSysColors.material()
-                                            .onPrimary,
+                                        color:
+                                            DediSysColors.material().onPrimary,
                                       ),
                                 ),
                               ),
@@ -113,7 +113,7 @@ class AutoHomeserverPickerView extends StatelessWidget {
                                 .textTheme
                                 .titleMedium
                                 ?.copyWith(
-                                  color: LinagoraSysColors.material().error,
+                                  color: DediSysColors.material().error,
                                 ),
                           ),
                         ],
@@ -153,8 +153,7 @@ class AutoHomeserverPickerView extends StatelessWidget {
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
-                                    color:
-                                        LinagoraSysColors.material().onPrimary,
+                                    color: DediSysColors.material().onPrimary,
                                   ),
                             ),
                           ),

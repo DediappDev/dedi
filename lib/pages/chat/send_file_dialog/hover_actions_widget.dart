@@ -34,7 +34,7 @@ class SendFileDialogActionsWidget extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: SendFileDialogStyle.removeButtonColor(context),
               ),
-              child: TwakeIconButton(
+              child: DediIconButton(
                 icon: Icons.close,
                 paddingAll: SendFileDialogStyle.paddingAllRemoveButton,
                 iconColor: Theme.of(context).colorScheme.onSurface,

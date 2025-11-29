@@ -41,7 +41,7 @@ class RecentChatList extends StatelessWidget {
             final room = rooms[index];
             return Material(
               borderRadius: RecentChatListStyle.borderRadiusItem,
-              color: LinagoraRefColors.material().primary[100],
+              color: DediRefColors.material().primary[100],
               child: InkWell(
                 borderRadius: RecentChatListStyle.borderRadiusItem,
                 onTap: () => onSelectedChat(room.id),

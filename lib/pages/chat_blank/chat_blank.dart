@@ -21,11 +21,11 @@ class ChatBlank extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // Add invisible appbar to make status bar on Android tablets bright.
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: LinagoraSysColors.material().onPrimary,
+        backgroundColor: DediSysColors.material().onPrimary,
       ),
       extendBodyBehindAppBar: true,
       body: ValueListenableBuilder(

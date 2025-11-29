@@ -18,7 +18,7 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 mixin SaveMediaToGalleryAndroidMixin
-    on SaveFileToTwakeAndroidDownloadsFolderMixin {
+    on SaveFileToDediAndroidDownloadsFolderMixin {
   Future<void> saveSelectedEventToGallery(
     BuildContext context,
     Event downloadEvent,
@@ -53,7 +53,7 @@ mixin SaveMediaToGalleryAndroidMixin
     } catch (e) {
       Logs().e('Chat::saveSelectedEventToGallery(): $e');
       if (e is! StoragePermissionException) {
-        TwakeSnackBar.show(
+        DediSnackBar.show(
           context,
           L10n.of(context)!.saveFileToDownloadsError,
         );
@@ -115,7 +115,7 @@ mixin SaveMediaToGalleryAndroidMixin
       await saveVideoToGallery(file: fileInDownloadsInApp);
     }
 
-    TwakeSnackBar.show(
+    DediSnackBar.show(
       context,
       L10n.of(context)!.fileSavedToGallery,
     );

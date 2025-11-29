@@ -13,7 +13,7 @@ class GetClientsLoadingUIState extends Success {
 }
 
 class GetClientsSuccessUIState extends Success {
-  final List<TwakeChatPresentationAccount> multipleAccounts;
+  final List<DediChatPresentationAccount> multipleAccounts;
 
   const GetClientsSuccessUIState({
     required this.multipleAccounts,

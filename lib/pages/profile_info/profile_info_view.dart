@@ -22,9 +22,9 @@ class ProfileInfoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TwakeAppBar(
+      appBar: DediAppBar(
         title: L10n.of(context)?.profileInfo ?? "",
-        leading: TwakeIconButton(
+        leading: DediIconButton(
           paddingAll: 8,
           splashColor: Colors.transparent,
           hoverColor: Colors.transparent,

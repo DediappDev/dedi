@@ -48,7 +48,7 @@ class ChatInputRowSendBtn extends StatelessWidget {
           }
           return Padding(
             padding: ChatInputRowStyle.sendIconPadding,
-            child: TwakeIconButton(
+            child: DediIconButton(
               hoverColor: Colors.transparent,
               splashColor: Colors.transparent,
               size: ChatInputRowStyle.sendIconBtnSize,

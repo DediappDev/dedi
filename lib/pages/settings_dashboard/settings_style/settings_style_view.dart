@@ -18,9 +18,9 @@ class SettingsStyleView extends StatelessWidget {
     const colorPickerSize = 32.0;
     final wallpaper = Matrix.of(context).wallpaper;
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       appBar: AppBar(
-        backgroundColor: LinagoraSysColors.material().onPrimary,
+        backgroundColor: DediSysColors.material().onPrimary,
         leading: const BackButton(),
         title: Text(L10n.of(context)!.changeTheme),
       ),

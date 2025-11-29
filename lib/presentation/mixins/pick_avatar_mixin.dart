@@ -56,7 +56,7 @@ mixin PickAvatarMixin {
         (failure) {
           Logs().e('PickAvatarMixin::_listenToPickAvatarUIState(): $failure');
           if (failure is GetAvatarBigSizeUIStateFailure) {
-            TwakeSnackBar.show(
+            DediSnackBar.show(
               context,
               L10n.of(context)!.fileTooBig(
                 AppConfig.defaultMaxUploadAvtarSizeInBytes.bytes.megaBytes

@@ -23,18 +23,18 @@ class SettingsAppLanguageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
-      appBar: TwakeAppBar(
+      backgroundColor: DediSysColors.material().onPrimary,
+      appBar: DediAppBar(
         title: L10n.of(context)!.appLanguage,
         context: context,
         leading: responsiveUtils.isMobile(context)
             ? Padding(
-                padding: TwakeAppBarStyle.leadingIconPadding,
+                padding: DediAppBarStyle.leadingIconPadding,
                 child: IconButton(
                   tooltip: L10n.of(context)!.back,
                   icon: const Icon(Icons.chevron_left_outlined),
                   onPressed: () => context.pop(),
-                  iconSize: TwakeAppBarStyle.leadingIconSize,
+                  iconSize: DediAppBarStyle.leadingIconSize,
                 ),
               )
             : const SizedBox.shrink(),
@@ -71,7 +71,7 @@ class SettingsAppLanguageView extends StatelessWidget {
                         controller.supportedLocales[index]
                             .getSourceLanguageName(),
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              color: LinagoraRefColors.material().neutral[40],
+                              color: DediRefColors.material().neutral[40],
                             ),
                       ),
                       trailing: controller

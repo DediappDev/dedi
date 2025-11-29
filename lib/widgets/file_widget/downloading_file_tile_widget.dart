@@ -20,7 +20,7 @@ class DownloadingFileTileWidget extends StatelessWidget {
     this.onCancelDownload,
   });
 
-  final TwakeMimeType mimeType;
+  final DediMimeType mimeType;
   final String filename;
   final MessageFileTileStyle style;
   final String? highlightText;

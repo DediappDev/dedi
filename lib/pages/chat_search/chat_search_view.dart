@@ -41,10 +41,10 @@ class ChatSearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       appBar: AppBar(
         toolbarHeight: AppConfig.toolbarHeight(context),
-        backgroundColor: LinagoraSysColors.material().onPrimary,
+        backgroundColor: DediSysColors.material().onPrimary,
         automaticallyImplyLeading: false,
         title: _ChatSearchAppBar(controller),
       ),
@@ -201,10 +201,10 @@ class _SearchItem extends StatelessWidget {
       future: event.fetchSenderUser(),
       builder: (context, snapshot) {
         final user = snapshot.data ?? event.senderFromMemoryOrFallback;
-        return TwakeListItem(
+        return DediListItem(
           height: ChatSearchStyle.itemHeight,
           margin: ChatSearchStyle.itemMargin,
-          child: TwakeInkWell(
+          child: DediInkWell(
             onTap: () => onTap(event),
             child: Row(
               children: [
@@ -242,8 +242,8 @@ class _SearchItem extends StatelessWidget {
                                   .textTheme
                                   .labelMedium
                                   ?.copyWith(
-                                    color: LinagoraRefColors.material()
-                                        .tertiary[30],
+                                    color:
+                                        DediRefColors.material().tertiary[30],
                                   ),
                             ),
                           ],
@@ -298,9 +298,9 @@ class _MessageContent extends StatelessWidget {
               ),
           searchWord: searchWord,
           maxLines: 2,
-          style: LinagoraTextStyle.material()
+          style: DediTextStyle.material()
               .bodyMedium3
-              .copyWith(color: LinagoraSysColors.material().onSurface),
+              .copyWith(color: DediSysColors.material().onSurface),
         );
     }
   }
@@ -319,7 +319,7 @@ class _ChatSearchAppBar extends StatelessWidget {
       children: [
         Padding(
           padding: ChatViewStyle.paddingLeading(context),
-          child: TwakeIconButton(
+          child: DediIconButton(
             icon: Icons.chevron_left_outlined,
             onTap: controller.onBack,
             tooltip: L10n.of(context)!.back,
@@ -334,7 +334,7 @@ class _ChatSearchAppBar extends StatelessWidget {
               padding: ChatSearchStyle.inputPadding,
               child: TextField(
                 controller: controller.textEditingController,
-                contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                contextMenuBuilder: mobileDediContextMenuBuilder,
                 focusNode: controller.inputFocus,
                 textInputAction: TextInputAction.search,
                 autofocus: true,

@@ -7,14 +7,14 @@ import 'package:matrix/matrix.dart';
 import 'package:mime/mime.dart';
 import 'package:super_clipboard/super_clipboard.dart';
 
-class TwakeClipboard {
-  static final _clipboard = TwakeClipboard._();
+class DediClipboard {
+  static final _clipboard = DediClipboard._();
 
-  TwakeClipboard._();
+  DediClipboard._();
 
   ClipboardReader? _reader;
 
-  static TwakeClipboard get instance => _clipboard;
+  static DediClipboard get instance => _clipboard;
 
   static const allImageFormatsSupported = [
     Formats.png,

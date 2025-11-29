@@ -27,13 +27,13 @@ mixin DeleteEventMixin {
       state.fold(
         (failure) {
           if (failure is NoPermissionToDeleteEvent) {
-            TwakeSnackBar.show(
+            DediSnackBar.show(
               context,
               L10n.of(context)!.noDeletePermissionMessage,
             );
             return;
           }
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.failedToDeleteMessage,
           );

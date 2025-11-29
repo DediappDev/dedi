@@ -28,13 +28,13 @@ void main() {
       expect(
         svgPicture.colorFilter,
         ColorFilter.mode(
-          LinagoraRefColors.material().neutral[60]!,
+          DediRefColors.material().neutral[60]!,
           BlendMode.srcIn,
         ),
       );
 
       final text = tester.widget<Text>(find.byType(Text));
-      expect(text.style?.color, LinagoraRefColors.material().neutral[60]);
+      expect(text.style?.color, DediRefColors.material().neutral[60]);
       expect(
         text.style?.fontSize,
         Theme.of(tester.element(find.byType(ContactStatusWidget)))

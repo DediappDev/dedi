@@ -53,20 +53,39 @@ import 'package:fluffychat/widgets/matrix.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:fluffychat/state/auth_store.dart';
 import 'package:matrix/matrix.dart';
 
 abstract class AppRoutes {
   static FutureOr<String?> loggedInRedirect(
     BuildContext context,
     GoRouterState state,
-  ) =>
-      Matrix.of(context).client.isLogged() ? '/rooms' : null;
+  ) {
+    final auth = context.read<AuthStore>();
+    // Debug trace for guard decisions
+    // ignore: avoid_print
+    print('[REDIRECT] (loggedInRedirect) state=${auth.state} from=${state.matchedLocation}');
+    if (auth.state == AuthState.authenticated) return '/rooms';
+    if (auth.state == AuthState.hydrating || auth.state == AuthState.unknown) {
+      return '/splash';
+    }
+    return null;
+  }
 
   static FutureOr<String?> loggedOutRedirect(
     BuildContext context,
     GoRouterState state,
-  ) =>
-      Matrix.of(context).client.isLogged() ? null : '/splash';
+  ) {
+    final auth = context.read<AuthStore>();
+    // ignore: avoid_print
+    print('[REDIRECT] (loggedOutRedirect) state=${auth.state} from=${state.matchedLocation}');
+    if (auth.state == AuthState.authenticated) return null;
+    if (auth.state == AuthState.hydrating || auth.state == AuthState.unknown) {
+      return '/splash';
+    }
+    return '/phone-input';
+  }
 
   AppRoutes();
 
@@ -122,15 +141,27 @@ abstract class AppRoutes {
     ),
     GoRoute(
       path: '/',
-      redirect: (context, state) =>
-          Matrix.of(context).client.isLogged() ? '/rooms' : '/splash',
+      redirect: (context, state) {
+        final auth = context.read<AuthStore>();
+        // ignore: avoid_print
+        print('[REDIRECT] (root) state=${auth.state} from=${state.matchedLocation}');
+        switch (auth.state) {
+          case AuthState.authenticated:
+            return '/rooms';
+          case AuthState.hydrating:
+          case AuthState.unknown:
+            return '/splash';
+          case AuthState.unauthenticated:
+            return '/phone-input';
+        }
+      },
     ),
     GoRoute(
       path: '/home',
       pageBuilder: (context, state) => defaultPageBuilder(
         context,
         PlatformInfos.isMobile
-            ? const TwakeWelcome()
+            ? const DediWelcome()
             : AutoHomeserverPicker(
                 loggedOut: state.extra is bool ? state.extra as bool? : null,
               ),
@@ -146,10 +177,10 @@ abstract class AppRoutes {
           redirect: loggedInRedirect,
         ),
         GoRoute(
-          path: 'twakeWelcome',
+          path: 'dediWelcome',
           pageBuilder: (context, state) => defaultPageBuilder(
             context,
-            const TwakeWelcome(),
+            const DediWelcome(),
           ),
           redirect: loggedInRedirect,
         ),
@@ -426,9 +457,9 @@ abstract class AppRoutes {
               redirect: loggedOutRedirect,
               pageBuilder: (context, state) => defaultPageBuilder(
                 context,
-                TwakeWelcome(
-                  arg: state.extra is TwakeWelcomeArg?
-                      ? state.extra as TwakeWelcomeArg?
+                DediWelcome(
+                  arg: state.extra is DediWelcomeArg?
+                      ? state.extra as DediWelcomeArg?
                       : null,
                 ),
               ),

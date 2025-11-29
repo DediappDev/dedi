@@ -1,10 +1,10 @@
 import 'package:linagora_design_flutter/multiple_account/models/twake_presentation_account.dart';
 import 'package:matrix/matrix.dart';
 
-class TwakeChatPresentationAccount extends TwakePresentationAccount {
+class DediChatPresentationAccount extends TwakePresentationAccount {
   final Client clientAccount;
 
-  const TwakeChatPresentationAccount({
+  const DediChatPresentationAccount({
     required this.clientAccount,
     required super.accountName,
     required super.accountId,

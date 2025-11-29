@@ -26,14 +26,14 @@ void main() {
     });
 
     const downloadPath =
-        'https://matrix.linagora.com/_matrix/media/v3/download/';
-    const uploadPath = 'https://matrix.linagora.com/_matrix/media/v3/upload/';
+        'https://matrix.dedim.com.tr/_matrix/media/v3/download/';
+    const uploadPath = 'https://matrix.dedim.com.tr/_matrix/media/v3/upload/';
 
     test("""WHEN there are no request match the download path,
         THEN interceptor should not handle the request, the next interceptor will handle it""",
         () async {
       final options = RequestOptions(
-        path: '${uploadPath}linagora.com/dDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${uploadPath}dedim.com.tr/dDeVrZRwVXanSwyMMoxuKVmE',
       );
       final mockHandler = MockRequestInterceptorHandler();
 
@@ -53,10 +53,10 @@ void main() {
         THEN interceptor should put both requests in currentDownloads set""",
         () async {
       final options = RequestOptions(
-        path: '${downloadPath}linagora.com/dDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/dDeVrZRwVXanSwyMMoxuKVmE',
       );
       final options1 = RequestOptions(
-        path: '${downloadPath}linagora.com/ADeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/ADeVrZRwVXanSwyMMoxuKVmE',
       );
       final mockHandler = MockRequestInterceptorHandler();
 
@@ -77,13 +77,13 @@ void main() {
         THEN interceptor should have 3 requests in currentDownloads set""",
         () async {
       final options = RequestOptions(
-        path: '${downloadPath}linagora.com/dDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/dDeVrZRwVXanSwyMMoxuKVmE',
       );
       final options1 = RequestOptions(
-        path: '${downloadPath}linagora.com/ADeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/ADeVrZRwVXanSwyMMoxuKVmE',
       );
       final option2 = RequestOptions(
-        path: '${downloadPath}linagora.com/MDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/MDeVrZRwVXanSwyMMoxuKVmE',
       );
       final mockHandler = MockRequestInterceptorHandler();
 
@@ -106,13 +106,13 @@ void main() {
         THEN interceptor should have 2 requests in currentDownloads set""",
         () async {
       final options = RequestOptions(
-        path: '${downloadPath}linagora.com/dDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/dDeVrZRwVXanSwyMMoxuKVmE',
       );
       final options1 = RequestOptions(
-        path: '${downloadPath}linagora.com/ADeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/ADeVrZRwVXanSwyMMoxuKVmE',
       );
       final option2 = RequestOptions(
-        path: '${uploadPath}linagora.com/MDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${uploadPath}dedim.com.tr/MDeVrZRwVXanSwyMMoxuKVmE',
       );
       final mockHandler = MockRequestInterceptorHandler();
 
@@ -135,13 +135,13 @@ void main() {
         THEN interceptor should have 3 requests in currentDownloads set""",
         () async {
       final options = RequestOptions(
-        path: '${downloadPath}linagora.com/dDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/dDeVrZRwVXanSwyMMoxuKVmE',
       );
       final options1 = RequestOptions(
-        path: '${downloadPath}linagora.com/ADeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/ADeVrZRwVXanSwyMMoxuKVmE',
       );
       final option2 = RequestOptions(
-        path: '${downloadPath}linagora.com/MDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/MDeVrZRwVXanSwyMMoxuKVmE',
       );
       final mockHandler = MockRequestInterceptorHandler();
 
@@ -164,13 +164,13 @@ void main() {
         THEN interceptor should have 2 requests in currentDownloads set""",
         () async {
       final options = RequestOptions(
-        path: '${downloadPath}linagora.com/dDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/dDeVrZRwVXanSwyMMoxuKVmE',
       );
       final options1 = RequestOptions(
-        path: '${downloadPath}linagora.com/ADeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/ADeVrZRwVXanSwyMMoxuKVmE',
       );
       final option2 = RequestOptions(
-        path: '${downloadPath}linagora.com/dDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/dDeVrZRwVXanSwyMMoxuKVmE',
       );
       final mockHandler = MockRequestInterceptorHandler();
 
@@ -196,7 +196,7 @@ void main() {
             THEN rejects duplicate download requests with exception""",
         () async {
       final options = RequestOptions(
-        path: '${downloadPath}linagora.com/dDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/dDeVrZRwVXanSwyMMoxuKVmE',
       );
       final mockHandler = MockRequestInterceptorHandler();
 
@@ -218,7 +218,7 @@ void main() {
             THEN throws DioDuplicateRequestException for duplicate downloads""",
         () async {
       final options = RequestOptions(
-        path: '${downloadPath}linagora.com/dDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/dDeVrZRwVXanSwyMMoxuKVmE',
       );
       final mockHandler = MockRequestInterceptorHandler();
 
@@ -240,10 +240,10 @@ void main() {
     test("""WHEN allows new multiple download requests
             THEN allows all new multiple download requests""", () async {
       final options = RequestOptions(
-        path: '${downloadPath}linagora.com/dDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/dDeVrZRwVXanSwyMMoxuKVmE',
       );
       final options1 = RequestOptions(
-        path: '${downloadPath}linagora.com/aDeVrRRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/aDeVrRRwVXanSwyMMoxuKVmE',
       );
       final mockHandler = MockRequestInterceptorHandler();
 
@@ -259,7 +259,7 @@ void main() {
     test("""WHEN there is an error in downloading
           THEN removes element in currentDownloads on error""", () async {
       final requestOptions = RequestOptions(
-        path: '${downloadPath}linagora.com/dDeVrZRwVXanSwyMMoxuKVmE',
+        path: '${downloadPath}dedim.com.tr/dDeVrZRwVXanSwyMMoxuKVmE',
       );
       final mockErr = DioException(requestOptions: requestOptions);
       final mockHandler = MockErrorInterceptorHandler();

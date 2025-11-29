@@ -172,7 +172,7 @@ class AssignRolesPickerController extends State<AssignRolesMemberPicker>
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: LinagoraSysColors.material().onPrimary,
+      color: DediSysColors.material().onPrimary,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(16.0),

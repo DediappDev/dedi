@@ -29,7 +29,7 @@ class StoriesHeader extends StatelessWidget {
     final room = Matrix.of(context).client.getRoomById(roomId);
     if (room == null) return;
     if (room.membership != Membership.join) {
-      final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+      final result = await DediDialog.showFutureLoadingDialogFullScreen(
         future: room.join,
       );
       if (result.error != null) return;
@@ -65,17 +65,17 @@ class StoriesHeader extends StatelessWidget {
     if (action == null) return;
     switch (action) {
       case ContextualRoomAction.mute:
-        await TwakeDialog.showFutureLoadingDialogFullScreen(
+        await DediDialog.showFutureLoadingDialogFullScreen(
           future: () => room.setPushRuleState(PushRuleState.dontNotify),
         );
         break;
       case ContextualRoomAction.unmute:
-        await TwakeDialog.showFutureLoadingDialogFullScreen(
+        await DediDialog.showFutureLoadingDialogFullScreen(
           future: () => room.setPushRuleState(PushRuleState.notify),
         );
         break;
       case ContextualRoomAction.leave:
-        await TwakeDialog.showFutureLoadingDialogFullScreen(
+        await DediDialog.showFutureLoadingDialogFullScreen(
           future: () => room.leave(),
         );
         break;

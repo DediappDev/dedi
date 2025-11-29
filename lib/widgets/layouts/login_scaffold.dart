@@ -14,7 +14,7 @@ class LoginScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobileMode = !TwakeThemes.isColumnMode(context);
+    final isMobileMode = !DediThemes.isColumnMode(context);
     final scaffold = Scaffold(
       backgroundColor: isMobileMode ? null : Colors.transparent,
       appBar: appBar == null

@@ -131,11 +131,11 @@ class ProfileInfoBodyController extends State<ProfileInfoBody> {
   Future<void> removeFromGroupChat() async {
     if (user == null) return;
     WarningDialog.hideWarningDialog(context);
-    final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final result = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => user!.ban(),
     );
     if (result.error != null) {
-      TwakeSnackBar.show(
+      DediSnackBar.show(
         context,
         result.error!.message,
       );
@@ -174,8 +174,8 @@ class ProfileInfoBodyController extends State<ProfileInfoBody> {
       children: [
         Divider(
           thickness: ProfileInfoBodyViewStyle.bigDividerThickness,
-          color: LinagoraStateLayer(
-            LinagoraSysColors.material().surfaceTint,
+          color: DediStateLayer(
+            DediSysColors.material().surfaceTint,
           ).opacityLayer3,
         ),
         Column(
@@ -257,8 +257,8 @@ class ProfileInfoBodyController extends State<ProfileInfoBody> {
     state.fold(
       (failure) {
         if (failure is SetPermissionLevelFailure) {
-          TwakeDialog.hideLoadingDialog(context);
-          TwakeSnackBar.show(
+          DediDialog.hideLoadingDialog(context);
+          DediSnackBar.show(
             context,
             failure.exception.toString(),
           );
@@ -266,8 +266,8 @@ class ProfileInfoBodyController extends State<ProfileInfoBody> {
         }
 
         if (failure is NoPermissionFailure) {
-          TwakeDialog.hideLoadingDialog(context);
-          TwakeSnackBar.show(
+          DediDialog.hideLoadingDialog(context);
+          DediSnackBar.show(
             context,
             L10n.of(context)!.permissionErrorChangeRole,
           );
@@ -276,12 +276,12 @@ class ProfileInfoBodyController extends State<ProfileInfoBody> {
       },
       (success) {
         if (success is SetPermissionLevelLoading) {
-          TwakeDialog.showLoadingDialog(context);
+          DediDialog.showLoadingDialog(context);
           return;
         }
 
         if (success is SetPermissionLevelSuccess) {
-          TwakeDialog.hideLoadingDialog(context);
+          DediDialog.hideLoadingDialog(context);
           widget.onTransferOwnershipSuccess?.call();
           return;
         }

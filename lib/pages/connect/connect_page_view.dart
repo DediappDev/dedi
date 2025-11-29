@@ -30,8 +30,7 @@ class ConnectPageView extends StatelessWidget {
       body: Center(
         child: identityProviders == null
             ? CircularProgressIndicator.adaptive(
-                backgroundColor:
-                    LinagoraSysColors.material().onTertiaryContainer,
+                backgroundColor: DediSysColors.material().onTertiaryContainer,
               )
             : identityProviders.length == 1
                 ? Container(

@@ -41,7 +41,7 @@ class AssignRoles extends StatefulWidget {
 }
 
 class AssignRolesController extends State<AssignRoles>
-    with SearchDebouncerMixin, TwakeContextMenuMixin, QuickRolePickerMixin {
+    with SearchDebouncerMixin, DediContextMenuMixin, QuickRolePickerMixin {
   final responsive = getIt.get<ResponsiveUtils>();
 
   final banUserInteractor = getIt.get<BanUserInteractor>();
@@ -229,7 +229,7 @@ class AssignRolesController extends State<AssignRoles>
           label: L10n.of(context)!.downgrade,
           icon: Icon(
             Icons.admin_panel_settings_outlined,
-            color: LinagoraSysColors.material().onPrimary,
+            color: DediSysColors.material().onPrimary,
           ),
           onPressed: (_) => handleClickOnContextMenuItem(
             userPermissionLevels: {
@@ -247,11 +247,11 @@ class AssignRolesController extends State<AssignRoles>
           label: L10n.of(context)!.remove,
           icon: Icon(
             Icons.person_remove_outlined,
-            color: LinagoraSysColors.material().onPrimary,
+            color: DediSysColors.material().onPrimary,
           ),
           onPressed: (_) => _handleOnTapRemoveUser(user: user),
           foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          backgroundColor: LinagoraSysColors.material().error,
+          backgroundColor: DediSysColors.material().error,
         ),
     ];
   }
@@ -264,8 +264,8 @@ class AssignRolesController extends State<AssignRoles>
       result.fold(
         (failure) {
           if (failure is BanUserFailure) {
-            TwakeDialog.hideLoadingDialog(context);
-            TwakeSnackBar.show(
+            DediDialog.hideLoadingDialog(context);
+            DediSnackBar.show(
               context,
               failure.exception.toString(),
             );
@@ -273,8 +273,8 @@ class AssignRolesController extends State<AssignRoles>
           }
 
           if (failure is NoPermissionForBanFailure) {
-            TwakeDialog.hideLoadingDialog(context);
-            TwakeSnackBar.show(
+            DediDialog.hideLoadingDialog(context);
+            DediSnackBar.show(
               context,
               L10n.of(context)!.permissionErrorBanUser,
             );
@@ -283,12 +283,12 @@ class AssignRolesController extends State<AssignRoles>
         },
         (success) async {
           if (success is BanUserLoading) {
-            TwakeDialog.showLoadingDialog(context);
+            DediDialog.showLoadingDialog(context);
             return;
           }
 
           if (success is BanUserSuccess) {
-            TwakeDialog.hideLoadingDialog(context);
+            DediDialog.hideLoadingDialog(context);
             return;
           }
         },

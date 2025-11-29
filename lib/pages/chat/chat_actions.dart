@@ -63,12 +63,12 @@ enum PickerType {
   Color? getTextColor(BuildContext context) {
     switch (this) {
       case PickerType.gallery:
-        return LinagoraSysColors.material().primary;
+        return DediSysColors.material().primary;
       case PickerType.documents:
-        return LinagoraSysColors.material().tertiary;
+        return DediSysColors.material().tertiary;
       case PickerType.location:
       case PickerType.contact:
-        return LinagoraSysColors.material().onBackground;
+        return DediSysColors.material().onBackground;
     }
   }
 }

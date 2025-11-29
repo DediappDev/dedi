@@ -106,7 +106,7 @@ extension MatrixFileExtension on MatrixFile {
       name: name,
     );
 
-    TwakeSnackBar.show(
+    DediSnackBar.show(
       context,
       result?['isSuccess'] == true
           ? L10n.of(context)!.downloadImageSuccess
@@ -166,10 +166,10 @@ extension MatrixFileExtension on MatrixFile {
   bool isFileHaveError(double maxSize) => size > maxSize;
 }
 
-class TwakeAudioFile extends MatrixFile {
+class DediAudioFile extends MatrixFile {
   final int? duration;
 
-  TwakeAudioFile({
+  DediAudioFile({
     required super.name,
     super.mimeType,
     super.filePath,

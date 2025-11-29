@@ -56,7 +56,7 @@ class ChatInputRow extends StatelessWidget {
                         if (ChatInputRowStyle.responsiveUtils.isMobile(context))
                           SizedBox(
                             height: ChatInputRowStyle.chatInputRowHeight,
-                            child: TwakeIconButton(
+                            child: DediIconButton(
                               size: ChatInputRowStyle.chatInputRowMoreBtnSize,
                               tooltip: L10n.of(context)!.more,
                               icon: Icons.add_circle_outline,
@@ -103,18 +103,18 @@ class ChatInputRow extends StatelessWidget {
                             soundRecorderWhenLockedDecoration: BoxDecoration(
                               borderRadius:
                                   ChatInputRowStyle.chatInputRowBorderRadius,
-                              color: LinagoraSysColors.material().onPrimary,
+                              color: DediSysColors.material().onPrimary,
                               border: Border.all(
-                                color: LinagoraRefColors.material().tertiary,
+                                color: DediRefColors.material().tertiary,
                                 width: 1,
                               ),
                             ),
                             decoration: BoxDecoration(
                               borderRadius:
                                   ChatInputRowStyle.chatInputRowBorderRadius,
-                              color: LinagoraSysColors.material().onPrimary,
+                              color: DediSysColors.material().onPrimary,
                               border: Border.all(
-                                color: LinagoraRefColors.material().tertiary,
+                                color: DediRefColors.material().tertiary,
                                 width: 1,
                               ),
                             ),
@@ -141,7 +141,7 @@ class ChatInputRow extends StatelessWidget {
                               );
                               controller.stopRecording.call();
 
-                              final file = TwakeAudioFile(
+                              final file = DediAudioFile(
                                 name: soundFile.path,
                                 filePath: soundFile.path,
                                 duration: time.inMilliseconds,
@@ -157,32 +157,28 @@ class ChatInputRow extends StatelessWidget {
                             initRecordPackageWidth: 50,
                             cancelTextBackGroundColor: Colors.transparent,
                             cancelText: L10n.of(context)!.cancel,
-                            cancelTextStyle: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                  color: LinagoraSysColors.material().primary,
-                                ),
+                            cancelTextStyle:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: DediSysColors.material().primary,
+                                    ),
                             slideToCancelText: L10n.of(context)!.slideToCancel,
                             slideToCancelTextStyle: Theme.of(context)
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                  color:
-                                      LinagoraRefColors.material().neutral[30],
+                                  color: DediRefColors.material().neutral[30],
                                 ),
                             counterTextStyle: Theme.of(context)
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                  color:
-                                      LinagoraRefColors.material().neutral[50],
+                                  color: DediRefColors.material().neutral[50],
                                 ),
                             slideToCancelPadding:
                                 const EdgeInsets.only(right: 24),
                             recordIcon: Icon(
                               Icons.keyboard_voice_outlined,
-                              color: LinagoraSysColors.material().tertiary,
+                              color: DediSysColors.material().tertiary,
                             ),
                             soundRecorderWhenLockedWidth:
                                 MediaQuery.of(context).size.width - 16,
@@ -192,7 +188,7 @@ class ChatInputRow extends StatelessWidget {
                               height: 12,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: LinagoraSysColors.material().error,
+                                color: DediSysColors.material().error,
                               ),
                             ),
                           ),
@@ -312,8 +308,8 @@ class ChatInputRow extends StatelessWidget {
         hintMaxLines: 1,
         hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: controller.responsive.isMobile(context)
-                  ? LinagoraRefColors.material().tertiary[50]
-                  : LinagoraRefColors.material().tertiary[30],
+                  ? DediRefColors.material().tertiary[50]
+                  : DediRefColors.material().tertiary[30],
               fontFamily: 'Inter',
             ),
       ),

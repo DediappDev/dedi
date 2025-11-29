@@ -92,7 +92,7 @@ extension SendFileExtension on Room {
     Logs().d(
       'sendFileEventMobile::File Path: ${fileInfo.filePath} - mimeType: ${fileInfo.mimeType}',
     );
-    if (TwakeMimeTypeExtension.heicMimeTypes.contains(fileInfo.mimeType) &&
+    if (DediMimeTypeExtension.heicMimeTypes.contains(fileInfo.mimeType) &&
         fileInfo is ImageFileInfo) {
       try {
         final oldFilePath = fileInfo.filePath;

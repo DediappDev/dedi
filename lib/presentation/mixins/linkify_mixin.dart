@@ -50,7 +50,7 @@ mixin LinkifyMixin {
       context: context,
       actions: phoneNumberContextMenuOnWeb,
     );
-    final selectedActionIndex = await showTwakeContextMenu(
+    final selectedActionIndex = await showDediContextMenu(
       context: context,
       offset: offset,
       listActions: listActions,
@@ -65,7 +65,7 @@ mixin LinkifyMixin {
     }
   }
 
-  Future<dynamic> showTwakeContextMenu({
+  Future<dynamic> showDediContextMenu({
     required List<ContextMenuAction> listActions,
     required Offset offset,
     required BuildContext context,
@@ -77,7 +77,7 @@ mixin LinkifyMixin {
       context: context,
       barrierColor: Colors.transparent,
       barrierDismissible: false,
-      builder: (dialogContext) => TwakeContextMenu(
+      builder: (dialogContext) => DediContextMenu(
         dialogContext: dialogContext,
         listActions: listActions,
         position: offset,
@@ -99,7 +99,7 @@ mixin LinkifyMixin {
       case PhoneNumberContextMenuActions.copy:
         Logs().i('LinkifyMixin: handleContextMenuAction: copyNumber $number');
         await Clipboard.setData(ClipboardData(text: number));
-        TwakeSnackBar.show(
+        DediSnackBar.show(
           context,
           L10n.of(context)!.phoneNumberCopiedToClipboard,
         );
@@ -140,7 +140,7 @@ mixin LinkifyMixin {
             await Clipboard.setData(
               ClipboardData(text: number),
             );
-            TwakeSnackBar.show(
+            DediSnackBar.show(
               context,
               L10n.of(context)!.phoneNumberCopiedToClipboard,
             );
@@ -153,7 +153,7 @@ mixin LinkifyMixin {
           onTap: () {},
           itemTheme: PullDownMenuItemTheme(
             textStyle: context.textTheme.bodyLarge!.copyWith(
-              color: LinagoraRefColors.material().neutral[30],
+              color: DediRefColors.material().neutral[30],
             ),
           ),
         ),

@@ -1,6 +1,6 @@
 import 'package:fluffychat/domain/usecase/contacts/twake_look_up_argument.dart';
 
-class FederationLookUpArgument extends TwakeLookUpArgument {
+class FederationLookUpArgument extends DediLookUpArgument {
   final String federationUrl;
   final String withMxId;
 

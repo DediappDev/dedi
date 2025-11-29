@@ -107,7 +107,7 @@ class ShareController extends State<Share>
       if (shareContentList.every(
         (content) =>
             content?.tryGet<String>('msgtype') ==
-            TwakeEventTypes.shareFileEventType,
+            DediEventTypes.shareFileEventType,
       )) {
         Navigator.pop(context);
         context.go(

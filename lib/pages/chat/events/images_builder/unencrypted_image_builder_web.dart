@@ -25,7 +25,7 @@ class UnencryptedImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (event.mimeType == TwakeMimeTypeExtension.avifMimeType) {
+    if (event.mimeType == DediMimeTypeExtension.avifMimeType) {
       return AvifImage.network(
         event
             .attachmentOrThumbnailMxcUrl(getThumbnail: isThumbnail)!

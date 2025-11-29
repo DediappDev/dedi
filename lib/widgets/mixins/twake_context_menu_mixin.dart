@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// Show a [TwakeContextMenu] on the given [BuildContext]. For other parameters, see [TwakeContextMenu].
-mixin TwakeContextMenuMixin {
+/// Show a [DediContextMenu] on the given [BuildContext]. For other parameters, see [DediContextMenu].
+mixin DediContextMenuMixin {
   void disableRightClick() {
     if (kIsWeb) {
       BrowserContextMenu.disableContextMenu();
@@ -18,7 +18,7 @@ mixin TwakeContextMenuMixin {
     }
   }
 
-  Future<dynamic> showTwakeContextMenu({
+  Future<dynamic> showDediContextMenu({
     required List<ContextMenuAction> listActions,
     required Offset offset,
     required BuildContext context,
@@ -30,7 +30,7 @@ mixin TwakeContextMenuMixin {
       context: context,
       barrierColor: Colors.transparent,
       barrierDismissible: false,
-      builder: (dialogContext) => TwakeContextMenu(
+      builder: (dialogContext) => DediContextMenu(
         dialogContext: dialogContext,
         listActions: listActions,
         position: offset,

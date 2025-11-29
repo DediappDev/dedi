@@ -13,7 +13,7 @@ import 'package:linkfy_text/linkfy_text.dart';
 import 'package:matrix/matrix.dart' hide Visibility;
 import 'package:skeletonizer/skeletonizer.dart';
 
-class TwakeLinkPreview extends StatefulWidget {
+class DediLinkPreview extends StatefulWidget {
   final Event event;
   final String localizedBody;
   final bool ownMessage;
@@ -21,7 +21,7 @@ class TwakeLinkPreview extends StatefulWidget {
   final TextStyle? linkStyle;
   final TextStyle? richTextStyle;
 
-  const TwakeLinkPreview({
+  const DediLinkPreview({
     super.key,
     required this.event,
     required this.localizedBody,
@@ -32,21 +32,21 @@ class TwakeLinkPreview extends StatefulWidget {
   });
 
   @override
-  State<TwakeLinkPreview> createState() => TwakeLinkPreviewController();
+  State<DediLinkPreview> createState() => DediLinkPreviewController();
 }
 
-class TwakeLinkPreviewController extends State<TwakeLinkPreview>
+class DediLinkPreviewController extends State<DediLinkPreview>
     with GetPreviewUrlMixin, AutomaticKeepAliveClientMixin, LinkifyMixin {
   String? get firstValidUrl => widget.localizedBody.getFirstValidUrl();
 
   Uri get uri => Uri.parse(firstValidUrl ?? '');
 
-  static const twakeLinkViewKey = ValueKey('TwakeLinkPreviewKey');
+  static const dediLinkViewKey = ValueKey('DediLinkPreviewKey');
 
-  static const twakeLinkPreviewItemKey = ValueKey('TwakeLinkPreviewItemKey');
+  static const dediLinkPreviewItemKey = ValueKey('DediLinkPreviewItemKey');
 
   @override
-  String debugLabel = 'TwakeLinkPreviewController';
+  String debugLabel = 'DediLinkPreviewController';
 
   @override
   void initState() {
@@ -59,8 +59,8 @@ class TwakeLinkPreviewController extends State<TwakeLinkPreview>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return TwakeLinkView(
-      key: twakeLinkViewKey,
+    return DediLinkView(
+      key: dediLinkViewKey,
       firstValidUrl: firstValidUrl,
       body: widget.event.formattedText.isNotEmpty
           ? FormattedTextWidget(
@@ -91,8 +91,8 @@ class TwakeLinkPreviewController extends State<TwakeLinkPreview>
             (success) {
               if (success is GetPreviewUrlSuccess) {
                 final previewLink = success.urlPreview.toPresentation();
-                return TwakeLinkPreviewItem(
-                  key: twakeLinkPreviewItemKey,
+                return DediLinkPreviewItem(
+                  key: dediLinkPreviewItemKey,
                   ownMessage: widget.ownMessage,
                   urlPreviewPresentation: previewLink,
                   previewLink: firstValidUrl,
@@ -107,16 +107,16 @@ class TwakeLinkPreviewController extends State<TwakeLinkPreview>
             constraints: const BoxConstraints(
               minWidth: double.infinity,
             ),
-            height: TwakeLinkPreviewItemStyle.maxHeightPreviewItem,
+            height: DediLinkPreviewItemStyle.maxHeightPreviewItem,
             decoration: ShapeDecoration(
               color: widget.ownMessage
-                  ? LinagoraRefColors.material().primary[95]
-                  : LinagoraStateLayer(
-                      LinagoraSysColors.material().surfaceTint,
+                  ? DediRefColors.material().primary[95]
+                  : DediStateLayer(
+                      DediSysColors.material().surfaceTint,
                     ).opacityLayer1,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
-                  TwakeLinkPreviewItemStyle.radiusBorder,
+                  DediLinkPreviewItemStyle.radiusBorder,
                 ),
               ),
             ),
@@ -124,14 +124,14 @@ class TwakeLinkPreviewController extends State<TwakeLinkPreview>
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Bone.button(
-                  width: TwakeLinkPreviewItemStyle.heightMxcImagePreview,
-                  height: TwakeLinkPreviewItemStyle.heightMxcImagePreview,
+                  width: DediLinkPreviewItemStyle.heightMxcImagePreview,
+                  height: DediLinkPreviewItemStyle.heightMxcImagePreview,
                   borderRadius: BorderRadius.vertical(
                     top: Radius.circular(
-                      TwakeLinkPreviewItemStyle.radiusBorder,
+                      DediLinkPreviewItemStyle.radiusBorder,
                     ),
                     bottom: Radius.circular(
-                      TwakeLinkPreviewItemStyle.radiusBorder,
+                      DediLinkPreviewItemStyle.radiusBorder,
                     ),
                   ),
                 ),
@@ -141,13 +141,13 @@ class TwakeLinkPreviewController extends State<TwakeLinkPreview>
                     children: [
                       Padding(
                         key: LinkPreviewBuilder.paddingTitleKey,
-                        padding: TwakeLinkPreviewItemStyle.paddingTitle,
+                        padding: DediLinkPreviewItemStyle.paddingTitle,
                         child: Column(
                           children: [
                             Bone.text(
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
-                            TwakeLinkPreviewItemStyle.skeletonizerTextPadding,
+                            DediLinkPreviewItemStyle.skeletonizerTextPadding,
                             Bone.text(
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
@@ -156,13 +156,13 @@ class TwakeLinkPreviewController extends State<TwakeLinkPreview>
                       ),
                       Padding(
                         key: LinkPreviewBuilder.paddingSubtitleKey,
-                        padding: TwakeLinkPreviewItemStyle.paddingSubtitle,
+                        padding: DediLinkPreviewItemStyle.paddingSubtitle,
                         child: Column(
                           children: [
                             Bone.text(
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
-                            TwakeLinkPreviewItemStyle.skeletonizerTextPadding,
+                            DediLinkPreviewItemStyle.skeletonizerTextPadding,
                             Bone.text(
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),

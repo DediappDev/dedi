@@ -179,7 +179,7 @@ class GetItInitializer {
     NetworkDI().bind();
     NetworkConnectivityDI().bind();
     getIt.registerSingleton(ResponsiveUtils());
-    getIt.registerSingleton(TwakeEventDispatcher());
+    getIt.registerSingleton(DediEventDispatcher());
     getIt.registerSingleton(Store());
     getIt.registerFactory<AppConfigLoader>(() => AppConfigLoader());
     bindingCachingManager();
@@ -381,8 +381,8 @@ class GetItInitializer {
     getIt.registerFactory<FederationLookUpPhonebookContactInteractor>(
       () => FederationLookUpPhonebookContactInteractor(),
     );
-    getIt.registerFactory<TwakeLookupPhonebookContactInteractor>(
-      () => TwakeLookupPhonebookContactInteractor(),
+    getIt.registerFactory<DediLookupPhonebookContactInteractor>(
+      () => DediLookupPhonebookContactInteractor(),
     );
     getIt.registerSingleton<TryGetSyncedPhoneBookContactInteractor>(
       TryGetSyncedPhoneBookContactInteractor(),

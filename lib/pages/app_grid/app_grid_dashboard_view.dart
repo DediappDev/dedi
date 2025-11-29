@@ -61,7 +61,7 @@ class AppGridDashboardView extends StatelessWidget {
                           ),
                           padding: AppGridDashboardViewStyle.appGridIconPadding,
                           child: SvgPicture.asset(
-                            ImagePaths.icTwakeSupport,
+                            ImagePaths.icDediSupport,
                             width:
                                 AppGridDashboardViewStyle.sizeIcSupportButton,
                             height:
@@ -109,11 +109,11 @@ class AppGridDashboardView extends StatelessWidget {
                             target: Alignment.bottomRight,
                           ),
                           portalFollower: ValueListenableBuilder(
-                            valueListenable: controller.linagoraApplications,
-                            builder: (context, linagoraApplications, child) {
-                              if (linagoraApplications == null) return child!;
+                            valueListenable: controller.dediApplications,
+                            builder: (context, dediApplications, child) {
+                              if (dediApplications == null) return child!;
                               return AppGridDashboardOverlay(
-                                linagoraApplications,
+                                dediApplications,
                               );
                             },
                             child: const SizedBox.shrink(),

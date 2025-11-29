@@ -2344,7 +2344,7 @@
   },
   "noEmailWarning": "Bitte gib eine gültige E-Mail-Adresse ein. Andernfalls kannst du dein Passwort nicht zurücksetzen. Wenn du das nicht möchtest, tippe erneut auf die Schaltfläche, um fortzufahren.",
   "@noEmailWarning": {},
-  "updateAvailable": "Twake-Chat-Aktualisierung verfügbar",
+  "updateAvailable": "Dedi-Chat-Aktualisierung verfügbar",
   "@updateAvailable": {},
   "updateNow": "Update im Hintergrund starten",
   "@updateNow": {},
@@ -2546,8 +2546,8 @@
       "count": {}
     }
   },
-  "newMessageInTwake": "Sie haben 1 verschlüsselte Nachricht",
-  "@newMessageInTwake": {
+  "newMessageInDedi": "Sie haben 1 verschlüsselte Nachricht",
+  "@newMessageInDedi": {
     "type": "text",
     "placeholders": {}
   },

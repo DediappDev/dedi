@@ -30,7 +30,7 @@ class ContactsSelectionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       appBar: PreferredSize(
         preferredSize: controller.isFullScreen
             ? ContactsSelectionViewStyle.preferredSize(context)
@@ -93,7 +93,7 @@ class ContactsSelectionView extends StatelessWidget {
                 }
                 return child!;
               },
-              child: TwakeFloatingActionButton(
+              child: DediFloatingActionButton(
                 icon: Icons.arrow_forward,
                 onTap: () => controller.trySubmit(context),
               ),
@@ -280,7 +280,7 @@ class ContactsSelectionView extends StatelessWidget {
                 );
               }
               return SliverExpandableList(
-                title: L10n.of(context)!.linagoraContactsCount(contacts.length),
+                title: L10n.of(context)!.dediContactsCount(contacts.length),
                 itemCount: contacts.length,
                 itemBuilder: (context, index) {
                   final disabled = controller.disabledContactIds.contains(
@@ -379,7 +379,7 @@ class ContactsSelectionView extends StatelessWidget {
             if (success is PresentationContactsSuccess) {
               final contacts = success.contacts;
               return SliverExpandableList(
-                title: L10n.of(context)!.linagoraContactsCount(contacts.length),
+                title: L10n.of(context)!.dediContactsCount(contacts.length),
                 itemCount: contacts.length,
                 itemBuilder: (context, index) {
                   if (contacts[index].matrixId != null &&
@@ -419,7 +419,7 @@ class ContactsSelectionView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          TwakeTextButton(
+          DediTextButton(
             onTap: () => Navigator.of(context).pop(),
             message: L10n.of(context)!.cancel,
             borderHover: ContactsSelectionViewStyle.webActionsButtonBorder,
@@ -430,7 +430,7 @@ class ContactsSelectionView extends StatelessWidget {
               ),
             ),
             styleMessage: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: LinagoraSysColors.material().primary,
+                  color: DediSysColors.material().primary,
                 ),
           ),
           const SizedBox(width: 8.0),
@@ -438,7 +438,7 @@ class ContactsSelectionView extends StatelessWidget {
             valueListenable: controller
                 .selectedContactsMapNotifier.haveSelectedContactsNotifier,
             builder: (context, haveSelectedContacts, _) {
-              return TwakeTextButton(
+              return DediTextButton(
                 onTap: () =>
                     haveSelectedContacts ? controller.trySubmit(context) : null,
                 message: L10n.of(context)!.add,
@@ -446,9 +446,9 @@ class ContactsSelectionView extends StatelessWidget {
                 borderHover: ContactsSelectionViewStyle.webActionsButtonBorder,
                 buttonDecoration: BoxDecoration(
                   color: haveSelectedContacts
-                      ? LinagoraSysColors.material().primary
-                      : LinagoraStateLayer(
-                          LinagoraSysColors.material().onSurface,
+                      ? DediSysColors.material().primary
+                      : DediStateLayer(
+                          DediSysColors.material().onSurface,
                         ).opacityLayer2,
                   borderRadius: BorderRadius.circular(
                     ContactsSelectionViewStyle.webActionsButtonBorder,
@@ -456,8 +456,8 @@ class ContactsSelectionView extends StatelessWidget {
                 ),
                 styleMessage: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: haveSelectedContacts
-                          ? LinagoraSysColors.material().onPrimary
-                          : LinagoraSysColors.material()
+                          ? DediSysColors.material().onPrimary
+                          : DediSysColors.material()
                               .inverseSurface
                               .withOpacity(0.6),
                     ),

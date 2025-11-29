@@ -13,7 +13,7 @@ typedef OnAppTap = Future<bool> Function(String url, {bool isNewTab});
 class AppGridDashboardItem extends StatelessWidget {
   static const _webOnlyWindowName = '_blank';
 
-  final LinagoraApp app;
+  final DediApp app;
 
   const AppGridDashboardItem(this.app, {super.key});
 

@@ -24,16 +24,16 @@ class ExceptionsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: TwakeAppBar(
+      appBar: DediAppBar(
         title: L10n.of(context)!.exceptions,
         centerTitle: true,
         withDivider: true,
         context: context,
         enableLeftTitle: true,
         onBack: controller.onBack,
-        leading: TwakeIconButton(
+        leading: DediIconButton(
           paddingAll: 8,
           splashColor: Colors.transparent,
           hoverColor: Colors.transparent,
@@ -49,16 +49,16 @@ class ExceptionsView extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: TextField(
                 controller: controller.textEditingController,
-                contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                contextMenuBuilder: mobileDediContextMenuBuilder,
                 focusNode: controller.inputFocus,
                 textInputAction: TextInputAction.search,
                 autofocus: true,
                 decoration: ChatListHeaderStyle.searchInputDecoration(
                   context,
-                  prefixIconColor: LinagoraSysColors.material().tertiary,
+                  prefixIconColor: DediSysColors.material().tertiary,
                 ).copyWith(
                   hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: LinagoraSysColors.material().tertiary,
+                        color: DediSysColors.material().tertiary,
                       ),
                   hintText: L10n.of(context)!.enterAnEmailAddress,
                   suffixIcon: ValueListenableBuilder(
@@ -87,7 +87,7 @@ class ExceptionsView extends StatelessWidget {
                   controller.exceptionsMember.length,
                 ),
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: LinagoraRefColors.material().neutral[40],
+                      color: DediRefColors.material().neutral[40],
                     ),
               ),
             ),
@@ -191,7 +191,7 @@ class ExceptionsView extends StatelessWidget {
     required User member,
     required String role,
   }) {
-    return TwakeInkWell(
+    return DediInkWell(
       onTap: () {
         member.openProfileView(
           context: context,
@@ -200,7 +200,7 @@ class ExceptionsView extends StatelessWidget {
           },
         );
       },
-      child: TwakeListItem(
+      child: DediListItem(
         padding: const EdgeInsets.all(8),
         child: Row(
           children: [
@@ -218,10 +218,8 @@ class ExceptionsView extends StatelessWidget {
                       Expanded(
                         child: Text(
                           member.calcDisplayname(),
-                          style: LinagoraTextStyle.material()
-                              .bodyMedium2
-                              .copyWith(
-                                color: LinagoraSysColors.material().onSurface,
+                          style: DediTextStyle.material().bodyMedium2.copyWith(
+                                color: DediSysColors.material().onSurface,
                               ),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
@@ -234,7 +232,7 @@ class ExceptionsView extends StatelessWidget {
                   Text(
                     member.id,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: LinagoraRefColors.material().tertiary[30],
+                          color: DediRefColors.material().tertiary[30],
                         ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -272,7 +270,7 @@ class ExceptionsView extends StatelessWidget {
             Text(
               role,
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: LinagoraRefColors.material().tertiary[30],
+                    color: DediRefColors.material().tertiary[30],
                   ),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
@@ -281,7 +279,7 @@ class ExceptionsView extends StatelessWidget {
             if (controller.widget.room.canUpdateRoleInRoom(member))
               Icon(
                 Icons.arrow_drop_down,
-                color: LinagoraRefColors.material().tertiary[30],
+                color: DediRefColors.material().tertiary[30],
               ),
           ],
         ),

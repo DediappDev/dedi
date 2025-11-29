@@ -251,7 +251,7 @@ void main() {
             const Right(GetPhonebookContactsLoading()),
             Left(
               LookUpPhonebookContactPartialFailed(
-                exception: TwakeLookupChunkException(exception.toString()),
+                exception: DediLookupChunkException(exception.toString()),
                 contacts: testContacts,
               ),
             ),
@@ -1293,7 +1293,7 @@ void main() {
             // Final result is a partial failure
             Left<Failure, Success>(
               LookUpPhonebookContactPartialFailed(
-                exception: TwakeLookupChunkException(exception.toString()),
+                exception: DediLookupChunkException(exception.toString()),
                 contacts: expectedContacts,
               ),
             ),
@@ -1371,7 +1371,7 @@ void main() {
             // Final result is a partial failure
             Left<Failure, Success>(
               LookUpPhonebookContactPartialFailed(
-                exception: TwakeLookupChunkException(exception.toString()),
+                exception: DediLookupChunkException(exception.toString()),
                 contacts: contacts,
               ),
             ),

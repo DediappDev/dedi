@@ -14,9 +14,9 @@ class SettingsStoriesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       appBar: AppBar(
-        backgroundColor: LinagoraSysColors.material().onPrimary,
+        backgroundColor: DediSysColors.material().onPrimary,
         title: Text(L10n.of(context)!.whoCanSeeMyStories),
         elevation: 0,
       ),

@@ -24,27 +24,43 @@ class ContactScenario extends BaseScenario {
     await $.pumpAndSettle();
     return chatGroupDetailRobot;
   }
+
   Future<void> backToContactLisFromChatGroupScreen() async {
     await ChatGroupDetailRobot($).clickOnBackIcon();
   }
 
   Future<void> verifyDisplayOfContactListScreen(SoftAssertHelper s) async {
-    s.softAssertEquals((await SearchRobot($).getSearchTextField()).exists, true,
-        'Search Text Field is not visible',);
+    s.softAssertEquals(
+      (await SearchRobot($).getSearchTextField()).exists,
+      true,
+      'Search Text Field is not visible',
+    );
 
     // // title (avoid hard-coded text if localized)
-    // final appBarCtx = $.tester.element(find.byType(TwakeAppBar));
+    // final appBarCtx = $.tester.element(find.byType(DediAppBar));
     // final title = L10n.of(appBarCtx)!.contacts; // or 'Contacts' if not localized
-    // s.softAssertEquals($(TwakeAppBar).containing($(Text(title))).exists,true,'Contact title is wrong',);
+    // s.softAssertEquals($(DediAppBar).containing($(Text(title))).exists,true,'Contact title is wrong',);
 
     s.softAssertEquals(
-        $(ContactsTabBodyView).visible, true, 'Contacts tab is not visible',);
-    s.softAssertEquals($(BottomNavigationBar).visible, true,
-        'Bottom navigator bar is not visible',);
+      $(ContactsTabBodyView).visible,
+      true,
+      'Contacts tab is not visible',
+    );
+    s.softAssertEquals(
+      $(BottomNavigationBar).visible,
+      true,
+      'Bottom navigator bar is not visible',
+    );
   }
 
   Future<void> verifyContactListCanBeScrollable(SoftAssertHelper s) async {
-    s.softAssertEquals( await CoreRobot($).isActuallyScrollable($,root: $(CustomScrollView),), true,
-        'Contact list is not scrollable',);
+    s.softAssertEquals(
+      await CoreRobot($).isActuallyScrollable(
+        $,
+        root: $(CustomScrollView),
+      ),
+      true,
+      'Contact list is not scrollable',
+    );
   }
 }

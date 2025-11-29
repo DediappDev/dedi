@@ -29,7 +29,7 @@ class ChatDetailsFileItemWebState extends State<ChatDetailsFileItemWeb>
       handlePreviewWeb(
         event: widget.event,
         matrixFile: success.matrixFile,
-        context: TwakeApp.routerKey.currentContext!,
+        context: DediApp.routerKey.currentContext!,
       );
 
   @override

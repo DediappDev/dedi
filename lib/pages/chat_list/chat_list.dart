@@ -75,7 +75,7 @@ class ChatListController extends State<ChatList>
         PopupContextMenuActionMixin,
         PopupMenuWidgetMixin,
         GoToGroupChatMixin,
-        TwakeContextMenuMixin {
+        DediContextMenuMixin {
   final responsive = getIt.get<ResponsiveUtils>();
 
   final ValueNotifier<bool> expandRoomsForAllNotifier = ValueNotifier(true);
@@ -265,7 +265,7 @@ class ChatListController extends State<ChatList>
   }
 
   Future<void> toggleUnreadSelections() async {
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         final markUnreadAction = anySelectedRoomNotMarkedUnread;
         for (final conversation in conversationSelectionNotifier.value) {
@@ -290,7 +290,7 @@ class ChatListController extends State<ChatList>
   }
 
   Future<void> toggleFavouriteRoom() async {
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         final makeFavorite = anySelectedRoomNotFavorite;
         for (final conversation in conversationSelectionNotifier.value) {
@@ -305,7 +305,7 @@ class ChatListController extends State<ChatList>
   }
 
   Future<void> toggleMutedSelections() async {
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         final newRuleState = pushRuleState;
         for (final conversation in conversationSelectionNotifier.value) {
@@ -329,7 +329,7 @@ class ChatListController extends State<ChatList>
         ) ==
         OkCancelResult.ok;
     if (!confirmed) return;
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => _archiveSelectedRooms(),
     );
     setState(() {});
@@ -349,7 +349,7 @@ class ChatListController extends State<ChatList>
       ],
     );
     if (input == null) return;
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => activeClient.setPresence(
         activeClient.userID!,
         PresenceType.online,
@@ -389,7 +389,7 @@ class ChatListController extends State<ChatList>
           .toList(),
     );
     if (selectedSpace == null) return;
-    final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final result = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         final space = activeClient.getRoomById(selectedSpace)!;
         if (space.canSendDefaultStates) {
@@ -401,7 +401,7 @@ class ChatListController extends State<ChatList>
     );
     if (result.error == null) {
       if (!mounted) return;
-      TwakeSnackBar.show(
+      DediSnackBar.show(
         context,
         L10n.of(context)!.chatHasBeenAddedToThisSpace,
       );
@@ -498,12 +498,12 @@ class ChatListController extends State<ChatList>
           textFields: [DialogTextField(hintText: l10n.bundleName)],
         );
         if (bundle == null || bundle.isEmpty || bundle.single.isEmpty) return;
-        await TwakeDialog.showFutureLoadingDialogFullScreen(
+        await DediDialog.showFutureLoadingDialogFullScreen(
           future: () => client.setAccountBundle(bundle.single),
         );
         break;
       case EditBundleAction.removeFromBundle:
-        await TwakeDialog.showFutureLoadingDialogFullScreen(
+        await DediDialog.showFutureLoadingDialogFullScreen(
           future: () => client.removeFromAccountBundle(activeBundle!),
         );
     }
@@ -525,7 +525,7 @@ class ChatListController extends State<ChatList>
       case ChatListSelectionActions.more:
         await actionWithToggleSelectMode(
           () => {
-            TwakeSnackBar.show(context, 'Not implemented yet'),
+            DediSnackBar.show(context, 'Not implemented yet'),
           },
         );
         return;
@@ -545,7 +545,7 @@ class ChatListController extends State<ChatList>
       room,
       listPopupActions,
     );
-    final selectedActionIndex = await showTwakeContextMenu(
+    final selectedActionIndex = await showDediContextMenu(
       offset: offset,
       context: context,
       listActions: listContextActions,
@@ -603,7 +603,7 @@ class ChatListController extends State<ChatList>
   }
 
   Future<void> toggleRead(Room room) async {
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         if (room.isUnread) {
           await room.markUnread(false);
@@ -619,7 +619,7 @@ class ChatListController extends State<ChatList>
   }
 
   Future<void> togglePin(Room room) async {
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         await room.setFavourite(!room.isFavourite);
       },
@@ -627,7 +627,7 @@ class ChatListController extends State<ChatList>
   }
 
   Future<void> toggleMuteRoom(Room room) async {
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         if (room.isMuted) {
           await room.unmute();

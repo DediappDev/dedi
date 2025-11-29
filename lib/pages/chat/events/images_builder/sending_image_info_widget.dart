@@ -87,7 +87,7 @@ class _SendingImageInfoWidgetState extends State<SendingImageInfoWidget>
               if (sendingFileProgressNotifier.value != 1) ...[
                 CircularProgressIndicator(
                   strokeWidth: 2,
-                  color: LinagoraRefColors.material().primary[100],
+                  color: DediRefColors.material().primary[100],
                 ),
                 ValueListenableBuilder(
                   valueListenable: uploadFileStateNotifier,
@@ -98,7 +98,7 @@ class _SendingImageInfoWidgetState extends State<SendingImageInfoWidget>
                     return InkWell(
                       child: Icon(
                         Icons.close,
-                        color: LinagoraRefColors.material().primary[100],
+                        color: DediRefColors.material().primary[100],
                       ),
                       onTap: () {
                         uploadManager.cancelUpload(widget.event);

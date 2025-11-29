@@ -57,13 +57,13 @@ class DediAppState extends State<DediApp> {
   void initState() {
     super.initState();
     networkConnectionService.onInit();
-    
+
     // 🔧 Debug: Boot log
     if (kDebugMode) {
       final auth = context.read<AuthStore>();
       debugPrint('[BOOT] DediApp.initState authState=${auth.state}');
     }
-    
+
     // Router'ı bir kere oluştur (AuthStore ile)
     final auth = context.read<AuthStore>();
     _router = GoRouter(
@@ -75,12 +75,12 @@ class DediAppState extends State<DediApp> {
       redirect: (ctx, state) {
         final s = auth.state;
         final loc = state.matchedLocation;
-        
+
         // 🔍 Debug: Redirect log
         if (kDebugMode) {
           debugPrint('[REDIRECT] authState=$s from=$loc');
         }
-        
+
         final isAuthFlow = loc.startsWith('/auth') ||
             loc.startsWith('/phone') ||
             loc.startsWith('/onboarding') ||
@@ -91,12 +91,12 @@ class DediAppState extends State<DediApp> {
         if (s == AuthState.unknown || s == AuthState.hydrating) {
           return loc == '/splash' ? null : '/splash';
         }
-        
+
         // Authenticated → rooms (skip auth flow)
         if (s == AuthState.authenticated) {
           return isAuthFlow ? '/rooms' : null;
         }
-        
+
         // Unauthenticated → phone input (skip other screens)
         return isAuthFlow ? null : '/phone-input';
       },
@@ -108,10 +108,10 @@ class DediAppState extends State<DediApp> {
         return router.go('/error');
       },
     );
-    
+
     // Static referansı güncelle (geriye dönük uyumluluk için)
     DediApp.router = _router;
-    
+
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await LocalizationService.initializeLanguage(context);
     });

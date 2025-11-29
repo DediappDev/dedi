@@ -6,9 +6,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol/patrol.dart';
 import '../base/core_robot.dart';
 
-class TwakeListItemRobot extends CoreRobot {
+class DediListItemRobot extends CoreRobot {
   final PatrolFinder root;
-  TwakeListItemRobot(super.$, this.root);
+  DediListItemRobot(super.$, this.root);
 
   Future<PatrolFinder> getRadiobtn() async {
     return root.$(Radio).at(0);
@@ -17,7 +17,7 @@ class TwakeListItemRobot extends CoreRobot {
   Future<PatrolFinder> getCheckBox() async {
     return root.$(Checkbox).at(0);
   }
-  
+
   PatrolFinder getTitle() {
     return root.$(ChatListItemTitle).$(Text).at(0);
   }

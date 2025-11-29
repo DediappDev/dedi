@@ -264,8 +264,8 @@ class MessageContent extends StatelessWidget
                       MatrixLocals(L10n.of(context)!),
                       hideReply: true,
                     );
-                return TwakeLinkPreview(
-                  key: ValueKey('TwakeLinkPreview%${event.eventId}%'),
+                return DediLinkPreview(
+                  key: ValueKey('DediLinkPreview%${event.eventId}%'),
                   event: event,
                   localizedBody: localizedBody,
                   ownMessage: ownMessage,

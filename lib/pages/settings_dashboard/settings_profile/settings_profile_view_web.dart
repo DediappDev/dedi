@@ -234,7 +234,7 @@ class SettingsProfileViewWeb extends StatelessWidget {
                 child: Text(
                   L10n.of(context)!.editProfileDescriptions,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: LinagoraRefColors.material().tertiary[30],
+                        color: DediRefColors.material().tertiary[30],
                       ),
                 ),
               ),

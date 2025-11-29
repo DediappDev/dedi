@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
 
-typedef TwakeMimeType = String?;
+typedef DediMimeType = String?;
 
-extension TwakeMimeTypeExtension on TwakeMimeType {
+extension DediMimeTypeExtension on DediMimeType {
   static const String defaultUnsupportedImageMimeType = 'file/image';
 
   static const String defaultUnsupportedVideoMimeType = 'file/video';

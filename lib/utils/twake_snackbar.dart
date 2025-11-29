@@ -5,7 +5,7 @@ import 'package:linagora_design_flutter/colors/linagora_sys_colors.dart';
 
 const Duration _snackBarDefaultDisplayDuration = Duration(milliseconds: 4000);
 
-class TwakeSnackBarStyle {
+class DediSnackBarStyle {
   static ResponsiveUtils responsiveUtils = getIt.get<ResponsiveUtils>();
 
   static const EdgeInsetsDirectional snackBarPadding =
@@ -23,7 +23,7 @@ class TwakeSnackBarStyle {
   }
 }
 
-class TwakeSnackBar {
+class DediSnackBar {
   static void show(
     BuildContext context,
     String message, {
@@ -33,8 +33,8 @@ class TwakeSnackBar {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        width: TwakeSnackBarStyle.widthSnackBar(context),
-        padding: TwakeSnackBarStyle.snackBarPadding,
+        width: DediSnackBarStyle.widthSnackBar(context),
+        padding: DediSnackBarStyle.snackBarPadding,
         duration: duration,
         content: Row(
           children: [
@@ -58,7 +58,7 @@ class TwakeSnackBar {
               },
               child: Icon(
                 Icons.close,
-                color: LinagoraSysColors.material().onInverseSurface,
+                color: DediSysColors.material().onInverseSurface,
               ),
             ),
           ],

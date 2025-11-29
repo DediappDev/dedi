@@ -94,7 +94,7 @@ class PullDownMenuRobot extends CoreRobot {
   Future<List<PatrolFinder>> getListOfMenu() async {
     final List<PatrolFinder> items = [];
 
-    // Evaluate once to find how many TwakeInkWell widgets exist
+    // Evaluate once to find how many DediInkWell widgets exist
     final matches = $(PullDownMenuItem).evaluate();
 
     for (int i = 0; i < matches.length; i++) {

@@ -70,13 +70,13 @@ class _DownloadVideoWidgetState extends State<DownloadVideoWidget>
       _downloadStateNotifier.value = DownloadVideoState.done;
     } on MatrixConnectionException catch (e) {
       _downloadStateNotifier.value = DownloadVideoState.failed;
-      TwakeSnackBar.show(
+      DediSnackBar.show(
         context,
         e.toLocalizedString(context),
       );
     } catch (e, s) {
       _downloadStateNotifier.value = DownloadVideoState.failed;
-      TwakeSnackBar.show(
+      DediSnackBar.show(
         context,
         e.toLocalizedString(context),
       );
@@ -123,8 +123,8 @@ class _DownloadVideoWidgetState extends State<DownloadVideoWidget>
                                   builder: (context, progress, child) {
                                     return CircularProgressIndicator(
                                       strokeWidth: 2,
-                                      color: LinagoraRefColors.material()
-                                          .primary[100],
+                                      color:
+                                          DediRefColors.material().primary[100],
                                       value:
                                           PlatformInfos.isWeb ? null : progress,
                                     );

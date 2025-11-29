@@ -35,9 +35,9 @@ class ChatDetailsEditView extends StatelessWidget {
   Widget build(BuildContext context) {
     if (controller.room == null) {
       return Scaffold(
-        backgroundColor: LinagoraSysColors.material().onPrimary,
+        backgroundColor: DediSysColors.material().onPrimary,
         appBar: AppBar(
-          backgroundColor: LinagoraSysColors.material().onPrimary,
+          backgroundColor: DediSysColors.material().onPrimary,
           title: Text(L10n.of(context)!.oopsSomethingWentWrong),
         ),
         body: Center(
@@ -47,11 +47,11 @@ class ChatDetailsEditView extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: TwakeAppBar(
+      appBar: DediAppBar(
         title: L10n.of(context)!.edit,
-        leading: TwakeIconButton(
+        leading: DediIconButton(
           paddingAll: 8,
           splashColor: Colors.transparent,
           hoverColor: Colors.transparent,
@@ -237,12 +237,10 @@ class ChatDetailsEditView extends StatelessWidget {
                         ),
                         subtitle: Text(
                           L10n.of(context)!.yourDataIsEncryptedForSecurity,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(
-                                color: LinagoraSysColors.material().tertiary,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: DediSysColors.material().tertiary,
+                                  ),
                         ),
                         trailing: SizedBox(
                           width: 38,
@@ -250,14 +248,14 @@ class ChatDetailsEditView extends StatelessWidget {
                           child: FittedBox(
                             fit: BoxFit.fill,
                             child: Switch(
-                              activeTrackColor: controller
-                                              .room?.canEnableEncryption !=
-                                          true ||
-                                      controller.room?.encrypted == true
-                                  ? LinagoraStateLayer(
-                                      LinagoraSysColors.material().onSurface,
-                                    ).opacityLayer3
-                                  : Theme.of(context).colorScheme.primary,
+                              activeTrackColor:
+                                  controller.room?.canEnableEncryption !=
+                                              true ||
+                                          controller.room?.encrypted == true
+                                      ? DediStateLayer(
+                                          DediSysColors.material().onSurface,
+                                        ).opacityLayer3
+                                      : Theme.of(context).colorScheme.primary,
                               value: isRoomEnabledEncryption,
                               onChanged: controller.room?.encrypted == false &&
                                       controller.room?.canEnableEncryption ==
@@ -301,8 +299,7 @@ class ChatDetailsEditView extends StatelessWidget {
                         title: L10n.of(context)!.assignRoles,
                         counterText:
                             '${controller.room?.getAssignRolesMember().length}',
-                        subtitleColor:
-                            LinagoraRefColors.material().tertiary[30],
+                        subtitleColor: DediRefColors.material().tertiary[30],
                         leading: Icons.admin_panel_settings_outlined,
                         titleColor: Theme.of(context).colorScheme.onSurface,
                         leadingIconColor:
@@ -315,8 +312,7 @@ class ChatDetailsEditView extends StatelessWidget {
                           title: L10n.of(context)!.exceptions,
                           counterText:
                               '${controller.room?.getExceptionsMember().length}',
-                          subtitleColor:
-                              LinagoraRefColors.material().tertiary[30],
+                          subtitleColor: DediRefColors.material().tertiary[30],
                           leading: Icons.people_outlined,
                           titleColor: Theme.of(context).colorScheme.onSurface,
                           leadingIconColor:
@@ -329,8 +325,7 @@ class ChatDetailsEditView extends StatelessWidget {
                           title: L10n.of(context)!.removedUsers,
                           counterText:
                               '${controller.room?.getBannedMembers().length}',
-                          subtitleColor:
-                              LinagoraRefColors.material().tertiary[30],
+                          subtitleColor: DediRefColors.material().tertiary[30],
                           leading: Icons.block,
                           titleColor: Theme.of(context).colorScheme.onSurface,
                           leadingIconColor:
@@ -497,7 +492,7 @@ class _GroupNameField extends StatelessWidget {
           enabled: controller.room?.canChangeRoomName ?? false,
           style: ChatDetailEditViewStyle.textFieldStyle(context),
           controller: controller.groupNameTextEditingController,
-          contextMenuBuilder: mobileTwakeContextMenuBuilder,
+          contextMenuBuilder: mobileDediContextMenuBuilder,
           focusNode: controller.groupNameFocusNode,
           onTapOutside: (_) {
             controller.groupNameFocusNode.unfocus();
@@ -559,7 +554,7 @@ class _DescriptionField extends StatelessWidget {
           enabled: controller.room?.canChangeTopic ?? false,
           style: ChatDetailEditViewStyle.textFieldStyle(context),
           controller: controller.descriptionTextEditingController,
-          contextMenuBuilder: mobileTwakeContextMenuBuilder,
+          contextMenuBuilder: mobileDediContextMenuBuilder,
           focusNode: controller.descriptionFocusNode,
           onTapOutside: (_) {
             controller.descriptionFocusNode.unfocus();

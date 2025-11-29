@@ -6,7 +6,7 @@
 /// kullanılır.
 class FeatureFlags {
   /// Landing ekranını göster (Sign in / Create Dedi ID / Use your company server)
-  /// 
+  ///
   /// false olduğunda:
   /// - Landing ekranı bypass edilir
   /// - Unauthenticated kullanıcılar direkt /phone-input'a yönlendirilir
@@ -14,7 +14,7 @@ class FeatureFlags {
   static const bool enableLanding = false;
 
   /// Multi-homeserver desteğini etkinleştir
-  /// 
+  ///
   /// false olduğunda:
   /// - Sadece dedim.com.tr homeserver'ı kullanılır
   /// - Kullanıcı kendi homeserver'ını seçemez
@@ -22,7 +22,7 @@ class FeatureFlags {
   static const bool enableMultiHomeserver = false;
 
   /// Debug mod: Redirect ve auth state log'larını göster
-  /// 
+  ///
   /// true olduğunda:
   /// - [BOOT], [REDIRECT], [BUILD] log'ları konsola basılır
   /// - Router debug diagnostics aktiftir

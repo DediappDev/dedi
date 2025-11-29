@@ -12,6 +12,7 @@
 .svn/
 prime
 .direnv/
+.home/
 config.json
 
 #generated file
@@ -42,6 +43,7 @@ config.json
 .pub-cache/
 .pub/
 /build/
+.fvm/
 
 # Web related
 docs/build/
@@ -101,10 +103,6 @@ github_config.json
 *.sln
 *.sw?
 # OS specific
-
-# Task files
-tasks.json
-tasks/ 
 
 # ============================================================================
 # UNUSED/REMOVABLE FILES AND DIRECTORIES
@@ -227,3 +225,7 @@ send_to_ai/
 *.iml
 *.log
 github_config.json
+
+# Task files
+# tasks.json
+# tasks/ 

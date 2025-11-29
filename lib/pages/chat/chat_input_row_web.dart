@@ -39,9 +39,9 @@ class ChatInputRowWeb extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: ChatInputRowStyle.chatInputRowBorderRadius,
-        color: LinagoraSysColors.material().onPrimary,
+        color: DediSysColors.material().onPrimary,
         border: Border.all(
-          color: LinagoraRefColors.material().tertiary,
+          color: DediRefColors.material().tertiary,
           width: 1,
         ),
       ),
@@ -83,8 +83,8 @@ class ChatInputRowWeb extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8),
-                        child: TwakeIconButton(
-                          iconColor: LinagoraSysColors.material().primary,
+                        child: DediIconButton(
+                          iconColor: DediSysColors.material().primary,
                           paddingAll:
                               ChatInputRowStyle.chatInputRowPaddingBtnWeb,
                           tooltip: L10n.of(context)!.close,
@@ -100,11 +100,11 @@ class ChatInputRowWeb extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TwakeIconButton(
+                  DediIconButton(
                     tooltip: L10n.of(context)!.more,
                     paddingAll: 0.0,
                     margin: const EdgeInsets.all(10.0),
-                    iconColor: LinagoraSysColors.material().tertiary,
+                    iconColor: DediSysColors.material().tertiary,
                     icon: Icons.add_circle_outline,
                     size: ChatInputRowStyle.chatInputRowMoreBtnSize,
                     onTap: onTapMoreBtn,
@@ -129,8 +129,8 @@ class ChatInputRowWeb extends StatelessWidget {
                           child: child,
                         );
                       },
-                      child: TwakeIconButton(
-                        iconColor: LinagoraSysColors.material().tertiary,
+                      child: DediIconButton(
+                        iconColor: DediSysColors.material().tertiary,
                         paddingAll: ChatInputRowStyle.chatInputRowPaddingBtnWeb,
                         tooltip: L10n.of(context)!.emojis,
                         onTapDown: (details) => onEmojiAction.call(details),

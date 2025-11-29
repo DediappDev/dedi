@@ -89,7 +89,7 @@ class AddStoryController extends State<AddStoryPage> {
       source: ImageSource.camera,
     );
     if (picked == null) return;
-    final matrixFile = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final matrixFile = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         final bytes = await picked.readAsBytes();
         return MatrixImageFile(
@@ -138,7 +138,7 @@ class AddStoryController extends State<AddStoryPage> {
     var storiesRoom = await client.getStoriesRoom(context);
 
     // Invite contacts if necessary
-    final undecided = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final undecided = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => client.getUndecidedContactsForStories(storiesRoom),
     );
     final result = undecided.result;
@@ -154,7 +154,7 @@ class AddStoryController extends State<AddStoryPage> {
     }
 
     // Post story
-    final postResult = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final postResult = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         if (storiesRoom == null) throw ('Stories room is null');
         var video = this.video?.detectFileType;

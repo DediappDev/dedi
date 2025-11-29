@@ -10,7 +10,7 @@ class DraftChatViewStyle {
   static ResponsiveUtils responsive = getIt.get<ResponsiveUtils>();
 
   static BoxConstraints get containerMaxWidthConstraints =>
-      const BoxConstraints(maxWidth: TwakeThemes.columnWidth * 2.5);
+      const BoxConstraints(maxWidth: DediThemes.columnWidth * 2.5);
 
   static int get minLinesInputBar => 1;
 
@@ -24,8 +24,8 @@ class DraftChatViewStyle {
         contentPadding: ChatInputRowStyle.contentPadding(context),
         hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: responsive.isMobile(context)
-                  ? LinagoraRefColors.material().tertiary[50]
-                  : LinagoraRefColors.material().tertiary[30],
+                  ? DediRefColors.material().tertiary[50]
+                  : DediRefColors.material().tertiary[30],
               fontFamily: 'Inter',
             ),
       );

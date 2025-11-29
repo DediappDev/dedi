@@ -5,17 +5,17 @@ void main() {
   group('Customization field test cases', () {
     test('multiple valid customization fields', () {
       final multipleCustomizationFields = {
-        "m.homeserver": {"base_url": "matrix.tom-dev.xyz"},
-        "m.identity_server": {"base_url": "https://tom.tom-dev.xyz/"},
-        "t.server": {"base_url": "https://tom.tom-dev.xyz/"},
+        "m.homeserver": {"base_url": "matrix.dedim.com.tr"},
+        "m.identity_server": {"base_url": "https://tom.dedim.com.tr/"},
+        "t.server": {"base_url": "https://tom.dedim.com.tr/"},
         "m.integrations": {
           "jitsi": {
-            "preferredDomain": "jitsi.linagora.com",
-            "baseUrl": "https://jitsi.linagora.com",
+            "preferredDomain": "jitsi.dedim.com.tr",
+            "baseUrl": "https://jitsi.dedim.com.tr",
             "useJwt": false,
           },
         },
-        "t.domain": {"url": "tom-dev.xyz"},
+        "t.domain": {"url": "dedim.com.tr"},
       };
 
       final actual = DiscoveryInformation.fromJson(multipleCustomizationFields);
@@ -27,16 +27,16 @@ void main() {
 
     test('multiple valid customization from ToM', () {
       final multipleCustomizationFields = {
-        "m.homeserver": {"base_url": "matrix.tom-dev.xyz"},
-        "m.identity_server": {"base_url": "https://tom.tom-dev.xyz/"},
+        "m.homeserver": {"base_url": "matrix.dedim.com.tr"},
+        "m.identity_server": {"base_url": "https://tom.dedim.com.tr/"},
         "t.server": {
-          "base_url": "https://tom.tom-dev.xyz/",
-          "server_name": "tom-dev.xyz",
+          "base_url": "https://tom.dedim.com.tr/",
+          "server_name": "dedim.com.tr",
         },
         "m.integrations": {
           "jitsi": {
-            "preferredDomain": "jitsi.linagora.com",
-            "baseUrl": "https://jitsi.linagora.com",
+            "preferredDomain": "jitsi.dedim.com.tr",
+            "baseUrl": "https://jitsi.dedim.com.tr",
             "useJwt": false,
           },
         },
@@ -51,17 +51,17 @@ void main() {
 
     test('one invalid customization field', () {
       final multipleCustomizationFields = {
-        "m.homeserver": {"base_url": "matrix.tom-dev.xyz"},
-        "m.identity_server": {"base_url": "https://tom.tom-dev.xyz/"},
-        "t.server": {"base_url": "https://tom.tom-dev.xyz/"},
+        "m.homeserver": {"base_url": "matrix.dedim.com.tr"},
+        "m.identity_server": {"base_url": "https://tom.dedim.com.tr/"},
+        "t.server": {"base_url": "https://tom.dedim.com.tr/"},
         "m.integrations": {
           "jitsi": {
-            "preferredDomain": "jitsi.linagora.com",
-            "baseUrl": "https://jitsi.linagora.com",
+            "preferredDomain": "jitsi.dedim.com.tr",
+            "baseUrl": "https://jitsi.dedim.com.tr",
             "useJwt": false,
           },
         },
-        "t.domain": "tom-dev.xyz",
+        "t.domain": "dedim.com.tr",
       };
       expect(
         () => DiscoveryInformation.fromJson(multipleCustomizationFields),

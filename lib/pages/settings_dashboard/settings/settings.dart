@@ -47,7 +47,7 @@ class SettingsController extends State<Settings> with ConnectPageMixin {
       getIt.get<FederationConfigurationsRepository>();
 
   static const String generateEmailSubject =
-      'Request for Deletion of Twake Chat Account';
+      'Request for Deletion of Dedi Account';
 
   StreamSubscription? onAccountDataSubscription;
 
@@ -78,15 +78,15 @@ class SettingsController extends State<Settings> with ConnectPageMixin {
       settingEnum == optionsSelectNotifier.value;
 
   void logoutAction() async {
-    final twakeContext = TwakeApp.routerKey.currentContext;
-    if (twakeContext == null) {
+    final dediContext = DediApp.routerKey.currentContext;
+    if (dediContext == null) {
       Logs().e(
-        'SettingsController()::logoutAction - Twake context is null',
+        'SettingsController()::logoutAction - Dedi context is null',
       );
     }
     if (await showConfirmAlertDialog(
           useRootNavigator: false,
-          context: twakeContext!,
+          context: dediContext!,
           title: L10n.of(context)!.areYouSureYouWantToLogout,
           message: L10n.of(context)!.logoutDialogWarning,
           okLabel: L10n.of(context)!.logout,
@@ -106,7 +106,7 @@ class SettingsController extends State<Settings> with ConnectPageMixin {
   }
 
   Future<void> _tryToUploadKeyBackup() async {
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         await matrix.client.encryption?.keyManager.uploadInboundGroupSessions();
       },
@@ -116,7 +116,7 @@ class SettingsController extends State<Settings> with ConnectPageMixin {
   }
 
   Future<void> _logoutActionsOnMobile() async {
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         try {
           if (matrix.backgroundPush != null) {
@@ -135,7 +135,7 @@ class SettingsController extends State<Settings> with ConnectPageMixin {
   }
 
   Future<void> _logoutActions() async {
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         try {
           if (matrix.backgroundPush != null) {
@@ -281,17 +281,17 @@ class SettingsController extends State<Settings> with ConnectPageMixin {
               message: L10n.of(context)!.deleteAccountMessage,
               okLabel: L10n.of(context)!.continueProcess,
               okLabelButtonColor: Colors.transparent,
-              okTextColor: LinagoraSysColors.material().primary,
+              okTextColor: DediSysColors.material().primary,
               cancelLabel: L10n.of(context)!.deleteLater,
-              cancelLabelButtonColor: LinagoraSysColors.material().primary,
-              cancelTextColor: LinagoraSysColors.material().onPrimary,
+              cancelLabelButtonColor: DediSysColors.material().primary,
+              cancelTextColor: DediSysColors.material().onPrimary,
             ) ==
             ConfirmResult.cancel) {
           return;
         }
 
         final emailUri = Uri.parse(
-          'mailto:software@linagora.com?subject=${Uri.encodeComponent(generateEmailSubject)}',
+          'mailto:software@dedim.com?subject=${Uri.encodeComponent(generateEmailSubject)}',
         );
         if (await canLaunchUrl(emailUri)) {
           await launchUrl(emailUri);
@@ -305,7 +305,7 @@ class SettingsController extends State<Settings> with ConnectPageMixin {
 
   void _handleOnAccountDataSubscription() {
     onAccountDataSubscription = client.onAccountData.stream.listen((event) {
-      if (event.type == TwakeInappEventTypes.uploadAvatarEvent) {
+      if (event.type == DediInappEventTypes.uploadAvatarEvent) {
         final newProfile = Profile.fromJson(event.content);
         if (newProfile.avatarUrl != avatarUriNotifier.value) {
           avatarUriNotifier.value = newProfile.avatarUrl;
@@ -322,7 +322,7 @@ class SettingsController extends State<Settings> with ConnectPageMixin {
       Logs().d(
         'SettingsController::_deleteTomConfigurations - Client ID: ${currentClient.userID}',
       );
-      if (matrix.twakeSupported) {
+      if (matrix.dediSupported) {
         await tomConfigurationRepository
             .deleteTomConfigurations(currentClient.userID!);
       }

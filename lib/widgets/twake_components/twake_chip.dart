@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class TwakeChip extends StatelessWidget {
+class DediChip extends StatelessWidget {
   final String text;
 
   final EdgeInsets paddingText;
 
   final Color textColor;
 
-  const TwakeChip({
+  const DediChip({
     super.key,
     required this.text,
     this.paddingText =

@@ -8,7 +8,7 @@ import 'package:linagora_design_flutter/colors/linagora_sys_colors.dart';
 
 import 'app_config.dart';
 
-abstract class TwakeThemes {
+abstract class DediThemes {
   static const double columnWidth = 360.0;
   static const double iconSize = 24.0;
 
@@ -128,7 +128,7 @@ abstract class TwakeThemes {
           hintStyle: fallbackTextTheme.bodyLarge?.merge(
             TextStyle(
               fontSize: 17,
-              color: LinagoraRefColors.material().neutralVariant[60],
+              color: DediRefColors.material().neutralVariant[60],
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -143,9 +143,9 @@ abstract class TwakeThemes {
             statusBarBrightness: brightness,
           ),
           foregroundColor: brightness == Brightness.light
-              ? LinagoraSysColors.material().onBackground
-              : LinagoraSysColors.material().onBackgroundDark,
-          backgroundColor: LinagoraSysColors.material().onPrimary,
+              ? DediSysColors.material().onBackground
+              : DediSysColors.material().onBackgroundDark,
+          backgroundColor: DediSysColors.material().onPrimary,
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
@@ -175,119 +175,119 @@ abstract class TwakeThemes {
             ),
           ),
         ),
-        highlightColor: LinagoraRefColors.material().tertiary[80],
+        highlightColor: DediRefColors.material().tertiary[80],
         colorScheme: ColorScheme.fromSeed(
           seedColor: seed ?? AppConfig.colorSchemeSeed,
           brightness: brightness,
           primary: brightness == Brightness.light
-              ? LinagoraSysColors.material().primary
-              : LinagoraSysColors.material().primaryDark,
+              ? DediSysColors.material().primary
+              : DediSysColors.material().primaryDark,
           onPrimary: brightness == Brightness.light
-              ? LinagoraSysColors.material().onPrimary
-              : LinagoraSysColors.material().onPrimaryDark,
+              ? DediSysColors.material().onPrimary
+              : DediSysColors.material().onPrimaryDark,
           primaryContainer: brightness == Brightness.light
-              ? LinagoraSysColors.material().primaryContainer
-              : LinagoraSysColors.material().primaryContainerDark,
+              ? DediSysColors.material().primaryContainer
+              : DediSysColors.material().primaryContainerDark,
           onPrimaryContainer: brightness == Brightness.light
-              ? LinagoraSysColors.material().onPrimaryContainer
-              : LinagoraSysColors.material().onPrimaryContainerDark,
+              ? DediSysColors.material().onPrimaryContainer
+              : DediSysColors.material().onPrimaryContainerDark,
           inversePrimary: brightness == Brightness.light
-              ? LinagoraSysColors.material().inversePrimary
-              : LinagoraSysColors.material().inversePrimaryDark,
+              ? DediSysColors.material().inversePrimary
+              : DediSysColors.material().inversePrimaryDark,
           tertiary: brightness == Brightness.light
-              ? LinagoraSysColors.material().tertiary
-              : LinagoraSysColors.material().tertiaryDark,
+              ? DediSysColors.material().tertiary
+              : DediSysColors.material().tertiaryDark,
           onTertiary: brightness == Brightness.light
-              ? LinagoraSysColors.material().onTertiary
-              : LinagoraSysColors.material().onTertiaryDark,
+              ? DediSysColors.material().onTertiary
+              : DediSysColors.material().onTertiaryDark,
           tertiaryContainer: brightness == Brightness.light
-              ? LinagoraSysColors.material().tertiaryContainer
-              : LinagoraSysColors.material().tertiaryContainerDark,
+              ? DediSysColors.material().tertiaryContainer
+              : DediSysColors.material().tertiaryContainerDark,
           onTertiaryContainer: brightness == Brightness.light
-              ? LinagoraSysColors.material().onTertiaryContainer
-              : LinagoraSysColors.material().onTertiaryContainerDark,
+              ? DediSysColors.material().onTertiaryContainer
+              : DediSysColors.material().onTertiaryContainerDark,
           secondary: brightness == Brightness.light
-              ? LinagoraSysColors.material().secondary
-              : LinagoraSysColors.material().secondaryDark,
+              ? DediSysColors.material().secondary
+              : DediSysColors.material().secondaryDark,
           onSecondary: brightness == Brightness.light
-              ? LinagoraSysColors.material().onSecondary
-              : LinagoraSysColors.material().onSecondaryDark,
+              ? DediSysColors.material().onSecondary
+              : DediSysColors.material().onSecondaryDark,
           secondaryContainer: brightness == Brightness.light
-              ? LinagoraSysColors.material().secondaryContainer
-              : LinagoraSysColors.material().secondaryContainerDark,
+              ? DediSysColors.material().secondaryContainer
+              : DediSysColors.material().secondaryContainerDark,
           onSecondaryContainer: brightness == Brightness.light
-              ? LinagoraSysColors.material().onSecondaryContainer
-              : LinagoraSysColors.material().onSecondaryContainerDark,
+              ? DediSysColors.material().onSecondaryContainer
+              : DediSysColors.material().onSecondaryContainerDark,
           // TODO: remove when the color scheme is updated
           // ignore: deprecated_member_use
           background: brightness == Brightness.light
-              ? LinagoraSysColors.material().background
-              : LinagoraSysColors.material().backgroundDark,
+              ? DediSysColors.material().background
+              : DediSysColors.material().backgroundDark,
           // TODO: remove when the color scheme is updated
           // ignore: deprecated_member_use
           onBackground: brightness == Brightness.light
-              ? LinagoraSysColors.material().onBackground
-              : LinagoraSysColors.material().onBackgroundDark,
+              ? DediSysColors.material().onBackground
+              : DediSysColors.material().onBackgroundDark,
           error: brightness == Brightness.light
-              ? LinagoraSysColors.material().error
-              : LinagoraSysColors.material().errorDark,
+              ? DediSysColors.material().error
+              : DediSysColors.material().errorDark,
           onError: brightness == Brightness.light
-              ? LinagoraSysColors.material().onError
-              : LinagoraSysColors.material().onErrorDark,
+              ? DediSysColors.material().onError
+              : DediSysColors.material().onErrorDark,
           errorContainer: brightness == Brightness.light
-              ? LinagoraSysColors.material().errorContainer
-              : LinagoraSysColors.material().errorContainerDark,
+              ? DediSysColors.material().errorContainer
+              : DediSysColors.material().errorContainerDark,
           onErrorContainer: brightness == Brightness.light
-              ? LinagoraSysColors.material().onErrorContainer
-              : LinagoraSysColors.material().onErrorContainerDark,
+              ? DediSysColors.material().onErrorContainer
+              : DediSysColors.material().onErrorContainerDark,
           surface: brightness == Brightness.light
-              ? LinagoraSysColors.material().surface
-              : LinagoraSysColors.material().surfaceDark,
+              ? DediSysColors.material().surface
+              : DediSysColors.material().surfaceDark,
           onSurface: brightness == Brightness.light
-              ? LinagoraSysColors.material().onSurface
-              : LinagoraSysColors.material().onSurfaceDark,
+              ? DediSysColors.material().onSurface
+              : DediSysColors.material().onSurfaceDark,
           surfaceTint: brightness == Brightness.light
-              ? LinagoraSysColors.material().surfaceTint
-              : LinagoraSysColors.material().surfaceTintDark,
+              ? DediSysColors.material().surfaceTint
+              : DediSysColors.material().surfaceTintDark,
           surfaceContainerHighest: brightness == Brightness.light
-              ? LinagoraSysColors.material().surfaceVariant
-              : LinagoraSysColors.material().surfaceVariantDark,
+              ? DediSysColors.material().surfaceVariant
+              : DediSysColors.material().surfaceVariantDark,
           onSurfaceVariant: brightness == Brightness.light
-              ? LinagoraSysColors.material().onSurfaceVariant
-              : LinagoraSysColors.material().onSurfaceVariantDark,
+              ? DediSysColors.material().onSurfaceVariant
+              : DediSysColors.material().onSurfaceVariantDark,
           inverseSurface: brightness == Brightness.light
-              ? LinagoraSysColors.material().inverseSurface
-              : LinagoraSysColors.material().inverseSurfaceDark,
+              ? DediSysColors.material().inverseSurface
+              : DediSysColors.material().inverseSurfaceDark,
           onInverseSurface: brightness == Brightness.light
-              ? LinagoraSysColors.material().onInverseSurface
-              : LinagoraSysColors.material().onInverseSurfaceDark,
+              ? DediSysColors.material().onInverseSurface
+              : DediSysColors.material().onInverseSurfaceDark,
           shadow: brightness == Brightness.light
-              ? LinagoraSysColors.material().shadow
-              : LinagoraSysColors.material().shadowDark,
+              ? DediSysColors.material().shadow
+              : DediSysColors.material().shadowDark,
           outline: brightness == Brightness.light
-              ? LinagoraSysColors.material().outline
-              : LinagoraSysColors.material().outlineDark,
+              ? DediSysColors.material().outline
+              : DediSysColors.material().outlineDark,
         ),
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: brightness == Brightness.light
-              ? LinagoraSysColors.material().primary
-              : LinagoraSysColors.material().primaryDark,
+              ? DediSysColors.material().primary
+              : DediSysColors.material().primaryDark,
         ),
         iconButtonTheme: IconButtonThemeData(
           style: ButtonStyle(
             iconSize: WidgetStateProperty.all(iconSize),
             iconColor: WidgetStateProperty.all(
               brightness == Brightness.light
-                  ? LinagoraSysColors.material().onSurface
-                  : LinagoraSysColors.material().onSurfaceDark,
+                  ? DediSysColors.material().onSurface
+                  : DediSysColors.material().onSurfaceDark,
             ),
           ),
         ),
         iconTheme: IconThemeData(
           size: iconSize,
           color: brightness == Brightness.light
-              ? LinagoraSysColors.material().onBackground
-              : LinagoraSysColors.material().onBackgroundDark,
+              ? DediSysColors.material().onBackground
+              : DediSysColors.material().onBackgroundDark,
         ),
         switchTheme: SwitchThemeData(
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -295,12 +295,12 @@ abstract class TwakeThemes {
             (Set<WidgetState> states) {
               if (states.contains(WidgetState.selected)) {
                 return brightness == Brightness.light
-                    ? LinagoraSysColors.material().primary
-                    : LinagoraSysColors.material().primaryDark;
+                    ? DediSysColors.material().primary
+                    : DediSysColors.material().primaryDark;
               } else {
                 return brightness == Brightness.light
-                    ? LinagoraSysColors.material().outline
-                    : LinagoraSysColors.material().outlineDark;
+                    ? DediSysColors.material().outline
+                    : DediSysColors.material().outlineDark;
               }
             },
           ),
@@ -308,12 +308,12 @@ abstract class TwakeThemes {
             (Set<WidgetState> states) {
               if (states.contains(WidgetState.selected)) {
                 return brightness == Brightness.light
-                    ? LinagoraSysColors.material().onPrimary
-                    : LinagoraSysColors.material().onPrimaryDark;
+                    ? DediSysColors.material().onPrimary
+                    : DediSysColors.material().onPrimaryDark;
               } else {
                 return brightness == Brightness.light
-                    ? LinagoraSysColors.material().outline
-                    : LinagoraSysColors.material().outlineDark;
+                    ? DediSysColors.material().outline
+                    : DediSysColors.material().outlineDark;
               }
             },
           ),
@@ -321,12 +321,12 @@ abstract class TwakeThemes {
             (Set<WidgetState> states) {
               if (states.contains(WidgetState.selected)) {
                 return brightness == Brightness.light
-                    ? LinagoraSysColors.material().primary
-                    : LinagoraSysColors.material().primaryDark;
+                    ? DediSysColors.material().primary
+                    : DediSysColors.material().primaryDark;
               } else {
                 return brightness == Brightness.light
-                    ? LinagoraSysColors.material().surface
-                    : LinagoraSysColors.material().surfaceDark;
+                    ? DediSysColors.material().surface
+                    : DediSysColors.material().surfaceDark;
               }
             },
           ),
@@ -338,23 +338,23 @@ abstract class TwakeThemes {
               if (states.contains(WidgetState.selected)) {
                 return fallbackTextTheme.labelSmall?.copyWith(
                   fontSize: 11,
-                  color: LinagoraSysColors.material().primary,
+                  color: DediSysColors.material().primary,
                 );
               }
               return responsive.isDesktop(context)
                   ? fallbackTextTheme.labelSmall?.copyWith(
                       fontSize: 11,
-                      color: LinagoraRefColors.material().neutral[10],
+                      color: DediRefColors.material().neutral[10],
                     )
                   : fallbackTextTheme.labelSmall?.copyWith(
                       fontSize: 11,
-                      color: LinagoraSysColors.material().tertiary,
+                      color: DediSysColors.material().tertiary,
                     );
             },
           ),
           backgroundColor: brightness == Brightness.light
-              ? LinagoraSysColors.material().surface
-              : LinagoraSysColors.material().surfaceDark,
+              ? DediSysColors.material().surface
+              : DediSysColors.material().surfaceDark,
           shadowColor: brightness == Brightness.light
               ? Colors.black.withOpacity(0.15)
               : Colors.white.withOpacity(0.15),
@@ -367,29 +367,29 @@ abstract class TwakeThemes {
         ),
         navigationRailTheme: NavigationRailThemeData(
           indicatorColor: brightness == Brightness.light
-              ? LinagoraSysColors.material().inversePrimary
-              : LinagoraSysColors.material().secondaryContainerDark,
+              ? DediSysColors.material().inversePrimary
+              : DediSysColors.material().secondaryContainerDark,
         ),
         bottomSheetTheme: BottomSheetThemeData(
           backgroundColor: brightness == Brightness.light
-              ? LinagoraSysColors.material().background
-              : LinagoraSysColors.material().backgroundDark,
+              ? DediSysColors.material().background
+              : DediSysColors.material().backgroundDark,
           surfaceTintColor: brightness == Brightness.light
-              ? LinagoraSysColors.material().background
-              : LinagoraSysColors.material().backgroundDark,
+              ? DediSysColors.material().background
+              : DediSysColors.material().backgroundDark,
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: LinagoraSysColors.material().surface,
+          backgroundColor: DediSysColors.material().surface,
           selectedLabelStyle: fallbackTextTheme.labelSmall?.copyWith(
             fontSize: 11,
-            color: LinagoraSysColors.material().primary,
+            color: DediSysColors.material().primary,
           ),
           unselectedLabelStyle: fallbackTextTheme.labelSmall?.copyWith(
             fontSize: 11,
-            color: LinagoraSysColors.material().tertiary,
+            color: DediSysColors.material().tertiary,
           ),
-          selectedItemColor: LinagoraSysColors.material().primary,
-          unselectedItemColor: LinagoraSysColors.material().tertiary,
+          selectedItemColor: DediSysColors.material().primary,
+          unselectedItemColor: DediSysColors.material().tertiary,
         ),
       );
 }

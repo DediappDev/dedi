@@ -52,7 +52,7 @@ mixin CommonMediaPickerMixin {
             style: Theme.of(context).textTheme.bodyMedium,
             children: <TextSpan>[
               TextSpan(
-                text: ' ${L10n.of(context)!.twake}.',
+                text: ' ${L10n.of(context)!.dedi}.',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -134,7 +134,7 @@ mixin CommonMediaPickerMixin {
             style: Theme.of(context).textTheme.bodyMedium,
             children: <TextSpan>[
               TextSpan(
-                text: ' ${L10n.of(context)!.twake}.',
+                text: ' ${L10n.of(context)!.dedi}.',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),

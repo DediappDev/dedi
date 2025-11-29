@@ -109,7 +109,7 @@ class ChatProfileInfoController extends State<ChatProfileInfo>
             (failure) {
               if (failure is UnblockUserFailure) {
                 blockUserLoadingNotifier.value = false;
-                TwakeSnackBar.show(
+                DediSnackBar.show(
                   context,
                   failure.exception.toString(),
                 );
@@ -118,7 +118,7 @@ class ChatProfileInfoController extends State<ChatProfileInfo>
 
               if (failure is NoPermissionForUnblockFailure) {
                 blockUserLoadingNotifier.value = false;
-                TwakeSnackBar.show(
+                DediSnackBar.show(
                   context,
                   L10n.of(context)!.permissionErrorUnblockUser,
                 );
@@ -127,7 +127,7 @@ class ChatProfileInfoController extends State<ChatProfileInfo>
 
               if (failure is NotValidMxidUnblockFailure) {
                 blockUserLoadingNotifier.value = false;
-                TwakeSnackBar.show(
+                DediSnackBar.show(
                   context,
                   L10n.of(context)!.userIsNotAValidMxid(
                     user?.id ?? widget.contact?.matrixId ?? '',
@@ -138,7 +138,7 @@ class ChatProfileInfoController extends State<ChatProfileInfo>
 
               if (failure is NotInTheIgnoreListFailure) {
                 blockUserLoadingNotifier.value = false;
-                TwakeSnackBar.show(
+                DediSnackBar.show(
                   context,
                   L10n.of(context)!.userNotFoundInIgnoreList(
                     user?.id ?? widget.contact?.matrixId ?? '',
@@ -168,7 +168,7 @@ class ChatProfileInfoController extends State<ChatProfileInfo>
             (failure) {
               if (failure is BlockUserFailure) {
                 blockUserLoadingNotifier.value = false;
-                TwakeSnackBar.show(
+                DediSnackBar.show(
                   context,
                   failure.exception.toString(),
                 );
@@ -177,7 +177,7 @@ class ChatProfileInfoController extends State<ChatProfileInfo>
 
               if (failure is NoPermissionForBlockFailure) {
                 blockUserLoadingNotifier.value = false;
-                TwakeSnackBar.show(
+                DediSnackBar.show(
                   context,
                   L10n.of(context)!.permissionErrorBlockUser,
                 );
@@ -186,7 +186,7 @@ class ChatProfileInfoController extends State<ChatProfileInfo>
 
               if (failure is NotValidMxidBlockFailure) {
                 blockUserLoadingNotifier.value = false;
-                TwakeSnackBar.show(
+                DediSnackBar.show(
                   context,
                   L10n.of(context)!.userIsNotAValidMxid(
                     user?.id ?? widget.contact?.matrixId ?? '',

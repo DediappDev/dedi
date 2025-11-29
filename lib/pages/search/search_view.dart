@@ -22,7 +22,7 @@ class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(SearchViewStyle.toolbarHeightSearch),
         child: _buildAppBarSearch(context),
@@ -161,13 +161,13 @@ class SearchView extends StatelessWidget {
   Widget _buildAppBarSearch(BuildContext context) {
     return AppBar(
       toolbarHeight: SearchViewStyle.toolbarHeightSearch,
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       leadingWidth: double.infinity,
       leading: Padding(
         padding: SearchViewStyle.paddingLeadingAppBar,
         child: Row(
           children: [
-            TwakeIconButton(
+            DediIconButton(
               tooltip: L10n.of(context)!.back,
               icon: Icons.chevron_left_outlined,
               onTap: () => Navigator.of(context).pop(),

@@ -113,7 +113,7 @@ mixin HandleDownloadAndPreviewFileMixin {
     required BuildContext context,
   }) async {
     if (!event.hasAttachment) {
-      TwakeSnackBar.show(context, L10n.of(context)!.errorPreviewingFile);
+      DediSnackBar.show(context, L10n.of(context)!.errorPreviewingFile);
       return;
     }
 
@@ -139,18 +139,18 @@ mixin HandleDownloadAndPreviewFileMixin {
         .listen((event) {
       event.fold((failure) {
         if (failure is DownloadFileForPreviewFailure) {
-          TwakeSnackBar.show(context, 'Error: ${failure.exception}');
+          DediSnackBar.show(context, 'Error: ${failure.exception}');
         }
-        TwakeDialog.hideLoadingDialog(context);
+        DediDialog.hideLoadingDialog(context);
       }, (success) {
         if (success is DownloadFileForPreviewSuccess) {
           handleDownloadFileForPreviewSuccess(
             filePath: success.downloadFileForPreviewResponse.filePath,
             mimeType: success.downloadFileForPreviewResponse.mimeType,
           );
-          TwakeDialog.hideLoadingDialog(context);
+          DediDialog.hideLoadingDialog(context);
         } else if (success is DownloadFileForPreviewLoading) {
-          TwakeDialog.showLoadingDialog(context);
+          DediDialog.showLoadingDialog(context);
         }
       });
     });
@@ -222,7 +222,7 @@ mixin HandleDownloadAndPreviewFileMixin {
     matrixFile ??= (await event.getFile(context)).result;
 
     if (matrixFile == null || event.sizeString != matrixFile.sizeString) {
-      TwakeSnackBar.show(context, L10n.of(context)!.errorGettingPdf);
+      DediSnackBar.show(context, L10n.of(context)!.errorGettingPdf);
 
       return;
     }

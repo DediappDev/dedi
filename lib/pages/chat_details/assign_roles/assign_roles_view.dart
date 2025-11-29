@@ -23,15 +23,15 @@ class AssignRolesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: TwakeAppBar(
+      appBar: DediAppBar(
         title: L10n.of(context)!.permissions,
         centerTitle: true,
         withDivider: true,
         context: context,
         enableLeftTitle: true,
-        leading: TwakeIconButton(
+        leading: DediIconButton(
           paddingAll: 8,
           splashColor: Colors.transparent,
           hoverColor: Colors.transparent,
@@ -56,7 +56,7 @@ class AssignRolesView extends StatelessWidget {
                 }
                 return InkWell(
                   borderRadius: BorderRadius.circular(100),
-                  splashColor: LinagoraHoverStyle.material().hoverColor,
+                  splashColor: DediHoverStyle.material().hoverColor,
                   onTap: controller.handleDemoteMultiAdminsAndModeratorsMobile,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
@@ -64,7 +64,7 @@ class AssignRolesView extends StatelessWidget {
                       vertical: 12.0,
                     ),
                     decoration: BoxDecoration(
-                      color: LinagoraSysColors.material().errorContainer,
+                      color: DediSysColors.material().errorContainer,
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: Row(
@@ -73,15 +73,14 @@ class AssignRolesView extends StatelessWidget {
                         Icon(
                           Icons.person_remove_outlined,
                           size: 18.0,
-                          color:
-                              LinagoraSysColors.material().onSecondaryContainer,
+                          color: DediSysColors.material().onSecondaryContainer,
                         ),
                         const SizedBox(width: 8.0),
                         Text(
                           L10n.of(context)!.demoteAdminsModerators,
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    color: LinagoraSysColors.material()
+                                    color: DediSysColors.material()
                                         .onSecondaryContainer,
                                   ),
                         ),
@@ -96,7 +95,7 @@ class AssignRolesView extends StatelessWidget {
         },
         child: InkWell(
           borderRadius: BorderRadius.circular(100),
-          splashColor: LinagoraHoverStyle.material().hoverColor,
+          splashColor: DediHoverStyle.material().hoverColor,
           onTap: () {
             controller.goToAssignRolesPicker();
           },
@@ -106,7 +105,7 @@ class AssignRolesView extends StatelessWidget {
               vertical: 12.0,
             ),
             decoration: BoxDecoration(
-              color: LinagoraSysColors.material().secondaryContainer,
+              color: DediSysColors.material().secondaryContainer,
               borderRadius: BorderRadius.circular(100),
             ),
             child: Row(
@@ -115,14 +114,13 @@ class AssignRolesView extends StatelessWidget {
                 Icon(
                   Icons.person_add_outlined,
                   size: 18.0,
-                  color: LinagoraSysColors.material().onSecondaryContainer,
+                  color: DediSysColors.material().onSecondaryContainer,
                 ),
                 const SizedBox(width: 8.0),
                 Text(
                   L10n.of(context)!.addAdminsOrModerators,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color:
-                            LinagoraSysColors.material().onSecondaryContainer,
+                        color: DediSysColors.material().onSecondaryContainer,
                       ),
                 ),
               ],
@@ -142,7 +140,7 @@ class AssignRolesView extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: TextField(
                     controller: controller.textEditingController,
-                    contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                    contextMenuBuilder: mobileDediContextMenuBuilder,
                     focusNode: controller.inputFocus,
                     textInputAction: TextInputAction.search,
                     autofocus: false,
@@ -151,11 +149,11 @@ class AssignRolesView extends StatelessWidget {
                     },
                     decoration: ChatListHeaderStyle.searchInputDecoration(
                       context,
-                      prefixIconColor: LinagoraSysColors.material().tertiary,
+                      prefixIconColor: DediSysColors.material().tertiary,
                     ).copyWith(
                       hintStyle:
                           Theme.of(context).textTheme.titleMedium?.copyWith(
-                                color: LinagoraSysColors.material().tertiary,
+                                color: DediSysColors.material().tertiary,
                               ),
                       hintText: L10n.of(context)!.searchContacts,
                       suffixIcon: ValueListenableBuilder(
@@ -188,7 +186,7 @@ class AssignRolesView extends StatelessWidget {
                           members.length,
                         ),
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              color: LinagoraRefColors.material().neutral[40],
+                              color: DediRefColors.material().neutral[40],
                             ),
                       );
                     },
@@ -249,7 +247,7 @@ class AssignRolesView extends StatelessWidget {
                           ),
                           children: slidables,
                         ),
-                        child: TwakeInkWell(
+                        child: DediInkWell(
                           onLongPress: () => controller.handleOnLongPressMobile(
                             member: member,
                           ),
@@ -269,7 +267,7 @@ class AssignRolesView extends StatelessWidget {
                               );
                             }
                           },
-                          child: TwakeListItem(
+                          child: DediListItem(
                             padding: const EdgeInsets.all(8),
                             child: Row(
                               children: [
@@ -291,7 +289,7 @@ class AssignRolesView extends StatelessWidget {
                                               ? Theme.of(context)
                                                   .colorScheme
                                                   .primary
-                                              : LinagoraRefColors.material()
+                                              : DediRefColors.material()
                                                   .tertiary[30]!,
                                           width: 2,
                                         ),
@@ -324,14 +322,13 @@ class AssignRolesView extends StatelessWidget {
                                           Expanded(
                                             child: Text(
                                               member.calcDisplayname(),
-                                              style:
-                                                  LinagoraTextStyle.material()
-                                                      .bodyMedium2
-                                                      .copyWith(
-                                                        color: LinagoraSysColors
-                                                                .material()
+                                              style: DediTextStyle.material()
+                                                  .bodyMedium2
+                                                  .copyWith(
+                                                    color:
+                                                        DediSysColors.material()
                                                             .onSurface,
-                                                      ),
+                                                  ),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                             ),
@@ -364,9 +361,8 @@ class AssignRolesView extends StatelessWidget {
                                             .textTheme
                                             .bodyMedium
                                             ?.copyWith(
-                                              color:
-                                                  LinagoraRefColors.material()
-                                                      .tertiary[30],
+                                              color: DediRefColors.material()
+                                                  .tertiary[30],
                                             ),
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
@@ -418,7 +414,7 @@ class AssignRolesView extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   final member = success.assignRolesMember[index];
-                  return TwakeInkWell(
+                  return DediInkWell(
                     onTap: () {
                       member.openProfileView(
                         context: context,
@@ -427,7 +423,7 @@ class AssignRolesView extends StatelessWidget {
                         },
                       );
                     },
-                    child: TwakeListItem(
+                    child: DediListItem(
                       padding: const EdgeInsets.all(8),
                       child: Row(
                         children: [
@@ -445,12 +441,11 @@ class AssignRolesView extends StatelessWidget {
                                     Expanded(
                                       child: Text(
                                         member.calcDisplayname(),
-                                        style: LinagoraTextStyle.material()
+                                        style: DediTextStyle.material()
                                             .bodyMedium2
                                             .copyWith(
-                                              color:
-                                                  LinagoraSysColors.material()
-                                                      .onSurface,
+                                              color: DediSysColors.material()
+                                                  .onSurface,
                                             ),
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
@@ -485,7 +480,7 @@ class AssignRolesView extends StatelessWidget {
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                        color: LinagoraRefColors.material()
+                                        color: DediRefColors.material()
                                             .tertiary[30],
                                       ),
                                   overflow: TextOverflow.ellipsis,
@@ -520,7 +515,7 @@ class AssignRolesView extends StatelessWidget {
             Text(
               member.getDefaultPowerLevelMember.displayName(context),
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: LinagoraRefColors.material().tertiary[30],
+                    color: DediRefColors.material().tertiary[30],
                   ),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
@@ -531,7 +526,7 @@ class AssignRolesView extends StatelessWidget {
             if (controller.widget.room.canUpdateRoleInRoom(member))
               Icon(
                 Icons.arrow_drop_down,
-                color: LinagoraRefColors.material().tertiary[30],
+                color: DediRefColors.material().tertiary[30],
               ),
           ],
         );

@@ -59,13 +59,13 @@ void main() {
             GlobalWidgetsLocalizations.delegate,
           ],
           supportedLocales: LocalizationService.supportedLocales,
-          theme: TwakeThemes.buildTheme(
+          theme: DediThemes.buildTheme(
             context,
             Brightness.light,
             primaryColor,
           ),
           home: Scaffold(
-            backgroundColor: LinagoraSysColors.material().onPrimary,
+            backgroundColor: DediSysColors.material().onPrimary,
             body: CustomScrollView(
               physics: const ClampingScrollPhysics(),
               slivers: [

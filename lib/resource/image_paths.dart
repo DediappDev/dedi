@@ -15,7 +15,7 @@ class ImagePaths {
   static String get icStatus => _getImagePath('ic_status.svg');
   static String get icEmptyGroupChat =>
       _getImagePath('ic_empty_group_chat.svg');
-  static String get icTwakeLogo => _getImagePath('ic_twake_logo.svg');
+  static String get icDediLogo => _getImagePath('ic_twake_logo.svg');
   static String get icPhotosSettingPermission =>
       _getImagePath('ic_photos_setting.svg');
   static String get icFileDocx => _getImagePath('ic_file_doc.svg');
@@ -28,8 +28,7 @@ class ImagePaths {
   static String get icFileImage => _getImagePath('ic_file_image.svg');
   static String get icFileAudio => _getImagePath('ic_file_audio.svg');
   static String get icFileVideo => _getImagePath('ic_file_video.svg');
-  static String get icTwakeImageLogo =>
-      _getImagePath('ic_twake_image_logo.svg');
+  static String get icDediImageLogo => _getImagePath('ic_twake_image_logo.svg');
   static String get icApplicationGrid =>
       _getImagePath('ic_application_grid.svg');
   static String get icUsersOutline => _getImagePath('ic_users_outline.svg');
@@ -44,22 +43,21 @@ class ImagePaths {
   static String get icMatrixid => _getImagePath('ic_matrixid.svg');
   static String get icUnpin => _getImagePath('ic_unpin.svg');
   static String get icJumpTo => _getImagePath('ic_jump_to.svg');
-  static String get logoTwakeWelcome => _getImagePath('logo_twake_welcome.svg');
+  static String get logoDediWelcome => _getImagePath('logo_twake_welcome.svg');
   static String get icEmptySearch => _getImagePath('ic_empty_search.svg');
   static String get icFileError => _getImagePath('ic_file_error.svg');
   static String get icGoTo => _getImagePath('ic_goto.svg');
   static String get icShowInChat => _getImagePath('ic_show_in_chat.svg');
-  static String get lottieTwakeLoading => _getAssetPath('twake_loading.json');
+  static String get lottieDediLoading => _getAssetPath('twake_loading.json');
   static String get icPersonCheck => _getImagePath('ic_person_check.svg');
-  static String get icTwakeImageLogoBeta =>
+  static String get icDediImageLogoBeta =>
       _getImagePath('ic_twake_image_beta.svg');
   static String get logoPng => _getAssetPath('logo.png');
   static String get dediSplashLogo => _getImagePath('dedi_splash_logo.png');
-  static String get dediWordmarkLight =>
-      _getImagePath('dedi_logo_light.png');
+  static String get dediWordmarkLight => _getImagePath('dedi_logo_light.png');
   static String get appStore => _getImagePath('app_store.svg');
   static String get googlePlay => _getImagePath('google_play.svg');
-  static String get icTwakeSupport =>
+  static String get icDediSupport =>
       getConfigurationImagePath('ic_twake_support.svg');
   static String get icSearchEmojiEmpty =>
       _getImagePath('search_emoji_empty.svg');

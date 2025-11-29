@@ -18,12 +18,12 @@ class GetAppGridConfigurationInteractor {
     try {
       yield Right(LoadingAppGridConfiguration());
 
-      final linagoraApps = await _appConfigLoader.load<LinagoraApplications>(
+      final dediApps = await _appConfigLoader.load<DediApplications>(
         appGridConfigurationPath,
         AppGridConfigurationParser(),
       );
 
-      yield Right(GetAppGridConfigurationSuccess(linagoraApps));
+      yield Right(GetAppGridConfigurationSuccess(dediApps));
     } catch (e) {
       Logs().e('GetAppGridConfigurationInteractor::execute(): $e');
       yield Left(GetAppGridConfigurationFailure(exception: e));

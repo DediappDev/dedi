@@ -45,7 +45,7 @@ class OthersGroupChatEmptyView extends StatelessWidget {
                   text: firstEvent.getUser()?.displayName,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontSize: 14,
-                        color: LinagoraRefColors.material().neutral[40],
+                        color: DediRefColors.material().neutral[40],
                       ),
                 ),
                 const TextSpan(text: ' ', style: TextStyle(fontSize: 14)),
@@ -54,7 +54,7 @@ class OthersGroupChatEmptyView extends StatelessWidget {
                       .hasCreatedAGroupChat(firstEvent.room.name),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontSize: 14,
-                        color: LinagoraRefColors.material().neutral[60],
+                        color: DediRefColors.material().neutral[60],
                       ),
                 ),
               ],

@@ -38,13 +38,13 @@ class ChatListHeaderStyle {
       ),
       hintText: hintText ?? L10n.of(context)!.search,
       hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: LinagoraRefColors.material().neutral[60],
+            color: DediRefColors.material().neutral[60],
           ),
       floatingLabelBehavior: FloatingLabelBehavior.never,
       prefixIcon: Icon(
         Icons.search,
         size: ChatListHeaderStyle.searchIconSize,
-        color: prefixIconColor ?? LinagoraRefColors.material().neutral[60],
+        color: prefixIconColor ?? DediRefColors.material().neutral[60],
       ),
       suffixIcon: const SizedBox.shrink(),
     );

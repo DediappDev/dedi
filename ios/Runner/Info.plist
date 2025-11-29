@@ -38,7 +38,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>ShareMedia-$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-				<string>twake.chat</string>
+				<string>dedi.chat</string>
 				<string>matrix</string>
 			</array>
 		</dict>

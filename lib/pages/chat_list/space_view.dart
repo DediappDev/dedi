@@ -50,7 +50,7 @@ class _SpaceViewState extends State<SpaceView> {
     final client = Matrix.of(context).client;
     final space = client.getRoomById(widget.controller.activeSpaceId!);
     if (client.getRoomById(spaceChild.roomId) == null) {
-      final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+      final result = await DediDialog.showFutureLoadingDialogFullScreen(
         future: () async {
           await client.joinRoom(
             spaceChild.roomId,
@@ -124,12 +124,12 @@ class _SpaceViewState extends State<SpaceView> {
         _onJoinSpaceChild(spaceChild!);
         break;
       case SpaceChildContextAction.leave:
-        await TwakeDialog.showFutureLoadingDialogFullScreen(
+        await DediDialog.showFutureLoadingDialogFullScreen(
           future: room!.leave,
         );
         break;
       case SpaceChildContextAction.removeFromSpace:
-        await TwakeDialog.showFutureLoadingDialogFullScreen(
+        await DediDialog.showFutureLoadingDialogFullScreen(
           future: () => activeSpace!.removeSpaceChild(spaceChild!.roomId),
         );
         break;

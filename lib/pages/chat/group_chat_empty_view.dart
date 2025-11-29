@@ -57,7 +57,7 @@ class GroupChatEmptyView extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 15,
-                  color: LinagoraRefColors.material().neutral[40],
+                  color: DediRefColors.material().neutral[40],
                 ),
               ),
               const Spacer(),
@@ -88,7 +88,7 @@ class GroupChatEmptyView extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 15,
-              color: LinagoraRefColors.material().neutral[40],
+              color: DediRefColors.material().neutral[40],
             ),
           ),
         ),

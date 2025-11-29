@@ -116,7 +116,7 @@ class AutoHomeserverPickerController extends State<AutoHomeserverPicker>
   void _autoConnectSaas() async {
     matrix.loginHomeserverSummary =
         await matrix.getLoginClient().checkHomeserver(
-              Uri.parse(AppConfig.twakeWorkplaceHomeserver),
+              Uri.parse(AppConfig.dediWorkplaceHomeserver),
             );
     Map<String, dynamic>? rawLoginTypes;
     await Matrix.of(context)
@@ -173,7 +173,7 @@ class AutoHomeserverPickerController extends State<AutoHomeserverPicker>
                     AppConfig.homeserver,
                   ),
                 );
-        final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+        final result = await DediDialog.showFutureLoadingDialogFullScreen(
           future: () => Matrix.of(context).getLoginClient().login(
                 LoginType.mLoginToken,
                 token: loginToken,

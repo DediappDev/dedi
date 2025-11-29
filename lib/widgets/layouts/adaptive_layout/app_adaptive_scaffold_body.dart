@@ -143,7 +143,7 @@ class AppAdaptiveScaffoldBodyController extends State<AppAdaptiveScaffoldBody>
   void _handleProfileDataChange() {
     onAccountDataSubscription =
         matrix.client.onAccountData.stream.listen((event) {
-      if (event.type == TwakeInappEventTypes.uploadAvatarEvent) {
+      if (event.type == DediInappEventTypes.uploadAvatarEvent) {
         getCurrentProfile();
       }
     });

@@ -13,7 +13,7 @@ class GroupInformationRobot extends CoreRobot {
   GroupInformationRobot(super.$);
 
   PatrolFinder getBackIcon() {
-    return $(AppBar).$(TwakeIconButton);
+    return $(AppBar).$(DediIconButton);
   }
 
   PatrolFinder getTitle() {
@@ -49,7 +49,7 @@ class GroupInformationRobot extends CoreRobot {
   }
 
   PatrolFinder getMember(String account) {
-    return $(TwakeListItem).containing(find.text(account));
+    return $(DediListItem).containing(find.text(account));
   }
 
   PatrolFinder getcRemoveFromGroup() {
@@ -58,7 +58,8 @@ class GroupInformationRobot extends CoreRobot {
 
   PatrolFinder getLoadParticipantsLabel() {
     final loadMoreTextFinder = find.byWidgetPredicate(
-      (w) => w is Text &&
+      (w) =>
+          w is Text &&
           RegExp(r'^Load\s+\d+\s+more\s+participant(s)?$')
               .hasMatch(w.data ?? ''),
       description: 'Load N more participants text',
@@ -74,34 +75,34 @@ class GroupInformationRobot extends CoreRobot {
   PatrolFinder getCancelRemoveMemberBtn() {
     return $(InkWell).containing(find.text('Cancel'));
   }
-  
+
   String getTotalMemberLabel() {
     final a = $(find.textContaining('member')).text;
     return a!.replaceFirst(RegExp(r'\s+m.*$', caseSensitive: false), '');
   }
-  
-  Future<void> clickOnBackBtn() async{
+
+  Future<void> clickOnBackBtn() async {
     await getBackIcon().tap();
     await $.waitUntilVisible($(ChatView));
   }
 
-  Future<void> clickOnRemoveFromGroup() async{
+  Future<void> clickOnRemoveFromGroup() async {
     await getcRemoveFromGroup().tap();
     await $.waitUntilVisible($(WarningDialogWidget));
   }
 
-  Future<void> clickOnAgreeIRemoveMemberBtn() async{
+  Future<void> clickOnAgreeIRemoveMemberBtn() async {
     await getAgreeIRemoveMemberBtn().tap();
     await $.waitUntilVisible(getMemberTab());
   }
 
-  Future<void> clickOnAddMemberBtn() async{
+  Future<void> clickOnAddMemberBtn() async {
     await getAddMembersBtn().tap();
     await $.waitUntilVisible($(ContactsSelectionView));
   }
 
-  Future<List<TwakeListItemRobot>> getListOfMembers() async{
-    if(getLoadParticipantsLabel().exists){ 
+  Future<List<DediListItemRobot>> getListOfMembers() async {
+    if (getLoadParticipantsLabel().exists) {
       await waitSnackGone($);
       await getLoadParticipantsLabel().tap();
       if ($(CircularProgressIndicator).exists) {
@@ -110,12 +111,12 @@ class GroupInformationRobot extends CoreRobot {
       }
       await waitUntilAbsent($, getLoadParticipantsLabel());
     }
-    final List<TwakeListItemRobot> groupList = [];
+    final List<DediListItemRobot> groupList = [];
 
-    final matches = $(TwakeListItem).evaluate();
+    final matches = $(DediListItem).evaluate();
     for (final element in matches) {
       final finder = $(element.widget.runtimeType);
-      groupList.add(TwakeListItemRobot($, finder));
+      groupList.add(DediListItemRobot($, finder));
     }
     return groupList;
   }

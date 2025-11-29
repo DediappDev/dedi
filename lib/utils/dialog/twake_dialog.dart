@@ -15,7 +15,7 @@ import 'package:linagora_design_flutter/linagora_design_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:matrix/matrix.dart';
 
-class TwakeDialog {
+class DediDialog {
   static const double maxWidthLoadingDialogWeb = 448;
 
   static const double lottieSizeWeb = 80;
@@ -32,8 +32,8 @@ class TwakeDialog {
 
   static void hideLoadingDialog(BuildContext context) {
     if (PlatformInfos.isWeb) {
-      if (TwakeApp.routerKey.currentContext != null) {
-        Navigator.pop(TwakeApp.routerKey.currentContext!);
+      if (DediApp.routerKey.currentContext != null) {
+        Navigator.pop(DediApp.routerKey.currentContext!);
       } else {
         Navigator.pop(context);
       }
@@ -42,9 +42,9 @@ class TwakeDialog {
     }
   }
 
-  static void showLoadingTwakeWelcomeDialog(BuildContext context) {
+  static void showLoadingDediWelcomeDialog(BuildContext context) {
     showGeneralDialog(
-      barrierColor: LinagoraSysColors.material().onPrimary,
+      barrierColor: DediSysColors.material().onPrimary,
       useRootNavigator: false,
       transitionDuration: const Duration(milliseconds: 700),
       transitionBuilder: (context, animation, secondaryAnimation, child) {
@@ -67,7 +67,7 @@ class TwakeDialog {
 
   static void showLoadingDialog(BuildContext context) {
     showGeneralDialog(
-      barrierColor: LinagoraSysColors.material().onPrimary.withOpacity(0.75),
+      barrierColor: DediSysColors.material().onPrimary.withOpacity(0.75),
       useRootNavigator: PlatformInfos.isWeb,
       transitionDuration: const Duration(milliseconds: 700),
       transitionBuilder: (context, animation, secondaryAnimation, child) {
@@ -92,10 +92,10 @@ class TwakeDialog {
   static Future<LoadingDialogResult<T>> showFutureLoadingDialogFullScreen<T>({
     required Future<T> Function() future,
   }) async {
-    final twakeContext = TwakeApp.routerKey.currentContext;
-    if (twakeContext == null) {
+    final dediContext = DediApp.routerKey.currentContext;
+    if (dediContext == null) {
       Logs().e(
-        'TwakeLoadingDialog()::showFutureLoadingDialogFullScreen - Twake context is null',
+        'DediLoadingDialog()::showFutureLoadingDialogFullScreen - Dedi context is null',
       );
       return LoadingDialogResult<T>(
         error: Exception('FutureDialog canceled'),
@@ -104,9 +104,9 @@ class TwakeDialog {
     }
 
     if (PlatformInfos.isWeb) {
-      return _dialogFullScreenWeb(future: future, context: twakeContext);
+      return _dialogFullScreenWeb(future: future, context: dediContext);
     } else {
-      return _dialogFullScreenMobile(future: future, context: twakeContext);
+      return _dialogFullScreenMobile(future: future, context: dediContext);
     }
   }
 
@@ -118,20 +118,20 @@ class TwakeDialog {
       context: context,
       future: future,
       loadingIcon: LottieBuilder.asset(
-        ImagePaths.lottieTwakeLoading,
+        ImagePaths.lottieDediLoading,
         width: lottieSizeWeb,
         height: lottieSizeWeb,
       ),
-      barrierColor: LinagoraSysColors.material().onPrimary.withOpacity(0.75),
+      barrierColor: DediSysColors.material().onPrimary.withOpacity(0.75),
       loadingTitle: L10n.of(context)!.loading,
       loadingTitleStyle: Theme.of(context).textTheme.titleLarge,
       maxWidth: maxWidthLoadingDialogWeb,
       errorTitle: L10n.of(context)!.errorDialogTitle,
       errorTitleStyle: Theme.of(context).textTheme.titleLarge?.copyWith(
-            color: LinagoraSysColors.material().onSurfaceVariant,
+            color: DediSysColors.material().onSurfaceVariant,
           ),
       errorDescriptionStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: LinagoraSysColors.material().onSurfaceVariant,
+            color: DediSysColors.material().onSurfaceVariant,
           ),
       errorBackLabel: L10n.of(context)!.cancel,
       errorBackLabelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -139,9 +139,9 @@ class TwakeDialog {
           ),
       errorNextLabel: L10n.of(context)!.next,
       errorNextLabelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: LinagoraSysColors.material().onPrimary,
+            color: DediSysColors.material().onPrimary,
           ),
-      backgroundErrorDialog: LinagoraSysColors.material().onPrimary,
+      backgroundErrorDialog: DediSysColors.material().onPrimary,
       backgroundNextLabel: Theme.of(context).colorScheme.primary,
       maxWidthButton: maxWidthDialogButtonMobile,
     );
@@ -156,19 +156,19 @@ class TwakeDialog {
       future: future,
       maxWidth: double.infinity,
       loadingIcon: LottieBuilder.asset(
-        ImagePaths.lottieTwakeLoading,
+        ImagePaths.lottieDediLoading,
         width: lottieSizeMobile,
         height: lottieSizeMobile,
       ),
-      barrierColor: LinagoraSysColors.material().onPrimary.withOpacity(0.75),
+      barrierColor: DediSysColors.material().onPrimary.withOpacity(0.75),
       loadingTitle: L10n.of(context)!.loading,
       loadingTitleStyle: Theme.of(context).textTheme.titleMedium,
       errorTitle: L10n.of(context)!.errorDialogTitle,
       errorTitleStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
-            color: LinagoraSysColors.material().onSurfaceVariant,
+            color: DediSysColors.material().onSurfaceVariant,
           ),
       errorDescriptionStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: LinagoraSysColors.material().onSurfaceVariant,
+            color: DediSysColors.material().onSurfaceVariant,
           ),
       errorBackLabel: L10n.of(context)!.cancel,
       errorBackLabelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -176,10 +176,10 @@ class TwakeDialog {
           ),
       errorNextLabel: L10n.of(context)!.next,
       errorNextLabelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: LinagoraSysColors.material().onPrimary,
+            color: DediSysColors.material().onPrimary,
           ),
       backgroundNextLabel: Theme.of(context).colorScheme.primary,
-      backgroundErrorDialog: LinagoraSysColors.material().onPrimary,
+      backgroundErrorDialog: DediSysColors.material().onPrimary,
       isMobileResponsive: true,
       maxWidthButton: maxWidthDialogButtonMobile,
     );
@@ -188,14 +188,14 @@ class TwakeDialog {
   static Future<void> showStreamDialogFullScreen({
     required Future Function() future,
   }) async {
-    final twakeContext = TwakeApp.routerKey.currentContext;
-    if (twakeContext == null) {
+    final dediContext = DediApp.routerKey.currentContext;
+    if (dediContext == null) {
       Logs().e(
-        'TwakeLoadingDialog()::showStreamDialogFullScreen - Twake context is null',
+        'DediLoadingDialog()::showStreamDialogFullScreen - Dedi context is null',
       );
     }
     return await showDialog(
-      context: twakeContext!,
+      context: dediContext!,
       builder: (context) => InitClientDialog(
         future: future,
       ),
@@ -210,15 +210,15 @@ class TwakeDialog {
     bool barrierDismissible = true,
     Color? barrierColor,
   }) {
-    final twakeContext = TwakeApp.routerKey.currentContext;
-    if (twakeContext == null) {
+    final dediContext = DediApp.routerKey.currentContext;
+    if (dediContext == null) {
       Logs().e(
-        'TwakeLoadingDialog()::showDialogFullScreen - Twake context is null',
+        'DediLoadingDialog()::showDialogFullScreen - Dedi context is null',
       );
       return Future.value(null);
     }
     return showDialog(
-      context: twakeContext,
+      context: dediContext,
       builder: (context) => builder(),
       barrierColor: barrierColor,
       barrierDismissible: barrierDismissible,
@@ -229,15 +229,15 @@ class TwakeDialog {
   static Future<bool?> showCupertinoDialogFullScreen({
     required Widget Function() builder,
   }) {
-    final twakeContext = TwakeApp.routerKey.currentContext;
-    if (twakeContext == null) {
+    final dediContext = DediApp.routerKey.currentContext;
+    if (dediContext == null) {
       Logs().e(
-        'TwakeLoadingDialog()::showCupertinoDialogFullScreen - Twake context is null',
+        'DediLoadingDialog()::showCupertinoDialogFullScreen - Dedi context is null',
       );
       return Future.value(null);
     }
     return showCupertinoDialog(
-      context: twakeContext,
+      context: dediContext,
       builder: (context) => builder(),
       barrierDismissible: true,
       useRootNavigator: false,
@@ -261,7 +261,7 @@ class ProgressDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           LottieBuilder.asset(
-            ImagePaths.lottieTwakeLoading,
+            ImagePaths.lottieDediLoading,
             width: lottieSize,
             height: lottieSize,
           ),

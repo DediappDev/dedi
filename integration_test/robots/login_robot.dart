@@ -7,7 +7,7 @@ class LoginRobot extends CoreRobot {
   LoginRobot(super.$);
 
   Future<bool> isWelComePageVisible() async {
-    final welcomePage = $(TwakeWelcome);
+    final welcomePage = $(DediWelcome);
     try {
       await welcomePage.waitUntilVisible(timeout: const Duration(seconds: 5));
       return true;
@@ -57,8 +57,9 @@ class LoginRobot extends CoreRobot {
     return Selector(textContains: 'login');
   }
 
-  Future<bool> isLoginBtnVisible(
-      {Duration timeout = const Duration(milliseconds: 10000),}) async {
+  Future<bool> isLoginBtnVisible({
+    Duration timeout = const Duration(milliseconds: 10000),
+  }) async {
     try {
       // A tiny settle helps after navigation/animation
       await Future<void>.delayed(timeout);

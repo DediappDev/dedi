@@ -20,7 +20,7 @@ class AppGridDashboardController extends State<AppGridDashboard> {
 
   final isOpenAppGridDashboardNotifier = ValueNotifier<bool>(false);
 
-  final linagoraApplications = ValueNotifier<LinagoraApplications?>(null);
+  final dediApplications = ValueNotifier<DediApplications?>(null);
 
   final hoverColorAppGrid = ValueNotifier<Color>(Colors.transparent);
 
@@ -42,19 +42,19 @@ class AppGridDashboardController extends State<AppGridDashboard> {
         },
         (success) {
           if (success is GetAppGridConfigurationSuccess) {
-            handleGetAppGridDashboardSuccess(success.linagoraApplications);
+            handleGetAppGridDashboardSuccess(success.dediApplications);
           }
         },
       );
     });
   }
 
-  void handleGetAppGridDashboardSuccess(LinagoraApplications linagoraApps) {
+  void handleGetAppGridDashboardSuccess(DediApplications dediApps) {
     try {
       Logs().d(
-        'AppGridDashboardController::handleGetAppGridDashboardSuccess(): $linagoraApps',
+        'AppGridDashboardController::handleGetAppGridDashboardSuccess(): $dediApps',
       );
-      linagoraApplications.value = linagoraApps;
+      dediApplications.value = dediApps;
     } on FlutterError catch (e) {
       Logs().e(
         'AppGridDashboardController::handleShowAppDashboard(): $e',
@@ -82,7 +82,7 @@ class AppGridDashboardController extends State<AppGridDashboard> {
   @override
   void dispose() {
     isOpenAppGridDashboardNotifier.dispose();
-    linagoraApplications.dispose();
+    dediApplications.dispose();
     hoverColorAppGrid.dispose();
     hoverColorAppHelp.dispose();
     super.dispose();

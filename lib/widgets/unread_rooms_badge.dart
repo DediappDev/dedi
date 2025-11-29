@@ -27,7 +27,7 @@ class UnreadRoomsBadge extends StatelessWidget {
       builder: (context, _) {
         final unreadCount = getNotificationsCount(context);
 
-        return TwakeNavigationIcon(
+        return DediNavigationIcon(
           icon: Icons.chat_bubble,
           notificationCount: unreadCount,
           isSelected: isSelected,

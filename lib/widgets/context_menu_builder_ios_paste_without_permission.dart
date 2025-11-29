@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget mobileTwakeContextMenuBuilder(
+Widget mobileDediContextMenuBuilder(
   BuildContext context,
   EditableTextState editableTextState,
 ) {

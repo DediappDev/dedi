@@ -26,7 +26,7 @@ class ChatDetailsDownloadingFileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      hoverColor: LinagoraSysColors.material().surfaceVariant,
+      hoverColor: DediSysColors.material().surfaceVariant,
       onTap: onTap,
       child: ChatDetailsFileRowDownloadingWrapper(
         mimeType: mimeType,

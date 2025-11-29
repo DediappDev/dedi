@@ -75,7 +75,7 @@ class AddWidgetTileState extends State<AddWidgetTile> {
       widget.room.addWidget(matrixWidget);
       Navigator.of(context).pop();
     } catch (e) {
-      TwakeSnackBar.show(context, L10n.of(context)!.errorAddingWidget);
+      DediSnackBar.show(context, L10n.of(context)!.errorAddingWidget);
     }
   }
 

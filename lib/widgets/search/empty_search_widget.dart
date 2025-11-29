@@ -26,7 +26,7 @@ class EmptySearchWidget extends StatelessWidget {
             child: Text(
               L10n.of(context)!.noResults,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: LinagoraRefColors.material().neutral[40],
+                    color: DediRefColors.material().neutral[40],
                   ),
             ),
           ),

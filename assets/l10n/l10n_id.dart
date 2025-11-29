@@ -51,7 +51,8 @@ class L10nId extends L10n {
   String get addEmail => 'Tambah email';
 
   @override
-  String get confirmMatrixId => 'Mohon konfirmasi ID Matrix Anda untuk menghapus akun Anda.';
+  String get confirmMatrixId =>
+      'Mohon konfirmasi ID Matrix Anda untuk menghapus akun Anda.';
 
   @override
   String supposedMxid(Object mxid) {
@@ -118,7 +119,8 @@ class L10nId extends L10n {
   String get archivedRoom => 'Ruangan yang Diarsipkan';
 
   @override
-  String get areGuestsAllowedToJoin => 'Apakah pengguna tamu diizinkan untuk bergabung';
+  String get areGuestsAllowedToJoin =>
+      'Apakah pengguna tamu diizinkan untuk bergabung';
 
   @override
   String get areYouSure => 'Apakah kamu yakin?';
@@ -127,7 +129,8 @@ class L10nId extends L10n {
   String get areYouSureYouWantToLogout => 'Apakah kamu yakin ingin keluar?';
 
   @override
-  String get askSSSSSign => 'Untuk dapat menandatangani orang lain, silakan masukkan frasa sandi atau kunci pemulihan penyimpanan aman kamu.';
+  String get askSSSSSign =>
+      'Untuk dapat menandatangani orang lain, silakan masukkan frasa sandi atau kunci pemulihan penyimpanan aman kamu.';
 
   @override
   String askVerificationRequest(Object username) {
@@ -135,10 +138,12 @@ class L10nId extends L10n {
   }
 
   @override
-  String get autoplayImages => 'Mainkan stiker beranimasi dan emote secara otomatis';
+  String get autoplayImages =>
+      'Mainkan stiker beranimasi dan emote secara otomatis';
 
   @override
-  String badServerLoginTypesException(Object serverVersions, Object supportedVersions, Object suportedVersions) {
+  String badServerLoginTypesException(Object serverVersions,
+      Object supportedVersions, Object suportedVersions) {
     return 'Homeserver ini mendukung tipe masuk ini:\n$serverVersions\nTetapi aplikasi ini mendukung:\n$supportedVersions';
   }
 
@@ -146,7 +151,8 @@ class L10nId extends L10n {
   String get sendOnEnter => 'Kirim dengan enter';
 
   @override
-  String badServerVersionsException(Object serverVersions, Object supportedVersions, Object serverVerions, Object suportedVersions) {
+  String badServerVersionsException(Object serverVersions,
+      Object supportedVersions, Object serverVerions, Object suportedVersions) {
     return 'Homeserver ini mendukung versi Spec ini:\n$serverVersions\nTetapi aplikasi ini hanya mendukung $supportedVersions';
   }
 
@@ -282,19 +288,22 @@ class L10nId extends L10n {
   String get yourUserId => 'ID penggunamu:';
 
   @override
-  String get yourChatBackupHasBeenSetUp => 'Cadangan obrolanmu telah disiapkan.';
+  String get yourChatBackupHasBeenSetUp =>
+      'Cadangan obrolanmu telah disiapkan.';
 
   @override
   String get chatBackup => 'Cadangan obrolan';
 
   @override
-  String get chatBackupDescription => 'Pesan lamamu diamankan dengan sebuah kunci pemulihan. Pastikan kamu tidak menghilangkannya.';
+  String get chatBackupDescription =>
+      'Pesan lamamu diamankan dengan sebuah kunci pemulihan. Pastikan kamu tidak menghilangkannya.';
 
   @override
   String get chatDetails => 'Detail obrolan';
 
   @override
-  String get chatHasBeenAddedToThisSpace => 'Obrolan telah ditambahkan ke space ini';
+  String get chatHasBeenAddedToThisSpace =>
+      'Obrolan telah ditambahkan ke space ini';
 
   @override
   String get chats => 'Obrolan';
@@ -318,31 +327,36 @@ class L10nId extends L10n {
   String get commandHint_markasgroup => 'Tandai sebagai grup';
 
   @override
-  String get commandHint_ban => 'Cekal pengguna yang dicantumkan dari ruangan ini';
+  String get commandHint_ban =>
+      'Cekal pengguna yang dicantumkan dari ruangan ini';
 
   @override
   String get commandHint_clearcache => 'Bersihkan tembolok';
 
   @override
-  String get commandHint_create => 'Buat sebuah grup obrolan kosong\nGunakan --no-encryption untuk menonaktifkan enkripsi';
+  String get commandHint_create =>
+      'Buat sebuah grup obrolan kosong\nGunakan --no-encryption untuk menonaktifkan enkripsi';
 
   @override
   String get commandHint_discardsession => 'Buang sesi';
 
   @override
-  String get commandHint_dm => 'Mulai sebuah obrolan langsung\nGunakan --no-encryption untuk menonaktifkan enkripsi';
+  String get commandHint_dm =>
+      'Mulai sebuah obrolan langsung\nGunakan --no-encryption untuk menonaktifkan enkripsi';
 
   @override
   String get commandHint_html => 'Kirim teks yang diformat dengan HTML';
 
   @override
-  String get commandHint_invite => 'Undang pengguna yang dicantum ke ruangan ini';
+  String get commandHint_invite =>
+      'Undang pengguna yang dicantum ke ruangan ini';
 
   @override
   String get commandHint_join => 'Gabung ke ruangan yang dicantum';
 
   @override
-  String get commandHint_kick => 'Keluarkan pengguna yang dicantum dari ruangan ini';
+  String get commandHint_kick =>
+      'Keluarkan pengguna yang dicantum dari ruangan ini';
 
   @override
   String get commandHint_leave => 'Tinggalkan ruangan ini';
@@ -351,13 +365,16 @@ class L10nId extends L10n {
   String get commandHint_me => 'Jelaskan dirimu';
 
   @override
-  String get commandHint_myroomavatar => 'Tetapkan gambarmu untuk ruangan ini (oleh uri-mxc)';
+  String get commandHint_myroomavatar =>
+      'Tetapkan gambarmu untuk ruangan ini (oleh uri-mxc)';
 
   @override
-  String get commandHint_myroomnick => 'Tetapkan nama tampilanmu untuk ruangan ini';
+  String get commandHint_myroomnick =>
+      'Tetapkan nama tampilanmu untuk ruangan ini';
 
   @override
-  String get commandHint_op => 'Tetapkan tingkat kekuatan pengguna yang dicantum (default: 50)';
+  String get commandHint_op =>
+      'Tetapkan tingkat kekuatan pengguna yang dicantum (default: 50)';
 
   @override
   String get commandHint_plain => 'Kirim teks yang tidak diformat';
@@ -369,7 +386,8 @@ class L10nId extends L10n {
   String get commandHint_send => 'Kirim teks';
 
   @override
-  String get commandHint_unban => 'Hilangkan cekalan untuk pengguna yang dicantumkan dari ruangan ini';
+  String get commandHint_unban =>
+      'Hilangkan cekalan untuk pengguna yang dicantumkan dari ruangan ini';
 
   @override
   String get commandInvalid => 'Perintah tidak valid';
@@ -404,7 +422,8 @@ class L10nId extends L10n {
   String get containsUserName => 'Berisi nama pengguna';
 
   @override
-  String get contentHasBeenReported => 'Konten telah dilaporkan ke admin server';
+  String get contentHasBeenReported =>
+      'Konten telah dilaporkan ke admin server';
 
   @override
   String get copiedToClipboard => 'Disalin ke papan klip';
@@ -471,7 +490,8 @@ class L10nId extends L10n {
   }
 
   @override
-  String get deactivateAccountWarning => 'Ini akan menonaktifkan akun penggunamu. Ini tidak bisa dibatalkan! Apakah kamu yakin?';
+  String get deactivateAccountWarning =>
+      'Ini akan menonaktifkan akun penggunamu. Ini tidak bisa dibatalkan! Apakah kamu yakin?';
 
   @override
   String get defaultPermissionLevel => 'Level izin default';
@@ -543,7 +563,8 @@ class L10nId extends L10n {
   String get emoteShortcode => 'Shortcode emote';
 
   @override
-  String get emoteWarnNeedToPick => 'Kamu harus memilih shortcode emote dan gambar!';
+  String get emoteWarnNeedToPick =>
+      'Kamu harus memilih shortcode emote dan gambar!';
 
   @override
   String get emptyChat => 'Chat kosong';
@@ -555,7 +576,8 @@ class L10nId extends L10n {
   String get enableEncryption => 'Aktifkan enkripsi';
 
   @override
-  String get enableEncryptionWarning => 'Kamu tidak akan bisa menonaktifkan enkripsi. Apakah kamu yakin?';
+  String get enableEncryptionWarning =>
+      'Kamu tidak akan bisa menonaktifkan enkripsi. Apakah kamu yakin?';
 
   @override
   String get encrypted => 'Terenkripsi';
@@ -677,7 +699,8 @@ class L10nId extends L10n {
   String get ignoredUsers => 'Pengguna yang diabaikan';
 
   @override
-  String get ignoreListDescription => 'Kamu bisa mengabaikan pengguna yang mengganggu. Kamu tidak akan dapat menerima pesan atau undangan ruang apa pun dari pengguna di daftar abaian pribadimu.';
+  String get ignoreListDescription =>
+      'Kamu bisa mengabaikan pengguna yang mengganggu. Kamu tidak akan dapat menerima pesan atau undangan ruang apa pun dari pengguna di daftar abaian pribadimu.';
 
   @override
   String get ignoreUsername => 'Abaikan nama pengguna';
@@ -686,7 +709,8 @@ class L10nId extends L10n {
   String get iHaveClickedOnLink => 'Saya sudah klik tautannya';
 
   @override
-  String get incorrectPassphraseOrKey => 'Frasa sandi atau kunci pemulihan yang salah';
+  String get incorrectPassphraseOrKey =>
+      'Frasa sandi atau kunci pemulihan yang salah';
 
   @override
   String get inoffensive => 'Tidak menyinggung';
@@ -774,22 +798,26 @@ class L10nId extends L10n {
   String get dehydrate => 'Ekspor sesi dan bersihkan perangkat';
 
   @override
-  String get dehydrateWarning => 'Tindakan ini tidak dapat diurungkan. Pastikan kamu telah menyimpan file cadangan dengan aman.';
+  String get dehydrateWarning =>
+      'Tindakan ini tidak dapat diurungkan. Pastikan kamu telah menyimpan file cadangan dengan aman.';
 
   @override
-  String get dehydrateShare => 'Ini adalah ekspor FluffyChat privat kamu. Pastikan kamu tidak menghilangkannya dan tetap rahasia.';
+  String get dehydrateShare =>
+      'Ini adalah ekspor FluffyChat privat kamu. Pastikan kamu tidak menghilangkannya dan tetap rahasia.';
 
   @override
   String get dehydrateTor => 'Pengguna Tor: Ekspor sesi';
 
   @override
-  String get dehydrateTorLong => 'Pengguna Tor disarankan untuk mengekspor sesi sebelum menutup jendela.';
+  String get dehydrateTorLong =>
+      'Pengguna Tor disarankan untuk mengekspor sesi sebelum menutup jendela.';
 
   @override
   String get hydrateTor => 'Pengguna Tor: Impor eksporan sesi';
 
   @override
-  String get hydrateTorLong => 'Apakah kamu mengekspor sesimu terakhir kali di Tor? Impor dengan cepat dan lanjut mengobrol.';
+  String get hydrateTorLong =>
+      'Apakah kamu mengekspor sesimu terakhir kali di Tor? Impor dengan cepat dan lanjut mengobrol.';
 
   @override
   String get hydrate => 'Pulihkan dari file cadangan';
@@ -804,10 +832,12 @@ class L10nId extends L10n {
   String get loadMore => 'Muat lebih banyak…';
 
   @override
-  String get locationDisabledNotice => 'Layanan lokasi dinonaktifkan. Mohon diaktifkan untuk bisa membagikan lokasimu.';
+  String get locationDisabledNotice =>
+      'Layanan lokasi dinonaktifkan. Mohon diaktifkan untuk bisa membagikan lokasimu.';
 
   @override
-  String get locationPermissionDeniedNotice => 'Izin lokasi ditolak. Mohon memberikan izin untuk bisa membagikan lokasimu.';
+  String get locationPermissionDeniedNotice =>
+      'Izin lokasi ditolak. Mohon memberikan izin untuk bisa membagikan lokasimu.';
 
   @override
   String get login => 'Masuk';
@@ -836,7 +866,8 @@ class L10nId extends L10n {
   String get messages => 'Pesan';
 
   @override
-  String get messageWillBeRemovedWarning => 'Pesan akan dihapus untuk semua anggota';
+  String get messageWillBeRemovedWarning =>
+      'Pesan akan dihapus untuk semua anggota';
 
   @override
   String get noSearchResult => 'Tidak ada hasil pencarian yang cocok.';
@@ -851,13 +882,14 @@ class L10nId extends L10n {
   String get muteChat => 'Bisukan obrolan';
 
   @override
-  String get needPantalaimonWarning => 'Perlu diketahui bahwa kamu memerlukan Pantalaimon untuk menggunakan enkripsi ujung-ke-ujung untuk saat ini.';
+  String get needPantalaimonWarning =>
+      'Perlu diketahui bahwa kamu memerlukan Pantalaimon untuk menggunakan enkripsi ujung-ke-ujung untuk saat ini.';
 
   @override
   String get newChat => 'Chat baru';
 
   @override
-  String get newMessageInTwake => 'You have 1 encrypted message';
+  String get newMessageInDedi => 'You have 1 encrypted message';
 
   @override
   String get newVerificationRequest => 'Permintaan verifikasi baru!';
@@ -881,10 +913,12 @@ class L10nId extends L10n {
   String get noEmotesFound => 'Tidak ada emote yang ditemukan. 😕';
 
   @override
-  String get noEncryptionForPublicRooms => 'Kamu hanya bisa mengaktifkan enkripsi setelah ruangan tidak lagi dapat diakses secara publik.';
+  String get noEncryptionForPublicRooms =>
+      'Kamu hanya bisa mengaktifkan enkripsi setelah ruangan tidak lagi dapat diakses secara publik.';
 
   @override
-  String get noGoogleServicesWarning => 'Sepertinya kamu tidak memiliki layanan Google di ponselmu. Keputusan yang baik untuk privasimu! Untuk menerima pemberitahuan push di FluffyChat, sebaiknya kamu menggunakan https://microg.org/ atau https://unifiedpush.org/.';
+  String get noGoogleServicesWarning =>
+      'Sepertinya kamu tidak memiliki layanan Google di ponselmu. Keputusan yang baik untuk privasimu! Untuk menerima pemberitahuan push di FluffyChat, sebaiknya kamu menggunakan https://microg.org/ atau https://unifiedpush.org/.';
 
   @override
   String noMatrixServer(Object server1, Object server2) {
@@ -895,7 +929,8 @@ class L10nId extends L10n {
   String get shareYourInviteLink => 'Bagikan tautan undanganmu';
 
   @override
-  String get typeInInviteLinkManually => 'Masukkan tautan undangan secara manual...';
+  String get typeInInviteLinkManually =>
+      'Masukkan tautan undangan secara manual...';
 
   @override
   String get scanQrCode => 'Pindai kode QR';
@@ -904,7 +939,8 @@ class L10nId extends L10n {
   String get none => 'Tidak Ada';
 
   @override
-  String get noPasswordRecoveryDescription => 'Kamu belum menambahkan cara untuk memulihkan kata sandimu.';
+  String get noPasswordRecoveryDescription =>
+      'Kamu belum menambahkan cara untuk memulihkan kata sandimu.';
 
   @override
   String get noPermission => 'Tidak ada izin';
@@ -942,13 +978,15 @@ class L10nId extends L10n {
   String get onlineKeyBackupEnabled => 'Cadangan Kunci Online dinyalakan';
 
   @override
-  String get cannotEnableKeyBackup => 'Cannot enable Chat Backup. Please Go to Settings to try it again.';
+  String get cannotEnableKeyBackup =>
+      'Cannot enable Chat Backup. Please Go to Settings to try it again.';
 
   @override
   String get cannotUploadKey => 'Cannot store Key Backup.';
 
   @override
-  String get oopsPushError => 'Ups! Sayangnya, terjadi kesalahan saat mengatur pemberitahuan push.';
+  String get oopsPushError =>
+      'Ups! Sayangnya, terjadi kesalahan saat mengatur pemberitahuan push.';
 
   @override
   String get oopsSomethingWentWrong => 'Ups, ada yang salah…';
@@ -981,7 +1019,8 @@ class L10nId extends L10n {
   String get bundleName => 'Nama bundel';
 
   @override
-  String get enableMultiAccounts => '(BETA) Aktifkan multi-akun di perangkat ini';
+  String get enableMultiAccounts =>
+      '(BETA) Aktifkan multi-akun di perangkat ini';
 
   @override
   String get openInMaps => 'Buka di peta';
@@ -990,7 +1029,8 @@ class L10nId extends L10n {
   String get link => 'Tautan';
 
   @override
-  String get serverRequiresEmail => 'Server ini harus memvalidasi alamat email kamu untuk registrasi.';
+  String get serverRequiresEmail =>
+      'Server ini harus memvalidasi alamat email kamu untuk registrasi.';
 
   @override
   String get optionalGroupName => '(Opsional) Nama grup';
@@ -1043,7 +1083,8 @@ class L10nId extends L10n {
   String get pleaseClickOnLink => 'Mohon klik tautan di email dan lanjut.';
 
   @override
-  String get pleaseEnter4Digits => 'Mohon masukkan 4 digit atau tinggalkan kosong untuk menonaktifkan kunci aplikasi.';
+  String get pleaseEnter4Digits =>
+      'Mohon masukkan 4 digit atau tinggalkan kosong untuk menonaktifkan kunci aplikasi.';
 
   @override
   String get pleaseEnterAMatrixIdentifier => 'Mohon masukkan ID Matrix.';
@@ -1061,7 +1102,8 @@ class L10nId extends L10n {
   String get pleaseEnterYourUsername => 'Mohon masukkan nama penggunamu';
 
   @override
-  String get pleaseFollowInstructionsOnWeb => 'Mohon ikuti petunjuk di situs web dan tekan lanjut.';
+  String get pleaseFollowInstructionsOnWeb =>
+      'Mohon ikuti petunjuk di situs web dan tekan lanjut.';
 
   @override
   String get privacy => 'Privasi';
@@ -1124,7 +1166,8 @@ class L10nId extends L10n {
   String get renderRichContent => 'Render konten pesan kaya';
 
   @override
-  String get replaceRoomWithNewerVersion => 'Menggantikan ruangan dengan versi baru';
+  String get replaceRoomWithNewerVersion =>
+      'Menggantikan ruangan dengan versi baru';
 
   @override
   String get reply => 'Balas';
@@ -1278,7 +1321,8 @@ class L10nId extends L10n {
   String get shareLocation => 'Bagikan lokasi';
 
   @override
-  String get showDirectChatsInSpaces => 'Tampilkan Pesan Langsung yang berkait di Space';
+  String get showDirectChatsInSpaces =>
+      'Tampilkan Pesan Langsung yang berkait di Space';
 
   @override
   String get showPassword => 'Tampilkan kata sandi';
@@ -1355,7 +1399,8 @@ class L10nId extends L10n {
   String get toggleUnread => 'Tandai Baca/Belum Dibaca';
 
   @override
-  String get tooManyRequestsWarning => 'Terlalu banyak permintaan. Coba lagi nanti!';
+  String get tooManyRequestsWarning =>
+      'Terlalu banyak permintaan. Coba lagi nanti!';
 
   @override
   String get transferFromAnotherDevice => 'Transfer dari perangkat lain';
@@ -1467,7 +1512,8 @@ class L10nId extends L10n {
   String get voiceMessage => 'Pesan suara';
 
   @override
-  String get waitingPartnerAcceptRequest => 'Menunggu pengguna untuk menerima permintaan…';
+  String get waitingPartnerAcceptRequest =>
+      'Menunggu pengguna untuk menerima permintaan…';
 
   @override
   String get waitingPartnerEmoji => 'Menunggu pengguna untuk menerima emoji…';
@@ -1488,19 +1534,23 @@ class L10nId extends L10n {
   String get weSentYouAnEmail => 'Kami mengirim kamu sebuah email';
 
   @override
-  String get whoCanPerformWhichAction => 'Siapa yang dapat melakukan tindakan apa';
+  String get whoCanPerformWhichAction =>
+      'Siapa yang dapat melakukan tindakan apa';
 
   @override
-  String get whoIsAllowedToJoinThisGroup => 'Siapa yang dapat bergabung ke grup ini';
+  String get whoIsAllowedToJoinThisGroup =>
+      'Siapa yang dapat bergabung ke grup ini';
 
   @override
   String get whyDoYouWantToReportThis => 'Kenapa kamu ingin melaporkannya?';
 
   @override
-  String get wipeChatBackup => 'Hapus cadangan obrolan untuk membuat kunci pemulihan baru?';
+  String get wipeChatBackup =>
+      'Hapus cadangan obrolan untuk membuat kunci pemulihan baru?';
 
   @override
-  String get withTheseAddressesRecoveryDescription => 'Dengan alamat ini kamu bisa memulihkan kata sandimu.';
+  String get withTheseAddressesRecoveryDescription =>
+      'Dengan alamat ini kamu bisa memulihkan kata sandimu.';
 
   @override
   String get writeAMessage => 'Tulis pesan…';
@@ -1515,13 +1565,16 @@ class L10nId extends L10n {
   String get youAreInvitedToThisChat => 'Kamu diundang ke obrolan ini';
 
   @override
-  String get youAreNoLongerParticipatingInThisChat => 'Kamu tidak berpartisipasi lagi di obrolan ini';
+  String get youAreNoLongerParticipatingInThisChat =>
+      'Kamu tidak berpartisipasi lagi di obrolan ini';
 
   @override
-  String get youCannotInviteYourself => 'Kamu tidak bisa mengundang kamu sendiri';
+  String get youCannotInviteYourself =>
+      'Kamu tidak bisa mengundang kamu sendiri';
 
   @override
-  String get youHaveBeenBannedFromThisChat => 'Kamu telah dicekal dari obrolan ini';
+  String get youHaveBeenBannedFromThisChat =>
+      'Kamu telah dicekal dari obrolan ini';
 
   @override
   String get yourPublicKey => 'Kunci publikmu';
@@ -1545,13 +1598,15 @@ class L10nId extends L10n {
   String get removeFromSpace => 'Hilangkan dari space';
 
   @override
-  String get addToSpaceDescription => 'Pilih sebuah space untuk menambahkan obrolan ke spacenya.';
+  String get addToSpaceDescription =>
+      'Pilih sebuah space untuk menambahkan obrolan ke spacenya.';
 
   @override
   String get start => 'Mulai';
 
   @override
-  String get pleaseEnterRecoveryKeyDescription => 'Untuk mengakses pesan lamamu, mohon masukkan kunci pemulihanmu yang telah dibuat di sesi sebelumnya. Kunci pemulihanmu BUKAN kata sandimu.';
+  String get pleaseEnterRecoveryKeyDescription =>
+      'Untuk mengakses pesan lamamu, mohon masukkan kunci pemulihanmu yang telah dibuat di sesi sebelumnya. Kunci pemulihanmu BUKAN kata sandimu.';
 
   @override
   String get addToStory => 'Tambahkan ke cerita';
@@ -1566,7 +1621,8 @@ class L10nId extends L10n {
   String get unsubscribeStories => 'Batalkan langganan cerita';
 
   @override
-  String get thisUserHasNotPostedAnythingYet => 'Pengguna ini belum memposting apa pun di cerita mereka';
+  String get thisUserHasNotPostedAnythingYet =>
+      'Pengguna ini belum memposting apa pun di cerita mereka';
 
   @override
   String get yourStory => 'Ceritamu';
@@ -1585,7 +1641,8 @@ class L10nId extends L10n {
   }
 
   @override
-  String get whoCanSeeMyStoriesDesc => 'Diingat bahwa orang-orang dapat melihat dan kontak sesama di ceritamu.';
+  String get whoCanSeeMyStoriesDesc =>
+      'Diingat bahwa orang-orang dapat melihat dan kontak sesama di ceritamu.';
 
   @override
   String get whatIsGoingOn => 'Apa yang sedang terjadi?';
@@ -1594,7 +1651,8 @@ class L10nId extends L10n {
   String get addDescription => 'Tambahkan deskripsi';
 
   @override
-  String get storyPrivacyWarning => 'Diingat bahwa orang-orang dapat melihat dan kontak satu bersama di ceritamu. Ceritamu akan terlihat selama 24 jam tetapi tidak ada jaminan bahwa itu akan dihapus oleh semua perangkat dan server.';
+  String get storyPrivacyWarning =>
+      'Diingat bahwa orang-orang dapat melihat dan kontak satu bersama di ceritamu. Ceritamu akan terlihat selama 24 jam tetapi tidak ada jaminan bahwa itu akan dihapus oleh semua perangkat dan server.';
 
   @override
   String get iUnderstand => 'Saya mengerti';
@@ -1623,7 +1681,8 @@ class L10nId extends L10n {
   String get pinChat => 'Pin';
 
   @override
-  String get confirmEventUnpin => 'Apakah kamu yakin untuk melepaskan pin peristiwa ini secara permanen?';
+  String get confirmEventUnpin =>
+      'Apakah kamu yakin untuk melepaskan pin peristiwa ini secara permanen?';
 
   @override
   String get emojis => 'Emoji';
@@ -1638,10 +1697,12 @@ class L10nId extends L10n {
   String get unsupportedAndroidVersion => 'Versi Android tidak didukung';
 
   @override
-  String get unsupportedAndroidVersionLong => 'Fitur ini memerlukan versi Android yang baru. Mohon periksa untuk pembaruan atau dukungan LineageOS.';
+  String get unsupportedAndroidVersionLong =>
+      'Fitur ini memerlukan versi Android yang baru. Mohon periksa untuk pembaruan atau dukungan LineageOS.';
 
   @override
-  String get videoCallsBetaWarning => 'Dicatat bahwa panggilan video sedang dalam beta. Fitur ini mungkin tidak berkerja dengan benar atau tidak berkerja sama sekali pada semua platform.';
+  String get videoCallsBetaWarning =>
+      'Dicatat bahwa panggilan video sedang dalam beta. Fitur ini mungkin tidak berkerja dengan benar atau tidak berkerja sama sekali pada semua platform.';
 
   @override
   String get experimentalVideoCalls => 'Panggilan video eksperimental';
@@ -1653,7 +1714,8 @@ class L10nId extends L10n {
   String get indexedDbErrorTitle => 'Masalah dengan mode privat';
 
   @override
-  String get indexedDbErrorLong => 'Penyimpanan pesan sayangnya tidak diaktifkan dalam mode privat secara default.\nMohon kunjungi\n- about:config\n- tetapkan dom.indexedDB.privateBrowsing.enabled ke true\nJika tidak ditetapkan, FluffyChat tidak akan dapat dijalankan.';
+  String get indexedDbErrorLong =>
+      'Penyimpanan pesan sayangnya tidak diaktifkan dalam mode privat secara default.\nMohon kunjungi\n- about:config\n- tetapkan dom.indexedDB.privateBrowsing.enabled ke true\nJika tidak ditetapkan, FluffyChat tidak akan dapat dijalankan.';
 
   @override
   String switchToAccount(Object number) {
@@ -1741,7 +1803,8 @@ class L10nId extends L10n {
   }
 
   @override
-  String get noEmailWarning => 'Mohon tambahkan sebuah alamat email. Atau kamu tidak akan dapat mengatur ulang kata sandimu. Jika kamu tidak ingin, ketuk lagi untuk melanjitkan.';
+  String get noEmailWarning =>
+      'Mohon tambahkan sebuah alamat email. Atau kamu tidak akan dapat mengatur ulang kata sandimu. Jika kamu tidak ingin, ketuk lagi untuk melanjitkan.';
 
   @override
   String get stories => 'Cerita';
@@ -1759,10 +1822,12 @@ class L10nId extends L10n {
   String get cannotUnlockBackupKey => 'Cannot unlock Key backup.';
 
   @override
-  String get storeInSecureStorageDescription => 'Simpan kunci pemulihan di penyimpanan aman perangkat ini.';
+  String get storeInSecureStorageDescription =>
+      'Simpan kunci pemulihan di penyimpanan aman perangkat ini.';
 
   @override
-  String get saveKeyManuallyDescription => 'Simpan kunci ini secara manual dengan memicu dialog pembagian atau papan klip sistem.';
+  String get saveKeyManuallyDescription =>
+      'Simpan kunci ini secara manual dengan memicu dialog pembagian atau papan klip sistem.';
 
   @override
   String get storeInAndroidKeystore => 'Simpan di Android KeyStore';
@@ -1785,7 +1850,8 @@ class L10nId extends L10n {
   String get custom => 'Kustom';
 
   @override
-  String get foregroundServiceRunning => 'Notifikasi ini ditampilkan ketika layanan latar depan berjalan.';
+  String get foregroundServiceRunning =>
+      'Notifikasi ini ditampilkan ketika layanan latar depan berjalan.';
 
   @override
   String get screenSharingTitle => 'membagikan layar';
@@ -1800,22 +1866,27 @@ class L10nId extends L10n {
   String get callingAccount => 'Akun pemanggilan';
 
   @override
-  String get callingAccountDetails => 'Memperbolehkan FluffyChat untuk menggunakan aplikasi penelepon Android bawaan.';
+  String get callingAccountDetails =>
+      'Memperbolehkan FluffyChat untuk menggunakan aplikasi penelepon Android bawaan.';
 
   @override
   String get appearOnTop => 'Tampilkan di atas';
 
   @override
-  String get appearOnTopDetails => 'Memperbolehkan aplikasi untuk ditampilkan di atas (tidak dibutuhkan jika kamu memiliki FluffyChat ditetapkan sebagai akun pemanggilan)';
+  String get appearOnTopDetails =>
+      'Memperbolehkan aplikasi untuk ditampilkan di atas (tidak dibutuhkan jika kamu memiliki FluffyChat ditetapkan sebagai akun pemanggilan)';
 
   @override
-  String get otherCallingPermissions => 'Mikrofon, kamera dan perizinan FluffyChat lainnya';
+  String get otherCallingPermissions =>
+      'Mikrofon, kamera dan perizinan FluffyChat lainnya';
 
   @override
-  String get whyIsThisMessageEncrypted => 'Mengapa pesan ini tidak bisa dibaca?';
+  String get whyIsThisMessageEncrypted =>
+      'Mengapa pesan ini tidak bisa dibaca?';
 
   @override
-  String get noKeyForThisMessage => 'Hal ini bisa terjadi jika pesan dikirim sebelum kamu masuk ke akunmu di perangkat ini.\n\nMungkin juga pengirim telah memblokir perangkatmu atau ada yang tidak beres dengan koneksi internet.\n\nApakah kamu bisa membaca pesan pada sesi lain? Maka kamu bisa mentransfer pesan dari sesi tersebut! Buka Pengaturan > Perangkat dan pastikan bahwa perangkat Anda telah ditandatangani secara silang. Ketika kamu membuka ruangan di lain waktu dan kedua sesi berada di latar depan, kunci akan ditransmisikan secara otomatis.\n\nApakah kamu tidak mau kehilangan kunci saat keluar atau berpindah perangkat? Pastikan bahwa kamu telah mengaktifkan cadangan obrolan dalam pengaturan.';
+  String get noKeyForThisMessage =>
+      'Hal ini bisa terjadi jika pesan dikirim sebelum kamu masuk ke akunmu di perangkat ini.\n\nMungkin juga pengirim telah memblokir perangkatmu atau ada yang tidak beres dengan koneksi internet.\n\nApakah kamu bisa membaca pesan pada sesi lain? Maka kamu bisa mentransfer pesan dari sesi tersebut! Buka Pengaturan > Perangkat dan pastikan bahwa perangkat Anda telah ditandatangani secara silang. Ketika kamu membuka ruangan di lain waktu dan kedua sesi berada di latar depan, kunci akan ditransmisikan secara otomatis.\n\nApakah kamu tidak mau kehilangan kunci saat keluar atau berpindah perangkat? Pastikan bahwa kamu telah mengaktifkan cadangan obrolan dalam pengaturan.';
 
   @override
   String get newGroup => 'Grup baru';
@@ -1838,7 +1909,8 @@ class L10nId extends L10n {
   }
 
   @override
-  String get hideUnimportantStateEvents => 'Sembunyikan peristiwa keadaan yang tidak penting';
+  String get hideUnimportantStateEvents =>
+      'Sembunyikan peristiwa keadaan yang tidak penting';
 
   @override
   String get doNotShowAgain => 'Jangan tampilkan lagi';
@@ -1849,7 +1921,8 @@ class L10nId extends L10n {
   }
 
   @override
-  String get newSpaceDescription => 'Fitur space bisa membantu untuk memisahkan obrolanmu dan membuat komunitas pribadi atau publik.';
+  String get newSpaceDescription =>
+      'Fitur space bisa membantu untuk memisahkan obrolanmu dan membuat komunitas pribadi atau publik.';
 
   @override
   String get encryptThisChat => 'Enkripsi obrolan ini';
@@ -1858,7 +1931,8 @@ class L10nId extends L10n {
   String get endToEndEncryption => 'Enkripsi ujung ke ujung';
 
   @override
-  String get disableEncryptionWarning => 'Demi keamanan kamu tidak bisa menonaktifkan enkripsi dalam sebuah obrolan di mana sebelumbya sudah diaktifkan.';
+  String get disableEncryptionWarning =>
+      'Demi keamanan kamu tidak bisa menonaktifkan enkripsi dalam sebuah obrolan di mana sebelumbya sudah diaktifkan.';
 
   @override
   String get sorryThatsNotPossible => 'Maaf... itu tidak mungkin';
@@ -1870,19 +1944,22 @@ class L10nId extends L10n {
   String get letsStart => 'Mari kita mulai';
 
   @override
-  String get enterInviteLinkOrMatrixId => 'Masukkan tautan undangan atau ID Matrix...';
+  String get enterInviteLinkOrMatrixId =>
+      'Masukkan tautan undangan atau ID Matrix...';
 
   @override
   String get reopenChat => 'Buka obrolan lagi';
 
   @override
-  String get noBackupWarning => 'Peringatan! Tanpa mengaktifkan cadangan percakapan, kamu akan kehilangan akses ke pesan terenkripsimu. Disarankan untuk mengaktifkan cadangan percakapan terlebih dahulu sebelum keluar dari akun.';
+  String get noBackupWarning =>
+      'Peringatan! Tanpa mengaktifkan cadangan percakapan, kamu akan kehilangan akses ke pesan terenkripsimu. Disarankan untuk mengaktifkan cadangan percakapan terlebih dahulu sebelum keluar dari akun.';
 
   @override
   String get noOtherDevicesFound => 'Tidak ada perangkat lain yang ditemukan';
 
   @override
-  String get fileIsTooBigForServer => 'Server melaporkan bahwa file terlalu besar untuk dikirim.';
+  String get fileIsTooBigForServer =>
+      'Server melaporkan bahwa file terlalu besar untuk dikirim.';
 
   @override
   String get onlineStatus => 'online';
@@ -1933,12 +2010,13 @@ class L10nId extends L10n {
   String get chatMessage => 'New message';
 
   @override
-  String welcomeToTwake(Object user) {
-    return 'Welcome to Twake, $user';
+  String welcomeToDedi(Object user) {
+    return 'Welcome to Dedi, $user';
   }
 
   @override
-  String get startNewChatMessage => 'It\'s nice having a chat with your friends and collaborating with your teams.\nLet\'s start a chat, create a group chat, or join an existing one.';
+  String get startNewChatMessage =>
+      'It\'s nice having a chat with your friends and collaborating with your teams.\nLet\'s start a chat, create a group chat, or join an existing one.';
 
   @override
   String get statusDot => '⬤';
@@ -1953,7 +2031,7 @@ class L10nId extends L10n {
   String get newGroupChat => 'New Group Chat';
 
   @override
-  String get twakeUsers => 'Twake users';
+  String get dediUsers => 'Dedi users';
 
   @override
   String get expand => 'Expand';
@@ -1967,13 +2045,16 @@ class L10nId extends L10n {
   }
 
   @override
-  String get searchResultNotFound1 => '• Make sure there are no typos in your search.\n';
+  String get searchResultNotFound1 =>
+      '• Make sure there are no typos in your search.\n';
 
   @override
-  String get searchResultNotFound2 => '• You might not have the user in your address book.\n';
+  String get searchResultNotFound2 =>
+      '• You might not have the user in your address book.\n';
 
   @override
-  String get searchResultNotFound3 => '• Check the contact access permission, the user might be in your contact list.\n';
+  String get searchResultNotFound3 =>
+      '• Check the contact access permission, the user might be in your contact list.\n';
 
   @override
   String get searchResultNotFound4 => '• If the reason is not listed above, ';
@@ -2010,7 +2091,8 @@ class L10nId extends L10n {
   String get wrongServerName => 'Wrong server name';
 
   @override
-  String get serverNameWrongExplain => 'Server address was sent to you by company admin. Check the invitation email.';
+  String get serverNameWrongExplain =>
+      'Server address was sent to you by company admin. Check the invitation email.';
 
   @override
   String get contacts => 'Contacts';
@@ -2022,7 +2104,8 @@ class L10nId extends L10n {
   String get soonThereHaveContacts => 'Soon there will be contacts';
 
   @override
-  String get searchSuggestion => 'For now, search by typing a person’s name or public server address';
+  String get searchSuggestion =>
+      'For now, search by typing a person’s name or public server address';
 
   @override
   String get loadingContacts => 'Loading contacts...';
@@ -2060,16 +2143,18 @@ class L10nId extends L10n {
   String get noImagesFound => 'No Images found';
 
   @override
-  String get captionForImagesIsNotSupportYet => 'Caption for images is not support yet.';
+  String get captionForImagesIsNotSupportYet =>
+      'Caption for images is not support yet.';
 
   @override
   String get tapToAllowAccessToYourGallery => 'Tap to allow gallery access';
 
   @override
-  String get tapToAllowAccessToYourCamera => 'You can enable camera access in the Settings app to make video calls in';
+  String get tapToAllowAccessToYourCamera =>
+      'You can enable camera access in the Settings app to make video calls in';
 
   @override
-  String get twake => 'Twake Chat';
+  String get dedi => 'Dedi';
 
   @override
   String get permissionAccess => 'Permission access';
@@ -2078,10 +2163,12 @@ class L10nId extends L10n {
   String get allow => 'Allow';
 
   @override
-  String get explainStoragePermission => 'Twake need access to your storage to preview file';
+  String get explainStoragePermission =>
+      'Dedi need access to your storage to preview file';
 
   @override
-  String get explainGoToStorageSetting => 'Twake need access to your storage to preview file, go to settings to allow this permission';
+  String get explainGoToStorageSetting =>
+      'Dedi need access to your storage to preview file, go to settings to allow this permission';
 
   @override
   String get gallery => 'Gallery';
@@ -2108,7 +2195,8 @@ class L10nId extends L10n {
   String get externalContactTitle => 'Invite new users';
 
   @override
-  String get externalContactMessage => 'Some of the users you want to add are not in your contacts. Do you want to invite them?';
+  String get externalContactMessage =>
+      'Some of the users you want to add are not in your contacts. Do you want to invite them?';
 
   @override
   String get clear => 'Clear';
@@ -2131,7 +2219,8 @@ class L10nId extends L10n {
   String get continueProcess => 'Continue';
 
   @override
-  String get youAreUploadingPhotosDoYouWantToCancelOrContinue => 'Image upload error! Do you still want to continue creating group chat?';
+  String get youAreUploadingPhotosDoYouWantToCancelOrContinue =>
+      'Image upload error! Do you still want to continue creating group chat?';
 
   @override
   String hasCreatedAGroupChat(Object groupName) {
@@ -2281,13 +2370,15 @@ class L10nId extends L10n {
   String get basicInfo => 'BASIC INFO';
 
   @override
-  String get editProfileDescriptions => 'Update your profile with a new name, picture and a short introduction.';
+  String get editProfileDescriptions =>
+      'Update your profile with a new name, picture and a short introduction.';
 
   @override
   String get workIdentitiesInfo => 'WORK IDENTITIES INFO';
 
   @override
-  String get editWorkIdentitiesDescriptions => 'Edit your work identity settings such as Matrix ID, email or company name.';
+  String get editWorkIdentitiesDescriptions =>
+      'Edit your work identity settings such as Matrix ID, email or company name.';
 
   @override
   String get copiedMatrixIdToClipboard => 'Copied Matrix ID to clipboard.';
@@ -2336,10 +2427,12 @@ class L10nId extends L10n {
   String get noResultsFound => 'No results found';
 
   @override
-  String get encryptionMessage => 'This feature protects your messages from being read by others, but also prevents them from being backed up on our servers. You can\'t disable this later.';
+  String get encryptionMessage =>
+      'This feature protects your messages from being read by others, but also prevents them from being backed up on our servers. You can\'t disable this later.';
 
   @override
-  String get encryptionWarning => 'You might lose your messages if you access Twake app on the another device.';
+  String get encryptionWarning =>
+      'You might lose your messages if you access Dedi app on the another device.';
 
   @override
   String get selectedUsers => 'Selected users';
@@ -2379,16 +2472,19 @@ class L10nId extends L10n {
   String get copyImageSuccess => 'Image copied to clipboard';
 
   @override
-  String get youNeedToAcceptTheInvitation => 'You need to accept the invitation to start chatting';
+  String get youNeedToAcceptTheInvitation =>
+      'You need to accept the invitation to start chatting';
 
   @override
-  String get hasInvitedYouToAChat => ' has invited you to a chat. Accept or reject and delete the conversation?';
+  String get hasInvitedYouToAChat =>
+      ' has invited you to a chat. Accept or reject and delete the conversation?';
 
   @override
   String get declineTheInvitation => 'Decline the invitation?';
 
   @override
-  String get doYouReallyWantToDeclineThisInvitation => 'Do you really want to decline this invitation and remove the chat? You won\'t be able to undo this action.';
+  String get doYouReallyWantToDeclineThisInvitation =>
+      'Do you really want to decline this invitation and remove the chat? You won\'t be able to undo this action.';
 
   @override
   String get declineAndRemove => 'Decline and remove';
@@ -2397,7 +2493,8 @@ class L10nId extends L10n {
   String get notNow => 'Not now';
 
   @override
-  String get contactsWarningBannerTitle => 'To ensure you can connect with all your friends, please allow Twake to access your device’s contacts. We appreciate your understanding.';
+  String get contactsWarningBannerTitle =>
+      'To ensure you can connect with all your friends, please allow Dedi to access your device’s contacts. We appreciate your understanding.';
 
   @override
   String contactsCount(Object count) {
@@ -2405,8 +2502,8 @@ class L10nId extends L10n {
   }
 
   @override
-  String linagoraContactsCount(Object count) {
-    return 'Linagora contacts ($count)';
+  String dediContactsCount(Object count) {
+    return 'Dedi contacts ($count)';
   }
 
   @override
@@ -2427,7 +2524,7 @@ class L10nId extends L10n {
   String get languageRussian => 'Russian';
 
   @override
-  String get settingsLanguageDescription => 'Set the language you use on Twake Chat';
+  String get settingsLanguageDescription => 'Set the language you use on Dedi';
 
   @override
   String sendImages(num count) {
@@ -2471,7 +2568,8 @@ class L10nId extends L10n {
   String get groupName => 'Group name';
 
   @override
-  String get descriptionHelper => 'You can provide an optional description for your group.';
+  String get descriptionHelper =>
+      'You can provide an optional description for your group.';
 
   @override
   String get groupNameCannotBeEmpty => 'Group name cannot be empty';
@@ -2492,7 +2590,8 @@ class L10nId extends L10n {
   String get welcomeTo => 'Welcome to';
 
   @override
-  String get descriptionWelcomeTo => 'an open source messenger based on\nthe matrix protocol, which allows you to\nencrypt your data';
+  String get descriptionWelcomeTo =>
+      'an open source messenger based on\nthe matrix protocol, which allows you to\nencrypt your data';
 
   @override
   String get startMessaging => 'Start messaging';
@@ -2501,13 +2600,14 @@ class L10nId extends L10n {
   String get signIn => 'Sign in';
 
   @override
-  String get createTwakeId => 'Create Twake ID';
+  String get createDediId => 'Create Dedi ID';
 
   @override
   String get useYourCompanyServer => 'Use your company server';
 
   @override
-  String get descriptionTwakeId => 'An open source messenger encrypt\nyour data with matrix protocol';
+  String get descriptionDediId =>
+      'An open source messenger encrypt\nyour data with matrix protocol';
 
   @override
   String countFilesSendPerDialog(Object count) {
@@ -2532,7 +2632,8 @@ class L10nId extends L10n {
   String get noResults => 'No Results';
 
   @override
-  String get isSingleAccountOnHomeserver => 'We do not yet support multiple accounts on a single homeserver';
+  String get isSingleAccountOnHomeserver =>
+      'We do not yet support multiple accounts on a single homeserver';
 
   @override
   String messageSelected(num count) {
@@ -2552,13 +2653,14 @@ class L10nId extends L10n {
   }
 
   @override
-  String get twakeChatUser => 'Twake Chat User';
+  String get dediChatUser => 'Dedi User';
 
   @override
   String get sharedMediaAndLinks => 'Shared media and links';
 
   @override
-  String get errorSendingFiles => 'Some files aren’t sendable due to size, format restrictions, or unexpected errors. They’ll be omitted.';
+  String get errorSendingFiles =>
+      'Some files aren’t sendable due to size, format restrictions, or unexpected errors. They’ll be omitted.';
 
   @override
   String get removeFileBeforeSend => 'Remove error files before send';
@@ -2570,7 +2672,8 @@ class L10nId extends L10n {
   String get searchContacts => 'Search contacts';
 
   @override
-  String get tapToAllowAccessToYourMicrophone => 'You can enable microphone access in the Settings app to make voice in';
+  String get tapToAllowAccessToYourMicrophone =>
+      'You can enable microphone access in the Settings app to make voice in';
 
   @override
   String get showInChat => 'Show in chat';
@@ -2602,28 +2705,34 @@ class L10nId extends L10n {
   }
 
   @override
-  String get explainPermissionToAccessContacts => 'Twake Chat DOES NOT collect your contacts. Twake Chat sends only contact hashes to the Twake Chat servers to understand who from your friends already joined Twake Chat, enabling connection with them. Your contacts ARE NOT synchronized with our server.';
+  String get explainPermissionToAccessContacts =>
+      'Dedi DOES NOT collect your contacts. Dedi sends only contact hashes to the Dedi servers to understand who from your friends already joined Dedi, enabling connection with them. Your contacts ARE NOT synchronized with our server.';
 
   @override
-  String get explainPermissionToAccessMedias => 'Twake Chat does not synchronize data between your device and our servers. We only store media that you have sent to the chat room. All media files sent to chat are encrypted and stored securely. Go to Settings > Permissions and activate the Storage: Photos and Videos permission. You can also deny access to your media library at any time.';
+  String get explainPermissionToAccessMedias =>
+      'Dedi does not synchronize data between your device and our servers. We only store media that you have sent to the chat room. All media files sent to chat are encrypted and stored securely. Go to Settings > Permissions and activate the Storage: Photos and Videos permission. You can also deny access to your media library at any time.';
 
   @override
-  String get explainPermissionToAccessPhotos => 'Twake Chat does not synchronize data between your device and our servers. We only store media that you have sent to the chat room. All media files sent to chat are encrypted and stored securely. Go to Settings > Permissions and activate the Storage: Photos permission. You can also deny access to your media library at any time.';
+  String get explainPermissionToAccessPhotos =>
+      'Dedi does not synchronize data between your device and our servers. We only store media that you have sent to the chat room. All media files sent to chat are encrypted and stored securely. Go to Settings > Permissions and activate the Storage: Photos permission. You can also deny access to your media library at any time.';
 
   @override
-  String get explainPermissionToAccessVideos => 'Twake Chat does not synchronize data between your device and our servers. We only store media that you have sent to the chat room. All media files sent to chat are encrypted and stored securely. Go to Settings > Permissions and activate the Storage: Videos permission. You can also deny access to your media library at any time.';
+  String get explainPermissionToAccessVideos =>
+      'Dedi does not synchronize data between your device and our servers. We only store media that you have sent to the chat room. All media files sent to chat are encrypted and stored securely. Go to Settings > Permissions and activate the Storage: Videos permission. You can also deny access to your media library at any time.';
 
   @override
   String get downloading => 'Downloading';
 
   @override
-  String get settingUpYourTwake => 'Setting up your Twake\nIt could take a while';
+  String get settingUpYourDedi => 'Setting up your Dedi\nIt could take a while';
 
   @override
-  String get performingAutomaticalLogin => 'Performing automatical login  via SSO';
+  String get performingAutomaticalLogin =>
+      'Performing automatical login  via SSO';
 
   @override
-  String get backingUpYourMessage => 'Preparing server environment for backing up your messages';
+  String get backingUpYourMessage =>
+      'Preparing server environment for backing up your messages';
 
   @override
   String get recoveringYourEncryptedChats => 'Recovering your encrypted chats';
@@ -2652,7 +2761,8 @@ class L10nId extends L10n {
   String get dangerZone => 'Danger zone';
 
   @override
-  String get leaveGroupSubtitle => 'This group will still remain after you left';
+  String get leaveGroupSubtitle =>
+      'This group will still remain after you left';
 
   @override
   String get leaveChatFailed => 'Failed to leave the chat';
@@ -2684,7 +2794,8 @@ class L10nId extends L10n {
   String get privacyPolicy => 'Privacy Policy';
 
   @override
-  String get byContinuingYourAgreeingToOur => 'By continuing, you\'re agreeing to our';
+  String get byContinuingYourAgreeingToOur =>
+      'By continuing, you\'re agreeing to our';
 
   @override
   String get youDontHaveAnyContactsYet => 'You dont have any contacts yet.';
@@ -2699,7 +2810,8 @@ class L10nId extends L10n {
   String get shootingTips => 'Tap to take photo.';
 
   @override
-  String get shootingWithRecordingTips => 'Tap to take photo. Long press to record video.';
+  String get shootingWithRecordingTips =>
+      'Tap to take photo. Long press to record video.';
 
   @override
   String get shootingOnlyRecordingTips => 'Long press to record video.';
@@ -2772,7 +2884,8 @@ class L10nId extends L10n {
   String get disable_notifications => 'Disable notifications';
 
   @override
-  String get logoutDialogWarning => 'You will lose access to encrypted messages. We recommend that you enable chat backups before logging out';
+  String get logoutDialogWarning =>
+      'You will lose access to encrypted messages. We recommend that you enable chat backups before logging out';
 
   @override
   String get copyNumber => 'Copy number';
@@ -2781,7 +2894,8 @@ class L10nId extends L10n {
   String get callViaCarrier => 'Call via Carrier';
 
   @override
-  String get scanQrCodeToJoin => 'Installation of the mobile application will allow you to contact people from your phone\'s address book, your chats will be synchronised between devices';
+  String get scanQrCodeToJoin =>
+      'Installation of the mobile application will allow you to contact people from your phone\'s address book, your chats will be synchronised between devices';
 
   @override
   String get thisFieldCannotBeBlank => 'This field cannot be blank';
@@ -2790,19 +2904,22 @@ class L10nId extends L10n {
   String get phoneNumberCopiedToClipboard => 'Phone number copied to clipboard';
 
   @override
-  String get deleteAccountMessage => 'Groups chats that you have created will remain unadministered unless you have given another user administrator rights. Users will still have a history of messages with you. Deleting the account won\'t help.';
+  String get deleteAccountMessage =>
+      'Groups chats that you have created will remain unadministered unless you have given another user administrator rights. Users will still have a history of messages with you. Deleting the account won\'t help.';
 
   @override
   String get deleteLater => 'Delete later';
 
   @override
-  String get areYouSureYouWantToDeleteAccount => 'Are you sure you want to delete account?';
+  String get areYouSureYouWantToDeleteAccount =>
+      'Are you sure you want to delete account?';
 
   @override
   String get textCopiedToClipboard => 'Text copied to clipboard';
 
   @override
-  String get selectAnEmailOrPhoneYouWantSendTheInvitationTo => 'Select an email or phone you want send the invitation to';
+  String get selectAnEmailOrPhoneYouWantSendTheInvitationTo =>
+      'Select an email or phone you want send the invitation to';
 
   @override
   String get phoneNumber => 'Phone number';
@@ -2817,7 +2934,8 @@ class L10nId extends L10n {
   String get contactLookupFailed => 'Contact lookup failed.';
 
   @override
-  String get invitationHasBeenSuccessfullySent => 'Invitation has been successfully sent!';
+  String get invitationHasBeenSuccessfullySent =>
+      'Invitation has been successfully sent!';
 
   @override
   String get failedToSendInvitation => 'Failed to send invitation.';
@@ -2832,34 +2950,41 @@ class L10nId extends L10n {
   String get shareInvitationLink => 'Share invitation link';
 
   @override
-  String get failedToGenerateInvitationLink => 'Failed to generate invitation link.';
+  String get failedToGenerateInvitationLink =>
+      'Failed to generate invitation link.';
 
   @override
-  String get youAlreadySentAnInvitationToThisContact => 'You already sent an invitation to this contact';
+  String get youAlreadySentAnInvitationToThisContact =>
+      'You already sent an invitation to this contact';
 
   @override
-  String get selectedEmailWillReceiveAnInvitationLinkAndInstructions => 'Selected email will receive an invitation link and instructions.';
+  String get selectedEmailWillReceiveAnInvitationLinkAndInstructions =>
+      'Selected email will receive an invitation link and instructions.';
 
   @override
-  String get selectedNumberWillGetAnSMSWithAnInvitationLinkAndInstructions => 'Selected number will get an SMS with an invitation link and instructions.';
+  String get selectedNumberWillGetAnSMSWithAnInvitationLinkAndInstructions =>
+      'Selected number will get an SMS with an invitation link and instructions.';
 
   @override
   String get reaction => 'Reaction';
 
   @override
-  String get noChatPermissionMessage => 'You do not have permission to send messages in this chat.';
+  String get noChatPermissionMessage =>
+      'You do not have permission to send messages in this chat.';
 
   @override
   String get administration => 'Administration';
 
   @override
-  String get yourDataIsEncryptedForSecurity => 'Your data is encrypted for security';
+  String get yourDataIsEncryptedForSecurity =>
+      'Your data is encrypted for security';
 
   @override
   String get failedToDeleteMessage => 'Failed to delete message.';
 
   @override
-  String get noDeletePermissionMessage => 'You don\'t have permission to delete this message.';
+  String get noDeletePermissionMessage =>
+      'You don\'t have permission to delete this message.';
 
   @override
   String get edited => 'edited';
@@ -2924,10 +3049,12 @@ class L10nId extends L10n {
   String get canWriteMessagesSendReacts => 'Can write messages, send reacts...';
 
   @override
-  String get canRemoveUsersDeleteMessages => 'Can remove users, delete messages...';
+  String get canRemoveUsersDeleteMessages =>
+      'Can remove users, delete messages...';
 
   @override
-  String get canAccessAllFeaturesAndSettings => 'Can access all features and settings';
+  String get canAccessAllFeaturesAndSettings =>
+      'Can access all features and settings';
 
   @override
   String get invitePeopleToTheRoom => 'Invite people to the room';
@@ -2972,22 +3099,26 @@ class L10nId extends L10n {
   String get searchGroupMembers => 'Search group members';
 
   @override
-  String get permissionErrorChangeRole => 'You don’t have the rights to change roles. Please reach out to your admin for help';
+  String get permissionErrorChangeRole =>
+      'You don’t have the rights to change roles. Please reach out to your admin for help';
 
   @override
   String get demoteAdminsModerators => 'Demote Admins/Moderators';
 
   @override
-  String get deleteMessageConfirmationTitle => 'Are you sure you want to delete this message?';
+  String get deleteMessageConfirmationTitle =>
+      'Are you sure you want to delete this message?';
 
   @override
-  String get permissionErrorBanUser => 'You don’t have the rights to ban users. Please reach out to your admin for help';
+  String get permissionErrorBanUser =>
+      'You don’t have the rights to ban users. Please reach out to your admin for help';
 
   @override
   String get removeMember => 'Remove member';
 
   @override
-  String get removeMemberSelectionError => 'You cannot delete a member with a role equal to or greater than yours.';
+  String get removeMemberSelectionError =>
+      'You cannot delete a member with a role equal to or greater than yours.';
 
   @override
   String get downgrade => 'Downgrade';
@@ -2999,7 +3130,8 @@ class L10nId extends L10n {
   String get unban => 'Unban';
 
   @override
-  String get permissionErrorUnbanUser => 'You don’t have the rights to unban users. Please reach out to your admin for help';
+  String get permissionErrorUnbanUser =>
+      'You don’t have the rights to unban users. Please reach out to your admin for help';
 
   @override
   String get transferOwnership => 'Transfer ownership';
@@ -3010,7 +3142,8 @@ class L10nId extends L10n {
   }
 
   @override
-  String get transferOwnershipDescription => 'This user will gain full control over the group and you will no longer have total management rights. This action is irreversible.';
+  String get transferOwnershipDescription =>
+      'This user will gain full control over the group and you will no longer have total management rights. This action is irreversible.';
 
   @override
   String get confirmTransfer => 'Confirm Transfer';
@@ -3022,10 +3155,12 @@ class L10nId extends L10n {
   String get blockUser => 'Block User';
 
   @override
-  String get permissionErrorUnblockUser => 'You don’t have the rights to unblock user.';
+  String get permissionErrorUnblockUser =>
+      'You don’t have the rights to unblock user.';
 
   @override
-  String get permissionErrorBlockUser => 'You don’t have the rights to block user.';
+  String get permissionErrorBlockUser =>
+      'You don’t have the rights to block user.';
 
   @override
   String userIsNotAValidMxid(Object mxid) {
@@ -3049,7 +3184,8 @@ class L10nId extends L10n {
   String get unblock => 'Unblock';
 
   @override
-  String get unblockDescriptionDialog => 'This person will be able to message you and see when you\'re online. They won\'t be notified that you unblocked them.';
+  String get unblockDescriptionDialog =>
+      'This person will be able to message you and see when you\'re online. They won\'t be notified that you unblocked them.';
 
   @override
   String get report => 'Report';
@@ -3085,13 +3221,15 @@ class L10nId extends L10n {
   String get other => 'Other';
 
   @override
-  String get enableRightAndLeftMessageAlignment => 'Enable right/left message alignment';
+  String get enableRightAndLeftMessageAlignment =>
+      'Enable right/left message alignment';
 
   @override
   String get holdToRecordAudio => 'Hold to record audio.';
 
   @override
-  String get explainPermissionToAccessMicrophone => 'To send voice messages, allow Twake Chat to access the microphone.';
+  String get explainPermissionToAccessMicrophone =>
+      'To send voice messages, allow Dedi to access the microphone.';
 
   @override
   String get allowMicrophoneAccess => 'Allow microphone access';
@@ -3109,7 +3247,8 @@ class L10nId extends L10n {
   String get recordingInProgress => 'Recording in progress';
 
   @override
-  String get pleaseFinishOrStopTheRecording => 'Please finish or stop the recording before performing other actions.';
+  String get pleaseFinishOrStopTheRecording =>
+      'Please finish or stop the recording before performing other actions.';
 
   @override
   String get audioMessageFailedToSend => 'Audio message failed to send.';
@@ -3118,19 +3257,22 @@ class L10nId extends L10n {
   String get dediMainTitle => 'DNA Algorithm';
 
   @override
-  String get dediMainDescription => 'Dedi uses an encryption system that belongs only to Dedi, messages cannot be read outside of Dedi';
+  String get dediMainDescription =>
+      'Dedi uses an encryption system that belongs only to Dedi, messages cannot be read outside of Dedi';
 
   @override
   String get phoneAuthTitle => 'Phone Verification';
 
   @override
-  String get phoneAuthDescription => 'Enter your phone number, we will send you a verification code';
+  String get phoneAuthDescription =>
+      'Enter your phone number, we will send you a verification code';
 
   @override
   String get otpVerificationTitle => 'Verification Code';
 
   @override
-  String get otpVerificationDescription => 'Enter the 6-digit code sent to your phone';
+  String get otpVerificationDescription =>
+      'Enter the 6-digit code sent to your phone';
 
   @override
   String get splashTagline => 'Turkey\'s messaging platform';
@@ -3142,7 +3284,8 @@ class L10nId extends L10n {
   String get welcomeMessage => 'Welcome!';
 
   @override
-  String get loginDescription => 'Just a few steps left for secure and unlimited messaging';
+  String get loginDescription =>
+      'Just a few steps left for secure and unlimited messaging';
 
   @override
   String get phoneNumberLabel => 'Phone Number *';
@@ -3171,13 +3314,15 @@ class L10nId extends L10n {
   String get otpRequestFailed => 'Failed to send code. Please try again.';
 
   @override
-  String get pleaseEnterCompleteCode => 'Please enter the complete 6-digit code';
+  String get pleaseEnterCompleteCode =>
+      'Please enter the complete 6-digit code';
 
   @override
   String get invalidOtp => 'Verification code is incorrect. Please check.';
 
   @override
-  String get connectionError => 'Connection error. Please check your internet connection.';
+  String get connectionError =>
+      'Connection error. Please check your internet connection.';
 
   @override
   String get expiredOtp => 'Verification code has expired. Request a new code.';

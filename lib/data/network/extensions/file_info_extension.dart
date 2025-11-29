@@ -4,7 +4,7 @@ import 'package:matrix/matrix.dart';
 extension FileInfoExtension on FileInfo {
   String get fileExtension => fileName.split('.').last;
 
-  String get mimeType => MimeTypeUitls.instance.getTwakeMimeType(filePath);
+  String get mimeType => MimeTypeUitls.instance.getDediMimeType(filePath);
 
   Map<String, dynamic> get metadata => ({
         'mimetype': mimeType,

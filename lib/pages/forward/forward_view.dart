@@ -130,7 +130,7 @@ class _WebActionsButton extends StatelessWidget {
                       height: ForwardViewStyle.bottomBarHeight,
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: TwakeFloatingActionButton(
+                        child: DediFloatingActionButton(
                           customIcon:
                               SizedBox(child: CupertinoActivityIndicator()),
                         ),
@@ -145,7 +145,7 @@ class _WebActionsButton extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TwakeTextButton(
+                DediTextButton(
                   onTap: () => Navigator.of(context).pop(),
                   message: L10n.of(context)!.cancel,
                   borderHover: ForwardViewStyle.webActionsButtonBorder,
@@ -157,20 +157,20 @@ class _WebActionsButton extends StatelessWidget {
                   ),
                   styleMessage:
                       Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: LinagoraSysColors.material().primary,
+                            color: DediSysColors.material().primary,
                           ),
                 ),
                 const SizedBox(width: 8.0),
-                TwakeTextButton(
+                DediTextButton(
                   onTap: forwardAction,
                   message: L10n.of(context)!.add,
                   margin: ForwardViewStyle.webActionsButtonMargin,
                   borderHover: ForwardViewStyle.webActionsButtonBorder,
                   buttonDecoration: BoxDecoration(
                     color: selectedChat.isNotEmpty
-                        ? LinagoraSysColors.material().primary
-                        : LinagoraStateLayer(
-                            LinagoraSysColors.material().onSurface,
+                        ? DediSysColors.material().primary
+                        : DediStateLayer(
+                            DediSysColors.material().onSurface,
                           ).opacityLayer2,
                     borderRadius: BorderRadius.circular(
                       ForwardViewStyle.webActionsButtonBorder,
@@ -179,8 +179,8 @@ class _WebActionsButton extends StatelessWidget {
                   styleMessage:
                       Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: selectedChat.isNotEmpty
-                                ? LinagoraSysColors.material().onPrimary
-                                : LinagoraSysColors.material()
+                                ? DediSysColors.material().onPrimary
+                                : DediSysColors.material()
                                     .inverseSurface
                                     .withOpacity(0.6),
                           ),
@@ -230,7 +230,7 @@ class _ForwardButton extends StatelessWidget {
                   height: ForwardViewStyle.bottomBarHeight,
                   child: Align(
                     alignment: Alignment.centerRight,
-                    child: TwakeFloatingActionButton(
+                    child: DediFloatingActionButton(
                       customIcon: SizedBox(child: CupertinoActivityIndicator()),
                     ),
                   ),
@@ -245,7 +245,7 @@ class _ForwardButton extends StatelessWidget {
           height: ForwardViewStyle.bottomBarHeight,
           child: Align(
             alignment: Alignment.centerRight,
-            child: TwakeIconButton(
+            child: DediIconButton(
               paddingAll: 0,
               onTap: forwardAction,
               tooltip: L10n.of(context)!.send,

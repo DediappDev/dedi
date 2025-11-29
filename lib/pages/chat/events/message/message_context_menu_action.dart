@@ -87,7 +87,7 @@ enum MessageContextMenuAction {
     Event event,
   ) {
     if (this == MessageContextMenuAction.delete) {
-      return LinagoraSysColors.material().error;
+      return DediSysColors.material().error;
     }
     return null;
   }

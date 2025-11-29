@@ -2,12 +2,12 @@ import 'package:fluffychat/widgets/twake_components/twake_loading/status_loading
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart';
 
-class TwakeLoadingIndicator extends StatefulWidget {
+class DediLoadingIndicator extends StatefulWidget {
   final bool showIndicator;
   final Color flashingCircleDarkColor;
   final Color flashingCircleBrightColor;
 
-  const TwakeLoadingIndicator({
+  const DediLoadingIndicator({
     super.key,
     this.showIndicator = false,
     this.flashingCircleDarkColor = const Color(0xFF0A84FF),
@@ -15,10 +15,10 @@ class TwakeLoadingIndicator extends StatefulWidget {
   });
 
   @override
-  State<TwakeLoadingIndicator> createState() => _TwakeLoadingIndicatorState();
+  State<DediLoadingIndicator> createState() => _DediLoadingIndicatorState();
 }
 
-class _TwakeLoadingIndicatorState extends State<TwakeLoadingIndicator>
+class _DediLoadingIndicatorState extends State<DediLoadingIndicator>
     with TickerProviderStateMixin {
   late AnimationController _appearanceController;
 
@@ -50,7 +50,7 @@ class _TwakeLoadingIndicatorState extends State<TwakeLoadingIndicator>
   }
 
   @override
-  void didUpdateWidget(TwakeLoadingIndicator oldWidget) {
+  void didUpdateWidget(DediLoadingIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (widget.showIndicator != oldWidget.showIndicator) {

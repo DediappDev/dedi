@@ -30,7 +30,7 @@ class StateMessage extends StatelessWidget {
                     ),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: LinagoraRefColors.material().tertiary[20],
+                      color: DediRefColors.material().tertiary[20],
                       decoration:
                           event.redacted ? TextDecoration.lineThrough : null,
                       letterSpacing: 0.4,

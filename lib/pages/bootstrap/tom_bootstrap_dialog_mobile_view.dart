@@ -56,11 +56,11 @@ class TomBootstrapDialogMobileView extends StatelessWidget {
             child: TextField(
               textInputAction: TextInputAction.search,
               enabled: false,
-              contextMenuBuilder: mobileTwakeContextMenuBuilder,
+              contextMenuBuilder: mobileDediContextMenuBuilder,
               decoration: ChatListHeaderStyle.searchInputDecoration(
                 context,
                 hintText: '',
-                prefixIconColor: LinagoraRefColors.material().neutral[90],
+                prefixIconColor: DediRefColors.material().neutral[90],
               ),
             ),
           ),
@@ -68,8 +68,8 @@ class TomBootstrapDialogMobileView extends StatelessWidget {
             padding: TomBootstrapDialogMobileStyle.paddingDivider,
             child: Divider(
               height: 1,
-              color: LinagoraStateLayer(
-                LinagoraSysColors.material().surfaceTintDark,
+              color: DediStateLayer(
+                DediSysColors.material().surfaceTintDark,
               ).opacityLayer3,
             ),
           ),
@@ -82,16 +82,16 @@ class TomBootstrapDialogMobileView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    L10n.of(context)!.settingUpYourTwake,
+                    L10n.of(context)!.settingUpYourDedi,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: LinagoraSysColors.material().onBackground,
+                          color: DediSysColors.material().onBackground,
                         ),
                     textAlign: TextAlign.center,
                   ),
                   Padding(
                     padding: TomBootstrapDialogStyle.lottiePadding,
                     child: LottieBuilder.asset(
-                      ImagePaths.lottieTwakeLoading,
+                      ImagePaths.lottieDediLoading,
                       width: TomBootstrapDialogStyle.lottieSize,
                       height: TomBootstrapDialogStyle.lottieSize,
                     ),
@@ -99,7 +99,7 @@ class TomBootstrapDialogMobileView extends StatelessWidget {
                   Text(
                     description,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: LinagoraSysColors.material().tertiary,
+                          color: DediSysColors.material().tertiary,
                         ),
                     textAlign: TextAlign.center,
                   ),

@@ -116,7 +116,7 @@ class _SelectedParticipantsListState extends State<SelectedParticipantsList> {
                       Text(
                         '${L10n.of(context)!.selectedUsers}: ${contactsNotifier.contactsList.length}',
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              color: LinagoraRefColors.material().tertiary[20],
+                              color: DediRefColors.material().tertiary[20],
                             ),
                       ),
                       Expanded(
@@ -133,8 +133,8 @@ class _SelectedParticipantsListState extends State<SelectedParticipantsList> {
                                     .textTheme
                                     .labelLarge
                                     ?.copyWith(
-                                      color: LinagoraRefColors.material()
-                                          .tertiary[20],
+                                      color:
+                                          DediRefColors.material().tertiary[20],
                                     ),
                               ),
                             ),

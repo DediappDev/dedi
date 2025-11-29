@@ -25,7 +25,7 @@ class ChatView extends StatelessWidget with MessageContentMixin {
       return Row(
         children: [
           // FIXME: 7Aug2023: Need user story for edit message
-          TwakeIconButton(
+          DediIconButton(
             icon: Icons.copy_outlined,
             tooltip: L10n.of(context)!.copy,
             onTap: () => controller
@@ -33,14 +33,14 @@ class ChatView extends StatelessWidget with MessageContentMixin {
           ),
           // #777 Hide Delete Message functionality
           // if (controller.canRedactSelectedEvents)
-          //   TwakeIconButton(
+          //   DediIconButton(
           //     icon: Icons.delete_outlined,
           //     tooltip: L10n.of(context)!.redactMessage,
           //     onTap: () => controller
           //         .actionWithClearSelections(controller.redactEventsAction),
           //   ),
           if (controller.selectedEvents.length == 1)
-            TwakeIconButton(
+            DediIconButton(
               icon: !controller.isUnpinEvent(controller.selectedEvents.first)
                   ? Icons.push_pin_outlined
                   : null,
@@ -63,7 +63,7 @@ class ChatView extends StatelessWidget with MessageContentMixin {
               imageSize: ChatViewStyle.appBarIconSize,
             ),
           if (controller.selectedEvents.length == 1)
-            TwakeIconButton(
+            DediIconButton(
               icon: Icons.more_vert,
               tooltip: L10n.of(context)!.more,
               onTapDown: (tapDownDetails) => controller.handleAppbarMenuAction(
@@ -114,12 +114,12 @@ class ChatView extends StatelessWidget with MessageContentMixin {
             builder: (BuildContext context, snapshot) {
               return Scaffold(
                 backgroundColor: controller.responsive.isMobile(context)
-                    ? LinagoraSysColors.material().background
-                    : LinagoraSysColors.material().onPrimary,
+                    ? DediSysColors.material().background
+                    : DediSysColors.material().onPrimary,
                 appBar: AppBar(
                   backgroundColor: controller.responsive.isMobile(context)
-                      ? LinagoraSysColors.material().surface
-                      : LinagoraSysColors.material().onPrimary,
+                      ? DediSysColors.material().surface
+                      : DediSysColors.material().onPrimary,
                   automaticallyImplyLeading: false,
                   toolbarHeight: ChatViewStyle.appBarHeight(context),
                   title: Padding(
@@ -164,7 +164,7 @@ class ChatView extends StatelessWidget with MessageContentMixin {
                             ),
                             if (!controller.room!.isDirectChat)
                               Builder(
-                                builder: (context) => TwakeIconButton(
+                                builder: (context) => DediIconButton(
                                   icon: Icons.more_vert,
                                   tooltip: L10n.of(context)!.more,
                                   onTapDown: (tapDownDetails) =>
@@ -182,8 +182,8 @@ class ChatView extends StatelessWidget with MessageContentMixin {
                   bottom: PreferredSize(
                     preferredSize: const Size(double.infinity, 1),
                     child: Container(
-                      color: LinagoraStateLayer(
-                        LinagoraSysColors.material().surfaceTint,
+                      color: DediStateLayer(
+                        DediSysColors.material().surfaceTint,
                       ).opacityLayer1,
                       height: 1,
                     ),
@@ -243,7 +243,7 @@ class ChatView extends StatelessWidget with MessageContentMixin {
 
   Widget _buildBackButton(BuildContext context) => Padding(
         padding: const EdgeInsets.only(left: 8, right: 8),
-        child: TwakeIconButton(
+        child: DediIconButton(
           tooltip: L10n.of(context)!.back,
           icon: Icons.chevron_left_outlined,
           onTap: controller.onBackPress,
@@ -253,7 +253,7 @@ class ChatView extends StatelessWidget with MessageContentMixin {
 
   Widget _buildLeading(BuildContext context) {
     if (controller.selectMode) {
-      return TwakeIconButton(
+      return DediIconButton(
         icon: Icons.close,
         onTap: controller.clearSelectedEvents,
         tooltip: L10n.of(context)!.close,

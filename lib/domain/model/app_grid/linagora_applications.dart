@@ -5,16 +5,16 @@ import 'linagora_app.dart';
 part 'linagora_applications.g.dart';
 
 @JsonSerializable()
-class LinagoraApplications with EquatableMixin {
+class DediApplications with EquatableMixin {
   @JsonKey(name: 'apps')
-  final List<LinagoraApp> apps;
+  final List<DediApp> apps;
 
-  LinagoraApplications(this.apps);
+  DediApplications(this.apps);
 
-  factory LinagoraApplications.fromJson(Map<String, dynamic> json) =>
-      _$LinagoraApplicationsFromJson(json);
+  factory DediApplications.fromJson(Map<String, dynamic> json) =>
+      _$DediApplicationsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$LinagoraApplicationsToJson(this);
+  Map<String, dynamic> toJson() => _$DediApplicationsToJson(this);
 
   @override
   List<Object?> get props => [apps];

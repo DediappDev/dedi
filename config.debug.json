@@ -1,0 +1,44 @@
+{
+  "_comment": "✅ DEDI Chat - Debug Configuration",
+  "_version": "1.0.0",
+  "_description": "Debug configuration for DEDI Chat development",
+  "_extends": "config.json",
+  
+  "dev_mode": true,
+  "enable_logs": true,
+  "enable_debug_toasts": true,
+  "platform": "debug",
+  
+  "_comment_server": "✅ DEDI Server Configuration - ToM Server integration",
+  "tom_server_url": "https://tom.dedim.com.tr",
+  "identity_server_url": "https://identity.dedim.com.tr",
+
+  "_comment_otp": "✅ OTP API Configuration - DEDI Server endpoints",
+  "otp_api_base_url": "https://tom.dedim.com.tr",
+  "otp_request_endpoint": "/otp/request",
+  "otp_verify_endpoint": "/otp/verify",
+  "otp_matrix_token_endpoint": "/otp/matrix-token",
+
+  "_comment_debug": "✅ Debug Configuration - Enhanced for DEDI Server troubleshooting",
+  "debug_configuration": {
+    "enable_debug_toasts": true,
+    "enable_debug_logging": true,
+    "log_api_requests": true,
+    "log_api_responses": true,
+    "log_environment_loading": true,
+    "log_configuration_loading": true,
+    "show_ssl_errors": true,
+    "show_network_errors": true,
+    "show_timeout_errors": true
+  },
+
+  "_comment_server_mapping": "✅ Server URL Mapping for DEDI Server architecture",
+  "server_mapping": {
+    "matrix_homeserver": "https://matrix.dedim.com.tr",
+    "identity_server": "https://identity.dedim.com.tr",
+    "tom_server": "https://tom.dedim.com.tr",
+    "chat_web": "https://chat.dedim.com.tr",
+    "notification_gateway": "https://notification.dedim.com.tr"
+  }
+}
+

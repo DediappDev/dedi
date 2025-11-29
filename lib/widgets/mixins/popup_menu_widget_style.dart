@@ -5,7 +5,7 @@ import 'package:linagora_design_flutter/linagora_design_flutter.dart';
 class PopupMenuWidgetStyle {
   // Context Menu
   static Color? defaultMenuColor(BuildContext context) {
-    return LinagoraRefColors.material().primary[100];
+    return DediRefColors.material().primary[100];
   }
 
   static const double menuElevation = 2.0;
@@ -15,18 +15,17 @@ class PopupMenuWidgetStyle {
   static const double dividerThickness = 1.0;
 
   static Color? defaultDividerColor(BuildContext context) {
-    return LinagoraStateLayer(LinagoraSysColors.material().surfaceTint)
-        .opacityLayer3;
+    return DediStateLayer(DediSysColors.material().surfaceTint).opacityLayer3;
   }
 
   // Context Menu Items
   static TextStyle? defaultItemTextStyle(BuildContext context) {
     return context.textTheme.bodyLarge!
-        .copyWith(color: LinagoraRefColors.material().neutral[30]);
+        .copyWith(color: DediRefColors.material().neutral[30]);
   }
 
   static Color? defaultItemColorIcon(BuildContext context) {
-    return LinagoraRefColors.material().neutral[30];
+    return DediRefColors.material().neutral[30];
   }
 
   static const double defaultItemIconSize = 24.0;

@@ -31,7 +31,7 @@ class ReadChatListSubtitleTextStyleDecorator
   @override
   TextStyle textStyle(Room room, BuildContext context) {
     return Theme.of(context).textTheme.bodyMedium!.copyWith(
-          color: LinagoraSysColors.material().onSurface,
+          color: DediSysColors.material().onSurface,
           fontFamily: 'Inter',
         );
   }
@@ -48,7 +48,7 @@ class UnreadChatListSubtitleTextStyleDecorator
     if (room.isUnreadOrInvited) {
       return _interfaceTextStyleComponent.textStyle(room, context).merge(
             Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: LinagoraSysColors.material().onSurface,
+                  color: DediSysColors.material().onSurface,
                 ),
           );
     } else {
@@ -71,7 +71,7 @@ class MuteChatListSubtitleTextStyleDecorator
   TextStyle textStyle(Room room, BuildContext context) {
     if (room.isMuted) {
       return _interfaceTextStyleComponent.textStyle(room, context).copyWith(
-            color: LinagoraSysColors.material().onSurface,
+            color: DediSysColors.material().onSurface,
           );
     } else {
       return _interfaceTextStyleComponent.textStyle(room, context);

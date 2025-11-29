@@ -149,7 +149,7 @@ enum DefaultPermissionLevelMember {
             Icon(
               permission.icon(),
               size: 24,
-              color: LinagoraSysColors.material().onSurface,
+              color: DediSysColors.material().onSurface,
             ),
           if (permission.imagePath() != null)
             SvgPicture.asset(
@@ -157,7 +157,7 @@ enum DefaultPermissionLevelMember {
               width: 24,
               height: 24,
               colorFilter: ColorFilter.mode(
-                LinagoraSysColors.material().onSurface,
+                DediSysColors.material().onSurface,
                 BlendMode.srcIn,
               ),
             ),
@@ -166,7 +166,7 @@ enum DefaultPermissionLevelMember {
             child: Text(
               permission.title(context),
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: LinagoraSysColors.material().onSurface,
+                    color: DediSysColors.material().onSurface,
                   ),
             ),
           ),
@@ -175,8 +175,8 @@ enum DefaultPermissionLevelMember {
             height: 24,
             padding: const EdgeInsets.symmetric(horizontal: 4),
             decoration: BoxDecoration(
-              color: LinagoraStateLayer(
-                LinagoraSysColors.material().onSurface,
+              color: DediStateLayer(
+                DediSysColors.material().onSurface,
               ).opacityLayer2,
               borderRadius: BorderRadius.circular(20),
             ),
@@ -186,14 +186,14 @@ enum DefaultPermissionLevelMember {
                 width: 18,
                 height: 18,
                 decoration: BoxDecoration(
-                  color: LinagoraSysColors.material().surface,
+                  color: DediSysColors.material().surface,
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   Icons.check,
                   size: 16,
                   color:
-                      LinagoraSysColors.material().onSurface.withOpacity(0.4),
+                      DediSysColors.material().onSurface.withOpacity(0.4),
                 ),
               ),
             ),

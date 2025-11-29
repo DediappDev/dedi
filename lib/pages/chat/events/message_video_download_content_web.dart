@@ -84,7 +84,7 @@ class _MessageVideoDownloadContentWebState
                   height: MessageContentStyle.iconInsideVideoButtonSize,
                   child: CircularProgressIndicator(
                     value: progress,
-                    color: LinagoraRefColors.material().primary[100],
+                    color: DediRefColors.material().primary[100],
                     strokeWidth: MessageContentStyle.strokeVideoWidth,
                   ),
                 ),

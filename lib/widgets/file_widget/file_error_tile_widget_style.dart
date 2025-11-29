@@ -4,7 +4,7 @@ import 'package:linagora_design_flutter/linagora_design_flutter.dart';
 
 class FileErrorTileWidgetStyle extends FileTileWidgetStyle {
   @override
-  Color? get fileInfoColor => LinagoraSysColors.material().error;
+  Color? get fileInfoColor => DediSysColors.material().error;
 
   @override
   TextStyle textInformationStyle(BuildContext context) {

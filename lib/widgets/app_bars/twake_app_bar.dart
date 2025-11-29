@@ -6,7 +6,7 @@ import 'package:linagora_design_flutter/colors/linagora_sys_colors.dart';
 
 import '../../pages/contacts_tab/contacts_appbar_style.dart';
 
-class TwakeAppBar extends StatelessWidget implements PreferredSizeWidget {
+class DediAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool withDivider;
   final BuildContext context;
@@ -19,7 +19,7 @@ class TwakeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool enableLeftTitle;
   final bool isDialog;
 
-  const TwakeAppBar({
+  const DediAppBar({
     super.key,
     required this.title,
     required this.context,
@@ -38,14 +38,14 @@ class TwakeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor:
-          backgroundColor ?? TwakeAppBarStyle.appBarBackgroundColor(context),
+          backgroundColor ?? DediAppBarStyle.appBarBackgroundColor(context),
       toolbarHeight: AppConfig.toolbarHeight(context),
       centerTitle:
-          centerTitle ?? TwakeAppBarStyle.responsiveUtils.isMobile(context),
+          centerTitle ?? DediAppBarStyle.responsiveUtils.isMobile(context),
       automaticallyImplyLeading: false,
       leading: leading,
       leadingWidth: leadingWidth,
-      title: isDialog || TwakeAppBarStyle.responsiveUtils.isMobile(context)
+      title: isDialog || DediAppBarStyle.responsiveUtils.isMobile(context)
           ? Column(
               children: [
                 Padding(
@@ -54,7 +54,7 @@ class TwakeAppBar extends StatelessWidget implements PreferredSizeWidget {
                       : ContactsAppbarStyle.titlePadding(context),
                   child: Text(
                     title,
-                    style: TwakeAppBarStyle.titleTextStyle(
+                    style: DediAppBarStyle.titleTextStyle(
                       context,
                       isDialog: isDialog,
                     ),
@@ -70,7 +70,7 @@ class TwakeAppBar extends StatelessWidget implements PreferredSizeWidget {
                       : const EdgeInsets.only(left: 16),
                   child: Text(
                     title,
-                    style: TwakeAppBarStyle.titleTextStyle(
+                    style: DediAppBarStyle.titleTextStyle(
                       context,
                       isDialog: isDialog,
                     ),
@@ -83,10 +83,10 @@ class TwakeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? PreferredSize(
               preferredSize: const Size.fromHeight(1),
               child: Divider(
-                height: TwakeAppBarStyle.dividerHeight,
-                thickness: TwakeAppBarStyle.dividerthickness,
-                color: LinagoraStateLayer(
-                  LinagoraSysColors.material().surfaceTint,
+                height: DediAppBarStyle.dividerHeight,
+                thickness: DediAppBarStyle.dividerthickness,
+                color: DediStateLayer(
+                  DediSysColors.material().surfaceTint,
                 ).opacityLayer3,
               ),
             )

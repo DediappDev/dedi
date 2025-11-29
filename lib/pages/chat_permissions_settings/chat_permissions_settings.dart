@@ -32,7 +32,7 @@ class ChatPermissionsSettingsController extends State<ChatPermissionsSettings> {
   }) async {
     final room = Matrix.of(context).client.getRoomById(roomId!)!;
     if (!room.canSendEvent(EventTypes.RoomPowerLevels)) {
-      TwakeSnackBar.show(context, L10n.of(context)!.noPermission);
+      DediSnackBar.show(context, L10n.of(context)!.noPermission);
       return;
     }
     final newLevel = await showPermissionChooser(
@@ -52,7 +52,7 @@ class ChatPermissionsSettingsController extends State<ChatPermissionsSettings> {
       content[key] = newLevel;
     }
     inspect(content);
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => room.client.setRoomStateWithKey(
         room.id,
         EventTypes.RoomPowerLevels,
@@ -99,7 +99,7 @@ class ChatPermissionsSettingsController extends State<ChatPermissionsSettings> {
             )) {
       return;
     }
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => room.client.upgradeRoom(roomId!, newVersion),
     ).then((_) => context.pop());
   }

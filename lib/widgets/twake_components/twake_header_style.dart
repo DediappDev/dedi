@@ -3,7 +3,7 @@ import 'package:fluffychat/utils/responsive/responsive_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:linagora_design_flutter/linagora_design_flutter.dart';
 
-class TwakeHeaderStyle {
+class DediHeaderStyle {
   static ResponsiveUtils responsive = getIt.get<ResponsiveUtils>();
   static const double toolbarHeight = 56.0;
   static const double leadingWidth = 76.0;
@@ -17,15 +17,15 @@ class TwakeHeaderStyle {
   static const double titleLineHeightMobile = 24 / 17;
   static const double titleLineHeightWeb = 32 / 24;
 
-  static TextStyle? twakeHeaderStyle(BuildContext context) {
+  static TextStyle? dediHeaderStyle(BuildContext context) {
     return responsive.isMobile(context)
-        ? LinagoraTextStyle.material().bodyLarge1.copyWith(
+        ? DediTextStyle.material().bodyLarge1.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
-              height: TwakeHeaderStyle.titleLineHeightMobile,
+              height: DediHeaderStyle.titleLineHeightMobile,
             )
         : Theme.of(context).textTheme.headlineSmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
-              height: TwakeHeaderStyle.titleLineHeightWeb,
+              height: DediHeaderStyle.titleLineHeightWeb,
             );
   }
 

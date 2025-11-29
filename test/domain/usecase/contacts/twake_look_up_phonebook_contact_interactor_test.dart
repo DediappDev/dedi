@@ -33,7 +33,7 @@ void main() {
   late MockHiveContactRepository mockHiveContactRepository;
   late MockSharedPreferencesContactCacheManager
       mockSharedPreferencesContactCacheManager;
-  late TwakeLookupPhonebookContactInteractor interactor;
+  late DediLookupPhonebookContactInteractor interactor;
 
   setUp(() {
     mockRepository = MockPhonebookContactRepository();
@@ -55,14 +55,14 @@ void main() {
       () => mockSharedPreferencesContactCacheManager,
     );
 
-    interactor = TwakeLookupPhonebookContactInteractor();
+    interactor = DediLookupPhonebookContactInteractor();
   });
 
   tearDown(() {
     getIt.reset();
   });
 
-  group('TwakeLookupPhonebookContactInteractor', () {
+  group('DediLookupPhonebookContactInteractor', () {
     test(
         'Success case - emits loading, then success states with contacs size of one chunk',
         () async {
@@ -110,7 +110,7 @@ void main() {
         lookupPepper: 'pepper',
       );
 
-      final argument = TwakeLookUpArgument(
+      final argument = DediLookUpArgument(
         homeServerUrl: 'https://example.com',
         withAccessToken: 'token',
       );
@@ -259,7 +259,7 @@ void main() {
         algorithms: {'sha256'},
         lookupPepper: 'pepper',
       );
-      final argument = TwakeLookUpArgument(
+      final argument = DediLookUpArgument(
         homeServerUrl: 'https://example.com',
         withAccessToken: 'token',
       );
@@ -409,7 +409,7 @@ void main() {
     //     lookupPepper: 'pepper',
     //   );
     //
-    //   final argument = TwakeLookUpArgument(
+    //   final argument = DediLookUpArgument(
     //     homeServerUrl: 'https://example.com',
     //     withAccessToken: 'token',
     //   );
@@ -468,7 +468,7 @@ void main() {
 
       // Act
       final result = interactor.execute(
-        argument: TwakeLookUpArgument(
+        argument: DediLookUpArgument(
           homeServerUrl: 'https://example.com',
           withAccessToken: 'token',
         ),
@@ -492,7 +492,7 @@ void main() {
 
       // Act
       final result = interactor.execute(
-        argument: TwakeLookUpArgument(
+        argument: DediLookUpArgument(
           homeServerUrl: 'https://example.com',
           withAccessToken: 'token',
         ),
@@ -525,7 +525,7 @@ void main() {
 
       // Act
       final result = interactor.execute(
-        argument: TwakeLookUpArgument(
+        argument: DediLookUpArgument(
           homeServerUrl: 'https://example.com',
           withAccessToken: 'token',
         ),
@@ -548,14 +548,14 @@ void main() {
         () async {
       // Arrange
       final exception = Exception("error");
-      final expectedException = TwakeLookupChunkException(exception.toString());
+      final expectedException = DediLookupChunkException(exception.toString());
 
       final contacts = [const Contact(id: '1', displayName: 'Test 1')];
       const hashDetails = FederationHashDetailsResponse(
         algorithms: {'sha256'},
         lookupPepper: 'pepper',
       );
-      final argument = TwakeLookUpArgument(
+      final argument = DediLookUpArgument(
         homeServerUrl: 'https://example.com',
         withAccessToken: 'token',
       );
@@ -597,7 +597,7 @@ void main() {
         () async {
       // Arrange
       final exception = Exception("error");
-      final expectedException = TwakeLookupChunkException(exception.toString());
+      final expectedException = DediLookupChunkException(exception.toString());
 
       final contacts = [
         ContactFixtures.contact1,
@@ -649,7 +649,7 @@ void main() {
         algorithms: {'sha256'},
         lookupPepper: 'pepper',
       );
-      final argument = TwakeLookUpArgument(
+      final argument = DediLookUpArgument(
         homeServerUrl: 'https://example.com',
         withAccessToken: 'token',
       );

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 import 'package:fluffychat/utils/scroll_controller_extension.dart';
 
-class TwakeSmartRefresher extends StatefulWidget {
-  final TwakeRefreshController controller;
+class DediSmartRefresher extends StatefulWidget {
+  final DediRefreshController controller;
   final Function? onRefresh;
   final Function? onLoading;
   final List<Widget> slivers;
 
-  const TwakeSmartRefresher({
+  const DediSmartRefresher({
     super.key,
     this.onRefresh,
     this.onLoading,
@@ -18,10 +18,10 @@ class TwakeSmartRefresher extends StatefulWidget {
   });
 
   @override
-  State<TwakeSmartRefresher> createState() => _TwakeSmartRefresherController();
+  State<DediSmartRefresher> createState() => _DediSmartRefresherController();
 }
 
-class TwakeRefreshController {
+class DediRefreshController {
   final refreshNotifier = ValueNotifier(false);
   final loadingNotifier = ValueNotifier(false);
 
@@ -45,7 +45,7 @@ class TwakeRefreshController {
   }
 }
 
-class _TwakeSmartRefresherController extends State<TwakeSmartRefresher> {
+class _DediSmartRefresherController extends State<DediSmartRefresher> {
   final scrollController = ScrollController();
 
   @override
@@ -74,7 +74,7 @@ class _TwakeSmartRefresherController extends State<TwakeSmartRefresher> {
 
   @override
   Widget build(BuildContext context) {
-    return _TwakeSmartRefresherView(
+    return _DediSmartRefresherView(
       controller: this,
       refreshController: widget.controller,
       slivers: widget.slivers,
@@ -82,15 +82,15 @@ class _TwakeSmartRefresherController extends State<TwakeSmartRefresher> {
   }
 }
 
-class _TwakeSmartRefresherView extends StatelessWidget {
-  const _TwakeSmartRefresherView({
+class _DediSmartRefresherView extends StatelessWidget {
+  const _DediSmartRefresherView({
     required this.controller,
     required this.refreshController,
     required this.slivers,
   });
   final List<Widget> slivers;
-  final TwakeRefreshController refreshController;
-  final _TwakeSmartRefresherController controller;
+  final DediRefreshController refreshController;
+  final _DediSmartRefresherController controller;
 
   @override
   Widget build(BuildContext context) {

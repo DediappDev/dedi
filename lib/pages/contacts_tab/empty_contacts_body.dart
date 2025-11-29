@@ -36,7 +36,7 @@ class EmptyContactBody extends StatelessWidget {
           Text(
             L10n.of(context)!.searchSuggestion,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: LinagoraRefColors.material().neutral[40],
+                  color: DediRefColors.material().neutral[40],
                 ),
             textAlign: TextAlign.center,
           ),

@@ -137,7 +137,7 @@ void main() {
               "body": "> <@stgtest:stg.lin-saas.com> Quisque\n\nABCD",
               "format": "org.matrix.custom.html",
               "formatted_body":
-                  "<mx-reply><blockquote><a href=\"https://matrix.to/#/!iMBJTLDYXqDxmWZcbY:linagora.com/\$NbF5lPsYiwAFXksxz7yPDkIWYZiXvbbPcNT3JYP6OC4\">In reply to</a> <a href=\"https://matrix.to/#/@stgtest:stg.lin-saas.com\">@stgtest:stg.lin-saas.com</a><br>Quisque</blockquote></mx-reply>ABCD",
+                  "<mx-reply><blockquote><a href=\"https://matrix.to/#/!iMBJTLDYXqDxmWZcbY:dedim.com.tr/\$NbF5lPsYiwAFXksxz7yPDkIWYZiXvbbPcNT3JYP6OC4\">In reply to</a> <a href=\"https://matrix.to/#/@stgtest:stg.lin-saas.com\">@stgtest:stg.lin-saas.com</a><br>Quisque</blockquote></mx-reply>ABCD",
               "m.relates_to": {
                 "m.in_reply_to": {
                   "event_id": "\$NbF5lPsYiwAFXksxz7yPDkIWYZiXvbbPcNT3JYP6OC4",
@@ -160,7 +160,7 @@ void main() {
             "body": "> <@stgtest:stg.lin-saas.com> Quisque\n\nABCD",
             "format": "org.matrix.custom.html",
             "formatted_body":
-                "<mx-reply><blockquote><a href=\"https://matrix.to/#/!iMBJTLDYXqDxmWZcbY:linagora.com/\$NbF5lPsYiwAFXksxz7yPDkIWYZiXvbbPcNT3JYP6OC4\">In reply to</a> <a href=\"https://matrix.to/#/@stgtest:stg.lin-saas.com\">@stgtest:stg.lin-saas.com</a><br>Quisque</blockquote></mx-reply>ABCD",
+                "<mx-reply><blockquote><a href=\"https://matrix.to/#/!iMBJTLDYXqDxmWZcbY:dedim.com.tr/\$NbF5lPsYiwAFXksxz7yPDkIWYZiXvbbPcNT3JYP6OC4\">In reply to</a> <a href=\"https://matrix.to/#/@stgtest:stg.lin-saas.com\">@stgtest:stg.lin-saas.com</a><br>Quisque</blockquote></mx-reply>ABCD",
             "m.relates_to": {
               "m.in_reply_to": {
                 "event_id": "\$NbF5lPsYiwAFXksxz7yPDkIWYZiXvbbPcNT3JYP6OC4",
@@ -203,7 +203,7 @@ void main() {
               "body": "> <@stgtest:stg.lin-saas.com> Quisque\n\nQuisque",
               "format": "org.matrix.custom.html",
               "formatted_body":
-                  "<mx-reply><blockquote><a href=\"https://matrix.to/#/!iMBJTLDYXqDxmWZcbY:linagora.com/\$NbF5lPsYiwAFXksxz7yPDkIWYZiXvbbPcNT3JYP6OC4\">In reply to</a> <a href=\"https://matrix.to/#/@stgtest:stg.lin-saas.com\">@stgtest:stg.lin-saas.com</a><br>Quisque</blockquote></mx-reply>Quisque",
+                  "<mx-reply><blockquote><a href=\"https://matrix.to/#/!iMBJTLDYXqDxmWZcbY:dedim.com.tr/\$NbF5lPsYiwAFXksxz7yPDkIWYZiXvbbPcNT3JYP6OC4\">In reply to</a> <a href=\"https://matrix.to/#/@stgtest:stg.lin-saas.com\">@stgtest:stg.lin-saas.com</a><br>Quisque</blockquote></mx-reply>Quisque",
               "m.relates_to": {
                 "m.in_reply_to": {
                   "event_id": "\$NbF5lPsYiwAFXksxz7yPDkIWYZiXvbbPcNT3JYP6OC4",
@@ -226,7 +226,7 @@ void main() {
             "body": "> <@stgtest:stg.lin-saas.com> Quisque\n\nABCD",
             "format": "org.matrix.custom.html",
             "formatted_body":
-                "<mx-reply><blockquote><a href=\"https://matrix.to/#/!iMBJTLDYXqDxmWZcbY:linagora.com/\$NbF5lPsYiwAFXksxz7yPDkIWYZiXvbbPcNT3JYP6OC4\">In reply to</a> <a href=\"https://matrix.to/#/@stgtest:stg.lin-saas.com\">@stgtest:stg.lin-saas.com</a><br>Quisque</blockquote></mx-reply>Quisque",
+                "<mx-reply><blockquote><a href=\"https://matrix.to/#/!iMBJTLDYXqDxmWZcbY:dedim.com.tr/\$NbF5lPsYiwAFXksxz7yPDkIWYZiXvbbPcNT3JYP6OC4\">In reply to</a> <a href=\"https://matrix.to/#/@stgtest:stg.lin-saas.com\">@stgtest:stg.lin-saas.com</a><br>Quisque</blockquote></mx-reply>Quisque",
             "m.relates_to": {
               "m.in_reply_to": {
                 "event_id": "\$NbF5lPsYiwAFXksxz7yPDkIWYZiXvbbPcNT3JYP6OC4",

@@ -22,7 +22,7 @@ class HomeserverPickerView extends StatelessWidget {
     return LoginScaffold(
       appBar: PlatformInfos.isMobile
           ? AppBar(
-              leading: TwakeIconButton(
+              leading: DediIconButton(
                 icon: Icons.chevron_left_outlined,
                 onTap: controller.state != HomeserverState.loading
                     ? () => context.pop()
@@ -40,8 +40,8 @@ class HomeserverPickerView extends StatelessWidget {
             // usually forced to logout as TOR browser is non-persistent
             AnimatedContainer(
               height: controller.isTorBrowser ? 64 : 0,
-              duration: TwakeThemes.animationDuration,
-              curve: TwakeThemes.animationCurve,
+              duration: DediThemes.animationDuration,
+              curve: DediThemes.animationCurve,
               clipBehavior: Clip.hardEdge,
               decoration: const BoxDecoration(),
               child: Material(
@@ -156,7 +156,7 @@ class HomeserverTextField extends StatelessWidget {
           autocorrect: false,
           enabled: true,
           controller: controller.homeserverController,
-          contextMenuBuilder: mobileTwakeContextMenuBuilder,
+          contextMenuBuilder: mobileDediContextMenuBuilder,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderSide:

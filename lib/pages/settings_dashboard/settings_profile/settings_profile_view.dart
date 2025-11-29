@@ -36,7 +36,7 @@ class SettingsProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     final responsive = getIt.get<ResponsiveUtils>();
     return Scaffold(
-      appBar: TwakeAppBar(
+      appBar: DediAppBar(
         title: L10n.of(context)!.profile,
         leading: responsive.isMobile(context)
             ? IconButton(
@@ -83,7 +83,7 @@ class SettingsProfileView extends StatelessWidget {
       ),
       backgroundColor: responsive.isWebDesktop(context)
           ? Theme.of(context).colorScheme.surface
-          : LinagoraSysColors.material().onPrimary,
+          : DediSysColors.material().onPrimary,
       body: Padding(
         padding: SettingsProfileViewStyle.paddingBody,
         child: SlotLayout(

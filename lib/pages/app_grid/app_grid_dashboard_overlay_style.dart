@@ -3,10 +3,10 @@ import 'package:fluffychat/pages/app_grid/app_grid_dashboard_item_style.dart';
 import 'package:flutter/material.dart';
 
 class AppGridDashboardOverlayStyle {
-  static double widthAppGrid(LinagoraApplications linagoraApplications) {
-    if (linagoraApplications.apps.length >= 3) {
+  static double widthAppGrid(DediApplications dediApplications) {
+    if (dediApplications.apps.length >= 3) {
       return AppGridDashboardItemStyle.itemWidth * 3 + padding.horizontal;
-    } else if (linagoraApplications.apps.length == 2) {
+    } else if (dediApplications.apps.length == 2) {
       return AppGridDashboardItemStyle.itemWidth * 2 + padding.horizontal;
     } else {
       return AppGridDashboardItemStyle.itemWidth + padding.horizontal;

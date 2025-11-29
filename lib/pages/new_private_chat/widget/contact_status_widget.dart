@@ -13,7 +13,7 @@ class ContactStatusWidget extends StatelessWidget {
     required this.status,
   });
 
-  final Color? inactiveColor = LinagoraRefColors.material().neutral[60];
+  final Color? inactiveColor = DediRefColors.material().neutral[60];
 
   @override
   Widget build(BuildContext context) {

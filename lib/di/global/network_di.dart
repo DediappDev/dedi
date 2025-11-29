@@ -198,7 +198,7 @@ class NetworkDI extends BaseDI {
       instanceName: memCacheDioInterceptorName,
     );
     dioCacheCustomInterceptor.addUriSupportsCache([
-      IdentityEndpoint.hashDetailsServicePath.generateTwakeIdentityEndpoint(),
+      IdentityEndpoint.hashDetailsServicePath.generateDediIdentityEndpoint(),
       HomeserverEndpoint.capabilitiesPath.generateHomeserverCapabilitiesPath(),
     ]);
   }

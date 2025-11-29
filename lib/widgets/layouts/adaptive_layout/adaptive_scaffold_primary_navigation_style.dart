@@ -16,7 +16,7 @@ class AdaptiveScaffoldPrimaryNavigationStyle {
 
   static TextStyle? selectedLabelTextStyle(BuildContext context) {
     return Theme.of(context).textTheme.labelMedium?.copyWith(
-          color: LinagoraSysColors.material().primary,
+          color: DediSysColors.material().primary,
           overflow: TextOverflow.ellipsis,
         );
   }

@@ -102,7 +102,7 @@ class _ExpansionPhonebookContactListTileState
 
   @override
   Widget build(BuildContext context) {
-    return TwakeInkWell(
+    return DediInkWell(
       onTap: _onContactTapHandler(
         context,
         widget.contact,
@@ -110,7 +110,7 @@ class _ExpansionPhonebookContactListTileState
             .getSuccessOrNull<GetInvitationStatusSuccessState>()
             ?.invitationStatusResponse,
       ),
-      child: TwakeListItem(
+      child: DediListItem(
         child: Padding(
           padding: const EdgeInsetsDirectional.only(
             start: 8.0,
@@ -178,7 +178,7 @@ class _ExpansionPhonebookContactListTileState
                                           widget.contact.matrixId!
                                               .isCurrentMatrixId(context)) ...[
                                         const SizedBox(width: 8.0),
-                                        TwakeChip(
+                                        DediChip(
                                           text: L10n.of(context)!.owner,
                                           textColor: Theme.of(context)
                                               .colorScheme
@@ -304,7 +304,7 @@ class _ExpansionPhonebookContactListTileState
         child: Icon(
           Icons.person_add_alt_rounded,
           color: isExpired
-              ? LinagoraRefColors.material().primary
+              ? DediRefColors.material().primary
               : const Color(0XFF00C853),
         ),
       ),

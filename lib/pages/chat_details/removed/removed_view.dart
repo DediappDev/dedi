@@ -23,12 +23,12 @@ class RemovedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: TwakeAppBar(
+      appBar: DediAppBar(
         title: L10n.of(context)!.removedUsers,
         enableLeftTitle: true,
-        leading: TwakeIconButton(
+        leading: DediIconButton(
           paddingAll: 8,
           splashColor: Colors.transparent,
           hoverColor: Colors.transparent,
@@ -48,16 +48,16 @@ class RemovedView extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: TextField(
                 controller: controller.textEditingController,
-                contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                contextMenuBuilder: mobileDediContextMenuBuilder,
                 focusNode: controller.inputFocus,
                 textInputAction: TextInputAction.search,
                 autofocus: true,
                 decoration: ChatListHeaderStyle.searchInputDecoration(
                   context,
-                  prefixIconColor: LinagoraSysColors.material().tertiary,
+                  prefixIconColor: DediSysColors.material().tertiary,
                 ).copyWith(
                   hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: LinagoraSysColors.material().tertiary,
+                        color: DediSysColors.material().tertiary,
                       ),
                   hintText: L10n.of(context)!.enterAnEmailAddress,
                   suffixIcon: ValueListenableBuilder(
@@ -89,7 +89,7 @@ class RemovedView extends StatelessWidget {
                       controller.removedMember.length,
                     ),
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: LinagoraRefColors.material().neutral[40],
+                          color: DediRefColors.material().neutral[40],
                         ),
                   );
                 },
@@ -128,7 +128,7 @@ class RemovedView extends StatelessWidget {
                 itemCount: success.removedMember.length,
                 itemBuilder: (context, index) {
                   final member = success.removedMember[index];
-                  return TwakeInkWell(
+                  return DediInkWell(
                     onTap: () {
                       member.openProfileView(
                         context: context,
@@ -179,7 +179,7 @@ class RemovedView extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   final member = success.removedMember[index];
-                  return TwakeInkWell(
+                  return DediInkWell(
                     onTap: () {},
                     child: _itemMemberBuilder(
                       context: context,
@@ -200,7 +200,7 @@ class RemovedView extends StatelessWidget {
     required BuildContext context,
     required User member,
   }) {
-    return TwakeInkWell(
+    return DediInkWell(
       onTap: () {
         member.openProfileView(
           context: context,
@@ -209,7 +209,7 @@ class RemovedView extends StatelessWidget {
           },
         );
       },
-      child: TwakeListItem(
+      child: DediListItem(
         padding: const EdgeInsets.all(8),
         child: Row(
           children: [
@@ -227,10 +227,8 @@ class RemovedView extends StatelessWidget {
                       Expanded(
                         child: Text(
                           member.calcDisplayname(),
-                          style: LinagoraTextStyle.material()
-                              .bodyMedium2
-                              .copyWith(
-                                color: LinagoraSysColors.material().onSurface,
+                          style: DediTextStyle.material().bodyMedium2.copyWith(
+                                color: DediSysColors.material().onSurface,
                               ),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
@@ -248,7 +246,7 @@ class RemovedView extends StatelessWidget {
                             children: [
                               Icon(
                                 Icons.block,
-                                color: LinagoraSysColors.material().primary,
+                                color: DediSysColors.material().primary,
                               ),
                               const SizedBox(width: 8.0),
                               Text(
@@ -257,8 +255,7 @@ class RemovedView extends StatelessWidget {
                                     .textTheme
                                     .labelLarge
                                     ?.copyWith(
-                                      color:
-                                          LinagoraSysColors.material().primary,
+                                      color: DediSysColors.material().primary,
                                     ),
                               ),
                             ],
@@ -270,7 +267,7 @@ class RemovedView extends StatelessWidget {
                   Text(
                     member.id,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: LinagoraRefColors.material().tertiary[30],
+                          color: DediRefColors.material().tertiary[30],
                         ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,

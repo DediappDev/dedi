@@ -18,7 +18,7 @@ class NewPrivateChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       appBar: PreferredSize(
         preferredSize: SearchableAppBarStyle.preferredSize(context),
         child: SearchableAppBar(

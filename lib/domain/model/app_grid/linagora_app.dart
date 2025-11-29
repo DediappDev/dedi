@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'linagora_app.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class LinagoraApp with EquatableMixin {
+class DediApp with EquatableMixin {
   @JsonKey(name: 'appName')
   final String appName;
 
@@ -19,7 +19,7 @@ class LinagoraApp with EquatableMixin {
   final String? iosAppStoreLink;
   final Uri? publicIconUri;
 
-  LinagoraApp(
+  DediApp(
     this.appName,
     this.iconName,
     this.appUri, {
@@ -29,10 +29,10 @@ class LinagoraApp with EquatableMixin {
     this.publicIconUri,
   });
 
-  factory LinagoraApp.fromJson(Map<String, dynamic> json) =>
-      _$LinagoraAppFromJson(json);
+  factory DediApp.fromJson(Map<String, dynamic> json) =>
+      _$DediAppFromJson(json);
 
-  Map<String, dynamic> toJson() => _$LinagoraAppToJson(this);
+  Map<String, dynamic> toJson() => _$DediAppToJson(this);
 
   @override
   List<Object?> get props => [

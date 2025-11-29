@@ -10,10 +10,10 @@
 		<string>$(PRODUCT_MODULE_NAME).NotificationServiceExtension</string>
 	</dict>
 	<key>appGroupIdentifier</key>
-	<string>group.app.twake.ios.chat</string>
+	<string>group.app.dedi.ios.chat</string>
 	<key>baseBundleIdentifier</key>
-	<string>app.twake.ios.chat</string>
+	<string>app.dedi.ios.chat</string>
 	<key>keychainAccessGroupIdentifier</key>
-	<string>KUT463DS29.app.twake.ios.chat</string>
+	<string>KUT463DS29.app.dedi.ios.chat</string>
 </dict>
 </plist>

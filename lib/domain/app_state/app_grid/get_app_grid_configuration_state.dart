@@ -8,12 +8,12 @@ class LoadingAppGridConfiguration extends Success {
 }
 
 class GetAppGridConfigurationSuccess extends Success {
-  final LinagoraApplications linagoraApplications;
+  final DediApplications dediApplications;
 
-  const GetAppGridConfigurationSuccess(this.linagoraApplications);
+  const GetAppGridConfigurationSuccess(this.dediApplications);
 
   @override
-  List<Object> get props => [linagoraApplications];
+  List<Object> get props => [dediApplications];
 }
 
 class GetAppGridConfigurationFailure extends Failure {

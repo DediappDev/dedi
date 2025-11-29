@@ -101,7 +101,7 @@ class _MessageReactionsBottomSheetState
                                   .textTheme
                                   .titleMedium
                                   ?.copyWith(
-                                    color: LinagoraSysColors.material()
+                                    color: DediSysColors.material()
                                         .onSurfaceVariant,
                                   ),
                             ),
@@ -115,8 +115,7 @@ class _MessageReactionsBottomSheetState
                                 margin: const EdgeInsets.only(top: 11),
                                 decoration: selectedReactionKey == null
                                     ? BoxDecoration(
-                                        color: LinagoraSysColors.material()
-                                            .primary,
+                                        color: DediSysColors.material().primary,
                                         borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(100),
                                           topRight: Radius.circular(100),
@@ -152,7 +151,7 @@ class _MessageReactionsBottomSheetState
                                   .textTheme
                                   .titleMedium
                                   ?.copyWith(
-                                    color: LinagoraSysColors.material()
+                                    color: DediSysColors.material()
                                         .onSurfaceVariant,
                                   ),
                             ),
@@ -167,8 +166,7 @@ class _MessageReactionsBottomSheetState
                                 decoration: selectedReactionKey != null &&
                                         selectedReactionKey == r.key
                                     ? BoxDecoration(
-                                        color: LinagoraSysColors.material()
-                                            .primary,
+                                        color: DediSysColors.material().primary,
                                         borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(100),
                                           topRight: Radius.circular(100),
@@ -214,10 +212,10 @@ class _MessageReactionsBottomSheetState
                                   Expanded(
                                     child: Text(
                                       reactor.displayName ?? "",
-                                      style: LinagoraTextStyle.material()
+                                      style: DediTextStyle.material()
                                           .bodyMedium2
                                           .copyWith(
-                                            color: LinagoraSysColors.material()
+                                            color: DediSysColors.material()
                                                 .onSurface,
                                           ),
                                       maxLines: 1,

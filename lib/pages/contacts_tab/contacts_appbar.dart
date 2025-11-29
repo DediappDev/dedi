@@ -26,7 +26,7 @@ class ContactsAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TwakeAppBar(
+        DediAppBar(
           title: L10n.of(context)!.contacts,
           context: context,
         ),
@@ -36,8 +36,8 @@ class ContactsAppBar extends StatelessWidget {
             return Container(
               decoration: BoxDecoration(
                 color: responsiveUtils.isMobile(context)
-                    ? LinagoraSysColors.material().background
-                    : LinagoraSysColors.material().onPrimary,
+                    ? DediSysColors.material().background
+                    : DediSysColors.material().onPrimary,
               ),
               height: ContactsAppbarStyle.textFieldHeight,
               child: Padding(
@@ -62,7 +62,7 @@ class ContactsAppBar extends StatelessWidget {
           Divider(
             height: ContactsAppbarStyle.dividerHeight,
             thickness: ContactsAppbarStyle.dividerThickness,
-            color: LinagoraStateLayer(LinagoraSysColors.material().surfaceTint)
+            color: DediStateLayer(DediSysColors.material().surfaceTint)
                 .opacityLayer3,
           ),
       ],

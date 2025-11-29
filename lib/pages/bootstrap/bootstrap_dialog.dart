@@ -27,10 +27,10 @@ class BootstrapDialog extends StatefulWidget {
   });
 
   Future<bool?> show() => PlatformInfos.isCupertinoStyle
-      ? TwakeDialog.showCupertinoDialogFullScreen(
+      ? DediDialog.showCupertinoDialogFullScreen(
           builder: () => this,
         )
-      : TwakeDialog.showDialogFullScreen(
+      : DediDialog.showDialogFullScreen(
           builder: () => this,
         );
 
@@ -113,7 +113,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
         body: Center(
           child: ConstrainedBox(
             constraints:
-                const BoxConstraints(maxWidth: TwakeThemes.columnWidth * 1.5),
+                const BoxConstraints(maxWidth: DediThemes.columnWidth * 1.5),
             child: ListView(
               padding: const EdgeInsets.all(16.0),
               children: [
@@ -137,7 +137,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                   maxLines: 4,
                   readOnly: true,
                   style: Theme.of(context).textTheme.bodyMedium,
-                  contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                  contextMenuBuilder: mobileDediContextMenuBuilder,
                   controller: TextEditingController(text: key),
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.all(16),
@@ -241,7 +241,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
             body: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
-                  maxWidth: TwakeThemes.columnWidth * 1.5,
+                  maxWidth: DediThemes.columnWidth * 1.5,
                 ),
                 child: ListView(
                   padding: const EdgeInsets.all(16.0),
@@ -263,7 +263,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                       maxLines: 2,
                       autocorrect: false,
                       readOnly: _recoveryKeyInputLoading,
-                      contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                      contextMenuBuilder: mobileDediContextMenuBuilder,
                       autofillHints: _recoveryKeyInputLoading
                           ? null
                           : [AutofillHints.password],
@@ -340,7 +340,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                       onPressed: _recoveryKeyInputLoading
                           ? null
                           : () async {
-                              final req = await TwakeDialog
+                              final req = await DediDialog
                                   .showFutureLoadingDialogFullScreen(
                                 future: () => widget.client
                                     .userDeviceKeys[widget.client.userID!]!
@@ -372,7 +372,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                                     cancelLabel: L10n.of(context)!.cancel,
                                     isDestructiveAction: true,
                                   )) {
-                                if (Matrix.of(context).twakeSupported) {
+                                if (Matrix.of(context).dediSupported) {
                                   await TomBootstrapDialog(
                                     client: widget.client,
                                     wipe: true,

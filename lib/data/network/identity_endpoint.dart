@@ -4,8 +4,8 @@ class IdentityEndpoint {
   static const String matrixIdentityRootPath = '/_matrix/identity';
   static const String matrixIdentityAPIVersion = 'v2';
 
-  static const String twakeIdentityRootPath = '/_twake/identity';
-  static const String twakeIdentityAPIVersion = 'v1';
+  static const String dediIdentityRootPath = '/_dedi/identity';
+  static const String dediIdentityAPIVersion = 'v1';
 
   static final ServicePath matchUserIdServicePath = ServicePath(
     '/lookup/match',
@@ -22,9 +22,9 @@ class IdentityEndpoint {
 }
 
 extension ServicePathExtensions on ServicePath {
-  String generateTwakeIdentityEndpoint({
-    String rootPath = IdentityEndpoint.twakeIdentityRootPath,
-    String apiVersion = IdentityEndpoint.twakeIdentityAPIVersion,
+  String generateDediIdentityEndpoint({
+    String rootPath = IdentityEndpoint.dediIdentityRootPath,
+    String apiVersion = IdentityEndpoint.dediIdentityAPIVersion,
   }) {
     return '$rootPath/$apiVersion$path';
   }

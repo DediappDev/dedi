@@ -37,10 +37,10 @@ class SendFileDialogStyle {
             )
             .copyWith(
               letterSpacing: -0.15,
-              color: LinagoraRefColors.material().neutralVariant[60],
+              color: DediRefColors.material().neutralVariant[60],
             ),
         filled: true,
-        fillColor: LinagoraSysColors.material().background,
+        fillColor: DediSysColors.material().background,
       );
 
   static const spaceBwInputBarAndButton = SizedBox(height: 8.0);
@@ -73,7 +73,7 @@ class SendFileDialogStyle {
 
   static TextStyle? subHeaderErrorStyle(BuildContext context) =>
       Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: LinagoraRefColors.material().error[30],
+            color: DediRefColors.material().error[30],
           );
 
   static const double errorSubHeaderWidth = 340;

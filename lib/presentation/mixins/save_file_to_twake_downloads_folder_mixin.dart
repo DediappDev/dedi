@@ -20,7 +20,7 @@ import 'package:matrix/matrix.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-mixin SaveFileToTwakeAndroidDownloadsFolderMixin {
+mixin SaveFileToDediAndroidDownloadsFolderMixin {
   void saveSelectedEventToDownloadAndroid(
     BuildContext context,
     Event downloadEvent,
@@ -49,7 +49,7 @@ mixin SaveFileToTwakeAndroidDownloadsFolderMixin {
     } catch (e) {
       Logs().e('Chat::saveSelectedEventToDownloadAndroid(): $e');
       if (e is! StoragePermissionException) {
-        TwakeSnackBar.show(
+        DediSnackBar.show(
           context,
           L10n.of(context)!.saveFileToDownloadsError,
         );
@@ -120,27 +120,27 @@ mixin SaveFileToTwakeAndroidDownloadsFolderMixin {
     BuildContext context,
   ) async {
     try {
-      final twakeFolder = await StorageDirectoryManager.instance
-          .getTwakeDownloadsFolderInDevice();
-      if (twakeFolder?.isNotEmpty != true) {
-        throw SaveToDownloadsException(error: 'Twake folder is empty');
+      final dediFolder = await StorageDirectoryManager.instance
+          .getDediDownloadsFolderInDevice();
+      if (dediFolder?.isNotEmpty != true) {
+        throw SaveToDownloadsException(error: 'Dedi folder is empty');
       }
-      final twakeFilePath =
+      final dediFilePath =
           await StorageDirectoryManager.instance.getAvailableFilePath(
-        '$twakeFolder/${event.filename}',
+        '$dediFolder/${event.filename}',
       );
 
-      await File(twakeFilePath).create(recursive: true);
-      final copiedFile = await file.copy(twakeFilePath);
+      await File(dediFilePath).create(recursive: true);
+      final copiedFile = await file.copy(dediFilePath);
       Logs().d(
         'Chat::saveSelectedEventToDownloadAndroid():: Copied file - ${copiedFile.path}',
       );
-      TwakeSnackBar.show(context, L10n.of(context)!.fileSavedToDownloads);
+      DediSnackBar.show(context, L10n.of(context)!.fileSavedToDownloads);
     } catch (e) {
       Logs().e(
         'Chat::saveSelectedEventToDownloadAndroid():: Error - $e',
       );
-      TwakeSnackBar.show(context, L10n.of(context)!.saveFileToDownloadsError);
+      DediSnackBar.show(context, L10n.of(context)!.saveFileToDownloadsError);
     }
   }
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:fluffychat/services/session_credentials_storage.dart';
+import 'package:fluffychat/utils/matrix_session_hydrator.dart';
 import 'package:fluffychat/widgets/matrix.dart';
 
 /// New splash screen with gradient background and Dedi branding
@@ -75,22 +77,39 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
 
     try {
       final prefs = await SharedPreferences.getInstance();
-      final isLoggedIn = prefs.getBool('is_logged_in') ?? false;
       final isFirstTime = prefs.getBool('first_time') ?? true;
 
-      // Check if Matrix client has valid session
+      // Attempt to hydrate session from secure storage
+      final saved = await SessionCredentialsStorage.load();
       final matrixState = Matrix.maybeOf(context);
-      final hasValidSession = matrixState?.client.isLogged() == true;
+      final client = matrixState?.client;
+
+      if (saved != null && client != null) {
+        await MatrixSessionHydrator.fromAccessToken(
+          client: client,
+          homeserverBaseUrl: saved.homeserver,
+          userId: saved.userId,
+          accessToken: saved.accessToken,
+          deviceId: saved.deviceId,
+          verifyHomeserver: false,
+        );
+        matrixState?.setUpAuthorization(client);
+
+        // Validate token; route accordingly
+        final isValid = await MatrixSessionHydrator.validateAccessToken(client);
+        if (isValid) {
+          if (mounted) context.go('/rooms');
+          return;
+        } else {
+          await SessionCredentialsStorage.clear();
+        }
+      }
 
       if (mounted) {
-        if (isLoggedIn && hasValidSession) {
-          // User is logged in and has valid Matrix session → go to rooms
-          context.go('/rooms');
-        } else if (isFirstTime) {
-          // First time user → show onboarding
+        // Fallbacks when no valid session was found
+        if (isFirstTime) {
           context.go('/onboarding');
         } else {
-          // Returning user but not logged in → go to phone input
           context.go('/phone-input');
         }
       }
@@ -238,4 +257,3 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     );
   }
 }
-

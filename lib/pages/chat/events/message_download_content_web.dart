@@ -51,11 +51,11 @@ class _MessageDownloadContentWebState extends State<MessageDownloadContentWeb>
       return;
     }
 
-    if (TwakeApp.routerKey.currentContext != null) {
+    if (DediApp.routerKey.currentContext != null) {
       handlePreviewWeb(
         matrixFile: success.matrixFile,
         event: widget.event,
-        context: TwakeApp.routerKey.currentContext!,
+        context: DediApp.routerKey.currentContext!,
       );
     }
   }

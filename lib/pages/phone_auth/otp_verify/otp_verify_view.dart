@@ -33,7 +33,7 @@ class OTPVerifyView extends StatefulWidget {
 class _OTPVerifyViewState extends State<OTPVerifyView> {
   final _otpController = TextEditingController();
   final _otpStreamController = StreamController<ErrorAnimationType>();
-  
+
   bool _isLoading = false;
   String _errorMessage = '';
   int _resendCountdown = 60;
@@ -84,7 +84,7 @@ class _OTPVerifyViewState extends State<OTPVerifyView> {
 
   Future<void> _verifyOTP() async {
     final code = _otpController.text.trim();
-    
+
     if (code.length != 6) {
       setState(() {
         _errorMessage = L10n.of(context)!.pleaseEnterCompleteCode;
@@ -109,7 +109,7 @@ class _OTPVerifyViewState extends State<OTPVerifyView> {
       if (kDebugMode) {
         debugPrint('OTP verification error: $e');
       }
-      
+
       if (mounted) {
         setState(() {
           _errorMessage = _parseErrorMessage(e.toString());
@@ -140,7 +140,7 @@ class _OTPVerifyViewState extends State<OTPVerifyView> {
     try {
       await OTPApiService.requestOTP(widget.phoneNumber);
       _startResendCountdown();
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -181,8 +181,11 @@ class _OTPVerifyViewState extends State<OTPVerifyView> {
       final homeserverUrl = matrixTokenData['homeserver'] as String?;
       final deviceId = matrixTokenData['device_id'] as String?;
 
-      if (accessToken == null || matrixUserId == null || homeserverUrl == null) {
-        throw Exception('Matrix credentials incomplete (missing token/userId/homeserver)');
+      if (accessToken == null ||
+          matrixUserId == null ||
+          homeserverUrl == null) {
+        throw Exception(
+            'Matrix credentials incomplete (missing token/userId/homeserver)');
       }
 
       // 3) Hydrate session (no /login calls)
@@ -417,7 +420,8 @@ class _OTPVerifyViewState extends State<OTPVerifyView> {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.error_outline, color: Colors.red[600], size: 20),
+                      Icon(Icons.error_outline,
+                          color: Colors.red[600], size: 20),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
@@ -456,7 +460,8 @@ class _OTPVerifyViewState extends State<OTPVerifyView> {
                           height: 24,
                           child: CircularProgressIndicator(
                             strokeWidth: 2.5,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
                           ),
                         )
                       : Text(

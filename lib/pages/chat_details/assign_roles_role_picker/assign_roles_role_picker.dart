@@ -57,7 +57,7 @@ class AssignRolesEditorController extends State<AssignRolesRolePicker> {
       case DefaultPowerLevelMember.admin:
         return const Color(0xFF00C853);
       default:
-        return LinagoraSysColors.material().onPrimary;
+        return DediSysColors.material().onPrimary;
     }
   }
 
@@ -84,7 +84,7 @@ class AssignRolesEditorController extends State<AssignRolesRolePicker> {
           width: AssignRolesRolePickerStyle.roleIconSize,
           height: AssignRolesRolePickerStyle.roleIconSize,
           colorFilter: ColorFilter.mode(
-            LinagoraSysColors.material().onPrimary,
+            DediSysColors.material().onPrimary,
             BlendMode.srcIn,
           ),
         );
@@ -92,7 +92,7 @@ class AssignRolesEditorController extends State<AssignRolesRolePicker> {
         return Icon(
           Icons.person_outline,
           size: AssignRolesRolePickerStyle.roleIconSize,
-          color: LinagoraSysColors.material().onPrimary,
+          color: DediSysColors.material().onPrimary,
         );
       case DefaultPowerLevelMember.moderator:
         return SvgPicture.asset(
@@ -100,7 +100,7 @@ class AssignRolesEditorController extends State<AssignRolesRolePicker> {
           width: AssignRolesRolePickerStyle.roleIconSize,
           height: AssignRolesRolePickerStyle.roleIconSize,
           colorFilter: ColorFilter.mode(
-            LinagoraSysColors.material().onPrimary,
+            DediSysColors.material().onPrimary,
             BlendMode.srcIn,
           ),
         );
@@ -108,7 +108,7 @@ class AssignRolesEditorController extends State<AssignRolesRolePicker> {
         return Icon(
           Icons.star_outline,
           size: AssignRolesRolePickerStyle.roleIconSize,
-          color: LinagoraSysColors.material().onPrimary,
+          color: DediSysColors.material().onPrimary,
         );
       default:
         return const SizedBox.shrink();
@@ -191,8 +191,8 @@ class AssignRolesEditorController extends State<AssignRolesRolePicker> {
     result.fold(
       (failure) {
         if (failure is SetPermissionLevelFailure) {
-          TwakeDialog.hideLoadingDialog(context);
-          TwakeSnackBar.show(
+          DediDialog.hideLoadingDialog(context);
+          DediSnackBar.show(
             context,
             failure.exception.toString(),
           );
@@ -200,8 +200,8 @@ class AssignRolesEditorController extends State<AssignRolesRolePicker> {
         }
 
         if (failure is NoPermissionFailure) {
-          TwakeDialog.hideLoadingDialog(context);
-          TwakeSnackBar.show(
+          DediDialog.hideLoadingDialog(context);
+          DediSnackBar.show(
             context,
             L10n.of(context)!.permissionErrorChangeRole,
           );
@@ -210,12 +210,12 @@ class AssignRolesEditorController extends State<AssignRolesRolePicker> {
       },
       (success) {
         if (success is SetPermissionLevelLoading) {
-          TwakeDialog.showLoadingDialog(context);
+          DediDialog.showLoadingDialog(context);
           return;
         }
 
         if (success is SetPermissionLevelSuccess) {
-          TwakeDialog.hideLoadingDialog(context);
+          DediDialog.hideLoadingDialog(context);
           if (responsive.isMobile(context)) {
             Navigator.of(context).popUntil(
               (route) => route.settings.name == '/assign_roles',
@@ -258,7 +258,7 @@ class AssignRolesEditorController extends State<AssignRolesRolePicker> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: LinagoraSysColors.material().onPrimary,
+      color: DediSysColors.material().onPrimary,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(16.0),

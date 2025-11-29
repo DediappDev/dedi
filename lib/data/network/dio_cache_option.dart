@@ -5,7 +5,7 @@ import 'package:fluffychat/di/global/get_it_initializer.dart';
 import 'package:matrix/matrix.dart';
 
 class DioCacheOption {
-  static const String _hiveBoxName = "twake_dio_cache_hive_store";
+  static const String _hiveBoxName = "dedi_dio_cache_hive_store";
   static const Duration _maxStale = Duration(days: 3);
 
   late HiveCacheStore _hiveCacheStore;

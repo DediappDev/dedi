@@ -6,19 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:linagora_design_flutter/linagora_design_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class TwakeLinkPreviewItem extends StatelessWidget {
+class DediLinkPreviewItem extends StatelessWidget {
   final bool ownMessage;
   final UrlPreviewPresentation urlPreviewPresentation;
   final String? previewLink;
 
-  const TwakeLinkPreviewItem({
+  const DediLinkPreviewItem({
     super.key,
     required this.ownMessage,
     required this.urlPreviewPresentation,
     this.previewLink,
   });
 
-  static const linkPreviewBodyKey = ValueKey('TwakeLinkPreviewBodyKey');
+  static const linkPreviewBodyKey = ValueKey('DediLinkPreviewBodyKey');
 
   static const linkPreviewLargeKey = ValueKey('LinkPreviewLargeKey');
 
@@ -29,14 +29,14 @@ class TwakeLinkPreviewItem extends StatelessWidget {
       constraints: const BoxConstraints(
         minWidth: double.infinity,
       ),
-      height: TwakeLinkPreviewItemStyle.maxHeightPreviewItem,
+      height: DediLinkPreviewItemStyle.maxHeightPreviewItem,
       decoration: ShapeDecoration(
         color: ownMessage
-            ? LinagoraSysColors.material().primaryContainer
-            : LinagoraSysColors.material().onSurface.withOpacity(0.08),
+            ? DediSysColors.material().primaryContainer
+            : DediSysColors.material().onSurface.withOpacity(0.08),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-            TwakeLinkPreviewItemStyle.radiusBorder,
+            DediLinkPreviewItemStyle.radiusBorder,
           ),
         ),
       ),
@@ -94,15 +94,15 @@ class LinkPreviewBuilder extends StatelessWidget {
             key: LinkPreviewBuilder.clipRRectKey,
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(
-                TwakeLinkPreviewItemStyle.radiusBorder,
+                DediLinkPreviewItemStyle.radiusBorder,
               ),
               bottom: Radius.circular(
-                TwakeLinkPreviewItemStyle.radiusBorder,
+                DediLinkPreviewItemStyle.radiusBorder,
               ),
             ),
             child: SizedBox(
-              width: TwakeLinkPreviewItemStyle.heightMxcImagePreview,
-              height: TwakeLinkPreviewItemStyle.heightMxcImagePreview,
+              width: DediLinkPreviewItemStyle.heightMxcImagePreview,
+              height: DediLinkPreviewItemStyle.heightMxcImagePreview,
               child: (urlPreviewPresentation.imageUri != null &&
                       urlPreviewPresentation.imageWidth != null &&
                       urlPreviewPresentation.imageHeight != null)
@@ -115,16 +115,15 @@ class LinkPreviewBuilder extends StatelessWidget {
                       isThumbnail: false,
                       placeholder: (_) => const Skeletonizer.zone(
                         child: Bone.button(
-                          width:
-                              TwakeLinkPreviewItemStyle.heightMxcImagePreview,
+                          width: DediLinkPreviewItemStyle.heightMxcImagePreview,
                           height:
-                              TwakeLinkPreviewItemStyle.heightMxcImagePreview,
+                              DediLinkPreviewItemStyle.heightMxcImagePreview,
                           borderRadius: BorderRadius.vertical(
                             top: Radius.circular(
-                              TwakeLinkPreviewItemStyle.radiusBorder,
+                              DediLinkPreviewItemStyle.radiusBorder,
                             ),
                             bottom: Radius.circular(
-                              TwakeLinkPreviewItemStyle.radiusBorder,
+                              DediLinkPreviewItemStyle.radiusBorder,
                             ),
                           ),
                         ),
@@ -132,10 +131,10 @@ class LinkPreviewBuilder extends StatelessWidget {
                     )
                   : const SizedBox(
                       key: LinkPreviewBuilder.imageDefaultKey,
-                      height: TwakeLinkPreviewItemStyle.heightMxcImagePreview,
+                      height: DediLinkPreviewItemStyle.heightMxcImagePreview,
                       child: Icon(
                         Icons.link,
-                        size: TwakeLinkPreviewItemStyle.linkIconSize,
+                        size: DediLinkPreviewItemStyle.linkIconSize,
                       ),
                     ),
             ),
@@ -146,7 +145,7 @@ class LinkPreviewBuilder extends StatelessWidget {
               children: [
                 Padding(
                   key: LinkPreviewBuilder.paddingTitleKey,
-                  padding: TwakeLinkPreviewItemStyle.paddingTitle,
+                  padding: DediLinkPreviewItemStyle.paddingTitle,
                   child: Text(
                     key: LinkPreviewBuilder.titleKey,
                     urlPreviewPresentation.title ?? '',
@@ -159,12 +158,12 @@ class LinkPreviewBuilder extends StatelessWidget {
                 ),
                 Padding(
                   key: LinkPreviewBuilder.paddingSubtitleKey,
-                  padding: TwakeLinkPreviewItemStyle.paddingSubtitle,
+                  padding: DediLinkPreviewItemStyle.paddingSubtitle,
                   child: Text(
                     key: LinkPreviewBuilder.subtitleKey,
                     urlPreviewPresentation.description ?? '',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: LinagoraRefColors.material().neutral[50],
+                          color: DediRefColors.material().neutral[50],
                         ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

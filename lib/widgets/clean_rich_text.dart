@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:matrix_link_text/link_text.dart';
 
-class TwakeCleanRichText extends StatelessWidget {
+class DediCleanRichText extends StatelessWidget {
   final String text;
   final Widget childWidget;
   final TextStyle? textStyle;
@@ -11,7 +11,7 @@ class TwakeCleanRichText extends StatelessWidget {
   final int? maxLines;
   final TextSpanBuilder? textSpanBuilder;
 
-  const TwakeCleanRichText({
+  const DediCleanRichText({
     super.key,
     required this.text,
     required this.childWidget,

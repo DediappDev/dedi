@@ -52,7 +52,7 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
       builder: (context, isExpanded, child) {
         return Column(
           children: [
-            TwakeInkWell(
+            DediInkWell(
               onTap: () {
                 widget.onTap?.call();
                 if (!widget.enableExpand) return;
@@ -72,8 +72,8 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
             Padding(
               padding: widget.dividerPadding ?? EdgeInsets.zero,
               child: Divider(
-                color: LinagoraStateLayer(
-                  LinagoraSysColors.material().surfaceTint,
+                color: DediStateLayer(
+                  DediSysColors.material().surfaceTint,
                 ).opacityLayer3,
                 height: 1,
                 thickness: 1,

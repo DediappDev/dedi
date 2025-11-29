@@ -26,19 +26,19 @@ enum ProfileInfoActions {
     switch (this) {
       case ProfileInfoActions.sendMessage:
         return Theme.of(context).textTheme.labelLarge!.copyWith(
-              color: LinagoraSysColors.material().onPrimary,
+              color: DediSysColors.material().onPrimary,
             );
       case ProfileInfoActions.removeFromGroup:
         return Theme.of(context).textTheme.labelLarge!.copyWith(
-              color: LinagoraSysColors.material().error,
+              color: DediSysColors.material().error,
             );
       case ProfileInfoActions.downgradeToReadOnly:
         return Theme.of(context).textTheme.labelLarge!.copyWith(
-              color: LinagoraSysColors.material().primary,
+              color: DediSysColors.material().primary,
             );
       case ProfileInfoActions.transferOwnership:
         return Theme.of(context).textTheme.labelLarge!.copyWith(
-              color: LinagoraSysColors.material().primary,
+              color: DediSysColors.material().primary,
             );
     }
   }
@@ -47,7 +47,7 @@ enum ProfileInfoActions {
     switch (this) {
       case ProfileInfoActions.sendMessage:
         return BoxDecoration(
-          color: LinagoraSysColors.material().primary,
+          color: DediSysColors.material().primary,
           borderRadius: BorderRadius.circular(100),
         );
       case ProfileInfoActions.removeFromGroup:
@@ -83,8 +83,8 @@ enum ProfileInfoActions {
       case ProfileInfoActions.transferOwnership:
         return Divider(
           thickness: ProfileInfoBodyViewStyle.bigDividerThickness,
-          color: LinagoraStateLayer(
-            LinagoraSysColors.material().surfaceTint,
+          color: DediStateLayer(
+            DediSysColors.material().surfaceTint,
           ).opacityLayer3,
         );
       case ProfileInfoActions.sendMessage:
@@ -99,12 +99,12 @@ enum ProfileInfoActions {
         return Icon(
           Icons.chat_bubble,
           size: 15,
-          color: LinagoraSysColors.material().onPrimary,
+          color: DediSysColors.material().onPrimary,
         );
       case ProfileInfoActions.removeFromGroup:
         return Icon(
           Icons.delete_outline_outlined,
-          color: LinagoraSysColors.material().error,
+          color: DediSysColors.material().error,
         );
       case ProfileInfoActions.downgradeToReadOnly:
       case ProfileInfoActions.transferOwnership:

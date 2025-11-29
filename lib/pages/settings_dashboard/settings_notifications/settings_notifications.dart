@@ -86,7 +86,7 @@ class SettingsNotificationsController extends State<SettingsNotifications> {
   }
 
   void setNotificationSetting(NotificationSettingsItem item, bool enabled) {
-    TwakeDialog.showFutureLoadingDialogFullScreen(
+    DediDialog.showFutureLoadingDialogFullScreen(
       future: () => Matrix.of(context).client.setPushRuleEnabled(
             'global',
             item.type,
@@ -111,7 +111,7 @@ class SettingsNotificationsController extends State<SettingsNotifications> {
     );
     if (delete != true) return;
 
-    final success = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final success = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => Matrix.of(context).client.deletePusher(
             PusherId(
               appId: pusher.appId,

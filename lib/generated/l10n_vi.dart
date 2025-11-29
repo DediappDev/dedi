@@ -26,7 +26,7 @@ class L10nVi extends L10n {
   String get about => 'Giới thiệu';
 
   @override
-  String get updateAvailable => 'Twake Chat có bản cập nhật mới';
+  String get updateAvailable => 'Dedi có bản cập nhật mới';
 
   @override
   String get updateNow => 'Bắt đầu cập nhật dưới nền';
@@ -51,7 +51,8 @@ class L10nVi extends L10n {
   String get addEmail => 'Thêm email';
 
   @override
-  String get confirmMatrixId => 'Vui lòng xác nhận Matrix ID để xóa tài khoản của bạn.';
+  String get confirmMatrixId =>
+      'Vui lòng xác nhận Matrix ID để xóa tài khoản của bạn.';
 
   @override
   String supposedMxid(Object mxid) {
@@ -124,10 +125,12 @@ class L10nVi extends L10n {
   String get areYouSure => 'Bạn chắc chứ?';
 
   @override
-  String get areYouSureYouWantToLogout => 'Bạn có chắc bạn muốn đăng xuất không?';
+  String get areYouSureYouWantToLogout =>
+      'Bạn có chắc bạn muốn đăng xuất không?';
 
   @override
-  String get askSSSSSign => 'Để có thể ký tên cho người khác, vui lòng nhập mật khẩu bảo mật cửa hàng hoặc khóa khôi phục của bạn.';
+  String get askSSSSSign =>
+      'Để có thể ký tên cho người khác, vui lòng nhập mật khẩu bảo mật cửa hàng hoặc khóa khôi phục của bạn.';
 
   @override
   String askVerificationRequest(Object username) {
@@ -135,10 +138,12 @@ class L10nVi extends L10n {
   }
 
   @override
-  String get autoplayImages => 'Tự động chạy nhãn dán động và biểu tượng cảm xúc';
+  String get autoplayImages =>
+      'Tự động chạy nhãn dán động và biểu tượng cảm xúc';
 
   @override
-  String badServerLoginTypesException(Object serverVersions, Object supportedVersions, Object suportedVersions) {
+  String badServerLoginTypesException(Object serverVersions,
+      Object supportedVersions, Object suportedVersions) {
     return 'Máy chủ nhà hỗ trợ kiểu đăng nhập:\n$serverVersions\nNhưng ứng dụng này chỉ hỗ trợ:\n$supportedVersions';
   }
 
@@ -146,7 +151,8 @@ class L10nVi extends L10n {
   String get sendOnEnter => 'Gửi khi nhập';
 
   @override
-  String badServerVersionsException(Object serverVersions, Object supportedVersions, Object serverVerions, Object suportedVersions) {
+  String badServerVersionsException(Object serverVersions,
+      Object supportedVersions, Object serverVerions, Object suportedVersions) {
     return 'Máy chủ hỗ trợ Spec phiên bản:\n$serverVerions\nNhưng ứng dụng này chỉ hỗ trợ $supportedVersions';
   }
 
@@ -282,13 +288,15 @@ class L10nVi extends L10n {
   String get yourUserId => 'ID của bạn:';
 
   @override
-  String get yourChatBackupHasBeenSetUp => 'Bản sao lưu trò chuyện đã được thiết lập.';
+  String get yourChatBackupHasBeenSetUp =>
+      'Bản sao lưu trò chuyện đã được thiết lập.';
 
   @override
   String get chatBackup => 'Sao lưu cuộc trò chuyện';
 
   @override
-  String get chatBackupDescription => 'Bản sao lưu cuộc trò chuyện của bạn được bảo mật bằng một khoá bảo mật. Bạn đừng làm mất nó.';
+  String get chatBackupDescription =>
+      'Bản sao lưu cuộc trò chuyện của bạn được bảo mật bằng một khoá bảo mật. Bạn đừng làm mất nó.';
 
   @override
   String get chatDetails => 'Chi tiết cuộc trò chuyện';
@@ -324,13 +332,15 @@ class L10nVi extends L10n {
   String get commandHint_clearcache => 'Xóa bộ nhớ đệm';
 
   @override
-  String get commandHint_create => 'Tạo cuộc trò chuyện trống\nSử dụng --no-encryption để vô hiệu hóa mã hóa';
+  String get commandHint_create =>
+      'Tạo cuộc trò chuyện trống\nSử dụng --no-encryption để vô hiệu hóa mã hóa';
 
   @override
   String get commandHint_discardsession => 'Hủy phiên';
 
   @override
-  String get commandHint_dm => 'Bắt đầu cuộc trò chuyện trực tiếp\nSử dụng --no-encryption để vô hiệu hóa mã hóa';
+  String get commandHint_dm =>
+      'Bắt đầu cuộc trò chuyện trực tiếp\nSử dụng --no-encryption để vô hiệu hóa mã hóa';
 
   @override
   String get commandHint_html => 'Gửi văn bản định dạng HTML';
@@ -351,13 +361,16 @@ class L10nVi extends L10n {
   String get commandHint_me => 'Mô tả bản thân';
 
   @override
-  String get commandHint_myroomavatar => 'Đặt ảnh cho cuộc trò chuyện (bởi mxc-uri)';
+  String get commandHint_myroomavatar =>
+      'Đặt ảnh cho cuộc trò chuyện (bởi mxc-uri)';
 
   @override
-  String get commandHint_myroomnick => 'Đặt tên hiển thị cho cuộc trò chuyện này';
+  String get commandHint_myroomnick =>
+      'Đặt tên hiển thị cho cuộc trò chuyện này';
 
   @override
-  String get commandHint_op => 'Đặt mức năng lượng của người dùng (default: 50)';
+  String get commandHint_op =>
+      'Đặt mức năng lượng của người dùng (default: 50)';
 
   @override
   String get commandHint_plain => 'Gửi văn bản không có định dạng';
@@ -380,10 +393,12 @@ class L10nVi extends L10n {
   }
 
   @override
-  String get compareEmojiMatch => 'So sánh và đảm bảo các biểu tượng cảm xúc sau đây giống với các biểu tượng trên máy còn lại';
+  String get compareEmojiMatch =>
+      'So sánh và đảm bảo các biểu tượng cảm xúc sau đây giống với các biểu tượng trên máy còn lại';
 
   @override
-  String get compareNumbersMatch => 'So sánh và đảm bảo các số sau đây giống trên máy còn lại';
+  String get compareNumbersMatch =>
+      'So sánh và đảm bảo các số sau đây giống trên máy còn lại';
 
   @override
   String get configureChat => 'Cấu hình cuộc trò chuyện';
@@ -404,7 +419,8 @@ class L10nVi extends L10n {
   String get containsUserName => 'Chứa tên người dùng';
 
   @override
-  String get contentHasBeenReported => 'Nội dung đã được báo cáo đến quản trị viên server';
+  String get contentHasBeenReported =>
+      'Nội dung đã được báo cáo đến quản trị viên server';
 
   @override
   String get copiedToClipboard => 'Đã sao chép vào bộ nhớ tạm';
@@ -471,7 +487,8 @@ class L10nVi extends L10n {
   }
 
   @override
-  String get deactivateAccountWarning => 'Việc này sẽ vô hiệu hoá tài khoản của bạn. Điều này không thể đảo ngược được! Bạn chắc là vẫn muốn tiếp tục chứ?';
+  String get deactivateAccountWarning =>
+      'Việc này sẽ vô hiệu hoá tài khoản của bạn. Điều này không thể đảo ngược được! Bạn chắc là vẫn muốn tiếp tục chứ?';
 
   @override
   String get defaultPermissionLevel => 'Mức quyền hạn mặc định';
@@ -543,19 +560,22 @@ class L10nVi extends L10n {
   String get emoteShortcode => 'Mã biểu tượng cảm xúc';
 
   @override
-  String get emoteWarnNeedToPick => 'Bạn cần chọn một mã biểu tượng cảm xúc và một hình ảnh!';
+  String get emoteWarnNeedToPick =>
+      'Bạn cần chọn một mã biểu tượng cảm xúc và một hình ảnh!';
 
   @override
   String get emptyChat => 'Cuộc trò chuyện trống';
 
   @override
-  String get enableEmotesGlobally => 'Kích hoạt gói biểu tượng cảm xúc trên toàn cầu';
+  String get enableEmotesGlobally =>
+      'Kích hoạt gói biểu tượng cảm xúc trên toàn cầu';
 
   @override
   String get enableEncryption => 'Kích hoạt mã hóa đầu cuối';
 
   @override
-  String get enableEncryptionWarning => 'Bạn sẽ không thể vô hiệu hóa mã hóa nữa. Bạn có chắc không?';
+  String get enableEncryptionWarning =>
+      'Bạn sẽ không thể vô hiệu hóa mã hóa nữa. Bạn có chắc không?';
 
   @override
   String get encrypted => 'Đã mã hóa';
@@ -628,7 +648,8 @@ class L10nVi extends L10n {
   String get groupDescription => 'Mô tả';
 
   @override
-  String get groupDescriptionHasBeenChanged => 'Đã thay đổi mô tả cuộc trò chuyện';
+  String get groupDescriptionHasBeenChanged =>
+      'Đã thay đổi mô tả cuộc trò chuyện';
 
   @override
   String get groupIsPublic => 'Cuộc trò chuyện công khai';
@@ -662,7 +683,8 @@ class L10nVi extends L10n {
   String get hideUnknownEvents => 'Ẩn các sự kiện không xác định';
 
   @override
-  String get howOffensiveIsThisContent => 'Nội dung này có tính xúc phạm đến mức nào?';
+  String get howOffensiveIsThisContent =>
+      'Nội dung này có tính xúc phạm đến mức nào?';
 
   @override
   String get id => 'ID';
@@ -677,7 +699,8 @@ class L10nVi extends L10n {
   String get ignoredUsers => 'Phớt lờ người dùng';
 
   @override
-  String get ignoreListDescription => 'Bạn có thể bỏ qua những người dùng đang làm phiền bạn. Bạn sẽ không thể nhận bất kỳ tin nhắn hoặc lời mời trò chuyện nào từ người dùng trong danh sách bỏ qua cá nhân của bạn.';
+  String get ignoreListDescription =>
+      'Bạn có thể bỏ qua những người dùng đang làm phiền bạn. Bạn sẽ không thể nhận bất kỳ tin nhắn hoặc lời mời trò chuyện nào từ người dùng trong danh sách bỏ qua cá nhân của bạn.';
 
   @override
   String get ignoreUsername => 'Bỏ qua tên người dùng';
@@ -686,7 +709,8 @@ class L10nVi extends L10n {
   String get iHaveClickedOnLink => 'Tôi đã nhấp vào liên kết';
 
   @override
-  String get incorrectPassphraseOrKey => 'Mật khẩu hoặc khóa khôi phục không chính xác';
+  String get incorrectPassphraseOrKey =>
+      'Mật khẩu hoặc khóa khôi phục không chính xác';
 
   @override
   String get inoffensive => 'Không xúc phạm';
@@ -774,22 +798,26 @@ class L10nVi extends L10n {
   String get dehydrate => 'Xuất phiên và xóa thiết bị';
 
   @override
-  String get dehydrateWarning => 'Hành động này không thể được hoàn tác. Đảm bảo bạn đã lưu trữ tệp sao lưu một cách an toàn.';
+  String get dehydrateWarning =>
+      'Hành động này không thể được hoàn tác. Đảm bảo bạn đã lưu trữ tệp sao lưu một cách an toàn.';
 
   @override
-  String get dehydrateShare => 'Đây là bản xuất FluffyChat riêng tư của bạn. Đảm bảo bạn không làm mất nó và giữ nó ở chế độ riêng tư.';
+  String get dehydrateShare =>
+      'Đây là bản xuất FluffyChat riêng tư của bạn. Đảm bảo bạn không làm mất nó và giữ nó ở chế độ riêng tư.';
 
   @override
   String get dehydrateTor => 'Người dùng TOR: Xuất phiên';
 
   @override
-  String get dehydrateTorLong => 'Đối với người dùng TOR, khuyến cáo xuất phiên trước khi đóng cửa sổ.';
+  String get dehydrateTorLong =>
+      'Đối với người dùng TOR, khuyến cáo xuất phiên trước khi đóng cửa sổ.';
 
   @override
   String get hydrateTor => 'Người dùng TOR: Xuất phiên nhập';
 
   @override
-  String get hydrateTorLong => 'Lần trước bạn có xuất phiên của mình trên TOR không? Nhanh chóng nhập nó và tiếp tục trò chuyện.';
+  String get hydrateTorLong =>
+      'Lần trước bạn có xuất phiên của mình trên TOR không? Nhanh chóng nhập nó và tiếp tục trò chuyện.';
 
   @override
   String get hydrate => 'Khôi phục từ tập tin sao lưu';
@@ -804,10 +832,12 @@ class L10nVi extends L10n {
   String get loadMore => 'Tải thêm…';
 
   @override
-  String get locationDisabledNotice => 'Dịch vụ định vị đã bị vô hiệu hóa. Vui lòng cho phép họ chia sẻ vị trí của bạn.';
+  String get locationDisabledNotice =>
+      'Dịch vụ định vị đã bị vô hiệu hóa. Vui lòng cho phép họ chia sẻ vị trí của bạn.';
 
   @override
-  String get locationPermissionDeniedNotice => 'Quyền vị trí bị từ chối. Hãy cấp cho họ để chia sẻ vị trí của bạn.';
+  String get locationPermissionDeniedNotice =>
+      'Quyền vị trí bị từ chối. Hãy cấp cho họ để chia sẻ vị trí của bạn.';
 
   @override
   String get login => 'Đăng nhập';
@@ -836,7 +866,8 @@ class L10nVi extends L10n {
   String get messages => 'Tin nhắn';
 
   @override
-  String get messageWillBeRemovedWarning => 'Tin nhắn sẽ bị xóa đối với tất cả người tham gia';
+  String get messageWillBeRemovedWarning =>
+      'Tin nhắn sẽ bị xóa đối với tất cả người tham gia';
 
   @override
   String get noSearchResult => 'Không có kết quả tìm kiếm phù hợp.';
@@ -851,13 +882,14 @@ class L10nVi extends L10n {
   String get muteChat => 'Tắt thông báo trò chuyện';
 
   @override
-  String get needPantalaimonWarning => 'Xin lưu ý rằng hiện tại bạn cần có Pantalaimon để sử dụng mã hóa hai đầu.';
+  String get needPantalaimonWarning =>
+      'Xin lưu ý rằng hiện tại bạn cần có Pantalaimon để sử dụng mã hóa hai đầu.';
 
   @override
   String get newChat => 'Cuộc trò chuyện mới';
 
   @override
-  String get newMessageInTwake => 'Bạn có tin nhắn mới';
+  String get newMessageInDedi => 'Bạn có tin nhắn mới';
 
   @override
   String get newVerificationRequest => 'Yêu cầu xác minh mới!';
@@ -881,10 +913,12 @@ class L10nVi extends L10n {
   String get noEmotesFound => 'Không tìm thấy biểu tượng cảm xúc. 😕';
 
   @override
-  String get noEncryptionForPublicRooms => 'Bạn chỉ có thể kích hoạt mã hoá khi phòng này không mở';
+  String get noEncryptionForPublicRooms =>
+      'Bạn chỉ có thể kích hoạt mã hoá khi phòng này không mở';
 
   @override
-  String get noGoogleServicesWarning => 'Có vẻ như điện thoại của bạn không có dịch vụ Google. Đó là một quyết định tốt cho sự riêng tư của bạn! Để nhận thông báo đẩy trong FluffyChat, chúng tôi khuyên bạn nên sử dụng https://microg.org/ hoặc https://unifiedpush.org/.';
+  String get noGoogleServicesWarning =>
+      'Có vẻ như điện thoại của bạn không có dịch vụ Google. Đó là một quyết định tốt cho sự riêng tư của bạn! Để nhận thông báo đẩy trong FluffyChat, chúng tôi khuyên bạn nên sử dụng https://microg.org/ hoặc https://unifiedpush.org/.';
 
   @override
   String noMatrixServer(Object server1, Object server2) {
@@ -904,7 +938,8 @@ class L10nVi extends L10n {
   String get none => 'Không có';
 
   @override
-  String get noPasswordRecoveryDescription => 'Bạn chưa thêm cách khôi phục mật khẩu của mình.';
+  String get noPasswordRecoveryDescription =>
+      'Bạn chưa thêm cách khôi phục mật khẩu của mình.';
 
   @override
   String get noPermission => 'Không cho phép';
@@ -942,13 +977,15 @@ class L10nVi extends L10n {
   String get onlineKeyBackupEnabled => 'Sao lưu khóa trực tuyến đã được bật';
 
   @override
-  String get cannotEnableKeyBackup => 'Không thể sao lưu hội thoại. Hãy tới Cài đặt để thử lại.';
+  String get cannotEnableKeyBackup =>
+      'Không thể sao lưu hội thoại. Hãy tới Cài đặt để thử lại.';
 
   @override
   String get cannotUploadKey => 'Không thể lưu trữ khoá Dự phòng.';
 
   @override
-  String get oopsPushError => 'Ối! Thật không may, đã xảy ra lỗi khi thiết lập thông báo đẩy.';
+  String get oopsPushError =>
+      'Ối! Thật không may, đã xảy ra lỗi khi thiết lập thông báo đẩy.';
 
   @override
   String get oopsSomethingWentWrong => 'Rất tiếc, đã xảy ra sự cố…';
@@ -963,7 +1000,8 @@ class L10nVi extends L10n {
   String get openVideoCamera => 'Mở camera để quay video';
 
   @override
-  String get oneClientLoggedOut => 'Một trong những khách hàng của bạn đã bị đăng xuất';
+  String get oneClientLoggedOut =>
+      'Một trong những khách hàng của bạn đã bị đăng xuất';
 
   @override
   String get addAccount => 'Thêm tài khoản';
@@ -981,7 +1019,8 @@ class L10nVi extends L10n {
   String get bundleName => 'Tên gói';
 
   @override
-  String get enableMultiAccounts => '(BETA) Cho phép nhiều tài khoản trên thiết bị này';
+  String get enableMultiAccounts =>
+      '(BETA) Cho phép nhiều tài khoản trên thiết bị này';
 
   @override
   String get openInMaps => 'Mở trong bản đồ';
@@ -990,7 +1029,8 @@ class L10nVi extends L10n {
   String get link => 'Liên kết';
 
   @override
-  String get serverRequiresEmail => 'Máy chủ cần xác thực địa chỉ email của bạn để đăng ký.';
+  String get serverRequiresEmail =>
+      'Máy chủ cần xác thực địa chỉ email của bạn để đăng ký.';
 
   @override
   String get optionalGroupName => '(Tùy chọn) Tên nhóm';
@@ -1040,10 +1080,12 @@ class L10nVi extends L10n {
   String get pleaseChooseAUsername => 'Vui lòng chọn tên đăng nhập';
 
   @override
-  String get pleaseClickOnLink => 'Vui lòng nhấp vào liên kết trong email và tiếp tục.';
+  String get pleaseClickOnLink =>
+      'Vui lòng nhấp vào liên kết trong email và tiếp tục.';
 
   @override
-  String get pleaseEnter4Digits => 'Vui lòng nhập 4 kí tự hoặc để trống để vô hiệu hóa khóa ứng dụng.';
+  String get pleaseEnter4Digits =>
+      'Vui lòng nhập 4 kí tự hoặc để trống để vô hiệu hóa khóa ứng dụng.';
 
   @override
   String get pleaseEnterAMatrixIdentifier => 'Vui lòng nhập Matrix ID.';
@@ -1061,7 +1103,8 @@ class L10nVi extends L10n {
   String get pleaseEnterYourUsername => 'Vui lòng nhập tên đăng nhập';
 
   @override
-  String get pleaseFollowInstructionsOnWeb => 'Vui lòng làm theo hướng dẫn trên trang web và bấm tiếp';
+  String get pleaseFollowInstructionsOnWeb =>
+      'Vui lòng làm theo hướng dẫn trên trang web và bấm tiếp';
 
   @override
   String get privacy => 'Riêng tư';
@@ -1124,7 +1167,8 @@ class L10nVi extends L10n {
   String get renderRichContent => 'Hiển thị nội dung tin nhắn phong phú';
 
   @override
-  String get replaceRoomWithNewerVersion => 'Thay thế cuộc trò chuyện với phiên bản mới hơn';
+  String get replaceRoomWithNewerVersion =>
+      'Thay thế cuộc trò chuyện với phiên bản mới hơn';
 
   @override
   String get reply => 'Trả lời';
@@ -1278,7 +1322,8 @@ class L10nVi extends L10n {
   String get shareLocation => 'Chia sẻ vị trí';
 
   @override
-  String get showDirectChatsInSpaces => 'Hiển thị Cuộc trò chuyện trực tiếp có liên quan trong Spaces';
+  String get showDirectChatsInSpaces =>
+      'Hiển thị Cuộc trò chuyện trực tiếp có liên quan trong Spaces';
 
   @override
   String get showPassword => 'Hiển thị mật khẩu';
@@ -1355,7 +1400,8 @@ class L10nVi extends L10n {
   String get toggleUnread => 'Đánh dấy là đã đọc/chưa đọc';
 
   @override
-  String get tooManyRequestsWarning => 'Quá nhiều yêu cầu. Vui lòng thử lại sau!';
+  String get tooManyRequestsWarning =>
+      'Quá nhiều yêu cầu. Vui lòng thử lại sau!';
 
   @override
   String get transferFromAnotherDevice => 'Chuyển từ thiết bị khác';
@@ -1455,7 +1501,8 @@ class L10nVi extends L10n {
   String get videoCall => 'Cuộc gọi Video';
 
   @override
-  String get visibilityOfTheChatHistory => 'Khả năng hiển thị lịch sử trò chuyện';
+  String get visibilityOfTheChatHistory =>
+      'Khả năng hiển thị lịch sử trò chuyện';
 
   @override
   String get visibleForAllParticipants => 'Hiển thị với tất cả thành viên';
@@ -1467,10 +1514,12 @@ class L10nVi extends L10n {
   String get voiceMessage => 'Tin nhắn thoại';
 
   @override
-  String get waitingPartnerAcceptRequest => 'Đang chờ đối phương chấp nhận yêu cầu…';
+  String get waitingPartnerAcceptRequest =>
+      'Đang chờ đối phương chấp nhận yêu cầu…';
 
   @override
-  String get waitingPartnerEmoji => 'Đang chờ đối phương chấp nhận biểu tượng cảm xúc…';
+  String get waitingPartnerEmoji =>
+      'Đang chờ đối phương chấp nhận biểu tượng cảm xúc…';
 
   @override
   String get waitingPartnerNumbers => 'Đang chờ đối phương chấp nhận số…';
@@ -1491,16 +1540,19 @@ class L10nVi extends L10n {
   String get whoCanPerformWhichAction => 'Ai có thể thực hiện hành động nào';
 
   @override
-  String get whoIsAllowedToJoinThisGroup => 'Ai được phép tham gia cuộc trò chuyện này';
+  String get whoIsAllowedToJoinThisGroup =>
+      'Ai được phép tham gia cuộc trò chuyện này';
 
   @override
   String get whyDoYouWantToReportThis => 'Tại sao bạn muốn báo cáo điều này?';
 
   @override
-  String get wipeChatBackup => 'Xóa bản sao lưu trò chuyện của bạn để tạo khóa khôi phục mới?';
+  String get wipeChatBackup =>
+      'Xóa bản sao lưu trò chuyện của bạn để tạo khóa khôi phục mới?';
 
   @override
-  String get withTheseAddressesRecoveryDescription => 'Với những địa chỉ này, bạn có thể khôi phục mật khẩu của mình.';
+  String get withTheseAddressesRecoveryDescription =>
+      'Với những địa chỉ này, bạn có thể khôi phục mật khẩu của mình.';
 
   @override
   String get writeAMessage => 'Viết tin nhắn…';
@@ -1512,16 +1564,19 @@ class L10nVi extends L10n {
   String get you => 'Bạn';
 
   @override
-  String get youAreInvitedToThisChat => 'Bạn được mời tham gia cuộc trò chuyện này';
+  String get youAreInvitedToThisChat =>
+      'Bạn được mời tham gia cuộc trò chuyện này';
 
   @override
-  String get youAreNoLongerParticipatingInThisChat => 'Bạn không còn tham gia vào cuộc trò chuyện này nữa';
+  String get youAreNoLongerParticipatingInThisChat =>
+      'Bạn không còn tham gia vào cuộc trò chuyện này nữa';
 
   @override
   String get youCannotInviteYourself => 'Bạn không thể mời chính mình';
 
   @override
-  String get youHaveBeenBannedFromThisChat => 'Bạn đã bị cấm tham gia cuộc trò chuyện này';
+  String get youHaveBeenBannedFromThisChat =>
+      'Bạn đã bị cấm tham gia cuộc trò chuyện này';
 
   @override
   String get yourPublicKey => 'Khóa công khai của bạn';
@@ -1545,13 +1600,15 @@ class L10nVi extends L10n {
   String get removeFromSpace => 'Xóa khỏi không gian';
 
   @override
-  String get addToSpaceDescription => 'Chọn một không gian để thêm cuộc trò chuyện này vào đó.';
+  String get addToSpaceDescription =>
+      'Chọn một không gian để thêm cuộc trò chuyện này vào đó.';
 
   @override
   String get start => 'Bắt đầu';
 
   @override
-  String get pleaseEnterRecoveryKeyDescription => 'Để mở khóa các tin nhắn cũ của bạn, vui lòng nhập khóa khôi phục đã được tạo trong phiên trước đó. Khóa khôi phục KHÔNG phải là mật khẩu của bạn.';
+  String get pleaseEnterRecoveryKeyDescription =>
+      'Để mở khóa các tin nhắn cũ của bạn, vui lòng nhập khóa khôi phục đã được tạo trong phiên trước đó. Khóa khôi phục KHÔNG phải là mật khẩu của bạn.';
 
   @override
   String get addToStory => 'Thêm vào câu chuyện';
@@ -1566,7 +1623,8 @@ class L10nVi extends L10n {
   String get unsubscribeStories => 'Hủy theo dõi câu chuyện';
 
   @override
-  String get thisUserHasNotPostedAnythingYet => 'Người dùng này chưa đăng bất cứ điều gì trong câu chuyện của họ';
+  String get thisUserHasNotPostedAnythingYet =>
+      'Người dùng này chưa đăng bất cứ điều gì trong câu chuyện của họ';
 
   @override
   String get yourStory => 'Câu chuyện của bạn';
@@ -1585,7 +1643,8 @@ class L10nVi extends L10n {
   }
 
   @override
-  String get whoCanSeeMyStoriesDesc => 'Lưu ý rằng mọi người có thể thấy và liên hệ với nhau trong câu chuyện của bạn.';
+  String get whoCanSeeMyStoriesDesc =>
+      'Lưu ý rằng mọi người có thể thấy và liên hệ với nhau trong câu chuyện của bạn.';
 
   @override
   String get whatIsGoingOn => 'Điều gì đang xảy ra ?';
@@ -1594,7 +1653,8 @@ class L10nVi extends L10n {
   String get addDescription => 'Thêm mô tả';
 
   @override
-  String get storyPrivacyWarning => 'Xin lưu ý rằng mọi người có thể thấy và liên hệ với nhau trong câu chuyện của bạn. Câu chuyện của bạn sẽ hiển thị trong 24 giờ nhưng không có gì đảm bảo rằng chúng sẽ bị xóa khỏi tất cả các thiết bị và máy chủ.';
+  String get storyPrivacyWarning =>
+      'Xin lưu ý rằng mọi người có thể thấy và liên hệ với nhau trong câu chuyện của bạn. Câu chuyện của bạn sẽ hiển thị trong 24 giờ nhưng không có gì đảm bảo rằng chúng sẽ bị xóa khỏi tất cả các thiết bị và máy chủ.';
 
   @override
   String get iUnderstand => 'Tôi hiểu';
@@ -1638,10 +1698,12 @@ class L10nVi extends L10n {
   String get unsupportedAndroidVersion => 'Phiên bản Android không được hỗ trợ';
 
   @override
-  String get unsupportedAndroidVersionLong => 'Tính năng này yêu cầu phiên bản Android mới hơn. Vui lòng kiểm tra các bản cập nhật hoặc đội ngũ hỗ trợ Lineage OS.';
+  String get unsupportedAndroidVersionLong =>
+      'Tính năng này yêu cầu phiên bản Android mới hơn. Vui lòng kiểm tra các bản cập nhật hoặc đội ngũ hỗ trợ Lineage OS.';
 
   @override
-  String get videoCallsBetaWarning => 'Xin lưu ý rằng cuộc gọi điện video hiện đang ở giai đoạn thử nghiệm. Chúng có thể không hoạt động như mong đợi hoặc không hoạt động trên tất cả các nền tảng.';
+  String get videoCallsBetaWarning =>
+      'Xin lưu ý rằng cuộc gọi điện video hiện đang ở giai đoạn thử nghiệm. Chúng có thể không hoạt động như mong đợi hoặc không hoạt động trên tất cả các nền tảng.';
 
   @override
   String get experimentalVideoCalls => 'Cuộc gọi video thử nghiệm';
@@ -1653,7 +1715,8 @@ class L10nVi extends L10n {
   String get indexedDbErrorTitle => 'Vấn đề về chế độ riêng tư';
 
   @override
-  String get indexedDbErrorLong => 'Rất tiếc, tính năng lưu trữ tin nhắn không được bật ở chế độ riêng tư theo mặc định.\nVui lòng truy cập\n  - về: cấu hình\n  - đặt dom.indexedDB.privateBrowsing.enabled thành true\nNếu không, bạn không thể chạy FluffyChat.';
+  String get indexedDbErrorLong =>
+      'Rất tiếc, tính năng lưu trữ tin nhắn không được bật ở chế độ riêng tư theo mặc định.\nVui lòng truy cập\n  - về: cấu hình\n  - đặt dom.indexedDB.privateBrowsing.enabled thành true\nNếu không, bạn không thể chạy FluffyChat.';
 
   @override
   String switchToAccount(Object number) {
@@ -1741,7 +1804,8 @@ class L10nVi extends L10n {
   }
 
   @override
-  String get noEmailWarning => 'Vui lòng nhập địa chỉ email hợp lệ. Nếu không, bạn sẽ không thể đặt lại mật khẩu của mình. Nếu bạn không muốn, hãy nhấn lại vào nút để tiếp tục.';
+  String get noEmailWarning =>
+      'Vui lòng nhập địa chỉ email hợp lệ. Nếu không, bạn sẽ không thể đặt lại mật khẩu của mình. Nếu bạn không muốn, hãy nhấn lại vào nút để tiếp tục.';
 
   @override
   String get stories => 'Câu chuyện';
@@ -1759,10 +1823,12 @@ class L10nVi extends L10n {
   String get cannotUnlockBackupKey => 'Không thể mở khoá Dự phòng.';
 
   @override
-  String get storeInSecureStorageDescription => 'Lưu trữ khóa khôi phục trong bộ lưu trữ an toàn của thiết bị này.';
+  String get storeInSecureStorageDescription =>
+      'Lưu trữ khóa khôi phục trong bộ lưu trữ an toàn của thiết bị này.';
 
   @override
-  String get saveKeyManuallyDescription => 'Lưu khóa này thủ công bằng cách kích hoạt hộp thoại chia sẻ hệ thống hoặc bảng nhớ tạm.';
+  String get saveKeyManuallyDescription =>
+      'Lưu khóa này thủ công bằng cách kích hoạt hộp thoại chia sẻ hệ thống hoặc bảng nhớ tạm.';
 
   @override
   String get storeInAndroidKeystore => 'Lưu trữ trong Android KeyStore';
@@ -1785,7 +1851,8 @@ class L10nVi extends L10n {
   String get custom => 'Cá nhân hóa';
 
   @override
-  String get foregroundServiceRunning => 'Thông báo này xuất hiện khi dịch vụ nền trước đang chạy.';
+  String get foregroundServiceRunning =>
+      'Thông báo này xuất hiện khi dịch vụ nền trước đang chạy.';
 
   @override
   String get screenSharingTitle => 'Chia sẻ màn hình';
@@ -1800,22 +1867,27 @@ class L10nVi extends L10n {
   String get callingAccount => 'Tài khoản gọi điện';
 
   @override
-  String get callingAccountDetails => 'Cho phép FluffyChat sử dụng ứng dụng quay số Android gốc.';
+  String get callingAccountDetails =>
+      'Cho phép FluffyChat sử dụng ứng dụng quay số Android gốc.';
 
   @override
   String get appearOnTop => 'Xuất hiện trên cùng';
 
   @override
-  String get appearOnTopDetails => 'Cho phép ứng dụng xuất hiện trên cùng (không cần thiết nếu bạn đã thiết lập Fluffychat làm tài khoản gọi điện)';
+  String get appearOnTopDetails =>
+      'Cho phép ứng dụng xuất hiện trên cùng (không cần thiết nếu bạn đã thiết lập Fluffychat làm tài khoản gọi điện)';
 
   @override
-  String get otherCallingPermissions => 'Micro, máy ảnh và các quyền FluffyChat khác';
+  String get otherCallingPermissions =>
+      'Micro, máy ảnh và các quyền FluffyChat khác';
 
   @override
-  String get whyIsThisMessageEncrypted => 'Tại sao tin nhắn này không thể đọc được?';
+  String get whyIsThisMessageEncrypted =>
+      'Tại sao tin nhắn này không thể đọc được?';
 
   @override
-  String get noKeyForThisMessage => 'Điều này có thể xảy ra nếu tin nhắn được gửi trước khi bạn đăng nhập vào tài khoản của mình trên thiết bị này.\n\nCũng có thể người gửi đã chặn thiết bị của bạn hoặc đã xảy ra sự cố với kết nối internet.\n\nBạn có thể đọc tin nhắn trên một phiên khác không? Sau đó, bạn có thể chuyển tin nhắn từ nó! Đi tới Cài đặt > Thiết bị và đảm bảo rằng các thiết bị của bạn đã xác minh lẫn nhau. Khi bạn mở phòng vào lần tiếp theo và cả hai phiên đều ở phía trước, chìa khóa sẽ được truyền tự động.\n\nBạn không muốn bị mất chìa khóa khi đăng xuất hoặc chuyển đổi thiết bị? Đảm bảo rằng bạn đã bật tính năng sao lưu trò chuyện trong cài đặt.';
+  String get noKeyForThisMessage =>
+      'Điều này có thể xảy ra nếu tin nhắn được gửi trước khi bạn đăng nhập vào tài khoản của mình trên thiết bị này.\n\nCũng có thể người gửi đã chặn thiết bị của bạn hoặc đã xảy ra sự cố với kết nối internet.\n\nBạn có thể đọc tin nhắn trên một phiên khác không? Sau đó, bạn có thể chuyển tin nhắn từ nó! Đi tới Cài đặt > Thiết bị và đảm bảo rằng các thiết bị của bạn đã xác minh lẫn nhau. Khi bạn mở phòng vào lần tiếp theo và cả hai phiên đều ở phía trước, chìa khóa sẽ được truyền tự động.\n\nBạn không muốn bị mất chìa khóa khi đăng xuất hoặc chuyển đổi thiết bị? Đảm bảo rằng bạn đã bật tính năng sao lưu trò chuyện trong cài đặt.';
 
   @override
   String get newGroup => 'Cuộc trò chuyện mới';
@@ -1838,7 +1910,8 @@ class L10nVi extends L10n {
   }
 
   @override
-  String get hideUnimportantStateEvents => 'Ẩn các sự kiện trạng thái không quan trọng';
+  String get hideUnimportantStateEvents =>
+      'Ẩn các sự kiện trạng thái không quan trọng';
 
   @override
   String get doNotShowAgain => 'Không hiển thị lại';
@@ -1849,7 +1922,8 @@ class L10nVi extends L10n {
   }
 
   @override
-  String get newSpaceDescription => 'Spaces cho phép bạn hợp nhất các cuộc trò chuyện của mình và xây dựng cộng đồng riêng tư hoặc công khai.';
+  String get newSpaceDescription =>
+      'Spaces cho phép bạn hợp nhất các cuộc trò chuyện của mình và xây dựng cộng đồng riêng tư hoặc công khai.';
 
   @override
   String get encryptThisChat => 'Mã hóa cuộc trò chuyện này';
@@ -1858,7 +1932,8 @@ class L10nVi extends L10n {
   String get endToEndEncryption => 'Mã hóa đầu cuối';
 
   @override
-  String get disableEncryptionWarning => 'Vì lý do bảo mật, bạn không thể tắt tính năng mã hóa trong cuộc trò chuyện, nơi tính năng này đã được bật trước đó.';
+  String get disableEncryptionWarning =>
+      'Vì lý do bảo mật, bạn không thể tắt tính năng mã hóa trong cuộc trò chuyện, nơi tính năng này đã được bật trước đó.';
 
   @override
   String get sorryThatsNotPossible => 'Xin lỗi... điều đó là không thể';
@@ -1876,13 +1951,15 @@ class L10nVi extends L10n {
   String get reopenChat => 'Mở lại cuộc trò chuyện';
 
   @override
-  String get noBackupWarning => 'Cảnh báo! Nếu không bật sao lưu trò chuyện, bạn sẽ mất quyền truy cập vào tin nhắn được mã hóa của mình. Chúng tôi khuyên bạn nên bật sao lưu trò chuyện trước khi đăng xuất.';
+  String get noBackupWarning =>
+      'Cảnh báo! Nếu không bật sao lưu trò chuyện, bạn sẽ mất quyền truy cập vào tin nhắn được mã hóa của mình. Chúng tôi khuyên bạn nên bật sao lưu trò chuyện trước khi đăng xuất.';
 
   @override
   String get noOtherDevicesFound => 'Không tìm thấy thiết bị khác';
 
   @override
-  String get fileIsTooBigForServer => 'Máy chủ báo cáo rằng tệp quá lớn để gửi.';
+  String get fileIsTooBigForServer =>
+      'Máy chủ báo cáo rằng tệp quá lớn để gửi.';
 
   @override
   String get onlineStatus => 'trực tuyến';
@@ -1906,7 +1983,8 @@ class L10nVi extends L10n {
   String get noMessageHereYet => 'Không có tin nhắn...';
 
   @override
-  String get sendMessageGuide => 'Gửi tin nhắn hoặc nhấn vào lời chào bên dưới.';
+  String get sendMessageGuide =>
+      'Gửi tin nhắn hoặc nhấn vào lời chào bên dưới.';
 
   @override
   String get youCreatedGroupChat => 'Bạn đã tạo một cuộc trò chuyện';
@@ -1933,12 +2011,13 @@ class L10nVi extends L10n {
   String get chatMessage => 'Tin nhắn mới';
 
   @override
-  String welcomeToTwake(Object user) {
-    return 'Chào mừng đến Twake, $user';
+  String welcomeToDedi(Object user) {
+    return 'Chào mừng đến Dedi, $user';
   }
 
   @override
-  String get startNewChatMessage => 'Thật vui khi được trò chuyện với bạn bè và cộng tác với nhóm của bạn.\nHãy bắt đầu hội thoại, tạo cuộc trò chuyện hoặc tham gia cuộc trò chuyện hiện có.';
+  String get startNewChatMessage =>
+      'Thật vui khi được trò chuyện với bạn bè và cộng tác với nhóm của bạn.\nHãy bắt đầu hội thoại, tạo cuộc trò chuyện hoặc tham gia cuộc trò chuyện hiện có.';
 
   @override
   String get statusDot => '⬤';
@@ -1953,7 +2032,7 @@ class L10nVi extends L10n {
   String get newGroupChat => 'Nhóm trò chuyện mới';
 
   @override
-  String get twakeUsers => 'Người dùng Twake';
+  String get dediUsers => 'Người dùng Dedi';
 
   @override
   String get expand => 'Mở rộng';
@@ -1967,13 +2046,16 @@ class L10nVi extends L10n {
   }
 
   @override
-  String get searchResultNotFound1 => '• Đảm bảo không có lỗi chính tả trong tìm kiếm của bạn.\n';
+  String get searchResultNotFound1 =>
+      '• Đảm bảo không có lỗi chính tả trong tìm kiếm của bạn.\n';
 
   @override
-  String get searchResultNotFound2 => '• Bạn có thể không có người dùng này trong danh bạ của mình.\n';
+  String get searchResultNotFound2 =>
+      '• Bạn có thể không có người dùng này trong danh bạ của mình.\n';
 
   @override
-  String get searchResultNotFound3 => '• Kiểm tra quyền truy cập liên hệ, người dùng có thể có trong danh sách liên hệ của bạn.\n';
+  String get searchResultNotFound3 =>
+      '• Kiểm tra quyền truy cập liên hệ, người dùng có thể có trong danh sách liên hệ của bạn.\n';
 
   @override
   String get searchResultNotFound4 => '• Nếu lý do không được liệt kê ở trên, ';
@@ -2010,7 +2092,8 @@ class L10nVi extends L10n {
   String get wrongServerName => 'Tên máy chủ sai';
 
   @override
-  String get serverNameWrongExplain => 'Địa chỉ máy chủ đã được quản trị viên gửi cho bạn. Vui lòng kiểm tra email mời.';
+  String get serverNameWrongExplain =>
+      'Địa chỉ máy chủ đã được quản trị viên gửi cho bạn. Vui lòng kiểm tra email mời.';
 
   @override
   String get contacts => 'Liên hệ';
@@ -2022,7 +2105,8 @@ class L10nVi extends L10n {
   String get soonThereHaveContacts => 'Sẽ sớm có liên hệ';
 
   @override
-  String get searchSuggestion => 'Hiện tại, tìm kiếm bằng cách nhập tên của một người hoặc địa chỉ máy chủ công cộng';
+  String get searchSuggestion =>
+      'Hiện tại, tìm kiếm bằng cách nhập tên của một người hoặc địa chỉ máy chủ công cộng';
 
   @override
   String get loadingContacts => 'Tải liên hệ...';
@@ -2060,16 +2144,19 @@ class L10nVi extends L10n {
   String get noImagesFound => 'Không tìm thấy ảnh';
 
   @override
-  String get captionForImagesIsNotSupportYet => 'Chú thích cho hình ảnh chưa được hỗ trợ.';
+  String get captionForImagesIsNotSupportYet =>
+      'Chú thích cho hình ảnh chưa được hỗ trợ.';
 
   @override
-  String get tapToAllowAccessToYourGallery => 'Nhấn để cho phép truy cập vào Thư viện của bạn';
+  String get tapToAllowAccessToYourGallery =>
+      'Nhấn để cho phép truy cập vào Thư viện của bạn';
 
   @override
-  String get tapToAllowAccessToYourCamera => 'Bạn có thể bật quyền truy cập camera trong ứng dụng Cài đặt để thực hiện cuộc gọi điện video trong';
+  String get tapToAllowAccessToYourCamera =>
+      'Bạn có thể bật quyền truy cập camera trong ứng dụng Cài đặt để thực hiện cuộc gọi điện video trong';
 
   @override
-  String get twake => 'Twake Chat';
+  String get dedi => 'Dedi';
 
   @override
   String get permissionAccess => 'Quyền truy cập';
@@ -2078,10 +2165,12 @@ class L10nVi extends L10n {
   String get allow => 'Cho phép';
 
   @override
-  String get explainStoragePermission => 'Twake cần quyền truy cập vào bộ nhớ của bạn để xem trước tệp';
+  String get explainStoragePermission =>
+      'Dedi cần quyền truy cập vào bộ nhớ của bạn để xem trước tệp';
 
   @override
-  String get explainGoToStorageSetting => 'Twake cần quyền truy cập vào bộ nhớ của bạn để xem trước tệp, hãy chuyển tới cài đặt để cấp quyền này';
+  String get explainGoToStorageSetting =>
+      'Dedi cần quyền truy cập vào bộ nhớ của bạn để xem trước tệp, hãy chuyển tới cài đặt để cấp quyền này';
 
   @override
   String get gallery => 'Thư viện';
@@ -2108,7 +2197,8 @@ class L10nVi extends L10n {
   String get externalContactTitle => 'Mời người dùng mới';
 
   @override
-  String get externalContactMessage => 'Một số người dùng bạn muốn thêm không có trong danh bạ của bạn. Bạn có muốn mời họ không?';
+  String get externalContactMessage =>
+      'Một số người dùng bạn muốn thêm không có trong danh bạ của bạn. Bạn có muốn mời họ không?';
 
   @override
   String get clear => 'Xóa';
@@ -2131,7 +2221,8 @@ class L10nVi extends L10n {
   String get continueProcess => 'Tiếp tục';
 
   @override
-  String get youAreUploadingPhotosDoYouWantToCancelOrContinue => 'Lỗi tải ảnh! Bạn vẫn muốn tiếp tục tạo trò chuyện?';
+  String get youAreUploadingPhotosDoYouWantToCancelOrContinue =>
+      'Lỗi tải ảnh! Bạn vẫn muốn tiếp tục tạo trò chuyện?';
 
   @override
   String hasCreatedAGroupChat(Object groupName) {
@@ -2151,7 +2242,8 @@ class L10nVi extends L10n {
   String get acceptInvite => 'Đúng, tham gia';
 
   @override
-  String get askToInvite => ' muốn bạn tham gia cuộc trò chuyện này. Bạn nghĩ sao?';
+  String get askToInvite =>
+      ' muốn bạn tham gia cuộc trò chuyện này. Bạn nghĩ sao?';
 
   @override
   String get select => 'Chọn';
@@ -2212,7 +2304,8 @@ class L10nVi extends L10n {
   String get notInAChatYet => 'Bạn không ở trong cuộc hội thoại';
 
   @override
-  String get blankChatTitle => 'Chọn một cuộc trò chuyện hoặc nhấn #EditIcon# để tạo mới.';
+  String get blankChatTitle =>
+      'Chọn một cuộc trò chuyện hoặc nhấn #EditIcon# để tạo mới.';
 
   @override
   String get errorPageTitle => 'Có lỗi xảy ra';
@@ -2287,7 +2380,8 @@ class L10nVi extends L10n {
   String get workIdentitiesInfo => 'Thông tin công việc';
 
   @override
-  String get editWorkIdentitiesDescriptions => 'Chỉnh sửa các cài đặt về danh tính của bạn như Matrix ID, email hoặc tên công ty.';
+  String get editWorkIdentitiesDescriptions =>
+      'Chỉnh sửa các cài đặt về danh tính của bạn như Matrix ID, email hoặc tên công ty.';
 
   @override
   String get copiedMatrixIdToClipboard => 'Sao chép vào bộ nhớ tạm.';
@@ -2336,10 +2430,12 @@ class L10nVi extends L10n {
   String get noResultsFound => 'Không tìm thấy kết quả';
 
   @override
-  String get encryptionMessage => 'Tính năng này bảo vệ tin nhắn của bạn không bị người khác đọc nhưng cũng ngăn không cho chúng được sao lưu trên máy chủ của chúng tôi. Bạn không thể tắt tính năng này sau.';
+  String get encryptionMessage =>
+      'Tính năng này bảo vệ tin nhắn của bạn không bị người khác đọc nhưng cũng ngăn không cho chúng được sao lưu trên máy chủ của chúng tôi. Bạn không thể tắt tính năng này sau.';
 
   @override
-  String get encryptionWarning => 'Bạn có thể mất tin nhắn nếu truy cập ứng dụng Twake trên thiết bị khác.';
+  String get encryptionWarning =>
+      'Bạn có thể mất tin nhắn nếu truy cập ứng dụng Dedi trên thiết bị khác.';
 
   @override
   String get selectedUsers => 'Những người dùng được chọn';
@@ -2379,16 +2475,19 @@ class L10nVi extends L10n {
   String get copyImageSuccess => 'Ảnh đã được sao chép vào bộ nhớ tạm';
 
   @override
-  String get youNeedToAcceptTheInvitation => 'Bạn cần chấp nhận lời mời để bắt đầu trò chuyện';
+  String get youNeedToAcceptTheInvitation =>
+      'Bạn cần chấp nhận lời mời để bắt đầu trò chuyện';
 
   @override
-  String get hasInvitedYouToAChat => ' đã mời bạn trò chuyện. Chấp nhận hay từ chối và xóa cuộc trò chuyện?';
+  String get hasInvitedYouToAChat =>
+      ' đã mời bạn trò chuyện. Chấp nhận hay từ chối và xóa cuộc trò chuyện?';
 
   @override
   String get declineTheInvitation => 'Từ chối lời mời?';
 
   @override
-  String get doYouReallyWantToDeclineThisInvitation => 'Bạn có thực sự muốn từ chối lời mời này và xóa cuộc trò chuyện không? Bạn sẽ không thể hoàn tác hành động này.';
+  String get doYouReallyWantToDeclineThisInvitation =>
+      'Bạn có thực sự muốn từ chối lời mời này và xóa cuộc trò chuyện không? Bạn sẽ không thể hoàn tác hành động này.';
 
   @override
   String get declineAndRemove => 'Từ chối và xóa';
@@ -2397,7 +2496,8 @@ class L10nVi extends L10n {
   String get notNow => 'Không phải bây giờ';
 
   @override
-  String get contactsWarningBannerTitle => 'Để đảm bảo bạn có thể kết nối với tất cả bạn bè của mình, vui lòng cho phép Twake truy cập danh bạ trên thiết bị của bạn. Chúng tôi đánh giá cao sự thông cảm của bạn.';
+  String get contactsWarningBannerTitle =>
+      'Để đảm bảo bạn có thể kết nối với tất cả bạn bè của mình, vui lòng cho phép Dedi truy cập danh bạ trên thiết bị của bạn. Chúng tôi đánh giá cao sự thông cảm của bạn.';
 
   @override
   String contactsCount(Object count) {
@@ -2405,8 +2505,8 @@ class L10nVi extends L10n {
   }
 
   @override
-  String linagoraContactsCount(Object count) {
-    return 'Danh bạ Linagora ($count)';
+  String dediContactsCount(Object count) {
+    return 'Danh bạ Dedi ($count)';
   }
 
   @override
@@ -2427,7 +2527,8 @@ class L10nVi extends L10n {
   String get languageRussian => 'tiếng Nga';
 
   @override
-  String get settingsLanguageDescription => 'Cài đặt ngôn ngữ bạn sử dụng trên Twake Chat';
+  String get settingsLanguageDescription =>
+      'Cài đặt ngôn ngữ bạn sử dụng trên Dedi';
 
   @override
   String sendImages(num count) {
@@ -2471,7 +2572,8 @@ class L10nVi extends L10n {
   String get groupName => 'Tên nhóm';
 
   @override
-  String get descriptionHelper => 'Bạn có thể cung cấp mô tả tùy chọn cho nhóm của mình.';
+  String get descriptionHelper =>
+      'Bạn có thể cung cấp mô tả tùy chọn cho nhóm của mình.';
 
   @override
   String get groupNameCannotBeEmpty => 'Tên nhóm không được để trống';
@@ -2492,7 +2594,8 @@ class L10nVi extends L10n {
   String get welcomeTo => 'Chào mừng đến với';
 
   @override
-  String get descriptionWelcomeTo => 'Một ứng dụng nhắn tin mã nguồn mở dựa trên\ngiao thức ma trận, cho phép bạn\nmã hóa dữ liệu của bạn';
+  String get descriptionWelcomeTo =>
+      'Một ứng dụng nhắn tin mã nguồn mở dựa trên\ngiao thức ma trận, cho phép bạn\nmã hóa dữ liệu của bạn';
 
   @override
   String get startMessaging => 'Bắt đầu nhắn tin';
@@ -2501,13 +2604,14 @@ class L10nVi extends L10n {
   String get signIn => 'Đăng nhập';
 
   @override
-  String get createTwakeId => 'Tạo Twake ID';
+  String get createDediId => 'Tạo Dedi ID';
 
   @override
   String get useYourCompanyServer => 'Sử dụng máy chủ công ty của bạn';
 
   @override
-  String get descriptionTwakeId => 'Một ứng dụng tin nhắn nguồn mở mã hóa\ndữ liệu của bạn với giao thức ma trận';
+  String get descriptionDediId =>
+      'Một ứng dụng tin nhắn nguồn mở mã hóa\ndữ liệu của bạn với giao thức ma trận';
 
   @override
   String countFilesSendPerDialog(Object count) {
@@ -2532,7 +2636,8 @@ class L10nVi extends L10n {
   String get noResults => 'Không tìm thấy kết quả';
 
   @override
-  String get isSingleAccountOnHomeserver => 'Chúng tôi chưa hỗ trợ nhiều tài khoản trên một máy chủ';
+  String get isSingleAccountOnHomeserver =>
+      'Chúng tôi chưa hỗ trợ nhiều tài khoản trên một máy chủ';
 
   @override
   String messageSelected(num count) {
@@ -2552,13 +2657,14 @@ class L10nVi extends L10n {
   }
 
   @override
-  String get twakeChatUser => 'Người dùng Twake Chat';
+  String get dediChatUser => 'Người dùng Dedi';
 
   @override
   String get sharedMediaAndLinks => 'Phương tiện và liên kết chia sẻ';
 
   @override
-  String get errorSendingFiles => 'Một số tệp không thể gửi do hạn chế về kích thước, định dạng hoặc các lỗi không mong đợi. Những tệp này sẽ không được bao gồm trong quá trình gửi.';
+  String get errorSendingFiles =>
+      'Một số tệp không thể gửi do hạn chế về kích thước, định dạng hoặc các lỗi không mong đợi. Những tệp này sẽ không được bao gồm trong quá trình gửi.';
 
   @override
   String get removeFileBeforeSend => 'Loại bỏ các tệp lỗi trước khi gửi';
@@ -2570,7 +2676,8 @@ class L10nVi extends L10n {
   String get searchContacts => 'Tìm kiếm liên hệ';
 
   @override
-  String get tapToAllowAccessToYourMicrophone => 'Bạn có thể bật quyền truy cập micrô trong ứng dụng Cài đặt để tạo giọng nói';
+  String get tapToAllowAccessToYourMicrophone =>
+      'Bạn có thể bật quyền truy cập micrô trong ứng dụng Cài đặt để tạo giọng nói';
 
   @override
   String get showInChat => 'Hiển thị trong cuộc trò chuyện';
@@ -2594,7 +2701,8 @@ class L10nVi extends L10n {
   String get fileSavedToDownloads => 'Tệp đã được lưu vào thư mục Tải xuống';
 
   @override
-  String get saveFileToDownloadsError => 'Không lưu được tệp vào thư mục Tải xuống';
+  String get saveFileToDownloadsError =>
+      'Không lưu được tệp vào thư mục Tải xuống';
 
   @override
   String explainPermissionToDownloadFiles(String appName) {
@@ -2602,31 +2710,39 @@ class L10nVi extends L10n {
   }
 
   @override
-  String get explainPermissionToAccessContacts => 'Twake Chat KHÔNG thu thập danh bạ của bạn. Twake Chat chỉ gửi các mã băm (hash) của danh bạ đến máy chủ của Twake Chat để xác định ai trong số bạn bè của bạn đã tham gia Twake Chat, giúp bạn kết nối với họ. Danh bạ của bạn KHÔNG được đồng bộ hóa với máy chủ của chúng tôi.';
+  String get explainPermissionToAccessContacts =>
+      'Dedi KHÔNG thu thập danh bạ của bạn. Dedi chỉ gửi các mã băm (hash) của danh bạ đến máy chủ của Dedi để xác định ai trong số bạn bè của bạn đã tham gia Dedi, giúp bạn kết nối với họ. Danh bạ của bạn KHÔNG được đồng bộ hóa với máy chủ của chúng tôi.';
 
   @override
-  String get explainPermissionToAccessMedias => 'Twake Chat không đồng bộ dữ liệu giữa thiết bị của bạn và máy chủ của chúng tôi. Chúng tôi chỉ lưu trữ các tệp phương tiện mà bạn đã gửi vào phòng chat. Tất cả các tệp phương tiện được gửi trong chat đều được mã hóa và lưu trữ an toàn. Vào Cài đặt > Quyền và kích hoạt quyền Lưu trữ: Ảnh và Video. Bạn cũng có thể từ chối quyền truy cập vào thư viện phương tiện của mình bất cứ lúc nào.';
+  String get explainPermissionToAccessMedias =>
+      'Dedi không đồng bộ dữ liệu giữa thiết bị của bạn và máy chủ của chúng tôi. Chúng tôi chỉ lưu trữ các tệp phương tiện mà bạn đã gửi vào phòng chat. Tất cả các tệp phương tiện được gửi trong chat đều được mã hóa và lưu trữ an toàn. Vào Cài đặt > Quyền và kích hoạt quyền Lưu trữ: Ảnh và Video. Bạn cũng có thể từ chối quyền truy cập vào thư viện phương tiện của mình bất cứ lúc nào.';
 
   @override
-  String get explainPermissionToAccessPhotos => 'Twake Chat không đồng bộ dữ liệu giữa thiết bị của bạn và máy chủ của chúng tôi. Chúng tôi chỉ lưu trữ các tệp phương tiện mà bạn đã gửi vào phòng chat. Tất cả các tệp phương tiện được gửi trong chat đều được mã hóa và lưu trữ an toàn. Vào Cài đặt > Quyền và kích hoạt quyền Lưu trữ: Ảnh. Bạn cũng có thể từ chối quyền truy cập vào thư viện phương tiện của mình bất cứ lúc nào.';
+  String get explainPermissionToAccessPhotos =>
+      'Dedi không đồng bộ dữ liệu giữa thiết bị của bạn và máy chủ của chúng tôi. Chúng tôi chỉ lưu trữ các tệp phương tiện mà bạn đã gửi vào phòng chat. Tất cả các tệp phương tiện được gửi trong chat đều được mã hóa và lưu trữ an toàn. Vào Cài đặt > Quyền và kích hoạt quyền Lưu trữ: Ảnh. Bạn cũng có thể từ chối quyền truy cập vào thư viện phương tiện của mình bất cứ lúc nào.';
 
   @override
-  String get explainPermissionToAccessVideos => 'Twake Chat không đồng bộ dữ liệu giữa thiết bị của bạn và máy chủ của chúng tôi. Chúng tôi chỉ lưu trữ các tệp phương tiện mà bạn đã gửi vào phòng chat. Tất cả các tệp phương tiện được gửi trong chat đều được mã hóa và lưu trữ an toàn. Vào Cài đặt > Quyền và kích hoạt quyền Lưu trữ: Video. Bạn cũng có thể từ chối quyền truy cập vào thư viện phương tiện của mình bất cứ lúc nào.';
+  String get explainPermissionToAccessVideos =>
+      'Dedi không đồng bộ dữ liệu giữa thiết bị của bạn và máy chủ của chúng tôi. Chúng tôi chỉ lưu trữ các tệp phương tiện mà bạn đã gửi vào phòng chat. Tất cả các tệp phương tiện được gửi trong chat đều được mã hóa và lưu trữ an toàn. Vào Cài đặt > Quyền và kích hoạt quyền Lưu trữ: Video. Bạn cũng có thể từ chối quyền truy cập vào thư viện phương tiện của mình bất cứ lúc nào.';
 
   @override
   String get downloading => 'Đang tải';
 
   @override
-  String get settingUpYourTwake => 'Đang thiết lập Twake của bạn\nNó có thể mất một thời gian';
+  String get settingUpYourDedi =>
+      'Đang thiết lập Dedi của bạn\nNó có thể mất một thời gian';
 
   @override
-  String get performingAutomaticalLogin => 'Thực hiện đăng nhập tự động qua SSO';
+  String get performingAutomaticalLogin =>
+      'Thực hiện đăng nhập tự động qua SSO';
 
   @override
-  String get backingUpYourMessage => 'Chuẩn bị môi trường máy chủ để sao lưu tin nhắn của bạn';
+  String get backingUpYourMessage =>
+      'Chuẩn bị môi trường máy chủ để sao lưu tin nhắn của bạn';
 
   @override
-  String get recoveringYourEncryptedChats => 'Khôi phục các cuộc trò chuyện được mã hóa của bạn';
+  String get recoveringYourEncryptedChats =>
+      'Khôi phục các cuộc trò chuyện được mã hóa của bạn';
 
   @override
   String get configureDataEncryption => 'Cấu hình mã hóa dữ liệu';
@@ -2661,7 +2777,8 @@ class L10nVi extends L10n {
   String get invalidLoginToken => 'Mã đăng nhập không hợp lệ';
 
   @override
-  String get copiedPublicKeyToClipboard => 'Đã sao chép khóa công khai vào bảng nhớ tạm.';
+  String get copiedPublicKeyToClipboard =>
+      'Đã sao chép khóa công khai vào bảng nhớ tạm.';
 
   @override
   String get removeFromGroup => 'Loại bỏ khỏi nhóm';
@@ -2684,7 +2801,8 @@ class L10nVi extends L10n {
   String get privacyPolicy => 'Chính sách bảo mật';
 
   @override
-  String get byContinuingYourAgreeingToOur => 'Bằng cách tiếp tục, bạn đồng ý với chúng tôi';
+  String get byContinuingYourAgreeingToOur =>
+      'Bằng cách tiếp tục, bạn đồng ý với chúng tôi';
 
   @override
   String get youDontHaveAnyContactsYet => 'Bạn chưa có bất kỳ liên hệ nào.';
@@ -2699,7 +2817,8 @@ class L10nVi extends L10n {
   String get shootingTips => 'Nhấn để chụp ảnh.';
 
   @override
-  String get shootingWithRecordingTips => 'Nhấn để chụp ảnh. Nhấn và giữ để quay hình.';
+  String get shootingWithRecordingTips =>
+      'Nhấn để chụp ảnh. Nhấn và giữ để quay hình.';
 
   @override
   String get shootingOnlyRecordingTips => 'Nhấn và giữ để ghi hình.';
@@ -2772,7 +2891,8 @@ class L10nVi extends L10n {
   String get disable_notifications => 'Tắt thông báo';
 
   @override
-  String get logoutDialogWarning => 'Bạn sẽ không thể truy cập vào những tin nhắn mã hoá. Hãy bật sao lưu dữ liệu trước khi thực hiện đăng xuất';
+  String get logoutDialogWarning =>
+      'Bạn sẽ không thể truy cập vào những tin nhắn mã hoá. Hãy bật sao lưu dữ liệu trước khi thực hiện đăng xuất';
 
   @override
   String get copyNumber => 'Sao chép số';
@@ -2781,7 +2901,8 @@ class L10nVi extends L10n {
   String get callViaCarrier => 'Gọi qua Nhà mạng';
 
   @override
-  String get scanQrCodeToJoin => 'Cài đặt ứng dụng di động sẽ cho phép bạn liên lạc với mọi người từ sổ địa chỉ trên điện thoại của bạn, các cuộc trò chuyện của bạn sẽ được đồng bộ hóa giữa các thiết bị';
+  String get scanQrCodeToJoin =>
+      'Cài đặt ứng dụng di động sẽ cho phép bạn liên lạc với mọi người từ sổ địa chỉ trên điện thoại của bạn, các cuộc trò chuyện của bạn sẽ được đồng bộ hóa giữa các thiết bị';
 
   @override
   String get thisFieldCannotBeBlank => 'Bắt buộc';
@@ -2790,19 +2911,22 @@ class L10nVi extends L10n {
   String get phoneNumberCopiedToClipboard => 'Số điện thoại đã được sao chép';
 
   @override
-  String get deleteAccountMessage => 'Các nhóm chat mà bạn đã tạo sẽ không có quản trị viên trừ khi bạn đã cấp quyền quản trị cho người khác. Người dùng vẫn sẽ có lịch sử tin nhắn với bạn. Xóa tài khoản sẽ không giải quyết được vấn đề.';
+  String get deleteAccountMessage =>
+      'Các nhóm chat mà bạn đã tạo sẽ không có quản trị viên trừ khi bạn đã cấp quyền quản trị cho người khác. Người dùng vẫn sẽ có lịch sử tin nhắn với bạn. Xóa tài khoản sẽ không giải quyết được vấn đề.';
 
   @override
   String get deleteLater => 'Xoá sau';
 
   @override
-  String get areYouSureYouWantToDeleteAccount => 'Bạn có chắc chắn muốn xóa tài khoản không?';
+  String get areYouSureYouWantToDeleteAccount =>
+      'Bạn có chắc chắn muốn xóa tài khoản không?';
 
   @override
   String get textCopiedToClipboard => 'Văn bản đã được sao chép';
 
   @override
-  String get selectAnEmailOrPhoneYouWantSendTheInvitationTo => 'Chọn một địa chỉ email hoặc một số điện thoại để gửi lời mời';
+  String get selectAnEmailOrPhoneYouWantSendTheInvitationTo =>
+      'Chọn một địa chỉ email hoặc một số điện thoại để gửi lời mời';
 
   @override
   String get phoneNumber => 'Số điện thoại';
@@ -2817,7 +2941,8 @@ class L10nVi extends L10n {
   String get contactLookupFailed => 'Tìm kiếm liên hệ không thành công.';
 
   @override
-  String get invitationHasBeenSuccessfullySent => 'Lời mời đã được gửi thành công!';
+  String get invitationHasBeenSuccessfullySent =>
+      'Lời mời đã được gửi thành công!';
 
   @override
   String get failedToSendInvitation => 'Không gửi được lời mời.';
@@ -2835,13 +2960,16 @@ class L10nVi extends L10n {
   String get failedToGenerateInvitationLink => 'Không tạo được liên kết mời.';
 
   @override
-  String get youAlreadySentAnInvitationToThisContact => 'Bạn đã gửi lời mời đến liên hệ này';
+  String get youAlreadySentAnInvitationToThisContact =>
+      'Bạn đã gửi lời mời đến liên hệ này';
 
   @override
-  String get selectedEmailWillReceiveAnInvitationLinkAndInstructions => 'Email đã chọn sẽ nhận được liên kết lời mời và hướng dẫn.';
+  String get selectedEmailWillReceiveAnInvitationLinkAndInstructions =>
+      'Email đã chọn sẽ nhận được liên kết lời mời và hướng dẫn.';
 
   @override
-  String get selectedNumberWillGetAnSMSWithAnInvitationLinkAndInstructions => 'Số điện thoại đã chọn sẽ nhận được tin nhắn SMS với liên kết lời mời và hướng dẫn.';
+  String get selectedNumberWillGetAnSMSWithAnInvitationLinkAndInstructions =>
+      'Số điện thoại đã chọn sẽ nhận được tin nhắn SMS với liên kết lời mời và hướng dẫn.';
 
   @override
   String get reaction => 'Biểu cảm';
@@ -2853,13 +2981,15 @@ class L10nVi extends L10n {
   String get administration => 'Quản trị viên';
 
   @override
-  String get yourDataIsEncryptedForSecurity => 'Tin nhắn của bạn đã được mã hoá';
+  String get yourDataIsEncryptedForSecurity =>
+      'Tin nhắn của bạn đã được mã hoá';
 
   @override
   String get failedToDeleteMessage => 'Xoá tin nhắn thất bại.';
 
   @override
-  String get noDeletePermissionMessage => 'Bạn không có quyền xoá tin nhắn này.';
+  String get noDeletePermissionMessage =>
+      'Bạn không có quyền xoá tin nhắn này.';
 
   @override
   String get edited => 'đã sửa';
@@ -2921,13 +3051,16 @@ class L10nVi extends L10n {
   String get canReadMessages => 'Có quyền đọc tin nhắn';
 
   @override
-  String get canWriteMessagesSendReacts => 'Có thể viết tin nhắn, gửi biểu cảm...';
+  String get canWriteMessagesSendReacts =>
+      'Có thể viết tin nhắn, gửi biểu cảm...';
 
   @override
-  String get canRemoveUsersDeleteMessages => 'Có thể xóa thành viên, xóa tin nhắn...';
+  String get canRemoveUsersDeleteMessages =>
+      'Có thể xóa thành viên, xóa tin nhắn...';
 
   @override
-  String get canAccessAllFeaturesAndSettings => 'Có thể truy cập tất cả tính năng và cài đặt';
+  String get canAccessAllFeaturesAndSettings =>
+      'Có thể truy cập tất cả tính năng và cài đặt';
 
   @override
   String get invitePeopleToTheRoom => 'Mời người vào phòng';
@@ -2972,22 +3105,27 @@ class L10nVi extends L10n {
   String get searchGroupMembers => 'Tìm kiếm thành viên nhóm';
 
   @override
-  String get permissionErrorChangeRole => 'Bạn không có quyền thay đổi vai trò. Vui lòng liên hệ quản trị viên để được hỗ trợ';
+  String get permissionErrorChangeRole =>
+      'Bạn không có quyền thay đổi vai trò. Vui lòng liên hệ quản trị viên để được hỗ trợ';
 
   @override
-  String get demoteAdminsModerators => 'Giảm quyền Quản trị viên/Điều hành viên';
+  String get demoteAdminsModerators =>
+      'Giảm quyền Quản trị viên/Điều hành viên';
 
   @override
-  String get deleteMessageConfirmationTitle => 'Bạn có chắc muốn xóa tin nhắn này?';
+  String get deleteMessageConfirmationTitle =>
+      'Bạn có chắc muốn xóa tin nhắn này?';
 
   @override
-  String get permissionErrorBanUser => 'Bạn không có quyền cấm người dùng. Vui lòng liên hệ quản trị viên để được hỗ trợ';
+  String get permissionErrorBanUser =>
+      'Bạn không có quyền cấm người dùng. Vui lòng liên hệ quản trị viên để được hỗ trợ';
 
   @override
   String get removeMember => 'Xóa thành viên';
 
   @override
-  String get removeMemberSelectionError => 'Bạn không thể xóa thành viên có vai trò ngang hoặc cao hơn bạn.';
+  String get removeMemberSelectionError =>
+      'Bạn không thể xóa thành viên có vai trò ngang hoặc cao hơn bạn.';
 
   @override
   String get downgrade => 'Hạ quyền';
@@ -2999,7 +3137,8 @@ class L10nVi extends L10n {
   String get unban => 'Bỏ cấm';
 
   @override
-  String get permissionErrorUnbanUser => 'Bạn không có quyền bỏ cấm người dùng. Vui lòng liên hệ quản trị viên để được hỗ trợ';
+  String get permissionErrorUnbanUser =>
+      'Bạn không có quyền bỏ cấm người dùng. Vui lòng liên hệ quản trị viên để được hỗ trợ';
 
   @override
   String get transferOwnership => 'Chuyển quyền sở hữu';
@@ -3010,7 +3149,8 @@ class L10nVi extends L10n {
   }
 
   @override
-  String get transferOwnershipDescription => 'Người này sẽ có toàn quyền kiểm soát nhóm và bạn sẽ không còn toàn quyền quản lý. Hành động này không thể hoàn tác.';
+  String get transferOwnershipDescription =>
+      'Người này sẽ có toàn quyền kiểm soát nhóm và bạn sẽ không còn toàn quyền quản lý. Hành động này không thể hoàn tác.';
 
   @override
   String get confirmTransfer => 'Xác nhận chuyển';
@@ -3022,7 +3162,8 @@ class L10nVi extends L10n {
   String get blockUser => 'Chặn người dùng';
 
   @override
-  String get permissionErrorUnblockUser => 'Bạn không có quyền bỏ chặn người dùng.';
+  String get permissionErrorUnblockUser =>
+      'Bạn không có quyền bỏ chặn người dùng.';
 
   @override
   String get permissionErrorBlockUser => 'Bạn không có quyền chặn người dùng.';
@@ -3049,7 +3190,8 @@ class L10nVi extends L10n {
   String get unblock => 'Bỏ chặn';
 
   @override
-  String get unblockDescriptionDialog => 'Người này sẽ có thể nhắn tin cho bạn và thấy khi bạn đang trực tuyến. Họ sẽ không được thông báo rằng bạn đã bỏ chặn họ.';
+  String get unblockDescriptionDialog =>
+      'Người này sẽ có thể nhắn tin cho bạn và thấy khi bạn đang trực tuyến. Họ sẽ không được thông báo rằng bạn đã bỏ chặn họ.';
 
   @override
   String get report => 'Báo cáo';
@@ -3085,13 +3227,15 @@ class L10nVi extends L10n {
   String get other => 'Khác';
 
   @override
-  String get enableRightAndLeftMessageAlignment => 'Bật căn chỉnh tin nhắn trái/phải';
+  String get enableRightAndLeftMessageAlignment =>
+      'Bật căn chỉnh tin nhắn trái/phải';
 
   @override
   String get holdToRecordAudio => 'Giữ để ghi âm.';
 
   @override
-  String get explainPermissionToAccessMicrophone => 'Để gửi tin nhắn thoại, hãy cho phép Twake Chat truy cập micrô.';
+  String get explainPermissionToAccessMicrophone =>
+      'Để gửi tin nhắn thoại, hãy cho phép Dedi truy cập micrô.';
 
   @override
   String get allowMicrophoneAccess => 'Cho phép truy cập micrô';
@@ -3109,7 +3253,8 @@ class L10nVi extends L10n {
   String get recordingInProgress => 'Đang ghi âm';
 
   @override
-  String get pleaseFinishOrStopTheRecording => 'Vui lòng hoàn tất hoặc dừng ghi âm trước khi thực hiện các hành động khác.';
+  String get pleaseFinishOrStopTheRecording =>
+      'Vui lòng hoàn tất hoặc dừng ghi âm trước khi thực hiện các hành động khác.';
 
   @override
   String get audioMessageFailedToSend => 'Không gửi được tin nhắn âm thanh.';
@@ -3118,19 +3263,22 @@ class L10nVi extends L10n {
   String get dediMainTitle => 'DNA Algorithm';
 
   @override
-  String get dediMainDescription => 'Dedi uses an encryption system that belongs only to Dedi, messages cannot be read outside of Dedi';
+  String get dediMainDescription =>
+      'Dedi uses an encryption system that belongs only to Dedi, messages cannot be read outside of Dedi';
 
   @override
   String get phoneAuthTitle => 'Phone Verification';
 
   @override
-  String get phoneAuthDescription => 'Enter your phone number, we will send you a verification code';
+  String get phoneAuthDescription =>
+      'Enter your phone number, we will send you a verification code';
 
   @override
   String get otpVerificationTitle => 'Verification Code';
 
   @override
-  String get otpVerificationDescription => 'Enter the 6-digit code sent to your phone';
+  String get otpVerificationDescription =>
+      'Enter the 6-digit code sent to your phone';
 
   @override
   String get splashTagline => 'Turkey\'s messaging platform';
@@ -3142,7 +3290,8 @@ class L10nVi extends L10n {
   String get welcomeMessage => 'Welcome!';
 
   @override
-  String get loginDescription => 'Just a few steps left for secure and unlimited messaging';
+  String get loginDescription =>
+      'Just a few steps left for secure and unlimited messaging';
 
   @override
   String get phoneNumberLabel => 'Phone Number *';
@@ -3171,13 +3320,15 @@ class L10nVi extends L10n {
   String get otpRequestFailed => 'Failed to send code. Please try again.';
 
   @override
-  String get pleaseEnterCompleteCode => 'Please enter the complete 6-digit code';
+  String get pleaseEnterCompleteCode =>
+      'Please enter the complete 6-digit code';
 
   @override
   String get invalidOtp => 'Verification code is incorrect. Please check.';
 
   @override
-  String get connectionError => 'Connection error. Please check your internet connection.';
+  String get connectionError =>
+      'Connection error. Please check your internet connection.';
 
   @override
   String get expiredOtp => 'Verification code has expired. Request a new code.';

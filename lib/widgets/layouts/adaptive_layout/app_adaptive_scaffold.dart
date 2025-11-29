@@ -103,7 +103,7 @@ class AppAdaptiveScaffold extends StatelessWidget {
             AdaptiveScaffoldRouteStyle.secondaryBodyBorder(isWebAndDesktop),
         child: Container(
           decoration: BoxDecoration(
-            color: LinagoraRefColors.material().primary[100],
+            color: DediRefColors.material().primary[100],
           ),
           child: secondaryBody,
         ),

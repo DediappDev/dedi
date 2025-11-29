@@ -17,8 +17,8 @@ class ReplyDisplay extends StatelessWidget {
           ? ReplyDisplayStyle.replyDisplayPadding
           : EdgeInsets.zero,
       child: AnimatedContainer(
-        duration: TwakeThemes.animationDuration,
-        curve: TwakeThemes.animationCurve,
+        duration: DediThemes.animationDuration,
+        curve: DediThemes.animationCurve,
         height: controller.replyEventNotifier.value != null
             ? ReplyDisplayStyle.replyContainerHeight
             : 0,

@@ -40,9 +40,9 @@ class ContactsManager {
       federationLookUpPhonebookContactInteractor =
       getIt.get<FederationLookUpPhonebookContactInteractor>();
 
-  final TwakeLookupPhonebookContactInteractor
-      twakeLookupPhonebookContactInteractor =
-      getIt.get<TwakeLookupPhonebookContactInteractor>();
+  final DediLookupPhonebookContactInteractor
+      dediLookupPhonebookContactInteractor =
+      getIt.get<DediLookupPhonebookContactInteractor>();
 
   final PostAddressBookInteractor postAddressBookInteractor =
       getIt.get<PostAddressBookInteractor>();
@@ -57,7 +57,7 @@ class ContactsManager {
       federationPhonebookContactsSubscription;
 
   StreamSubscription<Either<Failure, Success>>?
-      twakePhonebookContactsSubscription;
+      dediPhonebookContactsSubscription;
 
   StreamSubscription<Either<Failure, Success>>? postAddressBookSubscription;
 
@@ -139,7 +139,7 @@ class ContactsManager {
 
   /// This method performs the synchronization of all contacts.
   ///
-  /// It fetches contacts from many sources: tom, federation or twake then
+  /// It fetches contacts from many sources: tom, federation or dedi then
   /// updates the related notifiers.
   /// The synchronization will not proceed if it is already in progress
   /// or was run before, even if the `forceRun` flag is true.
@@ -291,15 +291,15 @@ class ContactsManager {
         );
   }
 
-  Future<void> _handleTwakeLookUpPhoneBookContacts() async {
+  Future<void> _handleDediLookUpPhoneBookContacts() async {
     final authorizationInterceptor = getIt.get<AuthorizationInterceptor>();
 
     final identityServerUrlInterceptor = getIt.get<DynamicUrlInterceptors>(
       instanceName: NetworkDI.identityServerUrlInterceptorName,
     );
-    twakePhonebookContactsSubscription = twakeLookupPhonebookContactInteractor
+    dediPhonebookContactsSubscription = dediLookupPhonebookContactInteractor
         .execute(
-      argument: TwakeLookUpArgument(
+      argument: DediLookUpArgument(
         homeServerUrl: identityServerUrlInterceptor.baseUrl ?? '',
         withAccessToken: authorizationInterceptor.getAccessToken ?? '',
       ),
@@ -315,13 +315,13 @@ class ContactsManager {
     )
       ..onDone(() async {
         Logs().d(
-          'ContactsManager::_handleTwakeLookUpPhoneBookContacts: onDone',
+          'ContactsManager::_handleDediLookUpPhoneBookContacts: onDone',
         );
         _isSynchronizing = false;
       })
       ..onError((error) async {
         Logs().d(
-          'ContactsManager::_handleTwakeLookUpPhoneBookContacts: onError',
+          'ContactsManager::_handleDediLookUpPhoneBookContacts: onError',
         );
         _isSynchronizing = false;
       });
@@ -337,7 +337,7 @@ class ContactsManager {
       final federationConfigurations = await federationConfigurationRepository
           .getFederationConfigurations(withMxId);
       if (!federationConfigurations.fedServerInformation.hasBaseUrls) {
-        await _handleTwakeLookUpPhoneBookContacts();
+        await _handleDediLookUpPhoneBookContacts();
         return;
       }
 
@@ -386,7 +386,7 @@ class ContactsManager {
       Logs().e('ContactsManager::_handleLookUpPhonebookContacts', e);
 
       if (e is FederationConfigurationNotFound) {
-        await _handleTwakeLookUpPhoneBookContacts();
+        await _handleDediLookUpPhoneBookContacts();
       }
     }
   }
@@ -395,10 +395,10 @@ class ContactsManager {
     Logs().e('ContactsManager::_handleLookUpFailureState', failure);
     if (failure is LookUpPhonebookContactPartialFailed) {
       _progressPhoneBookState.value = null;
-      if (TwakeApp.router.routerDelegate.navigatorKey.currentContext != null) {
-        TwakeSnackBar.show(
-          TwakeApp.router.routerDelegate.navigatorKey.currentContext!,
-          L10n.of(TwakeApp.router.routerDelegate.navigatorKey.currentContext!)!
+      if (DediApp.router.routerDelegate.navigatorKey.currentContext != null) {
+        DediSnackBar.show(
+          DediApp.router.routerDelegate.navigatorKey.currentContext!,
+          L10n.of(DediApp.router.routerDelegate.navigatorKey.currentContext!)!
               .contactLookupFailed,
         );
       }
@@ -456,8 +456,8 @@ class ContactsManager {
     if (federationPhonebookContactsSubscription != null) {
       await federationPhonebookContactsSubscription?.cancel();
     }
-    if (twakePhonebookContactsSubscription != null) {
-      await twakePhonebookContactsSubscription?.cancel();
+    if (dediPhonebookContactsSubscription != null) {
+      await dediPhonebookContactsSubscription?.cancel();
     }
     if (postAddressBookSubscription != null) {
       await postAddressBookSubscription?.cancel();

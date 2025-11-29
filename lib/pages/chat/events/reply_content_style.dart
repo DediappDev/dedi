@@ -23,8 +23,8 @@ class ReplyContentStyle {
   ) {
     return BoxDecoration(
       color: ownMessage
-          ? LinagoraSysColors.material().primaryContainer
-          : LinagoraSysColors.material().onSurface.withOpacity(0.08),
+          ? DediSysColors.material().primaryContainer
+          : DediSysColors.material().onSurface.withOpacity(0.08),
       borderRadius: BorderRadius.circular(8.0),
     );
   }
@@ -53,7 +53,7 @@ class ReplyContentStyle {
 
   static TextStyle? replyBodyTextStyle(BuildContext context) {
     return Theme.of(context).textTheme.bodySmall?.copyWith(
-          color: LinagoraRefColors.material().neutral[50],
+          color: DediRefColors.material().neutral[50],
           fontWeight: FontWeight.w500,
           overflow: TextOverflow.ellipsis,
           fontSize: fontSizeDisplayContent,

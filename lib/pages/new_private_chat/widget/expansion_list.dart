@@ -119,7 +119,7 @@ class ExpansionList extends StatelessWidget {
                   return child!;
                 }
               }
-              return TwakeInkWell(
+              return DediInkWell(
                 onTap: () {
                   onContactTap(
                     context,
@@ -149,7 +149,7 @@ class ExpansionList extends StatelessWidget {
                 itemBuilder: (context, index) {
                   if (contacts[index].matrixId != null &&
                       contacts[index].matrixId!.isNotEmpty) {
-                    return TwakeInkWell(
+                    return DediInkWell(
                       onTap: () {
                         onContactTap(
                           context,
@@ -193,7 +193,7 @@ class ExpansionList extends StatelessWidget {
                 itemBuilder: (context, index) {
                   if (contacts[index].matrixId != null &&
                       contacts[index].matrixId!.isNotEmpty) {
-                    return TwakeInkWell(
+                    return DediInkWell(
                       onTap: () {
                         onContactTap(
                           context,

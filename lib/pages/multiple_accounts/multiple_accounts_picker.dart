@@ -15,7 +15,7 @@ typedef OnGoToAccountSettings = void Function(TwakePresentationAccount account);
 
 class MultipleAccountsPickerController {
   final BuildContext context;
-  final List<TwakeChatPresentationAccount> multipleAccounts;
+  final List<DediChatPresentationAccount> multipleAccounts;
 
   MultipleAccountsPickerController({
     required this.context,
@@ -44,30 +44,30 @@ class MultipleAccountsPickerController {
       titleAddAnotherAccount: L10n.of(context)!.addAnotherAccount,
       titleAccountSettings: L10n.of(context)!.accountSettings,
       logoApp: Padding(
-        padding: TwakeHeaderStyle.logoAppOfMultiplePadding,
+        padding: DediHeaderStyle.logoAppOfMultiplePadding,
         child: Text(
           L10n.of(context)!.selectAccount,
-          style: TwakeHeaderStyle.selectAccountTextStyle(context),
+          style: DediHeaderStyle.selectAccountTextStyle(context),
         ),
       ),
       accountNameStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-            color: LinagoraSysColors.material().onSurface,
+            color: DediSysColors.material().onSurface,
           ),
       accountIdStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: LinagoraRefColors.material().tertiary[20],
+            color: DediRefColors.material().tertiary[20],
           ),
       addAnotherAccountStyle: Theme.of(context).textTheme.labelLarge!.copyWith(
-            color: LinagoraSysColors.material().onPrimary,
+            color: DediSysColors.material().onPrimary,
           ),
       titleAccountSettingsStyle:
           Theme.of(context).textTheme.labelLarge!.copyWith(
-                color: LinagoraSysColors.material().primary,
+                color: DediSysColors.material().primary,
               ),
     );
   }
 
   void _onSetAccountAsActive({
-    required List<TwakeChatPresentationAccount> multipleAccounts,
+    required List<DediChatPresentationAccount> multipleAccounts,
     required TwakePresentationAccount account,
   }) async {
     final client = multipleAccounts
@@ -82,8 +82,8 @@ class MultipleAccountsPickerController {
   void _onAddAnotherAccount() {
     context.push(
       '/rooms/addaccount',
-      extra: const TwakeWelcomeArg(
-        twakeIdType: TwakeWelcomeType.otherAccounts,
+      extra: const DediWelcomeArg(
+        dediIdType: DediWelcomeType.otherAccounts,
       ),
     );
   }

@@ -29,7 +29,7 @@ class DisplayNameWidget extends StatelessWidget {
             ),
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
                   fontFamily: 'Inter',
-                  color: LinagoraSysColors.material().secondary,
+                  color: DediSysColors.material().secondary,
                 ),
             maxLines: 2,
             overflow: TextOverflow.clip,

@@ -43,7 +43,7 @@ import 'contacts_manager_test.mocks.dart';
   FederationConfigurationsRepository,
   FederationLookUpPhonebookContactInteractor,
   TryGetSyncedPhoneBookContactInteractor,
-  TwakeLookupPhonebookContactInteractor,
+  DediLookupPhonebookContactInteractor,
   PostAddressBookInteractor,
   SharedPreferencesContactCacheManager,
   HiveContactRepository,
@@ -56,8 +56,8 @@ void main() {
   late MockGetTomContactsInteractor mockGetTomContactsInteractor;
   late MockTryGetSyncedPhoneBookContactInteractor
       mockTryGetSyncedPhoneBookContactInteractor;
-  late MockTwakeLookupPhonebookContactInteractor
-      mockTwakeLookupPhonebookContactInteractor;
+  late MockDediLookupPhonebookContactInteractor
+      mockDediLookupPhonebookContactInteractor;
   late MockPostAddressBookInteractor mockPostAddressBookInteractor;
   late MockAuthorizationInterceptor mockAuthorizationInterceptor;
   late MockDynamicUrlInterceptors mockHomeServerDynamicUrlInterceptors;
@@ -78,8 +78,8 @@ void main() {
     mockGetTomContactsInteractor = MockGetTomContactsInteractor();
     mockTryGetSyncedPhoneBookContactInteractor =
         MockTryGetSyncedPhoneBookContactInteractor();
-    mockTwakeLookupPhonebookContactInteractor =
-        MockTwakeLookupPhonebookContactInteractor();
+    mockDediLookupPhonebookContactInteractor =
+        MockDediLookupPhonebookContactInteractor();
     mockPostAddressBookInteractor = MockPostAddressBookInteractor();
     mockAuthorizationInterceptor = MockAuthorizationInterceptor();
     mockHomeServerDynamicUrlInterceptors = MockDynamicUrlInterceptors();
@@ -117,8 +117,8 @@ void main() {
     getIt.registerFactory<TryGetSyncedPhoneBookContactInteractor>(
       () => mockTryGetSyncedPhoneBookContactInteractor,
     );
-    getIt.registerFactory<TwakeLookupPhonebookContactInteractor>(
-      () => mockTwakeLookupPhonebookContactInteractor,
+    getIt.registerFactory<DediLookupPhonebookContactInteractor>(
+      () => mockDediLookupPhonebookContactInteractor,
     );
     getIt.registerFactory<PostAddressBookInteractor>(
       () => mockPostAddressBookInteractor,
@@ -146,7 +146,7 @@ void main() {
       'THEN list ToM contact SHOULD is empty.\n'
       'THEN list address book contact SHOULD is empty\n'
       'THEN federationLookUpPhonebookContactInteractor SHOULD not call\n'
-      'THEN twakeLookupPhonebookContactInteractor SHOULD not call.\n',
+      'THEN dediLookupPhonebookContactInteractor SHOULD not call.\n',
       () async {
         final List<Failure> listTomContactsFailureState = [];
 
@@ -191,7 +191,7 @@ void main() {
         );
 
         verifyNever(
-          mockTwakeLookupPhonebookContactInteractor.execute(argument: null),
+          mockDediLookupPhonebookContactInteractor.execute(argument: null),
         );
       },
     );
@@ -202,7 +202,7 @@ void main() {
       'THEN contactsNotifier in ContactsManager SHOULD have GetContactsFailure state.\n'
       'THEN list ToM contact SHOULD is empty.\n'
       'THEN federationLookUpPhonebookContactInteractor SHOULD not call\n'
-      'THEN twakeLookupPhonebookContactInteractor SHOULD not call.\n',
+      'THEN dediLookupPhonebookContactInteractor SHOULD not call.\n',
       () async {
         final List<Failure> listTomContactsFailureState = [];
 
@@ -247,7 +247,7 @@ void main() {
         );
 
         verifyNever(
-          mockTwakeLookupPhonebookContactInteractor.execute(argument: null),
+          mockDediLookupPhonebookContactInteractor.execute(argument: null),
         );
       },
     );
@@ -259,7 +259,7 @@ void main() {
       'THEN contactsNotifier in ContactsManager SHOULD have GetContactsSuccess state.\n'
       'THEN list ToM contact SHOULD not empty.\n'
       'THEN federationLookUpPhonebookContactInteractor SHOULD not call\n'
-      'THEN twakeLookupPhonebookContactInteractor SHOULD not call.\n',
+      'THEN dediLookupPhonebookContactInteractor SHOULD not call.\n',
       () async {
         final List<Success> listTomContactsSuccessState = [];
 
@@ -325,7 +325,7 @@ void main() {
         );
 
         verifyNever(
-          mockTwakeLookupPhonebookContactInteractor.execute(argument: null),
+          mockDediLookupPhonebookContactInteractor.execute(argument: null),
         );
       },
     );
@@ -2440,8 +2440,8 @@ void main() {
         );
 
         when(
-          mockTwakeLookupPhonebookContactInteractor.execute(
-            argument: TwakeLookUpArgument(
+          mockDediLookupPhonebookContactInteractor.execute(
+            argument: DediLookUpArgument(
               homeServerUrl: baseUrl,
               withAccessToken: accessToken,
             ),
@@ -2505,7 +2505,7 @@ void main() {
         );
 
         verify(
-          mockTwakeLookupPhonebookContactInteractor.execute(
+          mockDediLookupPhonebookContactInteractor.execute(
             argument: anyNamed('argument'),
           ),
         ).called(1);
@@ -2571,8 +2571,8 @@ void main() {
         );
 
         when(
-          mockTwakeLookupPhonebookContactInteractor.execute(
-            argument: TwakeLookUpArgument(
+          mockDediLookupPhonebookContactInteractor.execute(
+            argument: DediLookUpArgument(
               homeServerUrl: baseUrl,
               withAccessToken: accessToken,
             ),
@@ -2636,7 +2636,7 @@ void main() {
         );
 
         verify(
-          mockTwakeLookupPhonebookContactInteractor.execute(
+          mockDediLookupPhonebookContactInteractor.execute(
             argument: anyNamed('argument'),
           ),
         ).called(1);
@@ -2702,8 +2702,8 @@ void main() {
         );
 
         when(
-          mockTwakeLookupPhonebookContactInteractor.execute(
-            argument: TwakeLookUpArgument(
+          mockDediLookupPhonebookContactInteractor.execute(
+            argument: DediLookUpArgument(
               homeServerUrl: baseUrl,
               withAccessToken: accessToken,
             ),
@@ -2787,7 +2787,7 @@ void main() {
         );
 
         verify(
-          mockTwakeLookupPhonebookContactInteractor.execute(
+          mockDediLookupPhonebookContactInteractor.execute(
             argument: anyNamed('argument'),
           ),
         ).called(1);
@@ -2862,8 +2862,8 @@ void main() {
         );
 
         when(
-          mockTwakeLookupPhonebookContactInteractor.execute(
-            argument: TwakeLookUpArgument(
+          mockDediLookupPhonebookContactInteractor.execute(
+            argument: DediLookUpArgument(
               homeServerUrl: baseUrl,
               withAccessToken: accessToken,
             ),
@@ -2974,8 +2974,8 @@ void main() {
         );
 
         when(
-          mockTwakeLookupPhonebookContactInteractor.execute(
-            argument: TwakeLookUpArgument(
+          mockDediLookupPhonebookContactInteractor.execute(
+            argument: DediLookUpArgument(
               homeServerUrl: baseUrl,
               withAccessToken: accessToken,
             ),
@@ -3004,8 +3004,8 @@ void main() {
         );
 
         when(
-          mockTwakeLookupPhonebookContactInteractor.execute(
-            argument: TwakeLookUpArgument(
+          mockDediLookupPhonebookContactInteractor.execute(
+            argument: DediLookUpArgument(
               homeServerUrl: baseUrl,
               withAccessToken: accessToken,
             ),
@@ -3120,8 +3120,8 @@ void main() {
         );
 
         when(
-          mockTwakeLookupPhonebookContactInteractor.execute(
-            argument: TwakeLookUpArgument(
+          mockDediLookupPhonebookContactInteractor.execute(
+            argument: DediLookUpArgument(
               homeServerUrl: baseUrl,
               withAccessToken: accessToken,
             ),
@@ -3234,8 +3234,8 @@ void main() {
         );
 
         when(
-          mockTwakeLookupPhonebookContactInteractor.execute(
-            argument: TwakeLookUpArgument(
+          mockDediLookupPhonebookContactInteractor.execute(
+            argument: DediLookUpArgument(
               homeServerUrl: baseUrl,
               withAccessToken: accessToken,
             ),
@@ -3408,8 +3408,8 @@ void main() {
                 );
 
                 when(
-                  mockTwakeLookupPhonebookContactInteractor.execute(
-                    argument: TwakeLookUpArgument(
+                  mockDediLookupPhonebookContactInteractor.execute(
+                    argument: DediLookUpArgument(
                       homeServerUrl: baseUrl,
                       withAccessToken: accessToken,
                     ),
@@ -3573,8 +3573,8 @@ void main() {
         );
 
         when(
-          mockTwakeLookupPhonebookContactInteractor.execute(
-            argument: TwakeLookUpArgument(
+          mockDediLookupPhonebookContactInteractor.execute(
+            argument: DediLookUpArgument(
               homeServerUrl: baseUrl,
               withAccessToken: accessToken,
             ),
@@ -3632,7 +3632,7 @@ void main() {
         );
 
         verify(
-          mockTwakeLookupPhonebookContactInteractor.execute(
+          mockDediLookupPhonebookContactInteractor.execute(
             argument: anyNamed('argument'),
           ),
         ).called(1);
@@ -3688,8 +3688,8 @@ void main() {
         );
 
         when(
-          mockTwakeLookupPhonebookContactInteractor.execute(
-            argument: TwakeLookUpArgument(
+          mockDediLookupPhonebookContactInteractor.execute(
+            argument: DediLookUpArgument(
               homeServerUrl: baseUrl,
               withAccessToken: accessToken,
             ),
@@ -3747,7 +3747,7 @@ void main() {
         );
 
         verify(
-          mockTwakeLookupPhonebookContactInteractor.execute(
+          mockDediLookupPhonebookContactInteractor.execute(
             argument: anyNamed('argument'),
           ),
         ).called(1);
@@ -3803,8 +3803,8 @@ void main() {
         );
 
         when(
-          mockTwakeLookupPhonebookContactInteractor.execute(
-            argument: TwakeLookUpArgument(
+          mockDediLookupPhonebookContactInteractor.execute(
+            argument: DediLookUpArgument(
               homeServerUrl: baseUrl,
               withAccessToken: accessToken,
             ),
@@ -3882,7 +3882,7 @@ void main() {
         );
 
         verify(
-          mockTwakeLookupPhonebookContactInteractor.execute(
+          mockDediLookupPhonebookContactInteractor.execute(
             argument: anyNamed('argument'),
           ),
         ).called(1);
@@ -5041,8 +5041,8 @@ void main() {
           );
 
           when(
-            mockTwakeLookupPhonebookContactInteractor.execute(
-              argument: TwakeLookUpArgument(
+            mockDediLookupPhonebookContactInteractor.execute(
+              argument: DediLookUpArgument(
                 homeServerUrl: baseUrl,
                 withAccessToken: accessToken,
               ),
@@ -5137,8 +5137,8 @@ void main() {
           );
 
           when(
-            mockTwakeLookupPhonebookContactInteractor.execute(
-              argument: TwakeLookUpArgument(
+            mockDediLookupPhonebookContactInteractor.execute(
+              argument: DediLookUpArgument(
                 homeServerUrl: baseUrl,
                 withAccessToken: accessToken,
               ),
@@ -5167,8 +5167,8 @@ void main() {
           );
 
           when(
-            mockTwakeLookupPhonebookContactInteractor.execute(
-              argument: TwakeLookUpArgument(
+            mockDediLookupPhonebookContactInteractor.execute(
+              argument: DediLookUpArgument(
                 homeServerUrl: baseUrl,
                 withAccessToken: accessToken,
               ),
@@ -5268,8 +5268,8 @@ void main() {
           );
 
           when(
-            mockTwakeLookupPhonebookContactInteractor.execute(
-              argument: TwakeLookUpArgument(
+            mockDediLookupPhonebookContactInteractor.execute(
+              argument: DediLookUpArgument(
                 homeServerUrl: baseUrl,
                 withAccessToken: accessToken,
               ),
@@ -5366,8 +5366,8 @@ void main() {
           );
 
           when(
-            mockTwakeLookupPhonebookContactInteractor.execute(
-              argument: TwakeLookUpArgument(
+            mockDediLookupPhonebookContactInteractor.execute(
+              argument: DediLookUpArgument(
                 homeServerUrl: baseUrl,
                 withAccessToken: accessToken,
               ),
@@ -5524,8 +5524,8 @@ void main() {
                   );
 
                   when(
-                    mockTwakeLookupPhonebookContactInteractor.execute(
-                      argument: TwakeLookUpArgument(
+                    mockDediLookupPhonebookContactInteractor.execute(
+                      argument: DediLookUpArgument(
                         homeServerUrl: baseUrl,
                         withAccessToken: accessToken,
                       ),

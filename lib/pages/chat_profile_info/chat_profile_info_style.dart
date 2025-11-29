@@ -51,6 +51,6 @@ class ChatProfileInfoStyle {
           );
 
   static Decoration tabViewDecoration = BoxDecoration(
-    color: LinagoraRefColors.material().primary[100],
+    color: DediRefColors.material().primary[100],
   );
 }

@@ -32,7 +32,7 @@ class ChatDetailsEditOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: ChatDetailsEditOptionStyle.itemOptionPadding,
-      child: TwakeInkWell(
+      child: DediInkWell(
         onTap: onTap,
         child: Padding(
           padding: ChatDetailsEditOptionStyle.itemBuilderPadding,

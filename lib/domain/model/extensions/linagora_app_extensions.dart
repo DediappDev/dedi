@@ -1,11 +1,11 @@
 import 'package:fluffychat/domain/model/app_grid/linagora_app.dart';
 
-extension LinagoraAppExtension on LinagoraApp {
+extension DediAppExtension on DediApp {
   String getDisplayAppName() {
     switch (appName) {
-      case 'Twake Mail':
+      case 'Dedi Mail':
         return 'Mail';
-      case 'Twake Drive':
+      case 'Dedi Drive':
         return 'Drive';
       default:
         return appName;

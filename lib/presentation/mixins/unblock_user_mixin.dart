@@ -39,8 +39,8 @@ mixin UnblockUserMixin {
           (event) => event.fold(
             (failure) {
               if (failure is UnblockUserFailure) {
-                TwakeDialog.hideLoadingDialog(context);
-                TwakeSnackBar.show(
+                DediDialog.hideLoadingDialog(context);
+                DediSnackBar.show(
                   context,
                   failure.exception.toString(),
                 );
@@ -48,8 +48,8 @@ mixin UnblockUserMixin {
               }
 
               if (failure is NoPermissionForUnblockFailure) {
-                TwakeDialog.hideLoadingDialog(context);
-                TwakeSnackBar.show(
+                DediDialog.hideLoadingDialog(context);
+                DediSnackBar.show(
                   context,
                   L10n.of(context)!.permissionErrorUnblockUser,
                 );
@@ -57,8 +57,8 @@ mixin UnblockUserMixin {
               }
 
               if (failure is NotValidMxidUnblockFailure) {
-                TwakeDialog.hideLoadingDialog(context);
-                TwakeSnackBar.show(
+                DediDialog.hideLoadingDialog(context);
+                DediSnackBar.show(
                   context,
                   L10n.of(context)!.userIsNotAValidMxid(
                     userID,
@@ -68,8 +68,8 @@ mixin UnblockUserMixin {
               }
 
               if (failure is NotInTheIgnoreListFailure) {
-                TwakeDialog.hideLoadingDialog(context);
-                TwakeSnackBar.show(
+                DediDialog.hideLoadingDialog(context);
+                DediSnackBar.show(
                   context,
                   L10n.of(context)!.userNotFoundInIgnoreList(
                     userID,
@@ -80,11 +80,11 @@ mixin UnblockUserMixin {
             },
             (success) {
               if (success is UnblockUserLoading) {
-                TwakeDialog.showLoadingDialog(context);
+                DediDialog.showLoadingDialog(context);
                 return;
               }
               if (success is UnblockUserSuccess) {
-                TwakeDialog.hideLoadingDialog(context);
+                DediDialog.hideLoadingDialog(context);
                 return;
               }
             },

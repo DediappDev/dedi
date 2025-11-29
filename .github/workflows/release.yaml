@@ -97,8 +97,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: matrix.os == 'android'
         with:
-          name: twake-release-${{ matrix.os }}
-          path: twake-${{ github.ref_name }}*
+          name: dedi-release-${{ matrix.os }}
+          path: dedi-${{ github.ref_name }}*
 
   package_desktop:
     name: Package app on desktops
@@ -164,21 +164,21 @@ jobs:
         run: |
           case "$RUNNER_OS" in
             Linux)
-              cp dist/* "twake-$GITHUB_REF_NAME-linux-amd64.AppImage";;
+              cp dist/* "dedi-$GITHUB_REF_NAME-linux-amd64.AppImage";;
             macOS)
-              cp dist/*/* "twake-$GITHUB_REF_NAME-macos-amd64.dmg"
+              cp dist/*/* "dedi-$GITHUB_REF_NAME-macos-amd64.dmg"
               # Notarize the app
               cd macos && bundle exec fastlane notarization
               ;;
             Windows)
-              cp dist/*/* "twake-$GITHUB_REF_NAME-windows-amd64.exe";;
+              cp dist/*/* "dedi-$GITHUB_REF_NAME-windows-amd64.exe";;
           esac
         shell: bash
 
       - uses: actions/upload-artifact@v4
         with:
-          name: twake-release-${{ matrix.os }}
-          path: twake-${{ github.ref_name }}*
+          name: dedi-release-${{ matrix.os }}
+          path: dedi-${{ github.ref_name }}*
 
   release_github:
     name: Release on Github
@@ -193,13 +193,13 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          pattern: twake-release*
+          pattern: dedi-release*
           merge-multiple: true
 
       - name: Calculate checksums
         id: shasum
         run: |
-          shasum -a 256 -b twake-$GITHUB_REF_NAME* > SHA256SUMS
+          shasum -a 256 -b dedi-$GITHUB_REF_NAME* > SHA256SUMS
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "checksum<<$EOF" >> $GITHUB_OUTPUT
           echo "$(cat SHA256SUMS)" >> $GITHUB_OUTPUT
@@ -217,5 +217,5 @@ jobs:
             ${{ steps.shasum.outputs.checksum }}
             ```
           files: |
-            twake-${{ github.ref_name }}*
+            dedi-${{ github.ref_name }}*
             SHA256SUMS

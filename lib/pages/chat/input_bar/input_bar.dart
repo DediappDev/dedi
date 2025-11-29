@@ -342,7 +342,7 @@ class _InputBarState extends State<InputBar> with PasteImageMixin {
   }
 
   Future<void> handlePaste(BuildContext context) async {
-    if (await TwakeClipboard.instance.isReadableImageFormat() &&
+    if (await DediClipboard.instance.isReadableImageFormat() &&
         widget.room != null) {
       await pasteImage(context, widget.room!);
     } else {
@@ -447,7 +447,7 @@ class _InputBarState extends State<InputBar> with PasteImageMixin {
               }
             },
             contextMenuBuilder:
-                PlatformInfos.isWeb ? null : mobileTwakeContextMenuBuilder,
+                PlatformInfos.isWeb ? null : mobileDediContextMenuBuilder,
             onTap: () async {
               await Future.delayed(InputBar.debounceDurationTap);
               FocusScope.of(context).requestFocus(focusNode);
@@ -639,7 +639,7 @@ class SuggestionTile extends StatelessWidget {
                       suggestion['mxid']!,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: LinagoraRefColors.material().tertiary[30],
+                            color: DediRefColors.material().tertiary[30],
                           ),
                     ),
                   ),

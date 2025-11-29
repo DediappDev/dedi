@@ -21,19 +21,19 @@ extension HomeserverSummaryExtensions on HomeserverSummary {
     }
   }
 
-  AppTwakeInformation? get appTwakeInformation {
+  AppDediInformation? get appDediInformation {
     if (discoveryInformation?.additionalProperties == null) {
       return null;
     }
-    final appTwakeJson = discoveryInformation
-        ?.additionalProperties[AppTwakeInformation.appTwakeInformationKey];
-    if (appTwakeJson == null) {
+    final appDediJson = discoveryInformation
+        ?.additionalProperties[AppDediInformation.appDediInformationKey];
+    if (appDediJson == null) {
       return null;
     }
     try {
-      return AppTwakeInformation.fromJson(appTwakeJson);
+      return AppDediInformation.fromJson(appDediJson);
     } catch (e) {
-      Logs().e('Failed to parse app.twake.chat from homeserver summary', e);
+      Logs().e('Failed to parse app.dedi.chat from homeserver summary', e);
       return null;
     }
   }

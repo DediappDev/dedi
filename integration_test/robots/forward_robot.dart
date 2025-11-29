@@ -9,17 +9,17 @@ class ForwardRobot extends CoreRobot {
   ForwardRobot(super.$);
 
   Future<PatrolFinder> getBackIcon() async {
-    return $(AppBar).$(TwakeIconButton).$(Icon);
+    return $(AppBar).$(DediIconButton).$(Icon);
   }
 
-  Future<List<TwakeListItemRobot>> getListOfRecentContacts() async {
-    final List<TwakeListItemRobot> contactList = [];
+  Future<List<DediListItemRobot>> getListOfRecentContacts() async {
+    final List<DediListItemRobot> contactList = [];
 
     final matches = $(Material).evaluate();
 
     for (int i = 0; i < matches.length; i++) {
       final item = $(Material).at(i);
-      contactList.add(TwakeListItemRobot($, item));
+      contactList.add(DediListItemRobot($, item));
     }
     return contactList;
   }

@@ -76,17 +76,17 @@
 		06EA9CB12B21D2FE00351529 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 06EA9CB02B21D2FE00351529 /* KeychainAccess */; };
 		06EA9CB42B21D33700351529 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 06EA9CB32B21D33700351529 /* Kingfisher */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
-		33CCD9E054412ACBE83D7CFE /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A79124D7B1FA78D5E633D4 /* Pods_Runner.framework */; };
+		167A64BDEC3FED04DCD6C89B /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D4D826BCCA7C87545DD33D /* Pods_Runner.framework */; };
+		21C2A7DE467F570AAC37BF62 /* Pods_Runner_RunnerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7906DFFF487BEB0541717A71 /* Pods_Runner_RunnerUITests.framework */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		5046FC0A2E71342000FB466C /* RunnerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5046FC092E71342000FB466C /* RunnerUITests.m */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
+		8D76E1F3017639F75B309235 /* Pods_DediShareExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A48FC8CD955504B17EED0 /* Pods_DediShareExtension.framework */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
-		BC461C6A6FDB602181A573BB /* Pods_TwakeShareExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEB1002859765668572B689 /* Pods_TwakeShareExtension.framework */; };
 		C149567C25C7274F00A16396 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C149567B25C7274F00A16396 /* GoogleService-Info.plist */; };
-		CCF21C0A23750AB0140D72E1 /* Pods_Runner_RunnerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420E7CF977A7F28C1BB9BDF8 /* Pods_Runner_RunnerUITests.framework */; };
-		ED8227602D55BFB00054E5B1 /* TwakeShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = ED8227562D55BFB00054E5B1 /* TwakeShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ED8227602D55BFB00054E5B1 /* DediShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = ED8227562D55BFB00054E5B1 /* DediShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ED85B79D2D55DF540003FFBD /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8227582D55BFB00054E5B1 /* ShareViewController.swift */; };
 		EDEC0CEE2D55E31A00849BF6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED82275A2D55BFB00054E5B1 /* MainInterface.storyboard */; };
 /* End PBXBuildFile section */
@@ -111,7 +111,7 @@
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = ED8227552D55BFB00054E5B1;
-			remoteInfo = TwakeShareExtension;
+			remoteInfo = DediShareExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -133,7 +133,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				06EA9C1C2B21CDE000351529 /* NSE.appex in Embed App Extensions */,
-				ED8227602D55BFB00054E5B1 /* TwakeShareExtension.appex in Embed App Extensions */,
+				ED8227602D55BFB00054E5B1 /* DediShareExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,6 +141,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		030398DC19646C4A5A41AA77 /* Pods-DediShareExtension.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DediShareExtension.profile.xcconfig"; path = "Target Support Files/Pods-DediShareExtension/Pods-DediShareExtension.profile.xcconfig"; sourceTree = "<group>"; };
 		0611A7F32A678C7700F180CC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		06AAB3E12ADE390500E09F51 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		06AAB3E22ADE39B400E09F51 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Main.strings; sourceTree = "<group>"; };
@@ -275,40 +276,39 @@
 		06EA9C632B21CF0100351529 /* MXLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MXLogger.swift; sourceTree = "<group>"; };
 		06EA9C642B21CF0100351529 /* NSRegularExpresion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRegularExpresion.swift; sourceTree = "<group>"; };
 		06EA9C652B21CF0100351529 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		07E20B8C431B74C0D6F641E3 /* Pods-TwakeShareExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwakeShareExtension.release.xcconfig"; path = "Target Support Files/Pods-TwakeShareExtension/Pods-TwakeShareExtension.release.xcconfig"; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
-		3AEB1002859765668572B689 /* Pods_TwakeShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwakeShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1977CC1C4295DF246E240290 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		28CB430695FD16B4E5D36140 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
-		420E7CF977A7F28C1BB9BDF8 /* Pods_Runner_RunnerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_RunnerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		484063983FB1E34245554379 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		5046FC072E71342000FB466C /* RunnerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5046FC092E71342000FB466C /* RunnerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunnerUITests.m; sourceTree = "<group>"; };
-		5F617E42E8AE543EF8CD3EDB /* Pods-Runner-RunnerUITests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-RunnerUITests.profile.xcconfig"; path = "Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests.profile.xcconfig"; sourceTree = "<group>"; };
-		61A79124D7B1FA78D5E633D4 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		55D4D826BCCA7C87545DD33D /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D0A48FC8CD955504B17EED0 /* Pods_DediShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DediShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7906DFFF487BEB0541717A71 /* Pods_Runner_RunnerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner_RunnerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
+		7E787FC4306A0C7A26163CFD /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
-		97B8A4B4F3814BE2F7212990 /* Pods-Runner-RunnerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-RunnerUITests.release.xcconfig"; path = "Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C146FB1CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A47EE511C983D19476150870 /* Pods-Runner-RunnerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-RunnerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		B862D9BA44AF5E459F2D6249 /* Pods-TwakeShareExtension.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwakeShareExtension.profile.xcconfig"; path = "Target Support Files/Pods-TwakeShareExtension/Pods-TwakeShareExtension.profile.xcconfig"; sourceTree = "<group>"; };
-		B8AD7482D797C788A7AC0D73 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		B29BEDDF1ADB7F92F79FFD24 /* Pods-Runner-RunnerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-RunnerUITests.release.xcconfig"; path = "Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BADD965E49873F2E0FFA459F /* Pods-Runner-RunnerUITests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-RunnerUITests.profile.xcconfig"; path = "Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests.profile.xcconfig"; sourceTree = "<group>"; };
 		C149567B25C7274F00A16396 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C149567D25C7276200A16396 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
-		C306DD481146A9A1BD45B8F0 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
-		C4F36BE0D0EBF50E2ED23100 /* Pods-TwakeShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwakeShareExtension.debug.xcconfig"; path = "Target Support Files/Pods-TwakeShareExtension/Pods-TwakeShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		ED2C7ED92D55D593000AA488 /* TwakeShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TwakeShareExtension.entitlements; sourceTree = "<group>"; };
-		ED8227562D55BFB00054E5B1 /* TwakeShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TwakeShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9A0B27867FBC4459048C888 /* Pods-DediShareExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DediShareExtension.release.xcconfig"; path = "Target Support Files/Pods-DediShareExtension/Pods-DediShareExtension.release.xcconfig"; sourceTree = "<group>"; };
+		ED2C7ED92D55D593000AA488 /* DediShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DediShareExtension.entitlements; sourceTree = "<group>"; };
+		ED8227562D55BFB00054E5B1 /* DediShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DediShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED8227582D55BFB00054E5B1 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		ED82275B2D55BFB00054E5B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		ED82275D2D55BFB00054E5B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F59E5891F3A45691120D9A07 /* Pods-DediShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DediShareExtension.debug.xcconfig"; path = "Target Support Files/Pods-DediShareExtension/Pods-DediShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		F6EE8C67F71C21058867050C /* Pods-Runner-RunnerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner-RunnerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,7 +333,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCF21C0A23750AB0140D72E1 /* Pods_Runner_RunnerUITests.framework in Frameworks */,
+				21C2A7DE467F570AAC37BF62 /* Pods_Runner_RunnerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,7 +341,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33CCD9E054412ACBE83D7CFE /* Pods_Runner.framework in Frameworks */,
+				167A64BDEC3FED04DCD6C89B /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,7 +349,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC461C6A6FDB602181A573BB /* Pods_TwakeShareExtension.framework in Frameworks */,
+				8D76E1F3017639F75B309235 /* Pods_DediShareExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +486,16 @@
 			path = RunnerUITests;
 			sourceTree = "<group>";
 		};
+		7549E61B4E59A39CD32D50E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6D0A48FC8CD955504B17EED0 /* Pods_DediShareExtension.framework */,
+				55D4D826BCCA7C87545DD33D /* Pods_Runner.framework */,
+				7906DFFF487BEB0541717A71 /* Pods_Runner_RunnerUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,11 +513,11 @@
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				06EA9C222B21CF0100351529 /* NSE */,
-				ED8227572D55BFB00054E5B1 /* TwakeShareExtension */,
+				ED8227572D55BFB00054E5B1 /* DediShareExtension */,
 				5046FC082E71342000FB466C /* RunnerUITests */,
 				97C146EF1CF9000F007C117D /* Products */,
 				E89DCAC000D371640E94E65B /* Pods */,
-				99CAA5D8EA988582CDCA8138 /* Frameworks */,
+				7549E61B4E59A39CD32D50E9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -516,7 +526,7 @@
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				06EA9C152B21CDE000351529 /* NSE.appex */,
-				ED8227562D55BFB00054E5B1 /* TwakeShareExtension.appex */,
+				ED8227562D55BFB00054E5B1 /* DediShareExtension.appex */,
 				5046FC072E71342000FB466C /* RunnerUITests.xctest */,
 			);
 			name = Products;
@@ -540,41 +550,31 @@
 			path = Runner;
 			sourceTree = "<group>";
 		};
-		99CAA5D8EA988582CDCA8138 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				61A79124D7B1FA78D5E633D4 /* Pods_Runner.framework */,
-				420E7CF977A7F28C1BB9BDF8 /* Pods_Runner_RunnerUITests.framework */,
-				3AEB1002859765668572B689 /* Pods_TwakeShareExtension.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		E89DCAC000D371640E94E65B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				484063983FB1E34245554379 /* Pods-Runner.debug.xcconfig */,
-				C306DD481146A9A1BD45B8F0 /* Pods-Runner.release.xcconfig */,
-				B8AD7482D797C788A7AC0D73 /* Pods-Runner.profile.xcconfig */,
-				A47EE511C983D19476150870 /* Pods-Runner-RunnerUITests.debug.xcconfig */,
-				97B8A4B4F3814BE2F7212990 /* Pods-Runner-RunnerUITests.release.xcconfig */,
-				5F617E42E8AE543EF8CD3EDB /* Pods-Runner-RunnerUITests.profile.xcconfig */,
-				C4F36BE0D0EBF50E2ED23100 /* Pods-TwakeShareExtension.debug.xcconfig */,
-				07E20B8C431B74C0D6F641E3 /* Pods-TwakeShareExtension.release.xcconfig */,
-				B862D9BA44AF5E459F2D6249 /* Pods-TwakeShareExtension.profile.xcconfig */,
+				F59E5891F3A45691120D9A07 /* Pods-DediShareExtension.debug.xcconfig */,
+				C9A0B27867FBC4459048C888 /* Pods-DediShareExtension.release.xcconfig */,
+				030398DC19646C4A5A41AA77 /* Pods-DediShareExtension.profile.xcconfig */,
+				7E787FC4306A0C7A26163CFD /* Pods-Runner.debug.xcconfig */,
+				28CB430695FD16B4E5D36140 /* Pods-Runner.release.xcconfig */,
+				1977CC1C4295DF246E240290 /* Pods-Runner.profile.xcconfig */,
+				F6EE8C67F71C21058867050C /* Pods-Runner-RunnerUITests.debug.xcconfig */,
+				B29BEDDF1ADB7F92F79FFD24 /* Pods-Runner-RunnerUITests.release.xcconfig */,
+				BADD965E49873F2E0FFA459F /* Pods-Runner-RunnerUITests.profile.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		ED8227572D55BFB00054E5B1 /* TwakeShareExtension */ = {
+		ED8227572D55BFB00054E5B1 /* DediShareExtension */ = {
 			isa = PBXGroup;
 			children = (
 				ED8227582D55BFB00054E5B1 /* ShareViewController.swift */,
 				ED82275A2D55BFB00054E5B1 /* MainInterface.storyboard */,
 				ED82275D2D55BFB00054E5B1 /* Info.plist */,
-				ED2C7ED92D55D593000AA488 /* TwakeShareExtension.entitlements */,
+				ED2C7ED92D55D593000AA488 /* DediShareExtension.entitlements */,
 			);
-			path = TwakeShareExtension;
+			path = DediShareExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -613,13 +613,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5046FC122E71342000FB466C /* Build configuration list for PBXNativeTarget "RunnerUITests" */;
 			buildPhases = (
-				9DC3F03100AD8FA4681EABBD /* [CP] Check Pods Manifest.lock */,
+				78E853873E583DD4EF3A66C4 /* [CP] Check Pods Manifest.lock */,
 				5046FC132E7136A000FB466C /* xcode_backend build */,
 				5046FC032E71342000FB466C /* Sources */,
 				5046FC042E71342000FB466C /* Frameworks */,
 				5046FC052E71342000FB466C /* Resources */,
 				5046FC142E7136AC00FB466C /* xcode_backend embed_and_thin */,
-				E0162A373530476255FF380C /* [CP] Embed Pods Frameworks */,
+				FC14BD679395C3E3E1BDB060 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -635,7 +635,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
-				E562849CB9BC185AFB3A0441 /* [CP] Check Pods Manifest.lock */,
+				CC6D9A98A487EDB48D423232 /* [CP] Check Pods Manifest.lock */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
@@ -643,7 +643,7 @@
 				97C146EC1CF9000F007C117D /* Resources */,
 				C1005C4D261071B5002F4F32 /* Embed App Extensions */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
-				F03331B3DA9B9BCC525826A1 /* [CP] Embed Pods Frameworks */,
+				13185B46FAEDB24B6783C95D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -656,11 +656,11 @@
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		ED8227552D55BFB00054E5B1 /* TwakeShareExtension */ = {
+		ED8227552D55BFB00054E5B1 /* DediShareExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ED8227642D55BFB00054E5B1 /* Build configuration list for PBXNativeTarget "TwakeShareExtension" */;
+			buildConfigurationList = ED8227642D55BFB00054E5B1 /* Build configuration list for PBXNativeTarget "DediShareExtension" */;
 			buildPhases = (
-				BEC56A6B79F4F039C9A07662 /* [CP] Check Pods Manifest.lock */,
+				A72BE7485247C6F71D374B25 /* [CP] Check Pods Manifest.lock */,
 				ED8227522D55BFB00054E5B1 /* Sources */,
 				ED8227532D55BFB00054E5B1 /* Frameworks */,
 				ED8227542D55BFB00054E5B1 /* Resources */,
@@ -669,9 +669,9 @@
 			);
 			dependencies = (
 			);
-			name = TwakeShareExtension;
-			productName = TwakeShareExtension;
-			productReference = ED8227562D55BFB00054E5B1 /* TwakeShareExtension.appex */;
+			name = DediShareExtension;
+			productName = DediShareExtension;
+			productReference = ED8227562D55BFB00054E5B1 /* DediShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -755,7 +755,7 @@
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
 				06EA9C142B21CDE000351529 /* NSE */,
-				ED8227552D55BFB00054E5B1 /* TwakeShareExtension */,
+				ED8227552D55BFB00054E5B1 /* DediShareExtension */,
 				5046FC062E71342000FB466C /* RunnerUITests */,
 			);
 		};
@@ -800,6 +800,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		13185B46FAEDB24B6783C95D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -852,22 +869,7 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin\n";
 		};
-		9740EEB61CF901F6004384FC /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
-		};
-		9DC3F03100AD8FA4681EABBD /* [CP] Check Pods Manifest.lock */ = {
+		78E853873E583DD4EF3A66C4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -889,7 +891,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BEC56A6B79F4F039C9A07662 /* [CP] Check Pods Manifest.lock */ = {
+		9740EEB61CF901F6004384FC /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+		};
+		A72BE7485247C6F71D374B25 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -904,31 +921,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TwakeShareExtension-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DediShareExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E0162A373530476255FF380C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E562849CB9BC185AFB3A0441 /* [CP] Check Pods Manifest.lock */ = {
+		CC6D9A98A487EDB48D423232 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -950,21 +950,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F03331B3DA9B9BCC525826A1 /* [CP] Embed Pods Frameworks */ = {
+		FC14BD679395C3E3E1BDB060 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1073,7 +1073,7 @@
 		};
 		ED82275F2D55BFB00054E5B1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = ED8227552D55BFB00054E5B1 /* TwakeShareExtension */;
+			target = ED8227552D55BFB00054E5B1 /* DediShareExtension */;
 			targetProxy = ED82275E2D55BFB00054E5B1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1201,7 +1201,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				CUSTOM_GROUP_ID = group.app.twake.ios.chat;
+				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
 				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1245,7 +1245,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				CUSTOM_GROUP_ID = group.app.twake.ios.chat;
+				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
 				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1286,7 +1286,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				CUSTOM_GROUP_ID = group.app.twake.ios.chat;
+				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
 				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1376,7 +1376,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				CUSTOM_GROUP_ID = group.app.twake.ios.chat;
+				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
 				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1616,7 +1616,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				CUSTOM_GROUP_ID = group.app.twake.ios.chat;
+				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
 				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1655,7 +1655,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				CUSTOM_GROUP_ID = group.app.twake.ios.chat;
+				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
 				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1684,7 +1684,7 @@
 		};
 		ED8227612D55BFB00054E5B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4F36BE0D0EBF50E2ED23100 /* Pods-TwakeShareExtension.debug.xcconfig */;
+			baseConfigurationReference = F59E5891F3A45691120D9A07 /* Pods-DediShareExtension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1693,17 +1693,17 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = TwakeShareExtension/TwakeShareExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = DediShareExtension/DediShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				CUSTOM_GROUP_ID = group.app.twake.ios.chat;
+				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
 				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TwakeShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = TwakeShareExtension;
+				INFOPLIST_FILE = DediShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DediShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1715,7 +1715,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = app.dedi.ios.chat.TwakeShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = app.dedi.ios.chat.DediShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -1729,7 +1729,7 @@
 		};
 		ED8227622D55BFB00054E5B1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 07E20B8C431B74C0D6F641E3 /* Pods-TwakeShareExtension.release.xcconfig */;
+			baseConfigurationReference = C9A0B27867FBC4459048C888 /* Pods-DediShareExtension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1738,17 +1738,17 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = TwakeShareExtension/TwakeShareExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = DediShareExtension/DediShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				CUSTOM_GROUP_ID = group.app.twake.ios.chat;
+				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
 				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TwakeShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = TwakeShareExtension;
+				INFOPLIST_FILE = DediShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DediShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1759,7 +1759,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = app.dedi.ios.chat.TwakeShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = app.dedi.ios.chat.DediShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -1771,7 +1771,7 @@
 		};
 		ED8227632D55BFB00054E5B1 /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B862D9BA44AF5E459F2D6249 /* Pods-TwakeShareExtension.profile.xcconfig */;
+			baseConfigurationReference = 030398DC19646C4A5A41AA77 /* Pods-DediShareExtension.profile.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1780,17 +1780,17 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = TwakeShareExtension/TwakeShareExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = DediShareExtension/DediShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				CUSTOM_GROUP_ID = group.app.twake.ios.chat;
+				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
 				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TwakeShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = TwakeShareExtension;
+				INFOPLIST_FILE = DediShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DediShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1801,7 +1801,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = app.dedi.ios.chat.TwakeShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = app.dedi.ios.chat.DediShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -1854,7 +1854,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ED8227642D55BFB00054E5B1 /* Build configuration list for PBXNativeTarget "TwakeShareExtension" */ = {
+		ED8227642D55BFB00054E5B1 /* Build configuration list for PBXNativeTarget "DediShareExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ED8227612D55BFB00054E5B1 /* Debug */,

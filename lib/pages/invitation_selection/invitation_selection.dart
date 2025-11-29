@@ -60,13 +60,13 @@ class InvitationSelectionController
     final selectedContacts = selectedContactsMapNotifier.contactsList
         .map((contact) => contact.matrixId!)
         .toList();
-    final success = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final success = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => Future.wait(
         selectedContacts.map((id) => _room.invite(id)),
       ),
     );
     if (success.error == null) {
-      TwakeSnackBar.show(
+      DediSnackBar.show(
         context,
         L10n.of(context)!.contactHasBeenInvitedToTheGroup,
       );

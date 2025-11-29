@@ -42,7 +42,7 @@ extension MessageReportReasonExtension on MessageReportReason {
         return Icon(
           Icons.arrow_forward_ios_outlined,
           size: 12,
-          color: LinagoraRefColors.material().tertiary[30],
+          color: DediRefColors.material().tertiary[30],
         );
       default:
         return null;

@@ -6,12 +6,12 @@ import 'package:fluffychat/config/app_grid_config/app_config_parser.dart';
 import 'package:fluffychat/domain/model/app_grid/linagora_applications.dart';
 import 'package:matrix/matrix.dart';
 
-class AppGridConfigurationParser extends AppConfigParser<LinagoraApplications> {
+class AppGridConfigurationParser extends AppConfigParser<DediApplications> {
   @override
-  Future<LinagoraApplications> parse(String value) async {
+  Future<DediApplications> parse(String value) async {
     try {
       final jsonObject = jsonDecode(value);
-      return LinagoraApplications.fromJson(jsonObject);
+      return DediApplications.fromJson(jsonObject);
     } catch (e) {
       Logs().e('AppDashboardConfigurationParser::parse(): $e');
       rethrow;
@@ -19,7 +19,7 @@ class AppGridConfigurationParser extends AppConfigParser<LinagoraApplications> {
   }
 
   @override
-  Future<LinagoraApplications> parseData(ByteData data) {
+  Future<DediApplications> parseData(ByteData data) {
     throw UnimplementedError();
   }
 }

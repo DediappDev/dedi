@@ -61,7 +61,7 @@ class EmotesSettingsController extends State<EmotesSettings> {
     }
     final client = Matrix.of(context).client;
     if (room != null) {
-      await TwakeDialog.showFutureLoadingDialogFullScreen(
+      await DediDialog.showFutureLoadingDialogFullScreen(
         future: () => client.setRoomStateWithKey(
           room!.id,
           'im.ponies.room_emotes',
@@ -70,7 +70,7 @@ class EmotesSettingsController extends State<EmotesSettings> {
         ),
       );
     } else {
-      await TwakeDialog.showFutureLoadingDialogFullScreen(
+      await DediDialog.showFutureLoadingDialogFullScreen(
         future: () => client.setAccountData(
           client.userID!,
           'im.ponies.user_emotes',
@@ -101,7 +101,7 @@ class EmotesSettingsController extends State<EmotesSettings> {
       content['rooms'][room!.id].remove(stateKey ?? '');
     }
     // and save
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => client.setAccountData(
         client.userID!,
         'im.ponies.emote_rooms',
@@ -235,7 +235,7 @@ class EmotesSettingsController extends State<EmotesSettings> {
     } catch (e, s) {
       Logs().w('Unable to create thumbnail', e, s);
     }
-    final uploadResp = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final uploadResp = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => Matrix.of(context).client.uploadContent(
             file.bytes!,
             filename: file.name,

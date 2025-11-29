@@ -47,7 +47,7 @@ class _ChatReportMessageAdditionalReasonDialogState
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    final materialRefsColors = LinagoraRefColors.material();
+    final materialRefsColors = DediRefColors.material();
     Widget body = const SizedBox();
 
     final dialogDecoration = BoxDecoration(
@@ -105,7 +105,7 @@ class _ChatReportMessageAdditionalReasonDialogState
             vertical: 8,
           ),
           decoration: BoxDecoration(
-            border: Border.all(color: LinagoraSysColors.material().outline),
+            border: Border.all(color: DediSysColors.material().outline),
             borderRadius: BorderRadius.circular(4),
           ),
           child: TextField(
@@ -151,7 +151,7 @@ class _ChatReportMessageAdditionalReasonDialogState
           width: widget.isMobile ? 160 : 193,
           padding: const EdgeInsetsDirectional.symmetric(vertical: 14),
           decoration: BoxDecoration(
-            color: LinagoraSysColors.material().primary,
+            color: DediSysColors.material().primary,
             borderRadius: BorderRadius.circular(100),
           ),
           alignment: Alignment.center,

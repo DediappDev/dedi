@@ -36,7 +36,7 @@ class SettingsItemBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TwakeInkWell(
+    return DediInkWell(
       isSelected: isSelected,
       onTap: onTap,
       child: SizedBox(
@@ -66,12 +66,11 @@ class SettingsItemBuilder extends StatelessWidget {
                         children: [
                           Text(
                             title,
-                            style: LinagoraTextStyle.material()
-                                .bodyMedium2
-                                .copyWith(
-                                  color: titleColor,
-                                  fontFamily: 'Inter',
-                                ),
+                            style:
+                                DediTextStyle.material().bodyMedium2.copyWith(
+                                      color: titleColor,
+                                      fontFamily: 'Inter',
+                                    ),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -81,11 +80,11 @@ class SettingsItemBuilder extends StatelessWidget {
                               child: Text(
                                 subtitle!,
                                 style: subtitleStyle ??
-                                    LinagoraTextStyle.material()
+                                    DediTextStyle.material()
                                         .bodyMedium
                                         .copyWith(
                                           color: subtitleColor ??
-                                              LinagoraRefColors.material()
+                                              DediRefColors.material()
                                                   .tertiary[30],
                                           fontFamily: 'Inter',
                                         ),
@@ -100,7 +99,7 @@ class SettingsItemBuilder extends StatelessWidget {
                           Icon(
                             Icons.chevron_right_outlined,
                             size: SettingsViewStyle.iconSize,
-                            color: LinagoraRefColors.material().tertiary[30],
+                            color: DediRefColors.material().tertiary[30],
                           ),
                   ],
                 ),

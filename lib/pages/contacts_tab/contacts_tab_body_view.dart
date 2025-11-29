@@ -268,7 +268,7 @@ class _SliverContactsList extends StatelessWidget {
             if (success is PresentationContactsSuccess) {
               final contacts = success.contacts;
               return SliverExpandableList(
-                title: L10n.of(context)!.linagoraContactsCount(contacts.length),
+                title: L10n.of(context)!.dediContactsCount(contacts.length),
                 itemCount: contacts.length,
                 itemBuilder: (context, index) => _Contact(
                   contact: contacts[index],

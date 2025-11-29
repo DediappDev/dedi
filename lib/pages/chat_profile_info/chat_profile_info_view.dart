@@ -34,9 +34,9 @@ class ChatProfileInfoView extends StatelessWidget {
     final user = controller.user;
     final contact = controller.widget.contact;
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       appBar: AppBar(
-        backgroundColor: LinagoraSysColors.material().onPrimary,
+        backgroundColor: DediSysColors.material().onPrimary,
         automaticallyImplyLeading: false,
         centerTitle: false,
         title: Row(
@@ -70,7 +70,7 @@ class ChatProfileInfoView extends StatelessWidget {
                 valueListenable: controller.lookupContactNotifier,
                 builder: (context, lookupContact, child) {
                   return SliverAppBar(
-                    backgroundColor: LinagoraSysColors.material().onPrimary,
+                    backgroundColor: DediSysColors.material().onPrimary,
                     toolbarHeight: getToolbarHeight(lookupContact),
                     title: ConstrainedBox(
                       constraints: BoxConstraints(
@@ -293,7 +293,7 @@ class _Information extends StatelessWidget {
               Text(
                 displayName ?? '',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: LinagoraSysColors.material().onSurface,
+                      color: DediSysColors.material().onSurface,
                     ),
                 maxLines: 1,
               ),
@@ -302,8 +302,7 @@ class _Information extends StatelessWidget {
                 margin: ChatProfileInfoStyle.copiableContainerMargin,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: LinagoraRefColors.material().neutral[90] ??
-                        Colors.black,
+                    color: DediRefColors.material().neutral[90] ?? Colors.black,
                   ),
                   borderRadius:
                       ChatProfileInfoStyle.copiableContainerBorderRadius,
@@ -382,11 +381,11 @@ class _Information extends StatelessWidget {
                                     ? L10n.of(context)!.unblockUser
                                     : L10n.of(context)!.blockUser,
                                 iconColor: isBlockedUser
-                                    ? LinagoraSysColors.material().error
-                                    : LinagoraSysColors.material().primary,
+                                    ? DediSysColors.material().error
+                                    : DediSysColors.material().primary,
                                 textColor: isBlockedUser
-                                    ? LinagoraSysColors.material().error
-                                    : LinagoraSysColors.material().primary,
+                                    ? DediSysColors.material().error
+                                    : DediSysColors.material().primary,
                                 actionIcon: isLoading == true
                                     ? Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -394,7 +393,7 @@ class _Information extends StatelessWidget {
                                         ),
                                         child: CupertinoActivityIndicator(
                                           animating: true,
-                                          color: LinagoraSysColors.material()
+                                          color: DediSysColors.material()
                                               .onSurfaceVariant,
                                         ),
                                       )
@@ -434,7 +433,7 @@ class _CopiableRowWithMaterialIcon extends StatelessWidget {
           child: Icon(
             icon,
             size: ChatProfileInfoStyle.iconSize,
-            color: LinagoraSysColors.material().onSurface,
+            color: DediSysColors.material().onSurface,
           ),
         ),
         Expanded(
@@ -443,7 +442,7 @@ class _CopiableRowWithMaterialIcon extends StatelessWidget {
             child: Text(
               text,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: LinagoraSysColors.material().onSurface,
+                    color: DediSysColors.material().onSurface,
                   ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -454,12 +453,12 @@ class _CopiableRowWithMaterialIcon extends StatelessWidget {
           icon: Icon(
             Icons.content_copy,
             size: ChatProfileInfoStyle.copyIconSize,
-            color: LinagoraRefColors.material().tertiary[40],
+            color: DediRefColors.material().tertiary[40],
           ),
-          color: LinagoraRefColors.material().tertiary[40],
+          color: DediRefColors.material().tertiary[40],
           onPressed: () {
-            TwakeClipboard.instance.copyText(text);
-            TwakeSnackBar.show(context, L10n.of(context)!.copiedToClipboard);
+            DediClipboard.instance.copyText(text);
+            DediSnackBar.show(context, L10n.of(context)!.copiedToClipboard);
           },
         ),
       ],
@@ -495,7 +494,7 @@ class _CopiableRowWithSvgIcon extends StatelessWidget {
             width: ChatProfileInfoStyle.iconSize,
             height: ChatProfileInfoStyle.iconSize,
             colorFilter: ColorFilter.mode(
-              iconColor ?? LinagoraSysColors.material().onSurface,
+              iconColor ?? DediSysColors.material().onSurface,
               BlendMode.srcIn,
             ),
           ),
@@ -506,7 +505,7 @@ class _CopiableRowWithSvgIcon extends StatelessWidget {
             child: Text(
               text,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: textColor ?? LinagoraSysColors.material().onSurface,
+                    color: textColor ?? DediSysColors.material().onSurface,
                   ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -519,13 +518,13 @@ class _CopiableRowWithSvgIcon extends StatelessWidget {
             icon: Icon(
               Icons.content_copy,
               size: ChatProfileInfoStyle.copyIconSize,
-              color: LinagoraRefColors.material().tertiary[40],
+              color: DediRefColors.material().tertiary[40],
             ),
-            color: LinagoraRefColors.material().tertiary[40],
+            color: DediRefColors.material().tertiary[40],
             focusColor: Theme.of(context).primaryColor,
             onPressed: () {
-              TwakeClipboard.instance.copyText(text);
-              TwakeSnackBar.show(context, L10n.of(context)!.copiedToClipboard);
+              DediClipboard.instance.copyText(text);
+              DediSnackBar.show(context, L10n.of(context)!.copiedToClipboard);
             },
           ),
       ],

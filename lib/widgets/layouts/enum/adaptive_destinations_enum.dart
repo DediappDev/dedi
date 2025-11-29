@@ -19,12 +19,12 @@ enum AdaptiveDestinationEnum {
     switch (this) {
       case AdaptiveDestinationEnum.contacts:
         return NavigationDestination(
-          icon: TwakeNavigationIcon(
+          icon: DediNavigationIcon(
             color: LinagoraSysColors.material().onBackground,
             icon: Icons.supervised_user_circle_outlined,
           ),
           label: L10n.of(context)!.contacts,
-          selectedIcon: const TwakeNavigationIcon(
+          selectedIcon: const DediNavigationIcon(
             icon: Icons.supervised_user_circle_outlined,
             isSelected: true,
           ),
@@ -43,11 +43,11 @@ enum AdaptiveDestinationEnum {
         );
       case AdaptiveDestinationEnum.settings:
         return NavigationDestination(
-          icon: TwakeNavigationIcon(
+          icon: DediNavigationIcon(
             color: LinagoraSysColors.material().onBackground,
             icon: Icons.settings_outlined,
           ),
-          selectedIcon: const TwakeNavigationIcon(
+          selectedIcon: const DediNavigationIcon(
             icon: Icons.settings_outlined,
             isSelected: true,
           ),
@@ -63,12 +63,12 @@ enum AdaptiveDestinationEnum {
     switch (this) {
       case AdaptiveDestinationEnum.contacts:
         return BottomNavigationBarItem(
-          icon: TwakeNavigationIcon(
+          icon: DediNavigationIcon(
             color: LinagoraSysColors.material().tertiary,
             icon: Icons.supervised_user_circle_outlined,
           ),
           label: L10n.of(context)!.contacts,
-          activeIcon: const TwakeNavigationIcon(
+          activeIcon: const DediNavigationIcon(
             icon: Icons.supervised_user_circle_outlined,
             isSelected: true,
           ),

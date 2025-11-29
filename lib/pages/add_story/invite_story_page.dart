@@ -34,7 +34,7 @@ class InviteStoryPageState extends State<InviteStoryPage> {
       cancelLabel: L10n.of(context)!.cancel,
     );
     if (confirmed != OkCancelResult.ok) return;
-    final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final result = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         final client = Matrix.of(context).client;
         var room = await client.getStoriesRoom(context);

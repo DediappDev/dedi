@@ -114,15 +114,15 @@ abstract class PlatformInfos {
 
   static void showAboutDialogFullScreen() async {
     final version = await PlatformInfos.getVersion();
-    final twakeContext = TwakeApp.routerKey.currentContext;
-    if (twakeContext == null) {
+    final dediContext = DediApp.routerKey.currentContext;
+    if (dediContext == null) {
       Logs().e(
-        'PlatformInfos()::showAboutDialogFullScreen - Twake context is null',
+        'PlatformInfos()::showAboutDialogFullScreen - Dedi context is null',
       );
       return;
     }
     showAboutDialog(
-      context: twakeContext,
+      context: dediContext,
       useRootNavigator: false,
       children: [
         Text('Version: $version'),
@@ -130,15 +130,15 @@ abstract class PlatformInfos {
           padding: const EdgeInsets.only(bottom: 8),
           child: OutlinedButton(
             onPressed: () =>
-                UrlLauncher(twakeContext, url: AppConfig.sourceCodeUrl)
+                UrlLauncher(dediContext, url: AppConfig.sourceCodeUrl)
                     .openUrlInAppBrowser(),
-            child: Text(L10n.of(twakeContext)!.sourceCode),
+            child: Text(L10n.of(dediContext)!.sourceCode),
           ),
         ),
         OutlinedButton(
           onPressed: () {
-            twakeContext.go('/logs');
-            Navigator.of(twakeContext).pop();
+            dediContext.go('/logs');
+            Navigator.of(dediContext).pop();
           },
           child: const Text('Logs'),
         ),

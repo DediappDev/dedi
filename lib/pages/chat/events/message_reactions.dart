@@ -151,7 +151,7 @@ class ReactionsList extends StatelessWidget {
               child: Text(
                 '+${reactionList.length - 3}',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: LinagoraRefColors.material().neutral[50],
+                      color: DediRefColors.material().neutral[50],
                     ),
               ),
             ),
@@ -243,7 +243,7 @@ class ReactionsList extends StatelessWidget {
                       width: AppConfig.defaultMaxWidthReactionsView,
                       height: AppConfig.defaultMaxHeightReactionsView,
                       decoration: BoxDecoration(
-                        color: LinagoraRefColors.material().primary[100],
+                        color: DediRefColors.material().primary[100],
                         borderRadius: BorderRadius.circular(
                           24,
                         ),
@@ -329,7 +329,7 @@ class ReactionsList extends StatelessWidget {
                     width: 32,
                     margin: const EdgeInsets.symmetric(vertical: 16),
                     decoration: BoxDecoration(
-                      color: LinagoraSysColors.material().outline,
+                      color: DediSysColors.material().outline,
                       borderRadius: BorderRadius.circular(100),
                     ),
                   ),
@@ -374,7 +374,7 @@ class Reaction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = LinagoraSysColors.material().surface;
+    final color = DediSysColors.material().surface;
     final fontSize = DefaultTextStyle.of(context).style.fontSize;
     Widget content;
     if (reactionKey!.startsWith('mxc://')) {
@@ -391,7 +391,7 @@ class Reaction extends StatelessWidget {
             Text(
               count.toString(),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: LinagoraRefColors.material().neutral[50],
+                    color: DediRefColors.material().neutral[50],
                   ),
             ),
           ],
@@ -446,7 +446,7 @@ class Reaction extends StatelessWidget {
                 '$count',
                 style: countStyle ??
                     Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: LinagoraRefColors.material().neutral[50],
+                          color: DediRefColors.material().neutral[50],
                         ),
                 textAlign: TextAlign.center,
               ),

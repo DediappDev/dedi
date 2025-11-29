@@ -195,7 +195,7 @@ class _MessageContentWithTimestampBuilderState
                   color: Colors.transparent,
                   borderRadius: BorderRadius.circular(24),
                 ),
-                child: TwakeIconButton(
+                child: DediIconButton(
                   onTapDown: (tapDownDetails) => widget.onTapMoreButton?.call(
                     context,
                     widget.event,
@@ -209,7 +209,7 @@ class _MessageContentWithTimestampBuilderState
             else
               _menuActionsRowBuilder(context, isReversed: true),
         ],
-        TwakeContextMenuArea(
+        DediContextMenuArea(
           builder: widget.menuChildren != null
               ? (context) => widget.menuChildren!.call(context)
               : null,
@@ -281,11 +281,11 @@ class _MessageContentWithTimestampBuilderState
                                       return ReactionsDialogWidget(
                                         messageWidget: Material(
                                           color: widget.event.isOwnMessage
-                                              ? LinagoraRefColors.material()
+                                              ? DediRefColors.material()
                                                   .primary[95]
                                               : _responsiveUtils
                                                       .isMobile(context)
-                                                  ? LinagoraSysColors.material()
+                                                  ? DediSysColors.material()
                                                       .onPrimary
                                                   : Theme.of(context)
                                                       .colorScheme
@@ -383,8 +383,7 @@ class _MessageContentWithTimestampBuilderState
                                                   routeTheme:
                                                       PullDownMenuRouteTheme(
                                                     backgroundColor:
-                                                        LinagoraRefColors
-                                                                .material()
+                                                        DediRefColors.material()
                                                             .primary[100],
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -459,7 +458,7 @@ class _MessageContentWithTimestampBuilderState
                   color: Colors.transparent,
                   borderRadius: BorderRadius.circular(24),
                 ),
-                child: TwakeIconButton(
+                child: DediIconButton(
                   onTapDown: (tapDownDetails) => widget.onTapMoreButton?.call(
                     context,
                     widget.event,
@@ -533,7 +532,7 @@ class _MessageContentWithTimestampBuilderState
         height: 360,
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: LinagoraRefColors.material().primary[100],
+          color: DediRefColors.material().primary[100],
           borderRadius: BorderRadius.circular(
             24,
           ),
@@ -545,7 +544,7 @@ class _MessageContentWithTimestampBuilderState
             emojiStyle: Theme.of(context).textTheme.headlineLarge!,
             searchEmptyTextStyle:
                 Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color: LinagoraRefColors.material().tertiary[30],
+                      color: DediRefColors.material().tertiary[30],
                     ),
             searchEmptyWidget: SvgPicture.asset(
               ImagePaths.icSearchEmojiEmpty,
@@ -612,9 +611,9 @@ class _MessageContentWithTimestampBuilderState
               : BoxDecoration(
                   borderRadius: MessageStyle.bubbleBorderRadius,
                   color: widget.event.isOwnMessage
-                      ? LinagoraRefColors.material().primary[95]
+                      ? DediRefColors.material().primary[95]
                       : _responsiveUtils.isMobile(context)
-                          ? LinagoraSysColors.material().onPrimary
+                          ? DediSysColors.material().onPrimary
                           : Theme.of(context)
                               .colorScheme
                               .surfaceContainerHighest,
@@ -762,7 +761,7 @@ class _MessageContentWithTimestampBuilderState
           children: listHorizontalActionMenu.map((item) {
             return Padding(
               padding: const EdgeInsetsDirectional.symmetric(horizontal: 4),
-              child: TwakeIconButton(
+              child: DediIconButton(
                 onTapDown: (tapDownDetails) => widget.onMenuAction?.call(
                   context,
                   item.action,
@@ -783,8 +782,8 @@ class _MessageContentWithTimestampBuilderState
 
   Color? _textContextMenuColor(MessageContextMenuAction action) {
     return action == MessageContextMenuAction.delete
-        ? LinagoraSysColors.material().error
-        : LinagoraRefColors.material().neutral[30];
+        ? DediSysColors.material().error
+        : DediRefColors.material().neutral[30];
   }
 
   PullDownMenuItemTheme _themeContextMenu(MessageContextMenuAction action) {
@@ -807,7 +806,7 @@ class _MessageContentWithTimestampBuilderState
             width: 24,
             height: 24,
             colorFilter: ColorFilter.mode(
-              LinagoraRefColors.material().neutral[30]!,
+              DediRefColors.material().neutral[30]!,
               BlendMode.srcIn,
             ),
           )

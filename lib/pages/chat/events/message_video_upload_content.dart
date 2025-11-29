@@ -73,7 +73,7 @@ class _MessageVideoUploadContentWebState
                 height: MessageContentStyle.iconInsideVideoButtonSize,
                 child: CircularProgressIndicator(
                   value: uploadState is UploadingFileUIState ? progress : null,
-                  color: LinagoraRefColors.material().primary[100],
+                  color: DediRefColors.material().primary[100],
                   strokeWidth: MessageContentStyle.strokeVideoWidth,
                 ),
               ),

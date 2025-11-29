@@ -25,20 +25,20 @@ class SettingsSecurityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
-      appBar: TwakeAppBar(
+      backgroundColor: DediSysColors.material().onPrimary,
+      appBar: DediAppBar(
         title: L10n.of(context)!.security,
         context: context,
         centerTitle: true,
         withDivider: true,
         leading: responsive.isMobile(context)
             ? Padding(
-                padding: TwakeAppBarStyle.leadingIconPadding,
+                padding: DediAppBarStyle.leadingIconPadding,
                 child: IconButton(
                   tooltip: L10n.of(context)!.back,
                   icon: const Icon(Icons.chevron_left_outlined),
                   onPressed: () => context.pop(),
-                  iconSize: TwakeAppBarStyle.leadingIconSize,
+                  iconSize: DediAppBarStyle.leadingIconSize,
                 ),
               )
             : const SizedBox.shrink(),
@@ -75,8 +75,8 @@ class SettingsSecurityView extends StatelessWidget {
                           leadingWidget: SvgPicture.asset(
                             ImagePaths.icFrontHand,
                             colorFilter: ColorFilter.mode(
-                              LinagoraRefColors.material().tertiary[30] ??
-                                  LinagoraSysColors.material().onSurface,
+                              DediRefColors.material().tertiary[30] ??
+                                  DediSysColors.material().onSurface,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -94,8 +94,8 @@ class SettingsSecurityView extends StatelessWidget {
                       context,
                     ),
                     child: Divider(
-                      color: LinagoraStateLayer(
-                        LinagoraSysColors.material().surfaceTint,
+                      color: DediStateLayer(
+                        DediSysColors.material().surfaceTint,
                       ).opacityLayer3,
                       thickness: SettingsViewStyle.settingsItemDividerThikness,
                       height: SettingsViewStyle.settingsItemDividerHeight,
@@ -130,7 +130,7 @@ class SettingsSecurityView extends StatelessWidget {
                           leading: Icons.lock_outlined,
                           onTap: controller.setAppLockAction,
                           leadingIconColor:
-                              LinagoraRefColors.material().tertiary[30],
+                              DediRefColors.material().tertiary[30],
                         ),
                       ),
                       Padding(
@@ -138,8 +138,8 @@ class SettingsSecurityView extends StatelessWidget {
                           context,
                         ),
                         child: Divider(
-                          color: LinagoraStateLayer(
-                            LinagoraSysColors.material().surfaceTint,
+                          color: DediStateLayer(
+                            DediSysColors.material().surfaceTint,
                           ).opacityLayer3,
                           thickness:
                               SettingsViewStyle.settingsItemDividerThikness,
@@ -156,14 +156,13 @@ class SettingsSecurityView extends StatelessWidget {
                     titleColor: Theme.of(context).colorScheme.onBackground,
                     subtitle:
                         Matrix.of(context).client.fingerprintKey.beautified,
-                    subtitleStyle:
-                        LinagoraTextStyle.material().bodyMedium.copyWith(
-                              color: LinagoraRefColors.material().tertiary[30],
-                              fontFamily: 'monospace',
-                            ),
+                    subtitleStyle: DediTextStyle.material().bodyMedium.copyWith(
+                          color: DediRefColors.material().tertiary[30],
+                          fontFamily: 'monospace',
+                        ),
                     leading: Icons.notifications_outlined,
                     onTap: controller.copyPublicKey,
-                    leadingIconColor: LinagoraRefColors.material().tertiary[30],
+                    leadingIconColor: DediRefColors.material().tertiary[30],
                     trailingWidget: InkWell(
                       onTap: controller.copyPublicKey,
                       child: const Icon(Icons.content_copy),

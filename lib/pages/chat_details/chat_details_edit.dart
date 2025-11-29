@@ -119,7 +119,7 @@ class ChatDetailsEditController extends State<ChatDetailsEdit>
       if (_enableDeleteAvatarButton) EditChatAvatarContextMenuActions.delete,
     ];
     final items = listAction.map((action) {
-      return popupItemByTwakeAppRouter(
+      return popupItemByDediAppRouter(
         context,
         action.getTitle(context),
         iconAction: action.getIcon(),
@@ -264,7 +264,7 @@ class ChatDetailsEditController extends State<ChatDetailsEdit>
           Logs().e(
             'ChatDetailsEdit::_setAvatarInStream() - error: $error',
           );
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.oopsSomethingWentWrong,
           );
@@ -322,7 +322,7 @@ class ChatDetailsEditController extends State<ChatDetailsEdit>
           Logs().e(
             'ChatDetailsEdit::_setAvatarInBytes() - error: $error',
           );
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.oopsSomethingWentWrong,
           );
@@ -367,7 +367,7 @@ class ChatDetailsEditController extends State<ChatDetailsEdit>
   void handleSaveAction(BuildContext context) async {
     if (groupNameFocusNode.hasFocus) groupNameFocusNode.unfocus();
     if (descriptionFocusNode.hasFocus) descriptionFocusNode.unfocus();
-    TwakeDialog.showLoadingDialog(context);
+    DediDialog.showLoadingDialog(context);
     if (PlatformInfos.isMobile) {
       _setAvatarInStream();
     } else {
@@ -386,7 +386,7 @@ class ChatDetailsEditController extends State<ChatDetailsEdit>
           Logs().e(
             'ChatDetailsEdit::_handleUpdateGroupInfoOnEvents() - UpdateGroupDisplayNameFailure - ${failure.exception}',
           );
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.oopsSomethingWentWrong,
           );
@@ -394,7 +394,7 @@ class ChatDetailsEditController extends State<ChatDetailsEdit>
           Logs().e(
             'ChatDetailsEdit::_handleUpdateGroupInfoOnEvents() - UpdateGroupAvatarFailure - ${failure.exception}',
           );
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.oopsSomethingWentWrong,
           );
@@ -402,17 +402,17 @@ class ChatDetailsEditController extends State<ChatDetailsEdit>
           Logs().e(
             'ChatDetailsEdit::_handleUpdateGroupInfoOnEvents() - UpdateGroupDescriptionFailure - ${failure.exception}',
           );
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.oopsSomethingWentWrong,
           );
         } else if (failure is UpdateGroupNameIsEmptyFailure) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.groupNameCannotBeEmpty,
           );
         } else if (failure is UpdateGroupChatFailure) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             failure.exception.toLocalizedString(context),
           );
@@ -461,7 +461,7 @@ class ChatDetailsEditController extends State<ChatDetailsEdit>
 
   void _handleUpdateGroupInfoOnDone() {
     Logs().d('ChatDetailsEdit::_handleUpdateGroupInfoOnDone()');
-    TwakeDialog.hideLoadingDialog(context);
+    DediDialog.hideLoadingDialog(context);
   }
 
   void _clearImageInMemory() {
@@ -503,7 +503,7 @@ class ChatDetailsEditController extends State<ChatDetailsEdit>
       cancelLabel: L10n.of(context)!.cancel,
     );
     if (consent != OkCancelResult.ok) return;
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => room!.enableEncryption(),
     )
         .then((_) => isRoomEnabledEncryptionNotifier.value = true)

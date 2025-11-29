@@ -75,7 +75,7 @@ enum SettingEnum {
       case SettingEnum.logout:
         return Theme.of(context).colorScheme.error;
       default:
-        return LinagoraRefColors.material().tertiary[30];
+        return DediRefColors.material().tertiary[30];
     }
   }
 
@@ -84,7 +84,7 @@ enum SettingEnum {
       case SettingEnum.deleteAccount:
         return Theme.of(context).colorScheme.error;
       default:
-        return LinagoraSysColors.material().onSurface;
+        return DediSysColors.material().onSurface;
     }
   }
 

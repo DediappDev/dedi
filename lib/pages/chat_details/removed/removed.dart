@@ -110,8 +110,8 @@ class RemovedController extends State<Removed> with SearchDebouncerMixin {
     state.fold(
       (failure) {
         if (failure is UnbanUserFailure) {
-          TwakeDialog.hideLoadingDialog(context);
-          TwakeSnackBar.show(
+          DediDialog.hideLoadingDialog(context);
+          DediSnackBar.show(
             context,
             failure.exception.toString(),
           );
@@ -119,8 +119,8 @@ class RemovedController extends State<Removed> with SearchDebouncerMixin {
         }
 
         if (failure is NoPermissionForUnbanFailure) {
-          TwakeDialog.hideLoadingDialog(context);
-          TwakeSnackBar.show(
+          DediDialog.hideLoadingDialog(context);
+          DediSnackBar.show(
             context,
             L10n.of(context)!.permissionErrorUnbanUser,
           );
@@ -129,7 +129,7 @@ class RemovedController extends State<Removed> with SearchDebouncerMixin {
       },
       (success) {
         if (success is UnbanUserLoading) {
-          TwakeDialog.showLoadingDialog(context);
+          DediDialog.showLoadingDialog(context);
           return;
         }
 
@@ -143,7 +143,7 @@ class RemovedController extends State<Removed> with SearchDebouncerMixin {
 
   void refreshRemoved() {
     Future.delayed(const Duration(milliseconds: 300)).then((_) {
-      TwakeDialog.hideLoadingDialog(context);
+      DediDialog.hideLoadingDialog(context);
 
       if (removedMember.isEmpty) {
         Navigator.pop(context);

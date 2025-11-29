@@ -28,11 +28,10 @@ class AssignRolesMemberPickerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: isDialog
-          ? Colors.transparent
-          : LinagoraSysColors.material().onPrimary,
+      backgroundColor:
+          isDialog ? Colors.transparent : DediSysColors.material().onPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: TwakeAppBar(
+      appBar: DediAppBar(
         title: L10n.of(context)!.assignRoles,
         centerTitle: true,
         withDivider: true,
@@ -40,7 +39,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
         enableLeftTitle: true,
         isDialog: isDialog,
         backgroundColor: isDialog ? Colors.transparent : null,
-        leading: TwakeIconButton(
+        leading: DediIconButton(
           paddingAll: 8,
           splashColor: Colors.transparent,
           hoverColor: Colors.transparent,
@@ -50,7 +49,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
         ),
         actions: isDialog
             ? [
-                TwakeIconButton(
+                DediIconButton(
                   paddingAll: 8,
                   splashColor: Colors.transparent,
                   hoverColor: Colors.transparent,
@@ -73,7 +72,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: TextField(
                         controller: controller.textEditingController,
-                        contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                        contextMenuBuilder: mobileDediContextMenuBuilder,
                         focusNode: controller.inputFocus,
                         textInputAction: TextInputAction.search,
                         autofocus: false,
@@ -82,15 +81,12 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                         },
                         decoration: ChatListHeaderStyle.searchInputDecoration(
                           context,
-                          prefixIconColor:
-                              LinagoraSysColors.material().tertiary,
+                          prefixIconColor: DediSysColors.material().tertiary,
                         ).copyWith(
-                          hintStyle: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                color: LinagoraSysColors.material().tertiary,
-                              ),
+                          hintStyle:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    color: DediSysColors.material().tertiary,
+                                  ),
                           hintText: L10n.of(context)!.searchGroupMembers,
                           suffixIcon: ValueListenableBuilder(
                             valueListenable: controller.textEditingController,
@@ -110,8 +106,8 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                     Divider(
                       height: 1,
                       thickness: 1,
-                      color: LinagoraStateLayer(
-                        LinagoraSysColors.material().surfaceTint,
+                      color: DediStateLayer(
+                        DediSysColors.material().surfaceTint,
                       ).opacityLayer3,
                     ),
                     selectedUsersList(context),
@@ -131,7 +127,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                           controller.members.length,
                         ),
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              color: LinagoraRefColors.material().neutral[40],
+                              color: DediRefColors.material().neutral[40],
                             ),
                       ),
                     ),
@@ -163,7 +159,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 32),
-                      child: TwakeTextButton(
+                      child: DediTextButton(
                         onTap: () {
                           Navigator.of(context).pop();
                         },
@@ -181,7 +177,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                                 ),
                       ),
                     ),
-                    TwakeTextButton(
+                    DediTextButton(
                       message: L10n.of(context)!.next,
                       onTap: () {
                         controller.navigateToAssignRolesEditor(context);
@@ -232,8 +228,8 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                 children: usersNotifier.usersList.map((member) {
                   return Container(
                     decoration: BoxDecoration(
-                      color: LinagoraStateLayer(
-                        LinagoraSysColors.material().surfaceTint,
+                      color: DediStateLayer(
+                        DediSysColors.material().surfaceTint,
                       ).opacityLayer3,
                       borderRadius: BorderRadius.circular(
                         AssignRolesMemberPickerStyle.avatarChipSize,
@@ -259,8 +255,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                                   .textTheme
                                   .titleSmall
                                   ?.copyWith(
-                                    color:
-                                        LinagoraSysColors.material().onSurface,
+                                    color: DediSysColors.material().onSurface,
                                   ),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -307,7 +302,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                       member.getDefaultPowerLevelMember.displayName(context);
                   final canUpdateRole =
                       controller.widget.room.canUpdateRoleInRoom(member);
-                  return TwakeInkWell(
+                  return DediInkWell(
                     onTap: !canUpdateRole
                         ? null
                         : () {
@@ -317,7 +312,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                               member,
                             );
                           },
-                    child: TwakeListItem(
+                    child: DediListItem(
                       padding: const EdgeInsets.all(8),
                       child: Row(
                         children: [
@@ -331,8 +326,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                                 side: BorderSide(
                                   color: isCurrentSelected
                                       ? Theme.of(context).colorScheme.primary
-                                      : LinagoraRefColors.material()
-                                          .tertiary[30]!,
+                                      : DediRefColors.material().tertiary[30]!,
                                   width: 2,
                                 ),
                                 onChanged: !canUpdateRole
@@ -399,7 +393,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                       member.getDefaultPowerLevelMember.displayName(context);
                   final canUpdateRole =
                       controller.widget.room.canUpdateRoleInRoom(member);
-                  return TwakeInkWell(
+                  return DediInkWell(
                     onTap: !canUpdateRole
                         ? null
                         : () {
@@ -409,7 +403,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                               member,
                             );
                           },
-                    child: TwakeListItem(
+                    child: DediListItem(
                       padding: const EdgeInsets.all(8),
                       child: Row(
                         children: [
@@ -423,8 +417,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                                 side: BorderSide(
                                   color: isCurrentSelected
                                       ? Theme.of(context).colorScheme.primary
-                                      : LinagoraRefColors.material()
-                                          .tertiary[30]!,
+                                      : DediRefColors.material().tertiary[30]!,
                                   width: 2,
                                 ),
                                 onChanged: !canUpdateRole
@@ -482,10 +475,9 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                     Expanded(
                       child: Text(
                         member.calcDisplayname(),
-                        style:
-                            LinagoraTextStyle.material().bodyMedium2.copyWith(
-                                  color: LinagoraSysColors.material().onSurface,
-                                ),
+                        style: DediTextStyle.material().bodyMedium2.copyWith(
+                              color: DediSysColors.material().onSurface,
+                            ),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
@@ -513,7 +505,7 @@ class AssignRolesMemberPickerView extends StatelessWidget {
                 Text(
                   member.id,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: LinagoraRefColors.material().tertiary[30],
+                        color: DediRefColors.material().tertiary[30],
                       ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,

@@ -44,11 +44,11 @@ class PIPViewState extends State<PIPView> with TickerProviderStateMixin {
     super.initState();
     _corner = widget.initialCorner;
     _toggleFloatingAnimationController = AnimationController(
-      duration: TwakeThemes.animationDuration,
+      duration: DediThemes.animationDuration,
       vsync: this,
     );
     _dragAnimationController = AnimationController(
-      duration: TwakeThemes.animationDuration,
+      duration: DediThemes.animationDuration,
       vsync: this,
     );
   }

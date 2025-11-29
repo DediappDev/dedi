@@ -65,7 +65,7 @@ jobs:
         if: matrix.os == 'android'
         run: |
           ./scripts/build-android-debug.sh
-          cp build/app/outputs/apk/debug/app-debug.apk twake-on-matrix-debug.apk
+          cp build/app/outputs/apk/debug/app-debug.apk dedi-debug.apk
 
       - name: Build debug IPA
         if: matrix.os == 'ios'
@@ -80,9 +80,9 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: twake-on-matrix-dev-${{ matrix.os }}
+          name: dedi-dev-${{ matrix.os }}
           path: |
-            twake-on-matrix-debug.apk
+            dedi-debug.apk
             Runner.ipa
 
   build_debug_desktop:
@@ -142,5 +142,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: twake-on-matrix-dev-${{ matrix.os }}
+          name: dedi-dev-${{ matrix.os }}
           path: dist/

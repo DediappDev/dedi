@@ -44,7 +44,7 @@ class ChatListItem extends StatelessWidget with ChatListItemMixin {
     if (onTap != null) return onTap!();
     switch (room.membership) {
       case Membership.ban:
-        TwakeSnackBar.show(
+        DediSnackBar.show(
           context,
           L10n.of(context)!.youHaveBeenBannedFromThisChat,
         );
@@ -62,7 +62,7 @@ class ChatListItem extends StatelessWidget with ChatListItemMixin {
   Future<void> archiveAction(BuildContext context) async {
     {
       if ([Membership.leave, Membership.ban].contains(room.membership)) {
-        await TwakeDialog.showFutureLoadingDialogFullScreen(
+        await DediDialog.showFutureLoadingDialogFullScreen(
           future: () => room.forget(),
         );
         return;
@@ -75,7 +75,7 @@ class ChatListItem extends StatelessWidget with ChatListItemMixin {
         cancelLabel: L10n.of(context)!.no,
       );
       if (confirmed == OkCancelResult.cancel) return;
-      await TwakeDialog.showFutureLoadingDialogFullScreen(
+      await DediDialog.showFutureLoadingDialogFullScreen(
         future: () => room.leave(),
       );
       return;
@@ -91,12 +91,12 @@ class ChatListItem extends StatelessWidget with ChatListItemMixin {
     );
     return Padding(
       padding: ChatListItemStyle.padding,
-      child: TwakeInkWell(
+      child: DediInkWell(
         isSelected: activeChat,
         onTap: () => clickAction(context),
         onSecondaryTapDown: onSecondaryTapDown,
         onLongPress: onLongPress,
-        child: TwakeListItem(
+        child: DediListItem(
           child: Container(
             height: ChatListItemStyle.chatItemHeight,
             padding: ChatListItemStyle.paddingBody,
@@ -127,9 +127,8 @@ class ChatListItem extends StatelessWidget with ChatListItemMixin {
                               Icons.group,
                               size: ChatListItemStyle.groupIconSize,
                               color: room.isUnreadOrInvited
-                                  ? LinagoraSysColors.material()
-                                      .onSurfaceVariant
-                                  : LinagoraRefColors.material().tertiary[30],
+                                  ? DediSysColors.material().onSurfaceVariant
+                                  : DediRefColors.material().tertiary[30],
                             ),
                           ),
                         ),

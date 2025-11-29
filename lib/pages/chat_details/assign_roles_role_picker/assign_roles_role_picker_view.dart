@@ -25,11 +25,10 @@ class AssignRolesRolePickerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: isDialog
-          ? Colors.transparent
-          : LinagoraSysColors.material().onPrimary,
+      backgroundColor:
+          isDialog ? Colors.transparent : DediSysColors.material().onPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: TwakeAppBar(
+      appBar: DediAppBar(
         title: L10n.of(context)!.assignRoles,
         centerTitle: true,
         withDivider: true,
@@ -37,7 +36,7 @@ class AssignRolesRolePickerView extends StatelessWidget {
         enableLeftTitle: true,
         isDialog: isDialog,
         backgroundColor: isDialog ? Colors.transparent : null,
-        leading: TwakeIconButton(
+        leading: DediIconButton(
           paddingAll: 8,
           splashColor: Colors.transparent,
           hoverColor: Colors.transparent,
@@ -47,7 +46,7 @@ class AssignRolesRolePickerView extends StatelessWidget {
         ),
         actions: isDialog
             ? [
-                TwakeIconButton(
+                DediIconButton(
                   paddingAll: 8,
                   splashColor: Colors.transparent,
                   hoverColor: Colors.transparent,
@@ -86,7 +85,7 @@ class AssignRolesRolePickerView extends StatelessWidget {
                       child: Text(
                         L10n.of(context)!.selectRole,
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              color: LinagoraRefColors.material().neutral[40],
+                              color: DediRefColors.material().neutral[40],
                             ),
                       ),
                     ),
@@ -131,7 +130,7 @@ class AssignRolesRolePickerView extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 32),
-                        child: TwakeTextButton(
+                        child: DediTextButton(
                           onTap: () {
                             Navigator.of(context).pop();
                           },
@@ -151,7 +150,7 @@ class AssignRolesRolePickerView extends StatelessWidget {
                               ),
                         ),
                       ),
-                      TwakeTextButton(
+                      DediTextButton(
                         message: L10n.of(context)!.done,
                         onTap: () {
                           controller.onTapToDoneButton();
@@ -217,7 +216,7 @@ class AssignRolesRolePickerView extends StatelessWidget {
                   controller.widget.rolePickerType.assignRoles[index]
                       .displayName(context),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: LinagoraSysColors.material().onSurface,
+                        color: DediSysColors.material().onSurface,
                       ),
                 ),
                 Text(
@@ -225,7 +224,7 @@ class AssignRolesRolePickerView extends StatelessWidget {
                     controller.widget.rolePickerType.assignRoles[index],
                   ),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: LinagoraRefColors.material().tertiary[20],
+                        color: DediRefColors.material().tertiary[20],
                       ),
                 ),
               ],
@@ -269,7 +268,7 @@ class AssignRolesRolePickerView extends StatelessWidget {
       return const SizedBox.shrink();
     }
     if (users.length == 1) {
-      return TwakeListItem(
+      return DediListItem(
         padding: const EdgeInsets.all(8),
         margin: EdgeInsets.symmetric(
           horizontal: isDialog ? 16 : 0,
@@ -290,10 +289,8 @@ class AssignRolesRolePickerView extends StatelessWidget {
                       Expanded(
                         child: Text(
                           users.first.calcDisplayname(),
-                          style: LinagoraTextStyle.material()
-                              .bodyMedium2
-                              .copyWith(
-                                color: LinagoraSysColors.material().onSurface,
+                          style: DediTextStyle.material().bodyMedium2.copyWith(
+                                color: DediSysColors.material().onSurface,
                               ),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
@@ -304,7 +301,7 @@ class AssignRolesRolePickerView extends StatelessWidget {
                   Text(
                     users.first.id,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: LinagoraRefColors.material().tertiary[30],
+                          color: DediRefColors.material().tertiary[30],
                         ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -333,8 +330,8 @@ class AssignRolesRolePickerView extends StatelessWidget {
             children: users.map((member) {
               return Container(
                 decoration: BoxDecoration(
-                  color: LinagoraStateLayer(
-                    LinagoraSysColors.material().surfaceTint,
+                  color: DediStateLayer(
+                    DediSysColors.material().surfaceTint,
                   ).opacityLayer3,
                   borderRadius: BorderRadius.circular(
                     AssignRolesRolePickerStyle.avatarChipSize,
@@ -355,12 +352,10 @@ class AssignRolesRolePickerView extends StatelessWidget {
                         padding: AssignRolesRolePickerStyle.textChipPadding,
                         child: Text(
                           member.calcDisplayname(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                color: LinagoraSysColors.material().onSurface,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: DediSysColors.material().onSurface,
+                                  ),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         ),

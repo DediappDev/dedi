@@ -4,14 +4,14 @@ import 'package:fluffychat/pages/app_grid/app_grid_dashboard_overlay_style.dart'
 import 'package:flutter/material.dart';
 
 class AppGridDashboardOverlay extends StatelessWidget {
-  final LinagoraApplications _linagoraApplications;
+  final DediApplications _dediApplications;
 
-  const AppGridDashboardOverlay(this._linagoraApplications, {super.key});
+  const AppGridDashboardOverlay(this._dediApplications, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: AppGridDashboardOverlayStyle.widthAppGrid(_linagoraApplications),
+      width: AppGridDashboardOverlayStyle.widthAppGrid(_dediApplications),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onPrimary,
         boxShadow: AppGridDashboardOverlayStyle.boxShadow,
@@ -21,7 +21,7 @@ class AppGridDashboardOverlay extends StatelessWidget {
       ),
       padding: AppGridDashboardOverlayStyle.padding,
       child: Wrap(
-        children: _linagoraApplications.apps
+        children: _dediApplications.apps
             .map((app) => AppGridDashboardItem(app))
             .toList(),
       ),

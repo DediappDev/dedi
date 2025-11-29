@@ -35,7 +35,7 @@ class Settings3PidController extends State<Settings3Pid> {
     );
     if (input == null) return;
     final clientSecret = DateTime.now().millisecondsSinceEpoch.toString();
-    final response = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final response = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => Matrix.of(context).client.requestTokenToRegisterEmail(
             clientSecret,
             input.single,
@@ -51,7 +51,7 @@ class Settings3PidController extends State<Settings3Pid> {
       okLabel: L10n.of(context)!.iHaveClickedOnLink,
     );
     if (ok != OkCancelResult.ok) return;
-    final success = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final success = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => Matrix.of(context).client.uiaRequestBackground(
             (auth) => Matrix.of(context).client.add3PID(
                   clientSecret,
@@ -77,7 +77,7 @@ class Settings3PidController extends State<Settings3Pid> {
         OkCancelResult.ok) {
       return;
     }
-    final success = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final success = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => Matrix.of(context).client.delete3pidFromAccount(
             identifier.address,
             identifier.medium,

@@ -42,13 +42,13 @@ class SearchableAppBar extends StatelessWidget {
       bottom: PreferredSize(
         preferredSize: const Size(double.infinity, 4),
         child: Container(
-          color: LinagoraStateLayer(
-            LinagoraSysColors.material().surfaceTint,
+          color: DediStateLayer(
+            DediSysColors.material().surfaceTint,
           ).opacityLayer1,
           height: 1,
         ),
       ),
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       title: Align(
         alignment: Alignment.centerLeft,
         child: Column(
@@ -60,7 +60,7 @@ class SearchableAppBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (isFullScreen) ...[
-                  TwakeIconButton(
+                  DediIconButton(
                     icon: Icons.chevron_left_outlined,
                     onTap: () {
                       if (!FirstColumnInnerRoutes.instance
@@ -119,7 +119,7 @@ class SearchableAppBar extends StatelessWidget {
                                 ? child!
                                 : const SizedBox.shrink();
                           },
-                          child: TwakeIconButton(
+                          child: DediIconButton(
                             onTap: closeSearchBar,
                             tooltip: L10n.of(context)!.close,
                             icon: Icons.close,
@@ -129,7 +129,7 @@ class SearchableAppBar extends StatelessWidget {
                           ),
                         );
                       }
-                      return TwakeIconButton(
+                      return DediIconButton(
                         icon: Icons.search,
                         onTap: openSearchBar,
                         tooltip: L10n.of(context)!.search,
@@ -140,7 +140,7 @@ class SearchableAppBar extends StatelessWidget {
                   ),
                 ] else ...[
                   if (displayBackButton)
-                    TwakeIconButton(
+                    DediIconButton(
                       onTap: () => Navigator.of(context).pop(),
                       tooltip: L10n.of(context)!.close,
                       icon: Icons.close,
@@ -163,8 +163,8 @@ class SearchableAppBar extends StatelessWidget {
             if (!isFullScreen)
               Divider(
                 height: 1,
-                color: LinagoraStateLayer(
-                  LinagoraSysColors.material().surfaceTint,
+                color: DediStateLayer(
+                  DediSysColors.material().surfaceTint,
                 ).opacityLayer3,
               ),
             if (!isFullScreen)
@@ -186,7 +186,7 @@ class SearchableAppBar extends StatelessWidget {
       focusNode: focusNode,
       autofocus: true,
       maxLines: SearchableAppBarStyle.textFieldMaxLines,
-      contextMenuBuilder: mobileTwakeContextMenuBuilder,
+      contextMenuBuilder: mobileDediContextMenuBuilder,
       buildCounter: (
         BuildContext context, {
         required int currentLength,
@@ -212,7 +212,7 @@ class SearchableAppBar extends StatelessWidget {
             : null,
         suffixIcon: const SizedBox.shrink(),
         hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: LinagoraRefColors.material().neutral[60],
+              color: DediRefColors.material().neutral[60],
             ),
       ),
     );

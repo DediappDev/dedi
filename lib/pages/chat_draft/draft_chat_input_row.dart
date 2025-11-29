@@ -34,7 +34,7 @@ class DraftChatInputRow extends StatelessWidget {
   final ValueNotifier<AudioRecordState> audioRecordStateNotifier;
   final Function()? startRecording;
   final Function()? stopRecording;
-  final void Function(TwakeAudioFile, Duration, List<int>)?
+  final void Function(DediAudioFile, Duration, List<int>)?
       sendVoiceMessageAction;
 
   const DraftChatInputRow({
@@ -78,7 +78,7 @@ class DraftChatInputRow extends StatelessWidget {
                   if (ChatInputRowStyle.responsiveUtils.isMobile(context))
                     SizedBox(
                       height: ChatInputRowStyle.chatInputRowHeight,
-                      child: TwakeIconButton(
+                      child: DediIconButton(
                         size: ChatInputRowStyle.chatInputRowMoreBtnSize,
                         tooltip: L10n.of(context)!.more,
                         icon: Icons.add_circle_outline,
@@ -127,17 +127,17 @@ class DraftChatInputRow extends StatelessWidget {
               radius: BorderRadius.circular(24),
               soundRecorderWhenLockedDecoration: BoxDecoration(
                 borderRadius: ChatInputRowStyle.chatInputRowBorderRadius,
-                color: LinagoraSysColors.material().onPrimary,
+                color: DediSysColors.material().onPrimary,
                 border: Border.all(
-                  color: LinagoraRefColors.material().tertiary,
+                  color: DediRefColors.material().tertiary,
                   width: 1,
                 ),
               ),
               decoration: BoxDecoration(
                 borderRadius: ChatInputRowStyle.chatInputRowBorderRadius,
-                color: LinagoraSysColors.material().onPrimary,
+                color: DediSysColors.material().onPrimary,
                 border: Border.all(
-                  color: LinagoraRefColors.material().tertiary,
+                  color: DediRefColors.material().tertiary,
                   width: 1,
                 ),
               ),
@@ -160,7 +160,7 @@ class DraftChatInputRow extends StatelessWidget {
                 );
                 stopRecording?.call();
 
-                final file = TwakeAudioFile(
+                final file = DediAudioFile(
                   name: soundFile.path,
                   filePath: soundFile.path,
                   duration: time.inMilliseconds,
@@ -173,20 +173,20 @@ class DraftChatInputRow extends StatelessWidget {
               cancelTextBackGroundColor: Colors.transparent,
               cancelText: L10n.of(context)!.cancel,
               cancelTextStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: LinagoraSysColors.material().primary,
+                    color: DediSysColors.material().primary,
                   ),
               slideToCancelText: L10n.of(context)!.slideToCancel,
               slideToCancelTextStyle:
                   Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: LinagoraRefColors.material().neutral[30],
+                        color: DediRefColors.material().neutral[30],
                       ),
               counterTextStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: LinagoraRefColors.material().neutral[50],
+                    color: DediRefColors.material().neutral[50],
                   ),
               slideToCancelPadding: const EdgeInsets.only(right: 24),
               recordIcon: Icon(
                 Icons.keyboard_voice_outlined,
-                color: LinagoraSysColors.material().tertiary,
+                color: DediSysColors.material().tertiary,
               ),
               soundRecorderWhenLockedWidth:
                   MediaQuery.of(context).size.width - 16,
@@ -196,7 +196,7 @@ class DraftChatInputRow extends StatelessWidget {
                 height: 12,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: LinagoraSysColors.material().error,
+                  color: DediSysColors.material().error,
                 ),
               ),
             ),

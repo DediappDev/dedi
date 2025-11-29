@@ -169,7 +169,7 @@ class HomeserverPickerController extends State<HomeserverPicker>
 
       if (homeserverExists &&
           !AppConfig.supportMultipleAccountsInTheSameHomeserver) {
-        TwakeSnackBar.show(
+        DediSnackBar.show(
           context,
           L10n.of(context)!.isSingleAccountOnHomeserver,
         );
@@ -276,7 +276,7 @@ class HomeserverPickerController extends State<HomeserverPicker>
     final picked = await FilePicker.platform.pickFiles(withData: true);
     final file = picked?.files.firstOrNull;
     if (file == null) return;
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         try {
           final client = Matrix.of(context).getLoginClient();

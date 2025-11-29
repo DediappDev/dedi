@@ -10,11 +10,11 @@ class NewChatRobot extends CoreRobot {
   NewChatRobot(super.$);
 
   PatrolFinder getBackIcon() {
-    return $(TwakeIconButton).containing(find.byTooltip('Back'));
+    return $(DediIconButton).containing(find.byTooltip('Back'));
   }
 
   PatrolFinder getSearchIcon() {
-    return $(TwakeIconButton).containing(find.byTooltip('Search'));
+    return $(DediIconButton).containing(find.byTooltip('Search'));
   }
 
   PatrolFinder getSearchField() {
@@ -28,21 +28,25 @@ class NewChatRobot extends CoreRobot {
   Future<void> makeASearch(String searchKey) async {
     await getSearchIcon().tap();
     await typeSlowlyWithPatrol($, getSearchField(), searchKey);
-    await waitForEitherVisible($: $, first: $(TwakeListItem), second: $("No Results"), timeout: const Duration(seconds: 10));
+    await waitForEitherVisible(
+        $: $,
+        first: $(DediListItem),
+        second: $("No Results"),
+        timeout: const Duration(seconds: 10));
   }
 
-  Future<void> clickOnNewGroupChatIcon() async{
+  Future<void> clickOnNewGroupChatIcon() async {
     await getNewGroupChatIcon().tap();
     await $.waitUntilVisible($(AppBar).$("Add members"));
   }
 
-  List<TwakeListItemRobot> getListOfAccount() {   
-    final List<TwakeListItemRobot> groupList = [];
+  List<DediListItemRobot> getListOfAccount() {
+    final List<DediListItemRobot> groupList = [];
 
-    final matches = $(TwakeListItem).evaluate();
+    final matches = $(DediListItem).evaluate();
     for (final element in matches) {
       final finder = $(element.widget.runtimeType);
-      groupList.add(TwakeListItemRobot($, finder));
+      groupList.add(DediListItemRobot($, finder));
     }
     return groupList;
   }

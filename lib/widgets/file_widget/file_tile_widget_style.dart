@@ -11,8 +11,8 @@ class FileTileWidgetStyle {
 
   Color backgroundColor(BuildContext context, {bool ownMessage = false}) =>
       ownMessage
-          ? LinagoraSysColors.material().primaryContainer
-          : LinagoraSysColors.material().onSurface.withOpacity(0.08);
+          ? DediSysColors.material().primaryContainer
+          : DediSysColors.material().onSurface.withOpacity(0.08);
 
   BorderRadiusGeometry get borderRadius => BorderRadius.circular(8.0);
 
@@ -24,7 +24,7 @@ class FileTileWidgetStyle {
 
   double get imageSize => 40;
 
-  Color? get fileInfoColor => LinagoraRefColors.material().tertiary[20];
+  Color? get fileInfoColor => DediRefColors.material().tertiary[20];
 
   TextStyle highlightTextStyle(BuildContext context) {
     return TextStyle(

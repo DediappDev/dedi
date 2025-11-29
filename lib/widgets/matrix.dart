@@ -118,7 +118,7 @@ class MatrixState extends State<Matrix>
 
   ValueNotifier<bool> showToMBootstrap = ValueNotifier(false);
 
-  bool get twakeSupported {
+  bool get dediSupported {
     final tomServerUrlInterceptor = getIt.get<DynamicUrlInterceptors>(
       instanceName: NetworkDI.tomServerUrlInterceptorName,
     );
@@ -310,7 +310,7 @@ class MatrixState extends State<Matrix>
   bool webHasFocus = true;
 
   String? get activeRoomId {
-    final path = TwakeApp.router.routeInformationProvider.value.uri.path;
+    final path = DediApp.router.routeInformationProvider.value.uri.path;
     if (!path.startsWith('/rooms/')) return null;
     return path.split('/')[2];
   }
@@ -388,7 +388,7 @@ class MatrixState extends State<Matrix>
       request.onUpdate = null;
       hidPopup = true;
       await KeyVerificationDialog(request: request).show(
-        TwakeApp.router.routerDelegate.navigatorKey.currentContext ?? context,
+        DediApp.router.routerDelegate.navigatorKey.currentContext ?? context,
       );
     });
     onLoginStateChanged[name] ??= currentClient.onLoginStateChanged.stream
@@ -410,7 +410,7 @@ class MatrixState extends State<Matrix>
       });
 
       currentClient.onToDeviceEvent.stream.listen((deviceEvent) {
-        if (deviceEvent.type == TwakeEventTypes.addressBookUpdatedEventType) {
+        if (deviceEvent.type == DediEventTypes.addressBookUpdatedEventType) {
           final senderId = deviceEvent.senderId;
           Logs().d(
             '[MATRIX]: onToDeviceEvent:: addressBookUpdatedEventType: senderDevice = $senderId',
@@ -464,8 +464,8 @@ class MatrixState extends State<Matrix>
     await ClientManager.removeClientNameFromStore(currentClient.clientName);
     await matrixState.cancelListenSynchronizeContacts();
     matrixState.reSyncContacts();
-    TwakeSnackBar.show(
-      TwakeApp.routerKey.currentContext!,
+    DediSnackBar.show(
+      DediApp.routerKey.currentContext!,
       L10n.of(context)!.oneClientLoggedOut,
     );
     final result = await setActiveClient(widget.clients.first);
@@ -473,7 +473,7 @@ class MatrixState extends State<Matrix>
       '[MATRIX]:_handleLogoutWithMultipleAccount:: Log out Client ${currentClient.clientName} successful',
     );
     if (state != LoginState.loggedIn && result.isSuccess) {
-      TwakeApp.router.go(
+      DediApp.router.go(
         '/rooms',
         extra: LogoutBodyArgs(
           newActiveClient: widget.clients.first,
@@ -896,7 +896,7 @@ class MatrixState extends State<Matrix>
 
   Future<void> _setUpToMServicesWhenChangingActiveClient(Client? client) async {
     Logs().d(
-      'Matrix::_setUpToMServicesWhenChangingActiveClient: Old twakeSupported - $twakeSupported',
+      'Matrix::_setUpToMServicesWhenChangingActiveClient: Old dediSupported - $dediSupported',
     );
     if (client == null && client?.userID == null) return;
     try {
@@ -922,7 +922,7 @@ class MatrixState extends State<Matrix>
       Logs().e('Matrix::_setUpToMServicesWhenChangingActiveClient: error - $e');
     }
     Logs().d(
-      'Matrix::_setUpToMServicesWhenChangingActiveClient: New twakeSupported - $twakeSupported',
+      'Matrix::_setUpToMServicesWhenChangingActiveClient: New dediSupported - $dediSupported',
     );
   }
 
@@ -978,7 +978,7 @@ class MatrixState extends State<Matrix>
     loginHomeserverSummary =
         await newClient.checkHomeserver(newClient.homeserver!);
     Logs().d(
-      'Matrix::_getHomeserverInformation: appTwakeInformation ${loginHomeserverSummary?.appTwakeInformation}',
+      'Matrix::_getHomeserverInformation: appDediInformation ${loginHomeserverSummary?.appDediInformation}',
     );
   }
 
@@ -1042,9 +1042,9 @@ class MatrixState extends State<Matrix>
     await matrixState.cancelListenSynchronizeContacts();
     if (PlatformInfos.isMobile) {
       await _deletePersistActiveAccount();
-      TwakeApp.router.go('/home/twakeWelcome');
+      DediApp.router.go('/home/dediWelcome');
     } else {
-      TwakeApp.router.go('/home', extra: true);
+      DediApp.router.go('/home', extra: true);
     }
     await _deleteAllTomConfigurations();
   }

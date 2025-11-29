@@ -42,12 +42,12 @@ class MediaViewerAppbarView extends StatelessWidget {
                           MediaViewerAppBar.responsiveUtils.isMobile(context)
                               ? Icons.chevron_left_outlined
                               : Icons.close,
-                          color: LinagoraSysColors.material().onPrimary,
+                          color: DediSysColors.material().onPrimary,
                         ),
                         onPressed: () => controller.onClose(
                           context,
                         ),
-                        color: LinagoraSysColors.material().onPrimary,
+                        color: DediSysColors.material().onPrimary,
                         tooltip: L10n.of(context)!.back,
                       ),
                       Row(
@@ -60,10 +60,10 @@ class MediaViewerAppbarView extends StatelessWidget {
                                   controller.widget.event,
                                 ),
                                 tooltip: L10n.of(context)!.share,
-                                color: LinagoraSysColors.material().onPrimary,
+                                color: DediSysColors.material().onPrimary,
                                 icon: Icon(
                                   Icons.share,
-                                  color: LinagoraSysColors.material().onPrimary,
+                                  color: DediSysColors.material().onPrimary,
                                 ),
                               ),
                             ),
@@ -71,13 +71,13 @@ class MediaViewerAppbarView extends StatelessWidget {
                             IconButton(
                               icon: Icon(
                                 Icons.shortcut,
-                                color: LinagoraSysColors.material().onPrimary,
+                                color: DediSysColors.material().onPrimary,
                               ),
                               onPressed: () => controller.forwardAction(
                                 context,
                                 controller.widget.event,
                               ),
-                              color: LinagoraSysColors.material().onPrimary,
+                              color: DediSysColors.material().onPrimary,
                               tooltip: L10n.of(context)!.share,
                             ),
                           if (controller.widget.event != null)
@@ -145,12 +145,12 @@ class MediaViewerAppbarView extends StatelessWidget {
                                     child: Padding(
                                       padding: MediaViewewAppbarStyle
                                           .marginAllShowMoreIcon,
-                                      child: TwakeIconButton(
+                                      child: DediIconButton(
                                         paddingAll: MediaViewewAppbarStyle
                                             .paddingAllShowMoreIcon,
                                         icon: Icons.more_vert,
-                                        iconColor: LinagoraSysColors.material()
-                                            .onPrimary,
+                                        iconColor:
+                                            DediSysColors.material().onPrimary,
                                       ),
                                     ),
                                   ),

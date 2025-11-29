@@ -64,7 +64,7 @@ class ChatEncryptionSettingsController extends State<ChatEncryptionSettings> {
       cancelLabel: L10n.of(context)!.cancel,
     );
     if (consent != OkCancelResult.ok) return;
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => room.enableEncryption(),
     );
   }

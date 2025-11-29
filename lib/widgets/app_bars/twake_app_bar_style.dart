@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:linagora_design_flutter/colors/linagora_sys_colors.dart';
 import 'package:linagora_design_flutter/style/linagora_text_style.dart';
 
-class TwakeAppBarStyle {
+class DediAppBarStyle {
   static ResponsiveUtils responsiveUtils = getIt.get<ResponsiveUtils>();
 
   bool isMobile(BuildContext context) => responsiveUtils.isMobile(context);
 
   static Color appBarBackgroundColor(BuildContext context) =>
       responsiveUtils.isMobile(context)
-          ? LinagoraSysColors.material().background
-          : LinagoraSysColors.material().onPrimary;
+          ? DediSysColors.material().background
+          : DediSysColors.material().onPrimary;
 
   static TextStyle? titleTextStyle(
     BuildContext context, {
@@ -24,7 +24,7 @@ class TwakeAppBarStyle {
                 height: 32 / 24,
               )
           : responsiveUtils.isMobile(context)
-              ? LinagoraTextStyle.material().bodyLarge1.copyWith(
+              ? DediTextStyle.material().bodyLarge1.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
                     height: 24 / 17,
                   )

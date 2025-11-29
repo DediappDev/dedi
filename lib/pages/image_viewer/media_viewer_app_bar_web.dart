@@ -14,7 +14,7 @@ import 'package:matrix/matrix.dart';
 
 class MediaViewerAppBarWeb extends StatelessWidget
     with
-        SaveFileToTwakeAndroidDownloadsFolderMixin,
+        SaveFileToDediAndroidDownloadsFolderMixin,
         SaveMediaToGalleryAndroidMixin,
         MediaViewerAppBarMixin {
   final Event? event;
@@ -40,12 +40,12 @@ class MediaViewerAppBarWeb extends StatelessWidget
                 MediaViewerAppBar.responsiveUtils.isMobile(context)
                     ? Icons.chevron_left_outlined
                     : Icons.close,
-                color: LinagoraSysColors.material().onPrimary,
+                color: DediSysColors.material().onPrimary,
               ),
               onPressed: () => onClose(
                 context,
               ),
-              color: LinagoraSysColors.material().onPrimary,
+              color: DediSysColors.material().onPrimary,
               tooltip: L10n.of(context)!.back,
             ),
             Row(
@@ -54,20 +54,20 @@ class MediaViewerAppBarWeb extends StatelessWidget
                   IconButton(
                     icon: Icon(
                       Icons.shortcut,
-                      color: LinagoraSysColors.material().onPrimary,
+                      color: DediSysColors.material().onPrimary,
                     ),
                     onPressed: () => forwardAction(
                       context,
                       event,
                     ),
-                    color: LinagoraSysColors.material().onPrimary,
+                    color: DediSysColors.material().onPrimary,
                     tooltip: L10n.of(context)!.share,
                   ),
                 if (event != null) ...[
                   IconButton(
                     icon: Icon(
                       Icons.file_download_outlined,
-                      color: LinagoraSysColors.material().onPrimary,
+                      color: DediSysColors.material().onPrimary,
                     ),
                     tooltip: L10n.of(context)!.saveFile,
                     onPressed: () => saveFileAction(
@@ -80,7 +80,7 @@ class MediaViewerAppBarWeb extends StatelessWidget
                     icon: SvgPicture.asset(
                       ImagePaths.icShowInChat,
                       colorFilter: ColorFilter.mode(
-                        LinagoraSysColors.material().onPrimary,
+                        DediSysColors.material().onPrimary,
                         BlendMode.srcIn,
                       ),
                     ),

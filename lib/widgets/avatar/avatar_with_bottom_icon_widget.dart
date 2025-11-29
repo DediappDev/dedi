@@ -55,7 +55,7 @@ class AvatarWithBottomIconWidget extends StatelessWidget {
                 width: 2,
                 color: Colors.white,
               ),
-              color: LinagoraRefColors.material().neutral[60],
+              color: DediRefColors.material().neutral[60],
               shape: BoxShape.circle,
             ),
             child: Center(

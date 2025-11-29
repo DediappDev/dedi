@@ -25,9 +25,9 @@ mixin AddressBooksMixin {
         deviceId != null) {
       Logs().d('$runtimeType::_handleAddressBookUpdatedEvent sendToDevice');
       client.sendToDevice(
-        TwakeEventTypes.addressBookUpdatedEventType,
+        DediEventTypes.addressBookUpdatedEventType,
         client.generateUniqueTransactionId(),
-        TwakeEventMessages.updateAddressBookMessage(userId, deviceId),
+        DediEventMessages.updateAddressBookMessage(userId, deviceId),
       );
     }
   }

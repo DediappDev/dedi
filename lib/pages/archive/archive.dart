@@ -39,7 +39,7 @@ class ArchiveController extends State<Archive> {
         OkCancelResult.ok) {
       return;
     }
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         while (archive.isNotEmpty) {
           Logs().v('Forget room ${archive.last.getLocalizedDisplayname()}');

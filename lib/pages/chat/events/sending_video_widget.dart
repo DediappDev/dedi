@@ -77,7 +77,7 @@ class _SendingVideoWidgetState extends State<SendingVideoWidget>
                             height: MessageContentStyle.videoCenterButtonSize,
                             child: CircularProgressIndicator(
                               strokeWidth: MessageContentStyle.strokeVideoWidth,
-                              color: LinagoraRefColors.material().primary[100],
+                              color: DediRefColors.material().primary[100],
                             ),
                           ),
                         );
@@ -180,7 +180,7 @@ class _PlayVideoButton extends StatelessWidget {
       alignment: Alignment.center,
       child: Icon(
         event != null ? Icons.close : Icons.play_arrow_rounded,
-        color: LinagoraRefColors.material().primary[100],
+        color: DediRefColors.material().primary[100],
         size: MessageContentStyle.iconInsideVideoButtonSize,
       ),
     );

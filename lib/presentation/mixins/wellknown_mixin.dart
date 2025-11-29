@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
 
 mixin WellKnownMixin {
-  static const _twakeChatKey = 'app.twake.chat';
+  static const _dediChatKey = 'app.dedi.chat';
   static const _enableInvitation = 'enable_invitations';
 
   final ValueNotifier<DiscoveryInformation?> discoveryInformationNotifier =
@@ -25,7 +25,7 @@ mixin WellKnownMixin {
     final additionalProperties =
         discoveryInformationNotifier.value?.additionalProperties;
     final enableInvitation =
-        additionalProperties?[_twakeChatKey]?[_enableInvitation] as bool?;
+        additionalProperties?[_dediChatKey]?[_enableInvitation] as bool?;
     Logs().d(
       'WellKnownMixin::supportInvitation(): enableInvitation - $enableInvitation',
     );

@@ -30,7 +30,7 @@ class PublicRoomBottomSheet extends StatelessWidget {
 
   void _joinRoom(BuildContext context) async {
     final client = Matrix.of(context).client;
-    final result = await TwakeDialog.showFutureLoadingDialogFullScreen<String>(
+    final result = await DediDialog.showFutureLoadingDialogFullScreen<String>(
       future: () => chunk?.joinRule == 'knock'
           ? client.knockRoom(chunk!.roomId)
           : client.joinRoom(roomAlias ?? chunk!.roomId),

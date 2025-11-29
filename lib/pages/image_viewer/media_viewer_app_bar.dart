@@ -27,7 +27,7 @@ class MediaViewerAppBar extends StatefulWidget {
 
 class MediaViewerAppBarController extends State<MediaViewerAppBar>
     with
-        SaveFileToTwakeAndroidDownloadsFolderMixin,
+        SaveFileToDediAndroidDownloadsFolderMixin,
         SaveMediaToGalleryAndroidMixin,
         MediaViewerAppBarMixin {
   ValueNotifier<bool>? get showAppbarPreview =>

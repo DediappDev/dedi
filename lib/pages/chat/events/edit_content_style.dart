@@ -31,7 +31,7 @@ class EditContentStyle {
       );
     }
     return BoxDecoration(
-      color: LinagoraSysColors.material().primaryContainer,
+      color: DediSysColors.material().primaryContainer,
       borderRadius: BorderRadius.circular(16.0),
     );
   }
@@ -49,7 +49,7 @@ class EditContentStyle {
 
   static TextStyle? editTitleDefaultStyle(BuildContext context) {
     return Theme.of(context).textTheme.labelMedium?.copyWith(
-          color: LinagoraSysColors.material().secondary,
+          color: DediSysColors.material().secondary,
         );
   }
 }

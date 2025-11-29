@@ -20,7 +20,7 @@ class ChatDetailsFileTileRowDownloadingWeb extends StatelessWidget {
   });
 
   final GestureTapCallback onTap;
-  final TwakeMimeType mimeType;
+  final DediMimeType mimeType;
   final String filename;
   final String? sizeString;
   final String? fileType;
@@ -30,7 +30,7 @@ class ChatDetailsFileTileRowDownloadingWeb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      hoverColor: LinagoraSysColors.material().surfaceVariant,
+      hoverColor: DediSysColors.material().surfaceVariant,
       onTap: onTap,
       child: ChatDetailsFileRowDownloadingWrapper(
         mimeType: mimeType,

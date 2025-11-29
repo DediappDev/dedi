@@ -3,7 +3,7 @@ import 'package:fluffychat/widgets/twake_components/twake_text_button_style.dart
 import 'package:flutter/material.dart';
 import 'package:linagora_design_flutter/linagora_design_flutter.dart';
 
-class TwakeTextButton extends StatelessWidget {
+class DediTextButton extends StatelessWidget {
   final BoxDecoration? buttonDecoration;
 
   final String message;
@@ -30,7 +30,7 @@ class TwakeTextButton extends StatelessWidget {
 
   final BoxConstraints? constraints;
 
-  const TwakeTextButton({
+  const DediTextButton({
     super.key,
     required this.message,
     this.styleMessage,
@@ -60,8 +60,7 @@ class TwakeTextButton extends StatelessWidget {
         child: Container(
           constraints: constraints ??
               BoxConstraints(
-                maxWidth:
-                    TwakeTextButtonStyle.getBoxConstraintMaxWidth(context),
+                maxWidth: DediTextButtonStyle.getBoxConstraintMaxWidth(context),
               ),
           height: 48,
           padding: margin,
@@ -75,7 +74,7 @@ class TwakeTextButton extends StatelessWidget {
                 message,
                 style: styleMessage ??
                     Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: LinagoraSysColors.material().onPrimary,
+                          color: DediSysColors.material().onPrimary,
                         ),
                 overflow: TextOverflow.ellipsis,
               ),

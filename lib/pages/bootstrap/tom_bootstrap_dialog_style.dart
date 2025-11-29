@@ -12,7 +12,7 @@ class TomBootstrapDialogStyle {
 
   static Color? barrierColor(BuildContext context) =>
       responsiveUtils.isMobile(context)
-          ? LinagoraSysColors.material().onPrimary
+          ? DediSysColors.material().onPrimary
           : Colors.transparent;
 
   static double? sizedDialogWeb = PlatformInfos.isMobile ? null : 400;

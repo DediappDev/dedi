@@ -10,11 +10,11 @@ class AppAdaptiveScaffoldBodyViewStyle {
   );
 
   static BoxDecoration navBarBorder = BoxDecoration(
-    color: LinagoraSysColors.material().surface,
+    color: DediSysColors.material().surface,
     border: Border(
       top: BorderSide(
-        color: LinagoraStateLayer(
-          LinagoraSysColors.material().surfaceTint,
+        color: DediStateLayer(
+          DediSysColors.material().surfaceTint,
         ).opacityLayer3,
       ),
     ),

@@ -24,16 +24,16 @@ class SettingsBlockedUsersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: TwakeAppBar(
+      appBar: DediAppBar(
         title: L10n.of(context)!.blockedUsers,
         centerTitle: true,
         withDivider: true,
         context: context,
         enableLeftTitle: true,
         onBack: controller.onBack,
-        leading: TwakeIconButton(
+        leading: DediIconButton(
           paddingAll: 8,
           splashColor: Colors.transparent,
           hoverColor: Colors.transparent,
@@ -52,17 +52,17 @@ class SettingsBlockedUsersView extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
                   controller: controller.textEditingController,
-                  contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                  contextMenuBuilder: mobileDediContextMenuBuilder,
                   focusNode: controller.inputFocus,
                   textInputAction: TextInputAction.search,
                   autofocus: true,
                   decoration: ChatListHeaderStyle.searchInputDecoration(
                     context,
-                    prefixIconColor: LinagoraSysColors.material().tertiary,
+                    prefixIconColor: DediSysColors.material().tertiary,
                   ).copyWith(
                     hintStyle:
                         Theme.of(context).textTheme.titleMedium?.copyWith(
-                              color: LinagoraSysColors.material().tertiary,
+                              color: DediSysColors.material().tertiary,
                             ),
                     hintText: L10n.of(context)!.enterAnEmailAddress,
                     suffixIcon: ValueListenableBuilder(
@@ -103,7 +103,7 @@ class SettingsBlockedUsersView extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final profile = success.blockedUsers[index];
 
-                            return TwakeInkWell(
+                            return DediInkWell(
                               onTap: () {},
                               child: _itemMemberBuilder(
                                 context: context,
@@ -131,7 +131,7 @@ class SettingsBlockedUsersView extends StatelessWidget {
     required Profile profile,
     required ResponsiveUtils responsiveUtils,
   }) {
-    return TwakeInkWell(
+    return DediInkWell(
       onTap: () {
         final roomId =
             Matrix.of(context).client.getDirectChatFromUserId(profile.userId);
@@ -158,7 +158,7 @@ class SettingsBlockedUsersView extends StatelessWidget {
           }
         }
       },
-      child: TwakeListItem(
+      child: DediListItem(
         padding: const EdgeInsets.all(8),
         child: Row(
           children: [
@@ -176,10 +176,8 @@ class SettingsBlockedUsersView extends StatelessWidget {
                       Expanded(
                         child: Text(
                           profile.displayName ?? '',
-                          style: LinagoraTextStyle.material()
-                              .bodyMedium2
-                              .copyWith(
-                                color: LinagoraSysColors.material().onSurface,
+                          style: DediTextStyle.material().bodyMedium2.copyWith(
+                                color: DediSysColors.material().onSurface,
                               ),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
@@ -190,7 +188,7 @@ class SettingsBlockedUsersView extends StatelessWidget {
                   Text(
                     profile.userId,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: LinagoraRefColors.material().tertiary[30],
+                          color: DediRefColors.material().tertiary[30],
                         ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,

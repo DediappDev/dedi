@@ -23,8 +23,8 @@ class EmotesSettingsView extends StatelessWidget {
     final client = Matrix.of(context).client;
     final imageKeys = controller.pack!.images.keys.toList();
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
-      appBar: TwakeAppBar(
+      backgroundColor: DediSysColors.material().onPrimary,
+      appBar: DediAppBar(
         title: L10n.of(context)!.emoteSettings,
         context: context,
       ),
@@ -53,7 +53,7 @@ class EmotesSettingsView extends StatelessWidget {
                     ),
                     child: TextField(
                       controller: controller.newImageCodeController,
-                      contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                      contextMenuBuilder: mobileDediContextMenuBuilder,
                       autocorrect: false,
                       minLines: 1,
                       maxLines: 1,
@@ -161,7 +161,7 @@ class EmotesSettingsView extends StatelessWidget {
                                   readOnly: controller.readonly,
                                   controller: textEditingController,
                                   contextMenuBuilder:
-                                      mobileTwakeContextMenuBuilder,
+                                      mobileDediContextMenuBuilder,
                                   autocorrect: false,
                                   minLines: 1,
                                   maxLines: 1,

@@ -25,7 +25,7 @@ mixin HandleClipboardActionMixin on PasteImageMixin {
   void _onPasteEvent(ClipboardReadEvent event) async {
     if (chatFocusNode.hasFocus != true || room == null) return Future.value();
     final clipboardReader = await event.getClipboardReader();
-    if (await TwakeClipboard.instance
+    if (await DediClipboard.instance
         .isReadableImageFormat(clipboardReader: clipboardReader)) {
       await pasteClipboardImage(clipboardReader);
     } else {

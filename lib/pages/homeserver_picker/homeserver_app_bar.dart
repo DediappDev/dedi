@@ -16,7 +16,7 @@ class HomeserverAppBar extends StatelessWidget {
     return TextField(
       focusNode: controller.homeserverFocusNode,
       controller: controller.homeserverController,
-      contextMenuBuilder: mobileTwakeContextMenuBuilder,
+      contextMenuBuilder: mobileDediContextMenuBuilder,
       onChanged: controller.onChanged,
       decoration: InputDecoration(
         prefixIcon: Navigator.of(context).canPop()

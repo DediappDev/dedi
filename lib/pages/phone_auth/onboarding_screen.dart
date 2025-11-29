@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,14 +22,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ),
     OnboardingData(
       title: 'Uçtan Uca Şifreli',
-      description: 'Tüm mesajlarınız yalnızca sizin ve alıcının görüntüleyebileceği şekilde şifrelenir.',
+      description:
+          'Tüm mesajlarınız yalnızca sizin ve alıcının görüntüleyebileceği şekilde şifrelenir.',
       icon: Icons.lock,
     ),
     OnboardingData(
-      title: 'Kurumunuza Özel',
+      title: 'DNA Şifreleme',
       description:
-          'Dedi, Matrix altyapınıza bağlanır ve tüm iletişim verileriniz kurumunuzda kalır.',
-      icon: Icons.apartment,
+          'Her mesajınız benzersiz DNA şifreleme ile korunur. Veriniz sizde kalır, kimse erişemez.',
+      icon: Icons.apartment, // Will be replaced with custom DNA icon
+      isCustomIcon: true,
+      customIconPath: 'assets/icons/ic_dna_helix.svg',
     ),
   ];
 
@@ -107,14 +111,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         width: 120,
                         height: 120,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor.withOpacity(0.1),
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(60),
                         ),
-                        child: Icon(
-                          page.icon,
-                          size: 60,
-                          color: Theme.of(context).primaryColor,
-                        ),
+                        child: page.isCustomIcon && page.customIconPath != null
+                            ? SvgPicture.asset(
+                                page.customIconPath!,
+                                width: 60,
+                                height: 60,
+                                colorFilter: ColorFilter.mode(
+                                  Theme.of(context).primaryColor,
+                                  BlendMode.srcIn,
+                                ),
+                              )
+                            : Icon(
+                                page.icon,
+                                size: 60,
+                                color: Theme.of(context).primaryColor,
+                              ),
                       ),
 
                       const SizedBox(height: 48),
@@ -190,7 +205,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       elevation: 0,
                     ),
                     child: Text(
-                      _currentPage == _pages.length - 1 ? 'Başlayalım' : 'Devam',
+                      _currentPage == _pages.length - 1
+                          ? 'Başlayalım'
+                          : 'Devam',
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -217,10 +234,14 @@ class OnboardingData {
   final String title;
   final String description;
   final IconData icon;
+  final bool isCustomIcon;
+  final String? customIconPath;
 
   OnboardingData({
     required this.title,
     required this.description,
     required this.icon,
+    this.isCustomIcon = false,
+    this.customIconPath,
   });
 }

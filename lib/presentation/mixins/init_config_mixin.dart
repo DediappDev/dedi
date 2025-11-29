@@ -1,4 +1,5 @@
 import 'package:fluffychat/config/app_config.dart';
+import 'package:fluffychat/config/config_inheritance_loader.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -7,11 +8,24 @@ import 'package:matrix/matrix.dart';
 mixin InitConfigMixin {
   Future<void> initConfigWeb() async {
     try {
+      // Try inheritance loader first (for mobile/desktop)
+      try {
+        final configJson = await ConfigInheritanceLoader.loadConfig();
+        AppConfig.loadFromJson(configJson);
+        Logs().d('[ConfigLoader] Loaded config with inheritance: $configJson');
+        AppConfig.initConfigCompleter.complete(true);
+        return;
+      } catch (e) {
+        Logs().v(
+            '[ConfigLoader] Inheritance loader failed, trying HTTP fallback: $e');
+      }
+
+      // Fallback to HTTP loading for web
       final configJsonString =
           utf8.decode((await http.get(Uri.parse('config.json'))).bodyBytes);
       final configJson = json.decode(configJsonString);
       AppConfig.loadFromJson(configJson);
-      Logs().d('[ConfigLoader] $configJson');
+      Logs().d('[ConfigLoader] Loaded config via HTTP: $configJson');
       AppConfig.initConfigCompleter.complete(true);
     } on FormatException catch (_) {
       _retryInitConfigWeb();

@@ -53,7 +53,7 @@ class _ParticipantListItemState extends State<ParticipantListItem> {
 
   @override
   Widget build(BuildContext context) {
-    final child = TwakeInkWell(
+    final child = DediInkWell(
       onTap: () async => await _onItemTap(context),
       onLongPress: () => widget.onSelectMember?.call(widget.member),
       onHover: (hover) {
@@ -62,7 +62,7 @@ class _ParticipantListItemState extends State<ParticipantListItem> {
           isHoverParticipantItemNotifier.value = hover;
         }
       },
-      child: TwakeListItem(
+      child: DediListItem(
         height: 72,
         padding: const EdgeInsets.all(8),
         child: Row(
@@ -97,11 +97,11 @@ class _ParticipantListItemState extends State<ParticipantListItem> {
                                   widget.member.calcDisplayname(),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
-                                  style: LinagoraTextStyle.material()
+                                  style: DediTextStyle.material()
                                       .bodyMedium2
                                       .copyWith(
-                                        color: LinagoraSysColors.material()
-                                            .onSurface,
+                                        color:
+                                            DediSysColors.material().onSurface,
                                       ),
                                 ),
                               ),
@@ -118,9 +118,8 @@ class _ParticipantListItemState extends State<ParticipantListItem> {
                                             .textTheme
                                             .labelMedium
                                             ?.copyWith(
-                                              color:
-                                                  LinagoraRefColors.material()
-                                                      .tertiary[30],
+                                              color: DediRefColors.material()
+                                                  .tertiary[30],
                                             ),
                                       ),
                                     );
@@ -137,8 +136,7 @@ class _ParticipantListItemState extends State<ParticipantListItem> {
                                 .textTheme
                                 .bodyMedium
                                 ?.copyWith(
-                                  color:
-                                      LinagoraRefColors.material().tertiary[30],
+                                  color: DediRefColors.material().tertiary[30],
                                 ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
@@ -155,8 +153,7 @@ class _ParticipantListItemState extends State<ParticipantListItem> {
                         return Padding(
                           padding: const EdgeInsets.only(right: 20),
                           child: InkWell(
-                            splashColor:
-                                LinagoraHoverStyle.material().hoverColor,
+                            splashColor: DediHoverStyle.material().hoverColor,
                             borderRadius: const BorderRadius.all(
                               Radius.circular(32),
                             ),
@@ -174,8 +171,7 @@ class _ParticipantListItemState extends State<ParticipantListItem> {
                               child: Icon(
                                 Icons.delete_outlined,
                                 size: 18,
-                                color:
-                                    LinagoraRefColors.material().tertiary[30],
+                                color: DediRefColors.material().tertiary[30],
                               ),
                             ),
                           ),
@@ -283,7 +279,7 @@ class _ParticipantSelectionToggleButton extends StatelessWidget {
         side: BorderSide(
           color: selectionMode == SelectionModeEnum.selected
               ? Theme.of(context).colorScheme.primary
-              : LinagoraRefColors.material().tertiary[30]!,
+              : DediRefColors.material().tertiary[30]!,
           width: 2,
         ),
         onChanged: (_) => onTap(),
@@ -324,29 +320,29 @@ class _ParticipantBanAction extends StatelessWidget {
       label: L10n.of(context)!.remove,
       icon: Icon(
         Icons.person_remove_outlined,
-        color: LinagoraSysColors.material().onPrimary,
+        color: DediSysColors.material().onPrimary,
       ),
       onPressed: (context) async {
         if (!member.canBan) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.removeMemberSelectionError,
           );
           return;
         }
 
-        final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+        final result = await DediDialog.showFutureLoadingDialogFullScreen(
           future: () => member.ban(),
         );
         if (result.error != null) {
-          TwakeSnackBar.show(context, result.error!.message);
+          DediSnackBar.show(context, result.error!.message);
           return;
         }
 
         onDone?.call();
       },
       foregroundColor: Theme.of(context).colorScheme.onPrimary,
-      backgroundColor: LinagoraSysColors.material().error,
+      backgroundColor: DediSysColors.material().error,
     );
   }
 }

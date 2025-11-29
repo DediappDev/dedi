@@ -23,9 +23,9 @@ class ChatInputRowMobile extends StatelessWidget {
         padding: ChatInputRowStyle.chatInputRowPaddingMobile,
         decoration: BoxDecoration(
           borderRadius: ChatInputRowStyle.chatInputRowBorderRadius,
-          color: LinagoraSysColors.material().onPrimary,
+          color: DediSysColors.material().onPrimary,
           border: Border.all(
-            color: LinagoraRefColors.material().tertiary,
+            color: DediRefColors.material().tertiary,
             width: 1,
           ),
         ),

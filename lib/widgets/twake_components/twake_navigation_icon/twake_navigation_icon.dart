@@ -2,13 +2,13 @@ import 'package:fluffychat/widgets/twake_components/twake_navigation_icon/twake_
 import 'package:flutter/material.dart';
 import 'package:linagora_design_flutter/linagora_design_flutter.dart';
 
-class TwakeNavigationIcon extends StatelessWidget {
+class DediNavigationIcon extends StatelessWidget {
   final IconData icon;
   final int notificationCount;
   final bool isSelected;
   final Color? color;
 
-  const TwakeNavigationIcon({
+  const DediNavigationIcon({
     super.key,
     required this.icon,
     this.notificationCount = 0,
@@ -21,7 +21,7 @@ class TwakeNavigationIcon extends StatelessWidget {
     return Badge(
       backgroundColor: Theme.of(context).colorScheme.error,
       isLabelVisible: notificationCount > 0,
-      largeSize: TwakeNavigationIconStyle.badgeHeight,
+      largeSize: DediNavigationIconStyle.badgeHeight,
       label: Text(
         notificationCount.toString(),
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
@@ -31,7 +31,7 @@ class TwakeNavigationIcon extends StatelessWidget {
       child: Icon(
         icon,
         color: isSelected
-            ? LinagoraSysColors.material().primary
+            ? DediSysColors.material().primary
             : color ?? Theme.of(context).iconTheme.color,
       ),
     );

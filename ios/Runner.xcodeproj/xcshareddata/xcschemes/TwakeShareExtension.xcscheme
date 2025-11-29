@@ -17,8 +17,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "ED8227552D55BFB00054E5B1"
-               BuildableName = "TwakeShareExtension.appex"
-               BlueprintName = "TwakeShareExtension"
+               BuildableName = "DediShareExtension.appex"
+               BlueprintName = "DediShareExtension"
                ReferencedContainer = "container:Runner.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

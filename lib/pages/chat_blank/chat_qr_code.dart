@@ -69,7 +69,7 @@ class _ChatQrCodeState extends State<ChatQrCode> {
                   onTap: () {
                     UrlLauncher(
                       context,
-                      url: AppConfig.twakeChatGooglePlay,
+                      url: AppConfig.dediChatGooglePlay,
                     ).launchUrl();
                   },
                   child: SvgPicture.asset(
@@ -81,7 +81,7 @@ class _ChatQrCodeState extends State<ChatQrCode> {
                   onTap: () {
                     UrlLauncher(
                       context,
-                      url: AppConfig.twakeChatAppleStore,
+                      url: AppConfig.dediChatAppleStore,
                     ).launchUrl();
                   },
                   child: SvgPicture.asset(
@@ -123,7 +123,7 @@ class _ChatQrCodeState extends State<ChatQrCode> {
             child: Text(
               L10n.of(context)!.scanQrCodeToJoin,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: LinagoraSysColors.material().onSurface,
+                    color: DediSysColors.material().onSurface,
                   ),
               textAlign: TextAlign.center,
             ),

@@ -11,26 +11,26 @@ import 'twake_context_menu_area.dart';
 
 const double _kMinTileHeight = 24;
 
-/// The actual [TwakeContextMenu] to be displayed
+/// The actual [DediContextMenu] to be displayed
 ///
-/// You will most likely use [showTwakeContextMenu] to manually display a [TwakeContextMenu].
+/// You will most likely use [showDediContextMenu] to manually display a [DediContextMenu].
 ///
-/// If you just want to use a normal [TwakeContextMenu], please use [TwakeContextMenuArea].
+/// If you just want to use a normal [DediContextMenu], please use [DediContextMenuArea].
 
-class TwakeContextMenu extends StatefulWidget {
-  /// The [BuildContext] of the dialog/modal that will display the [TwakeContextMenu]. This is used to close the dialog/modal when the [TwakeContextMenu] is closed.
+class DediContextMenu extends StatefulWidget {
+  /// The [BuildContext] of the dialog/modal that will display the [DediContextMenu]. This is used to close the dialog/modal when the [DediContextMenu] is closed.
   final BuildContext dialogContext;
 
-  /// The list of items to be displayed in the [TwakeContextMenu]. This is used to build the UI of items
+  /// The list of items to be displayed in the [DediContextMenu]. This is used to build the UI of items
   final List<ContextMenuAction> listActions;
 
-  /// The [Offset] from coordinate origin the [TwakeContextMenu] will be displayed at.
+  /// The [Offset] from coordinate origin the [DediContextMenu] will be displayed at.
   final Offset position;
 
-  /// The padding value at the top an bottom between the edge of the [TwakeContextMenu] and the first / last item
+  /// The padding value at the top an bottom between the edge of the [DediContextMenu] and the first / last item
   final double? verticalPadding;
 
-  const TwakeContextMenu({
+  const DediContextMenu({
     super.key,
     required this.dialogContext,
     required this.listActions,
@@ -39,10 +39,10 @@ class TwakeContextMenu extends StatefulWidget {
   });
 
   @override
-  TwakeContextMenuState createState() => TwakeContextMenuState();
+  DediContextMenuState createState() => DediContextMenuState();
 }
 
-class TwakeContextMenuState extends State<TwakeContextMenu>
+class DediContextMenuState extends State<DediContextMenu>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -120,30 +120,29 @@ class TwakeContextMenuState extends State<TwakeContextMenu>
                     );
                   },
                   child: Card(
-                    elevation: TwakeContextMenuStyle.menuElevation,
+                    elevation: DediContextMenuStyle.menuElevation,
                     margin: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
-                        TwakeContextMenuStyle.menuBorderRadius,
+                        DediContextMenuStyle.menuBorderRadius,
                       ),
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(
-                        TwakeContextMenuStyle.menuBorderRadius,
+                        DediContextMenuStyle.menuBorderRadius,
                       ),
                       child: Material(
-                        color: TwakeContextMenuStyle.defaultMenuColor(context),
+                        color: DediContextMenuStyle.defaultMenuColor(context),
                         child: ConstrainedBox(
                           constraints: const BoxConstraints(
-                            minWidth: TwakeContextMenuStyle.menuMinWidth,
-                            maxWidth: TwakeContextMenuStyle.menuMaxWidth,
+                            minWidth: DediContextMenuStyle.menuMinWidth,
+                            maxWidth: DediContextMenuStyle.menuMaxWidth,
                           ),
                           child: IntrinsicWidth(
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                 vertical: widget.verticalPadding ??
-                                    TwakeContextMenuStyle
-                                        .defaultVerticalPadding,
+                                    DediContextMenuStyle.defaultVerticalPadding,
                               ),
                               child: ScrollConfiguration(
                                 behavior: ScrollConfiguration.of(context)
@@ -195,8 +194,7 @@ class TwakeContextMenuState extends State<TwakeContextMenu>
 
   ContextMenuPosition _calculatePosition(List<ContextMenuAction> children) {
     double height = 2 *
-        (widget.verticalPadding ??
-            TwakeContextMenuStyle.defaultVerticalPadding);
+        (widget.verticalPadding ?? DediContextMenuStyle.defaultVerticalPadding);
     for (final element in _heights.values) {
       height += element;
     }
@@ -225,7 +223,7 @@ class TwakeContextMenuState extends State<TwakeContextMenu>
     double? positionRight;
     Alignment alignment = Alignment.topLeft;
 
-    if (availableRightSpace < TwakeContextMenuStyle.menuMaxWidth) {
+    if (availableRightSpace < DediContextMenuStyle.menuMaxWidth) {
       positionRight = screenWidth - positionLeftTap;
       alignment = Alignment.topRight;
     } else {

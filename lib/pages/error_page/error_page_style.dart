@@ -31,11 +31,11 @@ class ErrorPageStyle {
       ErrorPageStyle.responsiveUtils.isMobile(context)
           ? Theme.of(context).textTheme.labelLarge?.copyWith(
                 fontWeight: FontWeight.w500,
-                color: LinagoraRefColors.material().tertiary[20],
+                color: DediRefColors.material().tertiary[20],
               )
           : Theme.of(context).textTheme.bodyLarge?.copyWith(
                 fontWeight: FontWeight.w500,
-                color: LinagoraRefColors.material().tertiary[20],
+                color: DediRefColors.material().tertiary[20],
               );
 
   static ButtonStyle buttonStyle(BuildContext context) => ButtonStyle(

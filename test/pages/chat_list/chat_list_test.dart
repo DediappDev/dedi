@@ -46,7 +46,7 @@ void main() {
             GlobalWidgetsLocalizations.delegate,
           ],
           supportedLocales: LocalizationService.supportedLocales,
-          theme: TwakeThemes.buildTheme(
+          theme: DediThemes.buildTheme(
             context,
             Brightness.light,
             primaryColor,
@@ -99,7 +99,7 @@ void main() {
             expect(unmuteAction.backgroundColor, isA<Color>());
             expect(
               unmuteAction.backgroundColor,
-              equals(LinagoraRefColors.material().primary[50]),
+              equals(DediRefColors.material().primary[50]),
             );
           },
         );
@@ -132,7 +132,7 @@ void main() {
             expect(unmuteAction.backgroundColor, isA<Color>());
             expect(
               unmuteAction.backgroundColor,
-              equals(LinagoraRefColors.material().primary[40]),
+              equals(DediRefColors.material().primary[40]),
             );
           },
         );
@@ -173,7 +173,7 @@ void main() {
             expect(readAction.backgroundColor, isA<Color>());
             expect(
               readAction.backgroundColor,
-              equals(LinagoraRefColors.material().tertiary[40]),
+              equals(DediRefColors.material().tertiary[40]),
             );
 
             final unmuteAction = slideActions[1] as ChatCustomSlidableAction;
@@ -191,7 +191,7 @@ void main() {
             expect(unmuteAction.backgroundColor, isA<Color>());
             expect(
               unmuteAction.backgroundColor,
-              equals(LinagoraRefColors.material().primary[50]),
+              equals(DediRefColors.material().primary[50]),
             );
 
             final unpinAction = slideActions[2] as ChatCustomSlidableAction;
@@ -209,7 +209,7 @@ void main() {
             expect(unpinAction.backgroundColor, isA<Color>());
             expect(
               unpinAction.backgroundColor,
-              equals(LinagoraRefColors.material().tertiary[40]),
+              equals(DediRefColors.material().tertiary[40]),
             );
           },
         );
@@ -266,7 +266,7 @@ void main() {
             expect(muteAction.backgroundColor, isA<Color>());
             expect(
               muteAction.backgroundColor,
-              equals(LinagoraRefColors.material().primary[40]),
+              equals(DediRefColors.material().primary[40]),
             );
 
             final pinAction = slideActions[2] as ChatCustomSlidableAction;

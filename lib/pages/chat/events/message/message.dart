@@ -323,8 +323,8 @@ class _MessageState extends State<Message> with MessageAvatarMixin {
             padding: MessageStyle.paddingDividerUnreadMessage,
             child: Divider(
               height: MessageStyle.heightDivider,
-              color: LinagoraStateLayer(
-                LinagoraSysColors.material().surfaceTint,
+              color: DediStateLayer(
+                DediSysColors.material().surfaceTint,
               ).opacityLayer3,
             ),
           ),
@@ -392,10 +392,9 @@ class _MessageState extends State<Message> with MessageAvatarMixin {
         left: Message.responsiveUtils.isMobile(context) ? 8.0 : 0,
       ),
       color: widget.selected
-          ? LinagoraSysColors.material().secondaryContainer
+          ? DediSysColors.material().secondaryContainer
           : Theme.of(context).primaryColor.withAlpha(0),
-      constraints:
-          const BoxConstraints(maxWidth: TwakeThemes.columnWidth * 2.5),
+      constraints: const BoxConstraints(maxWidth: DediThemes.columnWidth * 2.5),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -407,7 +406,7 @@ class _MessageState extends State<Message> with MessageAvatarMixin {
                     ? Icons.check_circle_rounded
                     : Icons.circle_outlined,
                 color: widget.selected
-                    ? LinagoraSysColors.material().primary
+                    ? DediSysColors.material().primary
                     : Colors.black,
                 size: 20,
               ),

@@ -80,7 +80,7 @@ Future<void> main() async {
               GlobalWidgetsLocalizations.delegate,
             ],
             supportedLocales: LocalizationService.supportedLocales,
-            theme: TwakeThemes.buildTheme(
+            theme: DediThemes.buildTheme(
               context,
               Brightness.light,
               primaryColor,

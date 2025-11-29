@@ -166,8 +166,11 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
       final homeserverUrl = matrixTokenData['homeserver'] as String?;
       final deviceId = matrixTokenData['device_id'] as String?;
 
-      if (accessToken == null || matrixUserId == null || homeserverUrl == null) {
-        throw Exception('Matrix credentials incomplete (missing token/userId/homeserver)');
+      if (accessToken == null ||
+          matrixUserId == null ||
+          homeserverUrl == null) {
+        throw Exception(
+            'Matrix credentials incomplete (missing token/userId/homeserver)');
       }
 
       // 3) Hydrate session
@@ -221,7 +224,8 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
     } catch (e) {
       print('Matrix integration error: $e');
       if (mounted) {
-        setState(() => _errorMessage = 'Matrix bağlantı hatası: ${e.toString()}');
+        setState(
+            () => _errorMessage = 'Matrix bağlantı hatası: ${e.toString()}');
       }
     }
   }
@@ -298,7 +302,8 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
     }
 
     // Move focus to the next empty field or unfocus if all filled
-    final int nextEmptyIndex = _controllers.indexWhere((controller) => controller.text.isEmpty);
+    final int nextEmptyIndex =
+        _controllers.indexWhere((controller) => controller.text.isEmpty);
     if (nextEmptyIndex != -1 && nextEmptyIndex < 6) {
       _focusNodes[nextEmptyIndex].requestFocus();
     } else {
@@ -392,7 +397,8 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(color: Colors.red),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 16),
                       ),
                       onChanged: (value) {
                         if (value.isEmpty && _controllers[index].text.isEmpty) {
@@ -423,7 +429,8 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.error_outline, color: Colors.red[600], size: 20),
+                      Icon(Icons.error_outline,
+                          color: Colors.red[600], size: 20),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(

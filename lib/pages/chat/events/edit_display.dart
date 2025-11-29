@@ -24,8 +24,8 @@ class EditDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: TwakeThemes.animationDuration,
-      curve: TwakeThemes.animationCurve,
+      duration: DediThemes.animationDuration,
+      curve: DediThemes.animationCurve,
       height: EditDisplayStyle.replyContainerHeight,
       clipBehavior: Clip.hardEdge,
       decoration: const BoxDecoration(),

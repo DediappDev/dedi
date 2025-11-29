@@ -104,7 +104,7 @@ mixin MediaPickerMixin on CommonMediaPickerMixin {
       minChildSize: MediaPickerStyle.initialChildSize,
       permissionStatus: permissionStatusPhotos,
       gridPadding: MediaPickerStyle.gridPadding,
-      assetBackgroundColor: LinagoraSysColors.material().background,
+      assetBackgroundColor: DediSysColors.material().background,
       counterImageBuilder: (counterImage) {
         if (counterImage == 0) {
           return const SizedBox.shrink();
@@ -140,7 +140,7 @@ mixin MediaPickerMixin on CommonMediaPickerMixin {
             return Container(
               padding: MediaPickerStyle.itemPickerPadding,
               decoration: BoxDecoration(
-                color: LinagoraSysColors.material().surface,
+                color: DediSysColors.material().surface,
                 border: Border(
                   top: BorderSide(
                     color: Theme.of(context)
@@ -166,7 +166,7 @@ mixin MediaPickerMixin on CommonMediaPickerMixin {
           return child!;
         },
         child: Container(
-          color: LinagoraSysColors.material().background,
+          color: DediSysColors.material().background,
           child: Column(
             children: [
               Stack(
@@ -316,7 +316,7 @@ mixin MediaPickerMixin on CommonMediaPickerMixin {
           Text(
             L10n.of(context)!.tapToAllowAccessToYourGallery,
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  color: LinagoraRefColors.material().neutral,
+                  color: DediRefColors.material().neutral,
                   fontWeight: MediaPickerStyle.photoPermissionFontWeight,
                   fontSize: MediaPickerStyle.photoPermissionFontSize,
                 ),

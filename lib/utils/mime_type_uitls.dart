@@ -7,7 +7,7 @@ class MimeTypeUitls {
 
   static MimeTypeUitls get instance => MimeTypeUitls._();
 
-  String getTwakeMimeType(String path) {
+  String getDediMimeType(String path) {
     final mimeType = lookupMimeType(path);
     if (mimeType == null) {
       return 'application/octet-stream';
@@ -17,13 +17,13 @@ class MimeTypeUitls {
           .contains(mimeType)) {
         return mimeType;
       } else {
-        return TwakeMimeTypeExtension.defaultUnsupportedImageMimeType;
+        return DediMimeTypeExtension.defaultUnsupportedImageMimeType;
       }
     } else if (mimeType.startsWith('video/')) {
       if (SupportedPreviewFileTypes.videoMimeTypes.contains(mimeType)) {
         return mimeType;
       } else {
-        return TwakeMimeTypeExtension.defaultUnsupportedVideoMimeType;
+        return DediMimeTypeExtension.defaultUnsupportedVideoMimeType;
       }
     } else {
       return mimeType;

@@ -15,7 +15,7 @@ void main() {
     test('supportInvitation returns true when invitations are enabled', () {
       controller.discoveryInformationNotifier.value = DiscoveryInformation(
         additionalProperties: {
-          'app.twake.chat': {
+          'app.dedi.chat': {
             'enable_invitations': true,
           },
         },
@@ -31,7 +31,7 @@ void main() {
         () {
       controller.discoveryInformationNotifier.value = DiscoveryInformation(
         additionalProperties: {
-          'app.twake.chat': {
+          'app.dedi.chat': {
             'enable_invitations': false,
           },
         },
@@ -55,7 +55,7 @@ void main() {
         () {
       controller.discoveryInformationNotifier.value = DiscoveryInformation(
         additionalProperties: {
-          'app.twake.chat': {
+          'app.dedi.chat': {
             'enable_invitation': false,
           },
         },
@@ -67,11 +67,11 @@ void main() {
       expect(controller.supportInvitation(), isFalse);
     });
 
-    test('supportInvitation returns false when nothing inside app.twake.chat',
+    test('supportInvitation returns false when nothing inside app.dedi.chat',
         () {
       controller.discoveryInformationNotifier.value = DiscoveryInformation(
         additionalProperties: {
-          'app.twake.chat': {},
+          'app.dedi.chat': {},
         },
         mHomeserver: HomeserverInformation(
           baseUrl: Uri.tryParse('https://matrix.domain.xyz')!,
@@ -81,7 +81,7 @@ void main() {
       expect(controller.supportInvitation(), isFalse);
     });
 
-    test('supportInvitation returns false when no app.twake.chat', () {
+    test('supportInvitation returns false when no app.dedi.chat', () {
       controller.discoveryInformationNotifier.value = DiscoveryInformation(
         additionalProperties: {
           'app': {},

@@ -13,7 +13,7 @@ mixin LeaveChatMixin {
         throw RoomNullException();
       }
 
-      final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+      final result = await DediDialog.showFutureLoadingDialogFullScreen(
         future: room.leave,
       );
 
@@ -22,10 +22,10 @@ mixin LeaveChatMixin {
       context.go('/rooms');
     } on RoomNullException catch (e) {
       Logs().e('LeaveChatMixin::leaveChat(): - RoomNullException - $e');
-      TwakeSnackBar.show(context, L10n.of(context)!.leaveChatFailed);
+      DediSnackBar.show(context, L10n.of(context)!.leaveChatFailed);
     } catch (e) {
       Logs().e('LeaveChatMixin::leaveChat(): - error: $e');
-      TwakeSnackBar.show(context, L10n.of(context)!.leaveChatFailed);
+      DediSnackBar.show(context, L10n.of(context)!.leaveChatFailed);
     }
   }
 }

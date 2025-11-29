@@ -2196,7 +2196,7 @@
   "@commandHint_markasgroup": {},
   "updateNow": "Iniciar la actualización en segundo plano",
   "@updateNow": {},
-  "updateAvailable": "Actualización de Twake Chat disponible",
+  "updateAvailable": "Actualización de Dedi disponible",
   "@updateAvailable": {},
   "bubbleSize": "Tamaño de la burbuja",
   "@bubbleSize": {
@@ -2280,8 +2280,8 @@
   "@yesterday": {},
   "noResultsFound": "No se encontró ningún resultado",
   "@noResultsFound": {},
-  "welcomeToTwake": "Le damos la bienvenida a Twake, {user}",
-  "@welcomeToTwake": {
+  "welcomeToDedi": "Le damos la bienvenida a Dedi, {user}",
+  "@welcomeToDedi": {
     "placeholders": {
       "user": {}
     }
@@ -2488,8 +2488,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "newMessageInTwake": "Tiene 1 mensaje cifrado",
-  "@newMessageInTwake": {
+  "newMessageInDedi": "Tiene 1 mensaje cifrado",
+  "@newMessageInDedi": {
     "type": "text",
     "placeholders": {}
   },
@@ -2517,7 +2517,7 @@
   "@roomCreationFailed": {},
   "sendImages": "{count, plural, =1{Enviar 1 imagen} other{Enviar {count} imágenes}}",
   "@sendImages": {},
-  "settingsLanguageDescription": "Establezca el idioma que usar en Twake Chat",
+  "settingsLanguageDescription": "Establezca el idioma que usar en Dedi",
   "@settingsLanguageDescription": {},
   "languageEnglish": "Inglés",
   "@languageEnglish": {
@@ -2541,8 +2541,8 @@
   "@unsupportedAndroidVersion": {},
   "contacts": "Contactos",
   "@contacts": {},
-  "linagoraContactsCount": "Contactos de Linagora ({count})",
-  "@linagoraContactsCount": {},
+  "dediContactsCount": "Contactos de Dedi ({count})",
+  "@dediContactsCount": {},
   "contact": "Contacto",
   "@contact": {},
   "unlockOldMessages": "Desbloquear mensajes antiguos",

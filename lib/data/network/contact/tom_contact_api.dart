@@ -30,7 +30,7 @@ class TomContactAPI {
     final response = await _client
         .postToGetBody(
           IdentityEndpoint.matchUserIdServicePath
-              .generateTwakeIdentityEndpoint(),
+              .generateDediIdentityEndpoint(),
           data: requestBody.toJson(),
         )
         .onError((error, stackTrace) => throw Exception(error));

@@ -75,7 +75,7 @@ mixin DownloadFileOnWebMixin<T extends StatefulWidget> on State<T> {
       return;
     }
 
-    if (TwakeApp.routerKey.currentContext != null) {
+    if (DediApp.routerKey.currentContext != null) {
       handleDownloadMatrixFileSuccessDone(success: success);
     }
   }

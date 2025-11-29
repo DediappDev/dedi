@@ -28,7 +28,7 @@ class Exceptions extends StatefulWidget {
 }
 
 class ExceptionsController extends State<Exceptions>
-    with SearchDebouncerMixin, TwakeContextMenuMixin, QuickRolePickerMixin {
+    with SearchDebouncerMixin, DediContextMenuMixin, QuickRolePickerMixin {
   final responsive = getIt.get<ResponsiveUtils>();
 
   final textEditingController = TextEditingController();

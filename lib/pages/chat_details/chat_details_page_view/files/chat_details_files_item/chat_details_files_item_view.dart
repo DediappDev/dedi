@@ -47,7 +47,7 @@ class ChatDetailsFilesView extends StatelessWidget {
               );
             },
             trailingIcon: Icons.folder_outlined,
-            iconColor: LinagoraSysColors.material().primary,
+            iconColor: DediSysColors.material().primary,
             filename: filename,
             mimeType: controller.event.mimeType,
             fileType: filetype,
@@ -62,7 +62,7 @@ class ChatDetailsFilesView extends StatelessWidget {
           sizeString: sizeString,
           sentDate: controller.event.originServerTs,
           trailingIcon: Icons.download_outlined,
-          iconColor: LinagoraSysColors.material().tertiary,
+          iconColor: DediSysColors.material().tertiary,
         );
       },
     );

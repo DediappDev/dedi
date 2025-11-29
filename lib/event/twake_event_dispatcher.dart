@@ -1,14 +1,14 @@
 import 'package:matrix/matrix.dart';
 
-class TwakeEventDispatcher {
-  static final TwakeEventDispatcher _twakeEventDispatcher =
-      TwakeEventDispatcher._instance();
+class DediEventDispatcher {
+  static final DediEventDispatcher _dediEventDispatcher =
+      DediEventDispatcher._instance();
 
-  factory TwakeEventDispatcher() {
-    return _twakeEventDispatcher;
+  factory DediEventDispatcher() {
+    return _dediEventDispatcher;
   }
 
-  TwakeEventDispatcher._instance();
+  DediEventDispatcher._instance();
 
   void sendAccountDataEvent({
     required Client client,

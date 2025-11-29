@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-class TwakeLookUpArgument with EquatableMixin {
+class DediLookUpArgument with EquatableMixin {
   final String homeServerUrl;
   final String withAccessToken;
 
-  TwakeLookUpArgument({
+  DediLookUpArgument({
     required this.homeServerUrl,
     required this.withAccessToken,
   });

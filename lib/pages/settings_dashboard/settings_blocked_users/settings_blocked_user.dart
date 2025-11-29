@@ -49,13 +49,13 @@ class SettingsIgnoreListController extends State<BlockedUsers>
 
   Future<void> initialBlockedUsers() async {
     try {
-      TwakeDialog.showLoadingDialog(context);
+      DediDialog.showLoadingDialog(context);
 
       if (client.ignoredUsers.isEmpty) {
         searchUserResults.value = const Left(
           BlockedUsersSearchEmptyState(keyword: ''),
         );
-        TwakeDialog.hideLoadingDialog(context);
+        DediDialog.hideLoadingDialog(context);
         return;
       }
 
@@ -72,12 +72,12 @@ class SettingsIgnoreListController extends State<BlockedUsers>
           keyword: '',
         ),
       );
-      TwakeDialog.hideLoadingDialog(context);
+      DediDialog.hideLoadingDialog(context);
     } catch (e) {
       searchUserResults.value = const Left(
         BlockedUsersSearchEmptyState(keyword: ''),
       );
-      TwakeDialog.hideLoadingDialog(context);
+      DediDialog.hideLoadingDialog(context);
     }
   }
 
@@ -126,14 +126,14 @@ class SettingsIgnoreListController extends State<BlockedUsers>
 
   Future<void> refreshBlockedUsers() async {
     try {
-      TwakeDialog.showLoadingDialog(context);
+      DediDialog.showLoadingDialog(context);
       searchUserResults.value = Right(BlockedUsersSearchInitialState());
 
       if (client.ignoredUsers.isEmpty) {
         searchUserResults.value = const Left(
           BlockedUsersSearchEmptyState(keyword: ''),
         );
-        TwakeDialog.hideLoadingDialog(context);
+        DediDialog.hideLoadingDialog(context);
         return;
       }
 
@@ -154,12 +154,12 @@ class SettingsIgnoreListController extends State<BlockedUsers>
           keyword: '',
         ),
       );
-      TwakeDialog.hideLoadingDialog(context);
+      DediDialog.hideLoadingDialog(context);
     } catch (e) {
       searchUserResults.value = const Left(
         BlockedUsersSearchEmptyState(keyword: ''),
       );
-      TwakeDialog.hideLoadingDialog(context);
+      DediDialog.hideLoadingDialog(context);
     }
   }
 

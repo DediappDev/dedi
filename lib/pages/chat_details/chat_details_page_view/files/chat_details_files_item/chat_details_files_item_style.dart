@@ -28,7 +28,7 @@ class ChatDetailsFileTileStyle extends FileTileWidgetStyle {
 
   static TextStyle? downloadedFileTextStyle(BuildContext context) =>
       Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: LinagoraSysColors.material().primary,
+            color: DediSysColors.material().primary,
           );
   static const int downloadedFilenameMaxLines = 3;
 

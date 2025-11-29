@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 mixin PopupMenuWidgetMixin {
-  Widget popupItemByTwakeAppRouter(
+  Widget popupItemByDediAppRouter(
     BuildContext context,
     String nameAction, {
     IconData? iconAction,
@@ -22,7 +22,7 @@ mixin PopupMenuWidgetMixin {
         /// Pop the current page, snackbar, dialog or bottomsheet in the stack
         /// will close the currently open snackbar/dialog/bottomsheet AND the current page
         if (isClearCurrentPage) {
-          TwakeApp.router.routerDelegate.pop();
+          DediApp.router.routerDelegate.pop();
         }
         onCallbackAction!.call();
       },

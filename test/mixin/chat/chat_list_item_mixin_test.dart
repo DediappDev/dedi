@@ -110,7 +110,7 @@ void main() {
           room: room,
         );
 
-        expect(color, LinagoraRefColors.material().tertiary[30]);
+        expect(color, DediRefColors.material().tertiary[30]);
       });
 
       testWidgets(
@@ -127,7 +127,7 @@ void main() {
           room: room,
         );
 
-        expect(color, LinagoraRefColors.material().tertiary[30]);
+        expect(color, DediRefColors.material().tertiary[30]);
       });
     });
 
@@ -162,7 +162,7 @@ void main() {
           room: room,
         );
 
-        expect(color, LinagoraRefColors.material().tertiary[30]);
+        expect(color, DediRefColors.material().tertiary[30]);
       });
     });
   });

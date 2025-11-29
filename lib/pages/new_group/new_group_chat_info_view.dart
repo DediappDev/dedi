@@ -30,7 +30,7 @@ class NewGroupChatInfoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       appBar: _buildAppBar(context),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -58,7 +58,7 @@ class NewGroupChatInfoView extends StatelessWidget {
                             .toInt(),
                       ),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: LinagoraRefColors.material().neutral[40],
+                            color: DediRefColors.material().neutral[40],
                           ),
                     ),
                     const SizedBox(height: 32),
@@ -103,11 +103,11 @@ class NewGroupChatInfoView extends StatelessWidget {
           valueListenable: newGroupInfoController.createRoomStateNotifier,
           builder: (context, value, child) {
             if (newGroupInfoController.isCreatingRoom) {
-              return const TwakeFloatingActionButton(
+              return const DediFloatingActionButton(
                 customIcon: SizedBox(child: CircularProgressIndicator()),
               );
             }
-            return TwakeFloatingActionButton(
+            return DediFloatingActionButton(
               icon: Icons.done,
               onTap: () => newGroupInfoController.moveToGroupChatScreen(),
             );
@@ -123,12 +123,12 @@ class NewGroupChatInfoView extends StatelessWidget {
         NewGroupChatInfoStyle.toolbarHeight,
       ),
       child: AppBar(
-        backgroundColor: LinagoraSysColors.material().onPrimary,
+        backgroundColor: DediSysColors.material().onPrimary,
         automaticallyImplyLeading: false,
         toolbarHeight: NewGroupChatInfoStyle.toolbarHeight,
         title: Row(
           children: [
-            TwakeIconButton(
+            DediIconButton(
               icon: Icons.chevron_left_outlined,
               onTap: () => Navigator.of(context).pop(),
               tooltip: L10n.of(context)!.back,
@@ -179,7 +179,7 @@ class NewGroupChatInfoView extends StatelessWidget {
         width: NewGroupChatInfoStyle.profileSize(context),
         height: NewGroupChatInfoStyle.profileSize(context),
         decoration: BoxDecoration(
-          color: LinagoraRefColors.material().neutral[80],
+          color: DediRefColors.material().neutral[80],
           shape: BoxShape.circle,
         ),
         alignment: Alignment.center,
@@ -214,7 +214,7 @@ class NewGroupChatInfoView extends StatelessWidget {
                 decoration: InputDecoration(
                   errorBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: LinagoraSysColors.material().error,
+                      color: DediSysColors.material().error,
                     ),
                   ),
                   border: OutlineInputBorder(
@@ -224,19 +224,18 @@ class NewGroupChatInfoView extends StatelessWidget {
                   errorText: newGroupInfoController.getErrorMessage(
                     newGroupInfoController.groupNameTextEditingController.text,
                   ),
-                  errorStyle:
-                      TextStyle(color: LinagoraSysColors.material().error),
+                  errorStyle: TextStyle(color: DediSysColors.material().error),
                   labelText: L10n.of(context)!.widgetName,
                   labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Theme.of(context).colorScheme.onSurface,
                       ),
                   hintText: L10n.of(context)!.enterGroupName,
                   hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: LinagoraRefColors.material().neutral[60],
+                        color: DediRefColors.material().neutral[60],
                       ),
                   contentPadding: NewGroupChatInfoStyle.contentPadding,
                 ),
-                contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                contextMenuBuilder: mobileDediContextMenuBuilder,
               );
             },
           );
@@ -395,13 +394,11 @@ class _EncryptionSettingTile extends StatelessWidget {
                       children: [
                         Text(
                           L10n.of(context)!.encryptionMessage,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                letterSpacing: 0.4,
-                                color: LinagoraRefColors.material().neutral[40],
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    letterSpacing: 0.4,
+                                    color: DediRefColors.material().neutral[40],
+                                  ),
                         ),
                         AnimatedSize(
                           alignment: Alignment.topCenter,

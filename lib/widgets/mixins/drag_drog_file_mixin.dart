@@ -30,7 +30,7 @@ mixin DragDrogFileMixin {
 
   Future<List<MatrixFile>> onDragDone(DropDoneDetails details) async {
     draggingNotifier.value = false;
-    final bytesList = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final bytesList = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => Future.wait(
         details.files.map(
           (xfile) => xfile.readAsBytes(),
@@ -46,7 +46,7 @@ mixin DragDrogFileMixin {
           bytes: bytesList.result![i],
           name: details.files[i].name,
           mimeType:
-              MimeTypeUitls.instance.getTwakeMimeType(details.files[i].name),
+              MimeTypeUitls.instance.getDediMimeType(details.files[i].name),
         ).detectFileType,
       );
     }

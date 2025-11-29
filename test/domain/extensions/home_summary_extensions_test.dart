@@ -11,15 +11,15 @@ void main() {
       final homeserver = HomeserverSummary(
         discoveryInformation: DiscoveryInformation(
           mHomeserver: HomeserverInformation(
-            baseUrl: Uri.parse('https://matrix.tom-dev.xyz'),
+            baseUrl: Uri.parse('https://matrix.dedim.com.tr'),
           ),
           mIdentityServer: IdentityServerInformation(
-            baseUrl: Uri.parse('https://tom.tom-dev.xyz/'),
+            baseUrl: Uri.parse('https://tom.dedim.com.tr/'),
           ),
           additionalProperties: {
             't.server': {
-              'base_url': 'https://tom.tom-dev.xyz/',
-              'server_name': 'tom-dev.xyz',
+              'base_url': 'https://tom.dedim.com.tr/',
+              'server_name': 'dedim.com.tr',
             },
           },
         ),
@@ -35,8 +35,8 @@ void main() {
       );
 
       final expected = ToMServerInformation(
-        baseUrl: Uri.parse('https://tom.tom-dev.xyz/'),
-        serverName: 'tom-dev.xyz',
+        baseUrl: Uri.parse('https://tom.dedim.com.tr/'),
+        serverName: 'dedim.com.tr',
       );
 
       expect(homeserver.tomServer, equals(expected));
@@ -46,15 +46,15 @@ void main() {
       final homeserver = HomeserverSummary(
         discoveryInformation: DiscoveryInformation(
           mHomeserver: HomeserverInformation(
-            baseUrl: Uri.parse('https://matrix.tom-dev.xyz'),
+            baseUrl: Uri.parse('https://matrix.dedim.com.tr'),
           ),
           mIdentityServer: IdentityServerInformation(
-            baseUrl: Uri.parse('https://tom.tom-dev.xyz/'),
+            baseUrl: Uri.parse('https://tom.dedim.com.tr/'),
           ),
           additionalProperties: {
             't.server-2': {
-              'base_url': 'https://tom.tom-dev.xyz/',
-              'server_name': 'tom-dev.xyz',
+              'base_url': 'https://tom.dedim.com.tr/',
+              'server_name': 'dedim.com.tr',
             },
           },
         ),
@@ -76,10 +76,10 @@ void main() {
       final homeserver = HomeserverSummary(
         discoveryInformation: DiscoveryInformation(
           mHomeserver: HomeserverInformation(
-            baseUrl: Uri.parse('https://matrix.tom-dev.xyz'),
+            baseUrl: Uri.parse('https://matrix.dedim.com.tr'),
           ),
           mIdentityServer: IdentityServerInformation(
-            baseUrl: Uri.parse('https://tom.tom-dev.xyz/'),
+            baseUrl: Uri.parse('https://tom.dedim.com.tr/'),
           ),
         ),
         versions: GetVersionsResponse(
@@ -97,21 +97,21 @@ void main() {
     });
   });
 
-  group('extract app.twake.chat information', () {
-    test('homeserver summary include "app.twake.chat" information', () {
+  group('extract app.dedi.chat information', () {
+    test('homeserver summary include "app.dedi.chat" information', () {
       final homeserver = HomeserverSummary(
         discoveryInformation: DiscoveryInformation(
           mHomeserver: HomeserverInformation(
-            baseUrl: Uri.parse('https://matrix.twake.com'),
+            baseUrl: Uri.parse('https://matrix.dedim.com.tr'),
           ),
           mIdentityServer: IdentityServerInformation(
-            baseUrl: Uri.parse('https://app.twake.com/'),
+            baseUrl: Uri.parse('https://app.dedim.com.tr/'),
           ),
           additionalProperties: {
-            'app.twake.chat': {
+            'app.dedi.chat': {
               'common_settings': {
                 'enabled': true,
-                'application_url': 'https://app.twake.com/',
+                'application_url': 'https://app.dedim.com.tr/',
               },
             },
           },
@@ -127,29 +127,29 @@ void main() {
         ],
       );
 
-      final expected = AppTwakeInformation(
+      final expected = AppDediInformation(
         commonSettingsInformation: CommonSettingsInformation(
-          applicationUrl: 'https://app.twake.com/',
+          applicationUrl: 'https://app.dedim.com.tr/',
           enabled: true,
         ),
       );
 
-      expect(homeserver.appTwakeInformation, equals(expected));
+      expect(homeserver.appDediInformation, equals(expected));
     });
 
     test('homeserver summary not include "app.twake.chat" information', () {
       final homeserver = HomeserverSummary(
         discoveryInformation: DiscoveryInformation(
           mHomeserver: HomeserverInformation(
-            baseUrl: Uri.parse('https://matrix.twake.com'),
+            baseUrl: Uri.parse('https://matrix.dedim.com.tr'),
           ),
           mIdentityServer: IdentityServerInformation(
-            baseUrl: Uri.parse('https://app.twake.com/'),
+            baseUrl: Uri.parse('https://app.dedim.com.tr/'),
           ),
           additionalProperties: {
-            'app.twake.chat-2': {
-              'base_url': 'https://app.twake.com/',
-              'server_name': 'twake.com',
+            'app.dedi.chat-2': {
+              'base_url': 'https://app.dedim.com.tr/',
+              'server_name': 'dedim.com.tr',
             },
           },
         ),
@@ -164,17 +164,17 @@ void main() {
         ],
       );
 
-      expect(homeserver.appTwakeInformation, isNull);
+      expect(homeserver.appDediInformation, isNull);
     });
 
     test('homeserver summary but additional properties is null', () {
       final homeserver = HomeserverSummary(
         discoveryInformation: DiscoveryInformation(
           mHomeserver: HomeserverInformation(
-            baseUrl: Uri.parse('https://matrix.twake.com'),
+            baseUrl: Uri.parse('https://matrix.dedim.com.tr'),
           ),
           mIdentityServer: IdentityServerInformation(
-            baseUrl: Uri.parse('https://app.twake.com/'),
+            baseUrl: Uri.parse('https://app.dedi.com/'),
           ),
         ),
         versions: GetVersionsResponse(
@@ -188,7 +188,7 @@ void main() {
         ],
       );
 
-      expect(homeserver.appTwakeInformation, isNull);
+      expect(homeserver.appDediInformation, isNull);
     });
 
     test('homeserver summary but discovery information is null', () {
@@ -205,20 +205,20 @@ void main() {
         ],
       );
 
-      expect(homeserver.appTwakeInformation, isNull);
+      expect(homeserver.appDediInformation, isNull);
     });
 
     test('homeserver summary with invalid "app.twake.chat" information', () {
       final homeserver = HomeserverSummary(
         discoveryInformation: DiscoveryInformation(
           mHomeserver: HomeserverInformation(
-            baseUrl: Uri.parse('https://matrix.twake.com'),
+            baseUrl: Uri.parse('https://matrix.dedim.com.tr'),
           ),
           mIdentityServer: IdentityServerInformation(
-            baseUrl: Uri.parse('https://app.twake.com/'),
+            baseUrl: Uri.parse('https://app.dedim.com.tr/'),
           ),
           additionalProperties: {
-            'app.twake.chat': {
+            'app.dedi.chat': {
               'invalid_key': 'invalid_value',
             },
           },
@@ -234,24 +234,24 @@ void main() {
         ],
       );
 
-      final expected = AppTwakeInformation(
+      final expected = AppDediInformation(
         commonSettingsInformation: null,
       );
 
-      expect(homeserver.appTwakeInformation, equals(expected));
+      expect(homeserver.appDediInformation, equals(expected));
     });
 
     test('homeserver summary with "common_settings" being null', () {
       final homeserver = HomeserverSummary(
         discoveryInformation: DiscoveryInformation(
           mHomeserver: HomeserverInformation(
-            baseUrl: Uri.parse('https://matrix.twake.com'),
+            baseUrl: Uri.parse('https://matrix.dedim.com.tr'),
           ),
           mIdentityServer: IdentityServerInformation(
-            baseUrl: Uri.parse('https://app.twake.com/'),
+            baseUrl: Uri.parse('https://app.dedim.com.tr/'),
           ),
           additionalProperties: {
-            'app.twake.chat': {
+            'app.dedi.chat': {
               'common_settings': null,
             },
           },
@@ -267,11 +267,11 @@ void main() {
         ],
       );
 
-      final expected = AppTwakeInformation(
+      final expected = AppDediInformation(
         commonSettingsInformation: null,
       );
 
-      expect(homeserver.appTwakeInformation, equals(expected));
+      expect(homeserver.appDediInformation, equals(expected));
     });
   });
 }

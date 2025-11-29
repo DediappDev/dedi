@@ -41,7 +41,7 @@ class ChatListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       appBar: PreferredSize(
         preferredSize: ChatListViewStyle.preferredSizeAppBar(context),
         child: ChatListHeader(
@@ -115,14 +115,14 @@ class ChatListView extends StatelessWidget {
                       ),
                     ),
                     builder: (context, menuController, child) {
-                      return TwakeFloatingActionButton(
+                      return DediFloatingActionButton(
                         icon: Icons.mode_edit_outline_outlined,
                         size: ChatListViewStyle.editIconSize,
                         onTap: () => menuController.open(),
                       );
                     },
                   )
-                : TwakeFloatingActionButton(
+                : DediFloatingActionButton(
                     icon: Icons.mode_edit_outline_outlined,
                     size: ChatListViewStyle.editIconSize,
                     onTap: controller.goToNewPrivateChat,

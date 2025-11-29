@@ -23,7 +23,7 @@ class PhoneBookLoadingView extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium
-                ?.copyWith(color: LinagoraRefColors.material().tertiary[20]),
+                ?.copyWith(color: DediRefColors.material().tertiary[20]),
           ),
           const SizedBox(height: ContactsTabViewStyle.loadingSpacer),
           LinearProgressIndicator(

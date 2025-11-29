@@ -27,8 +27,8 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
-      appBar: TwakeAppBar(
+      backgroundColor: DediSysColors.material().onPrimary,
+      appBar: DediAppBar(
         title: L10n.of(context)!.settings,
         withDivider: responsiveUtils.isMobile(context),
         context: context,
@@ -50,7 +50,7 @@ class SettingsView extends StatelessWidget {
                 color: controller.optionsSelectNotifier.value ==
                         SettingEnum.profile
                     ? Theme.of(context).colorScheme.secondaryContainer
-                    : LinagoraSysColors.material().onPrimary,
+                    : DediSysColors.material().onPrimary,
                 child: InkWell(
                   onTap: () => controller.goToSettingsProfile(),
                   child: Padding(
@@ -121,7 +121,7 @@ class SettingsView extends StatelessWidget {
                                           .textTheme
                                           .labelLarge
                                           ?.copyWith(
-                                            color: LinagoraRefColors.material()
+                                            color: DediRefColors.material()
                                                 .tertiary[30],
                                           ),
                                       maxLines: 1,
@@ -133,8 +133,7 @@ class SettingsView extends StatelessWidget {
                               Icon(
                                 Icons.chevron_right_outlined,
                                 size: SettingsViewStyle.iconSize,
-                                color:
-                                    LinagoraRefColors.material().tertiary[30],
+                                color: DediRefColors.material().tertiary[30],
                               ),
                             ],
                           ),
@@ -148,14 +147,14 @@ class SettingsView extends StatelessWidget {
             Padding(
               padding: SettingsViewStyle.profileItemDividerPadding(context),
               child: Divider(
-                color: LinagoraStateLayer(
-                  LinagoraSysColors.material().surfaceTint,
+                color: DediStateLayer(
+                  DediSysColors.material().surfaceTint,
                 ).opacityLayer3,
                 thickness: SettingsViewStyle.settingsItemDividerThikness,
                 height: SettingsViewStyle.settingsItemDividerHeight,
               ),
             ),
-            if (!controller.matrix.twakeSupported)
+            if (!controller.matrix.dediSupported)
               ValueListenableBuilder(
                 valueListenable: controller.showChatBackupSwitch,
                 builder: (context, backUpAvailable, child) {
@@ -198,8 +197,8 @@ class SettingsView extends StatelessWidget {
                               context,
                             ),
                             child: Divider(
-                              color: LinagoraStateLayer(
-                                LinagoraSysColors.material().surfaceTint,
+                              color: DediStateLayer(
+                                DediSysColors.material().surfaceTint,
                               ).opacityLayer3,
                               thickness:
                                   SettingsViewStyle.settingsItemDividerThikness,

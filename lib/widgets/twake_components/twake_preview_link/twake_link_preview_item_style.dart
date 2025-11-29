@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TwakeLinkPreviewItemStyle {
+class DediLinkPreviewItemStyle {
   static const double radiusBorder = 8.0;
 
   static const double linkIconSize = 40;

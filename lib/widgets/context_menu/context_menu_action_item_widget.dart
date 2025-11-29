@@ -47,11 +47,11 @@ class ContextMenuActionItemWidget extends StatelessWidget {
       if (imagePath != null) {
         return SvgPicture.asset(
           imagePath,
-          width: iconSize ?? TwakeContextMenuStyle.defaultItemIconSize,
-          height: iconSize ?? TwakeContextMenuStyle.defaultItemIconSize,
+          width: iconSize ?? DediContextMenuStyle.defaultItemIconSize,
+          height: iconSize ?? DediContextMenuStyle.defaultItemIconSize,
           fit: BoxFit.fill,
           colorFilter: ColorFilter.mode(
-            colorIcon ?? TwakeContextMenuStyle.defaultItemColorIcon(context)!,
+            colorIcon ?? DediContextMenuStyle.defaultItemColorIcon(context)!,
             BlendMode.srcIn,
           ),
         );
@@ -60,9 +60,9 @@ class ContextMenuActionItemWidget extends StatelessWidget {
       if (iconAction != null) {
         return Icon(
           iconAction,
-          size: iconSize ?? TwakeContextMenuStyle.defaultItemIconSize,
+          size: iconSize ?? DediContextMenuStyle.defaultItemIconSize,
           color:
-              colorIcon ?? TwakeContextMenuStyle.defaultItemColorIcon(context),
+              colorIcon ?? DediContextMenuStyle.defaultItemColorIcon(context),
         );
       }
 
@@ -70,7 +70,7 @@ class ContextMenuActionItemWidget extends StatelessWidget {
     }
 
     return Padding(
-      padding: padding ?? TwakeContextMenuStyle.defaultItemPadding,
+      padding: padding ?? DediContextMenuStyle.defaultItemPadding,
       child: SizedBox(
         child: Row(
           children: [
@@ -78,10 +78,10 @@ class ContextMenuActionItemWidget extends StatelessWidget {
               child: Text(
                 nameAction,
                 style: styleName ??
-                    TwakeContextMenuStyle.defaultItemTextStyle(context),
+                    DediContextMenuStyle.defaultItemTextStyle(context),
               ),
             ),
-            const SizedBox(width: TwakeContextMenuStyle.defaultItemElementsGap),
+            const SizedBox(width: DediContextMenuStyle.defaultItemElementsGap),
             buildIcon(),
           ],
         ),

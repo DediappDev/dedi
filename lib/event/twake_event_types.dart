@@ -1,5 +1,5 @@
-class TwakeEventTypes {
-  static const String shareFileEventType = 'app.twake.shared.file';
+class DediEventTypes {
+  static const String shareFileEventType = 'app.dedi.shared.file';
   static const String addressBookUpdatedEventType =
-      'app.twake.addressbook.updated';
+      'app.dedi.addressbook.updated';
 }

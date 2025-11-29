@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:linagora_design_flutter/linagora_design_flutter.dart';
 
-class TwakePreviewPlaceHolder extends StatelessWidget {
-  const TwakePreviewPlaceHolder({
+class DediPreviewPlaceHolder extends StatelessWidget {
+  const DediPreviewPlaceHolder({
     super.key,
     required this.width,
     required this.height,
@@ -19,7 +19,7 @@ class TwakePreviewPlaceHolder extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        color: LinagoraRefColors.material().primary[95],
+        color: DediRefColors.material().primary[95],
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Center(

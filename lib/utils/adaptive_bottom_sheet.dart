@@ -20,7 +20,7 @@ Future<T?> showAdaptiveBottomSheet<T>({
       isScrollControlled: isScrollControlled,
       constraints: BoxConstraints(
         maxHeight: MediaQuery.sizeOf(context).height - 128,
-        maxWidth: TwakeThemes.columnWidth * 1.5,
+        maxWidth: DediThemes.columnWidth * 1.5,
       ),
       clipBehavior: Clip.hardEdge,
       shape: const RoundedRectangleBorder(

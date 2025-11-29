@@ -20,7 +20,7 @@ class TestBase {
             nativeAutomatorConfig ?? const NativeAutomatorConfig(),
         framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
         ($) async {
-      await initTwakeChat();
+      await initDediChat();
       final originalOnError = FlutterError.onError!;
       FlutterError.onError = (FlutterErrorDetails details) {
         originalOnError(details);
@@ -30,7 +30,7 @@ class TestBase {
     });
   }
 
-  Future<void> initTwakeChat() async {
+  Future<void> initDediChat() async {
     app.main();
   }
 

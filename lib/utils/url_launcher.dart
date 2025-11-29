@@ -39,7 +39,7 @@ class UrlLauncher with GoToDraftChatMixin {
     final uri = Uri.tryParse(url!);
     if (uri == null) {
       // we can't open this thing
-      TwakeSnackBar.show(context, L10n.of(context)!.cantOpenUri(url!));
+      DediSnackBar.show(context, L10n.of(context)!.cantOpenUri(url!));
       return;
     }
     if (!{'https', 'http'}.contains(uri.scheme)) {
@@ -77,7 +77,7 @@ class UrlLauncher with GoToDraftChatMixin {
       return;
     }
     if (uri.host.isEmpty) {
-      TwakeSnackBar.show(context, L10n.of(context)!.cantOpenUri(url!));
+      DediSnackBar.show(context, L10n.of(context)!.cantOpenUri(url!));
       return;
     }
     // okay, we have either an http or an https URI.
@@ -130,7 +130,7 @@ class UrlLauncher with GoToDraftChatMixin {
       final servers = <String>{};
       if (room == null && roomIdOrAlias.sigil == '#') {
         // we were unable to find the room locally...so resolve it
-        final response = await TwakeDialog.showFutureLoadingDialogFullScreen(
+        final response = await DediDialog.showFutureLoadingDialogFullScreen(
           future: () => matrix.client.getRoomIdByAlias(roomIdOrAlias),
         );
         if (response.error != null) {
@@ -174,7 +174,7 @@ class UrlLauncher with GoToDraftChatMixin {
             ) ==
             OkCancelResult.ok) {
           roomId = roomIdOrAlias;
-          final response = await TwakeDialog.showFutureLoadingDialogFullScreen(
+          final response = await DediDialog.showFutureLoadingDialogFullScreen(
             future: () => matrix.client.joinRoom(
               roomIdOrAlias,
               serverName: servers.isNotEmpty ? servers.toList() : null,
@@ -182,7 +182,7 @@ class UrlLauncher with GoToDraftChatMixin {
           );
           if (response.error != null) return;
           // wait for two seconds so that it probably came down /sync
-          await TwakeDialog.showFutureLoadingDialogFullScreen(
+          await DediDialog.showFutureLoadingDialogFullScreen(
             future: () => Future.delayed(const Duration(seconds: 2)),
           );
           if (event != null) {

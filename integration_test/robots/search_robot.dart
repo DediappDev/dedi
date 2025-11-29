@@ -8,7 +8,7 @@ class SearchRobot extends CoreRobot {
   SearchRobot(super.$);
 
   Future<PatrolFinder> getBackIcon() async {
-    return $(AppBar).$(TwakeIconButton).$(Icon);
+    return $(AppBar).$(DediIconButton).$(Icon);
   }
 
   Future<void> backToPreviousScreen() async {
@@ -30,7 +30,7 @@ class SearchRobot extends CoreRobot {
   }
 
   Future<PatrolFinder> getDeleteSearchingIcon() async {
-    return (await getSearchTextField()).$(TwakeIconButton).$(Icon);
+    return (await getSearchTextField()).$(DediIconButton).$(Icon);
   }
 
   Future<void> enterSearchText(String searchText) async {

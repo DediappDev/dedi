@@ -115,28 +115,28 @@ class ContactsInvitationController extends State<ContactsInvitation> {
     sendInvitationNotifier.value.fold(
       (failure) {
         if (failure is InvitationAlreadySentState) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.youAlreadySentAnInvitationToThisContact,
           );
           return;
         }
         if (failure is InvalidPhoneNumberFailureState) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.invalidPhoneNumber,
           );
           return;
         }
         if (failure is InvalidEmailFailureState) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.invalidEmail,
           );
           return;
         }
         if (failure is SendInvitationFailureState) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.failedToSendInvitation,
           );
@@ -150,7 +150,7 @@ class ContactsInvitationController extends State<ContactsInvitation> {
             contactId: widget.contact.id ?? '',
             invitationId: success.sendInvitationResponse.id ?? '',
           );
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.invitationHasBeenSuccessfullySent,
           );
@@ -178,31 +178,31 @@ class ContactsInvitationController extends State<ContactsInvitation> {
   void _onGenerateInvitationLinkStateListener() {
     generateInvitationLinkNotifier.value.fold(
       (failure) {
-        TwakeDialog.hideLoadingDialog(context);
+        DediDialog.hideLoadingDialog(context);
 
         if (failure is GenerateInvitationLinkFailureState) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             failure.message ?? L10n.of(context)!.failedToSendFiles,
           );
           return;
         }
         if (failure is InvalidPhoneNumberFailureState) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.invalidPhoneNumber,
           );
           return;
         }
         if (failure is InvalidEmailFailureState) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.invalidEmail,
           );
           return;
         }
         if (failure is GenerateInvitationLinkIsEmptyState) {
-          TwakeSnackBar.show(
+          DediSnackBar.show(
             context,
             L10n.of(context)!.failedToGenerateInvitationLink,
           );
@@ -211,10 +211,10 @@ class ContactsInvitationController extends State<ContactsInvitation> {
       },
       (success) async {
         if (success is GenerateInvitationLinkLoadingState) {
-          TwakeDialog.showLoadingDialog(context);
+          DediDialog.showLoadingDialog(context);
           return;
         } else {
-          TwakeDialog.hideLoadingDialog(context);
+          DediDialog.hideLoadingDialog(context);
         }
         if (success is GenerateInvitationLinkSuccessState) {
           await Share.shareUri(

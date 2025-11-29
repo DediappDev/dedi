@@ -74,7 +74,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
   Future<void> checkInput(String input) async {
     if (input.isEmpty) return;
 
-    final valid = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final valid = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         // make sure the loading spinner shows before we test the keys
         await Future.delayed(const Duration(milliseconds: 100));
@@ -152,7 +152,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
           ),
         );
         buttons.add(
-          TwakeTextButton(
+          DediTextButton(
             onTap: () => checkInput(textEditingController.text),
             message: L10n.of(context)!.submit,
             borderHover: KeyVerificationStyles.borderHoverButtonWaningBanner,
@@ -161,7 +161,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
                 ),
             margin: KeyVerificationStyles.marginButtonWarningBanner,
             buttonDecoration: BoxDecoration(
-              color: LinagoraSysColors.material().onPrimary,
+              color: DediSysColors.material().onPrimary,
               borderRadius: const BorderRadius.all(
                 Radius.circular(100),
               ),
@@ -169,7 +169,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
           ),
         );
         buttons.add(
-          TwakeTextButton(
+          DediTextButton(
             onTap: () => widget.request.openSSSS(skip: true),
             message: L10n.of(context)!.skip,
             borderHover: KeyVerificationStyles.borderHoverButtonWaningBanner,
@@ -178,7 +178,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
                 ),
             margin: KeyVerificationStyles.marginButtonWarningBanner,
             buttonDecoration: BoxDecoration(
-              color: LinagoraSysColors.material().onPrimary,
+              color: DediSysColors.material().onPrimary,
               borderRadius: const BorderRadius.all(
                 Radius.circular(100),
               ),
@@ -204,7 +204,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
           ],
         );
         buttons.add(
-          TwakeTextButton(
+          DediTextButton(
             onTap: () => widget.request
                 .rejectVerification()
                 .then((_) => Navigator.maybePop(context)),
@@ -215,7 +215,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
                 ),
             margin: KeyVerificationStyles.marginButtonWarningBanner,
             buttonDecoration: BoxDecoration(
-              color: LinagoraSysColors.material().onPrimary,
+              color: DediSysColors.material().onPrimary,
               borderRadius: const BorderRadius.all(
                 Radius.circular(100),
               ),
@@ -223,12 +223,12 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
           ),
         );
         buttons.add(
-          TwakeTextButton(
+          DediTextButton(
             onTap: () => widget.request.acceptVerification(),
             message: L10n.of(context)!.accept,
             borderHover: KeyVerificationStyles.borderHoverButtonWaningBanner,
             styleMessage: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: LinagoraSysColors.material().onPrimary,
+                  color: DediSysColors.material().onPrimary,
                 ),
             margin: KeyVerificationStyles.marginButtonWarningBanner,
             buttonDecoration: BoxDecoration(
@@ -300,7 +300,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
           ],
         );
         buttons.add(
-          TwakeTextButton(
+          DediTextButton(
             onTap: () => widget.request.rejectSas(),
             message: L10n.of(context)!.theyDontMatch,
             borderHover: KeyVerificationStyles.borderHoverButtonWaningBanner,
@@ -309,7 +309,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
                 ),
             margin: KeyVerificationStyles.marginButtonWarningBanner,
             buttonDecoration: BoxDecoration(
-              color: LinagoraSysColors.material().onPrimary,
+              color: DediSysColors.material().onPrimary,
               borderRadius: const BorderRadius.all(
                 Radius.circular(100),
               ),
@@ -320,12 +320,12 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
           ),
         );
         buttons.add(
-          TwakeTextButton(
+          DediTextButton(
             onTap: () => widget.request.acceptSas(),
             message: L10n.of(context)!.theyMatch,
             borderHover: KeyVerificationStyles.borderHoverButtonWaningBanner,
             styleMessage: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: LinagoraSysColors.material().onPrimary,
+                  color: DediSysColors.material().onPrimary,
                 ),
             margin: KeyVerificationStyles.marginButtonWarningBanner,
             buttonDecoration: BoxDecoration(
@@ -371,7 +371,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
           ],
         );
         buttons.add(
-          TwakeTextButton(
+          DediTextButton(
             onTap: () => Navigator.maybePop(context),
             message: L10n.of(context)!.close,
             borderHover: KeyVerificationStyles.borderHoverButtonWaningBanner,
@@ -380,7 +380,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
                 ),
             margin: KeyVerificationStyles.marginButtonWarningBanner,
             buttonDecoration: BoxDecoration(
-              color: LinagoraSysColors.material().onPrimary,
+              color: DediSysColors.material().onPrimary,
               borderRadius: const BorderRadius.all(
                 Radius.circular(100),
               ),
@@ -401,7 +401,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
           ],
         );
         buttons.add(
-          TwakeTextButton(
+          DediTextButton(
             onTap: () => Navigator.maybePop(context),
             message: L10n.of(context)!.close,
             borderHover: KeyVerificationStyles.borderHoverButtonWaningBanner,
@@ -410,7 +410,7 @@ class KeyVerificationPageState extends State<KeyVerificationDialog> {
                 ),
             margin: KeyVerificationStyles.marginButtonWarningBanner,
             buttonDecoration: BoxDecoration(
-              color: LinagoraSysColors.material().onPrimary,
+              color: DediSysColors.material().onPrimary,
               borderRadius: const BorderRadius.all(
                 Radius.circular(100),
               ),

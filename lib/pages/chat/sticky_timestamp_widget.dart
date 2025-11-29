@@ -23,7 +23,7 @@ class StickyTimestampWidget extends StatelessWidget {
             decoration: isStickyHeader
                 ? BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: LinagoraRefColors.material().primary[100],
+                    color: DediRefColors.material().primary[100],
                   )
                 : null,
             alignment: Alignment.center,
@@ -35,7 +35,7 @@ class StickyTimestampWidget extends StatelessWidget {
                   Text(
                     content,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: LinagoraRefColors.material().tertiary[20],
+                          color: DediRefColors.material().tertiary[20],
                         ),
                   ),
                 ],

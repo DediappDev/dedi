@@ -53,7 +53,7 @@ class ChatDetailsActionsButton extends StatelessWidget {
               side: borderSide ??
                   BorderSide(
                     width: 0.50,
-                    color: LinagoraRefColors.material().neutral[90]!,
+                    color: DediRefColors.material().neutral[90]!,
                   ),
               borderRadius: BorderRadius.circular(borderRadius ?? 16),
             ),

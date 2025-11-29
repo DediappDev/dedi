@@ -28,5 +28,5 @@ abstract class SettingKeys {
   static const String autoplayImages = 'chat.fluffy.autoplay_images';
   static const String experimentalVoip = 'chat.fluffy.experimental_voip';
   static const String enableRightAndLeftMessageAlignmentOnWeb =
-      'chat.twake.enable_right_and_left_message_alignment_on_web';
+      'chat.dedi.enable_right_and_left_message_alignment_on_web';
 }

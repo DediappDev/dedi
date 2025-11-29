@@ -8,27 +8,27 @@ import 'twake_context_menu.dart';
 
 typedef ContextMenuBuilder = List<Widget> Function(BuildContext context);
 
-/// The [TwakeContextMenuArea] is the way to use a [TwakeContextMenu]
+/// The [DediContextMenuArea] is the way to use a [DediContextMenu]
 ///
-/// It listens for right click and long press and executes [showTwakeContextMenu]
+/// It listens for right click and long press and executes [showDediContextMenu]
 /// with the corresponding location [Offset].
 
-class TwakeContextMenuArea extends StatelessWidget with TwakeContextMenuMixin {
-  /// The list of items to be displayed in the [TwakeContextMenu]. This is used to build the UI of items
+class DediContextMenuArea extends StatelessWidget with DediContextMenuMixin {
+  /// The list of items to be displayed in the [DediContextMenu]. This is used to build the UI of items
   final List<ContextMenuAction> listActions;
 
-  /// The widget displayed inside the [TwakeContextMenuArea]
+  /// The widget displayed inside the [DediContextMenuArea]
   final Widget child;
 
-  /// Builds a [List] of items to be displayed in an opened [TwakeContextMenu]
+  /// Builds a [List] of items to be displayed in an opened [DediContextMenu]
   ///
   /// Usually, a [ListTile] might be the way to go.
   final ContextMenuBuilder? builder;
 
-  /// The padding value at the top an bottom between the edge of the [TwakeContextMenu] and the first / last item
+  /// The padding value at the top an bottom between the edge of the [DediContextMenu] and the first / last item
   final double? verticalPadding;
 
-  const TwakeContextMenuArea({
+  const DediContextMenuArea({
     super.key,
     required this.listActions,
     required this.child,
@@ -42,12 +42,12 @@ class TwakeContextMenuArea extends StatelessWidget with TwakeContextMenuMixin {
       return child;
     }
     return GestureDetector(
-      onSecondaryTapDown: (details) => showTwakeContextMenu(
+      onSecondaryTapDown: (details) => showDediContextMenu(
         offset: details.globalPosition,
         context: context,
         listActions: listActions,
         verticalPadding:
-            verticalPadding ?? TwakeContextMenuStyle.defaultVerticalPadding,
+            verticalPadding ?? DediContextMenuStyle.defaultVerticalPadding,
       ),
       child: child,
     );

@@ -43,12 +43,12 @@ class DraftChatView extends StatelessWidget {
       child: KeyboardDismissOnTap(
         child: Scaffold(
           backgroundColor: DraftChatViewStyle.responsive.isMobile(context)
-              ? LinagoraSysColors.material().background
-              : LinagoraSysColors.material().onPrimary,
+              ? DediSysColors.material().background
+              : DediSysColors.material().onPrimary,
           appBar: AppBar(
             backgroundColor: DraftChatViewStyle.responsive.isMobile(context)
-                ? LinagoraSysColors.material().surface
-                : LinagoraSysColors.material().onPrimary,
+                ? DediSysColors.material().surface
+                : DediSysColors.material().onPrimary,
             automaticallyImplyLeading: false,
             toolbarHeight: ChatViewStyle.appBarHeight(context),
             title: Padding(
@@ -58,7 +58,7 @@ class DraftChatView extends StatelessWidget {
                   DraftChatViewStyle.responsive.isMobile(context)
                       ? Padding(
                           padding: const EdgeInsets.only(left: 12),
-                          child: TwakeIconButton(
+                          child: DediIconButton(
                             tooltip: L10n.of(context)!.back,
                             icon: Icons.chevron_left_outlined,
                             onTap: () => context.pop(),
@@ -80,8 +80,8 @@ class DraftChatView extends StatelessWidget {
             bottom: PreferredSize(
               preferredSize: const Size(double.infinity, 1),
               child: Container(
-                color: LinagoraStateLayer(
-                  LinagoraSysColors.material().surfaceTint,
+                color: DediStateLayer(
+                  DediSysColors.material().surfaceTint,
                 ).opacityLayer1,
                 height: 1,
               ),
@@ -89,7 +89,7 @@ class DraftChatView extends StatelessWidget {
           ),
           body: Container(
             color: DraftChatViewStyle.responsive.isMobile(context)
-                ? LinagoraSysColors.material().surface
+                ? DediSysColors.material().surface
                 : Colors.transparent,
             child: SafeArea(
               child: Center(
@@ -120,12 +120,11 @@ class DraftChatView extends StatelessWidget {
                           decoration: DraftChatViewStyle.responsive
                                   .isMobile(context)
                               ? BoxDecoration(
-                                  color: LinagoraSysColors.material().surface,
+                                  color: DediSysColors.material().surface,
                                   border: Border(
                                     top: BorderSide(
-                                      color: LinagoraStateLayer(
-                                        LinagoraSysColors.material()
-                                            .surfaceTint,
+                                      color: DediStateLayer(
+                                        DediSysColors.material().surfaceTint,
                                       ).opacityLayer3,
                                     ),
                                   ),
@@ -207,8 +206,7 @@ class DraftChatView extends StatelessWidget {
                               height:
                                   ChatController.defaultMaxHeightReactionPicker,
                               decoration: BoxDecoration(
-                                color:
-                                    LinagoraRefColors.material().primary[100],
+                                color: DediRefColors.material().primary[100],
                                 borderRadius: BorderRadius.circular(
                                   24,
                                 ),
@@ -243,7 +241,7 @@ class DraftChatView extends StatelessWidget {
                                       .textTheme
                                       .labelMedium!
                                       .copyWith(
-                                        color: LinagoraRefColors.material()
+                                        color: DediRefColors.material()
                                             .tertiary[30],
                                       ),
                                   searchEmptyWidget: SvgPicture.asset(
@@ -291,7 +289,7 @@ class DraftChatView extends StatelessWidget {
                         if (!isBlockedUser) return const SizedBox.shrink();
                         return Column(
                           children: [
-                            TwakeInkWell(
+                            DediInkWell(
                               onTap: () async => controller.onTapUnblockUser(
                                 context: context,
                                 client: Matrix.of(context).client,

@@ -53,7 +53,7 @@ class ContactsWarningBannerView extends StatelessWidget {
                   children: [
                     Padding(
                       padding: ContactsWarningBannerStyle.paddingRightButton,
-                      child: TwakeTextButton(
+                      child: DediTextButton(
                         onTap: closeContactsWarningBanner,
                         message: L10n.of(context)!.notNow,
                         borderHover: ContactsWarningBannerStyle
@@ -66,7 +66,7 @@ class ContactsWarningBannerView extends StatelessWidget {
                             .marginButtonWarningBanner,
                       ),
                     ),
-                    TwakeTextButton(
+                    DediTextButton(
                       message: L10n.of(context)!.next,
                       borderHover: ContactsWarningBannerStyle
                           .borderHoverButtonWaningBanner,

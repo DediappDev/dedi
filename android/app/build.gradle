@@ -52,7 +52,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "app.twake.android.chat"
+        applicationId "app.dedi.android.chat"
         minSdkVersion 23
         targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
@@ -88,7 +88,7 @@ android {
     testOptions {
         execution "ANDROIDX_TEST_ORCHESTRATOR"
     }
-    namespace 'app.twake.android.chat'
+    namespace 'app.dedi.android.chat'
     lint {
         disable 'InvalidPackage'
     }

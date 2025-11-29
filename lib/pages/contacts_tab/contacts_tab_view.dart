@@ -28,7 +28,7 @@ class ContactsTabView extends StatelessWidget {
           textEditingController: contactsController.textEditingController,
         ),
       ),
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       bottomNavigationBar: bottomNavigationBar,
       body: ContactsTabBodyView(contactsController),
     );

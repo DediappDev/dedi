@@ -54,7 +54,7 @@ extension UserExtension on User {
       context: context,
       builder: (dialogContext) => AlertDialog(
         contentPadding: const EdgeInsets.all(0),
-        backgroundColor: LinagoraRefColors.material().primary[100],
+        backgroundColor: DediRefColors.material().primary[100],
         surfaceTintColor: Colors.transparent,
         content: SizedBox(
           width: fixedDialogWidth,

@@ -52,7 +52,7 @@ class PinnedMessagesController extends State<PinnedMessages>
     with
         PopupContextMenuActionMixin,
         PopupMenuWidgetMixin,
-        TwakeContextMenuMixin,
+        DediContextMenuMixin,
         DeleteEventMixin {
   ValueNotifier<List<Event?>> eventsNotifier = ValueNotifier([]);
 
@@ -160,9 +160,9 @@ class PinnedMessagesController extends State<PinnedMessages>
 
   void _showErrorSnackbar(Failure failure) {
     if (failure is UnpinEventsFailure) {
-      TwakeSnackBar.show(context, L10n.of(context)!.failedToUnpin);
+      DediSnackBar.show(context, L10n.of(context)!.failedToUnpin);
     } else if (failure is UpdatePinnedEventsFailure) {
-      TwakeSnackBar.show(
+      DediSnackBar.show(
         context,
         failure.exception.toLocalizedString(context),
       );
@@ -186,7 +186,7 @@ class PinnedMessagesController extends State<PinnedMessages>
       [
         PopupMenuItem(
           padding: EdgeInsets.zero,
-          child: popupItemByTwakeAppRouter(
+          child: popupItemByDediAppRouter(
             context,
             L10n.of(context)!.unpinAllMessages,
             imagePath: ImagePaths.icUnpin,
@@ -223,7 +223,7 @@ class PinnedMessagesController extends State<PinnedMessages>
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: getPinnedMessagesActionsList(event).map((action) {
-            return popupItemByTwakeAppRouter(
+            return popupItemByDediAppRouter(
               context,
               action.getTitle(
                 context,
@@ -240,7 +240,7 @@ class PinnedMessagesController extends State<PinnedMessages>
               styleName: action == ChatContextMenuActions.delete
                   ? PopupMenuWidgetStyle.defaultItemTextStyle(context)?.merge(
                       TextStyle(
-                        color: LinagoraSysColors.material().error,
+                        color: DediSysColors.material().error,
                       ),
                     )
                   : null,
@@ -319,7 +319,7 @@ class PinnedMessagesController extends State<PinnedMessages>
     Event event,
   ) {
     return actions.map((action) {
-      return popupItemByTwakeAppRouter(
+      return popupItemByDediAppRouter(
         context,
         action.getTitle(
           context,
@@ -336,7 +336,7 @@ class PinnedMessagesController extends State<PinnedMessages>
         styleName: action == ChatContextMenuActions.delete
             ? PopupMenuWidgetStyle.defaultItemTextStyle(context)?.merge(
                 TextStyle(
-                  color: LinagoraSysColors.material().error,
+                  color: DediSysColors.material().error,
                 ),
               )
             : null,
@@ -375,7 +375,7 @@ class PinnedMessagesController extends State<PinnedMessages>
         styleName: action == ChatContextMenuActions.delete
             ? PopupMenuWidgetStyle.defaultItemTextStyle(context)?.merge(
                 TextStyle(
-                  color: LinagoraSysColors.material().error,
+                  color: DediSysColors.material().error,
                 ),
               )
             : null,
@@ -443,7 +443,7 @@ class PinnedMessagesController extends State<PinnedMessages>
     final offset = tapDownDetails.globalPosition;
     final listActions = pinnedMessagesContextMenuActionsList(context, event);
     _handleStateContextMenu();
-    final selectedActionIndex = await showTwakeContextMenu(
+    final selectedActionIndex = await showDediContextMenu(
       context: context,
       offset: offset,
       listActions: listActions,

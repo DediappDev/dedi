@@ -12,18 +12,18 @@ class SettingForNewGroupRobot extends CoreRobot {
   }
 
   PatrolFinder getConfirmIcon() {
-    return $(TwakeFloatingActionButton).last;
+    return $(DediFloatingActionButton).last;
   }
 
   PatrolFinder getEncriptionCkb() {
     return $(Checkbox).last;
   }
-  
-  Future<void> settingForNewGroup(String name, {bool encription = false}) async{
+
+  Future<void> settingForNewGroup(String name,
+      {bool encription = false}) async {
     await getNameTextField().enterText(name);
-    if(encription){
+    if (encription) {
       await getEncriptionCkb().tap();
     }
   }
-
 }

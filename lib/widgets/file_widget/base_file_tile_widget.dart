@@ -22,7 +22,7 @@ class BaseFileTileWidget extends StatelessWidget {
     required this.subTitle,
   });
 
-  final TwakeMimeType mimeType;
+  final DediMimeType mimeType;
   final String filename;
   final String? highlightText;
   final String? sizeString;

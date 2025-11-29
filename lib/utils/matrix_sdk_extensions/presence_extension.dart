@@ -51,22 +51,22 @@ extension PresenceExtension on CachedPresence {
   TextStyle? _offlineStatusTextStyle(BuildContext context) =>
       responsive.isMobile(context)
           ? Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: LinagoraRefColors.material().tertiary[30],
+                color: DediRefColors.material().tertiary[30],
                 letterSpacing: ChatAppBarTitleStyle.letterSpacingStatusContent,
               )
           : Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: LinagoraRefColors.material().neutral[50],
+                color: DediRefColors.material().neutral[50],
                 letterSpacing: ChatAppBarTitleStyle.letterSpacingRoomName,
               );
 
   TextStyle? _onlineStatusTextStyle(BuildContext context) =>
       responsive.isMobile(context)
           ? Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: LinagoraRefColors.material().secondary,
+                color: DediRefColors.material().secondary,
                 letterSpacing: ChatAppBarTitleStyle.letterSpacingStatusContent,
               )
           : Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: LinagoraRefColors.material().secondary,
+                color: DediRefColors.material().secondary,
                 letterSpacing: ChatAppBarTitleStyle.letterSpacingRoomName,
               );
 }

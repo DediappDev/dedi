@@ -17,7 +17,7 @@ import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 typedef OnTapMultipleAccountsButton = void Function(
-  List<TwakeChatPresentationAccount> multipleAccounts,
+  List<DediChatPresentationAccount> multipleAccounts,
 );
 
 class SettingsProfileViewMobile extends StatelessWidget {

@@ -252,8 +252,8 @@ class StoryView extends StatelessWidget {
                 onHorizontalDragStart: controller.hold,
                 onHorizontalDragEnd: controller.unhold,
                 child: AnimatedContainer(
-                  duration: TwakeThemes.animationDuration,
-                  curve: TwakeThemes.animationCurve,
+                  duration: DediThemes.animationDuration,
+                  curve: DediThemes.animationCurve,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16.0,
                     vertical: 80,
@@ -356,7 +356,7 @@ class StoryView extends StatelessWidget {
                         onSubmitted: controller.replyAction,
                         textInputAction: TextInputAction.send,
                         readOnly: controller.replyLoading,
-                        contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                        contextMenuBuilder: mobileDediContextMenuBuilder,
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.fromLTRB(0, 16, 0, 16),

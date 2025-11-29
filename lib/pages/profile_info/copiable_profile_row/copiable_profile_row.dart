@@ -33,8 +33,8 @@ class CopiableProfileRow extends StatelessWidget {
         focusColor: Colors.transparent,
         hoverColor: Colors.transparent,
         onTap: () {
-          TwakeClipboard.instance.copyText(copiableText);
-          TwakeSnackBar.show(
+          DediClipboard.instance.copyText(copiableText);
+          DediSnackBar.show(
             duration: snackBarDuration,
             context,
             L10n.of(context)!.copiedToClipboard,
@@ -60,7 +60,7 @@ class CopiableProfileRow extends StatelessWidget {
                   border: enableDividerTop
                       ? Border(
                           top: BorderSide(
-                            color: LinagoraSysColors.material()
+                            color: DediSysColors.material()
                                 .surfaceTint
                                 .withOpacity(
                                   CopiableProfileRowStyle.borderOpacity,
@@ -77,7 +77,7 @@ class CopiableProfileRow extends StatelessWidget {
                     Text(
                       caption,
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                            color: LinagoraRefColors.material().neutral[40],
+                            color: DediRefColors.material().neutral[40],
                           ),
                     ),
                     Row(
@@ -86,20 +86,18 @@ class CopiableProfileRow extends StatelessWidget {
                         Expanded(
                           child: Text(
                             copiableText,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                  color: LinagoraSysColors.material().onSurface,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: DediSysColors.material().onSurface,
+                                    ),
                           ),
                         ),
                         InkWell(
                           borderRadius: BorderRadius.circular(38),
-                          splashColor: LinagoraHoverStyle.material().hoverColor,
+                          splashColor: DediHoverStyle.material().hoverColor,
                           onTap: () {
-                            TwakeClipboard.instance.copyText(copiableText);
-                            TwakeSnackBar.show(
+                            DediClipboard.instance.copyText(copiableText);
+                            DediSnackBar.show(
                               duration: snackBarDuration,
                               context,
                               L10n.of(context)!.copiedToClipboard,

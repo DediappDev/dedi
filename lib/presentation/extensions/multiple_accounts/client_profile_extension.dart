@@ -5,10 +5,10 @@ import 'package:linagora_design_flutter/multiple_account/models/twake_presentati
 import 'package:matrix/matrix.dart';
 
 extension ClientProfileExtension on ClientProfilePresentation {
-  TwakeChatPresentationAccount toTwakeChatPresentationAccount(
+  DediChatPresentationAccount toDediChatPresentationAccount(
     Client currentActiveClient,
   ) {
-    return TwakeChatPresentationAccount(
+    return DediChatPresentationAccount(
       clientAccount: client,
       accountId: profile.userId,
       accountName: profile.displayName ?? '',

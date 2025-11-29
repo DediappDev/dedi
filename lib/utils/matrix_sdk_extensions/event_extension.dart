@@ -28,7 +28,7 @@ extension LocalizedBody on Event {
   Future<LoadingDialogResult<MatrixFile?>> getFile(
     BuildContext context,
   ) async =>
-      TwakeDialog.showFutureLoadingDialogFullScreen(
+      DediDialog.showFutureLoadingDialogFullScreen(
         future: downloadAndDecryptAttachment,
       );
 
@@ -51,7 +51,7 @@ extension LocalizedBody on Event {
         : null;
   }
 
-  TwakeMimeType? get mimeType {
+  DediMimeType? get mimeType {
     return content
         .tryGetMap<String, dynamic>('info')
         ?.tryGet<String>('mimetype');
@@ -224,18 +224,18 @@ extension LocalizedBody on Event {
           );
       try {
         if (matrixFile.filePath != null) {
-          await TwakeClipboard.instance.copyImageAsStream(
+          await DediClipboard.instance.copyImageAsStream(
             File(matrixFile.filePath!),
             mimeType: mimeType,
           );
         } else if (matrixFile.bytes != null) {
-          await TwakeClipboard.instance.copyImageAsBytes(
+          await DediClipboard.instance.copyImageAsBytes(
             matrixFile.bytes!,
             mimeType: mimeType,
           );
         }
       } catch (e) {
-        TwakeSnackBar.show(context, L10n.of(context)!.copyImageFailed);
+        DediSnackBar.show(context, L10n.of(context)!.copyImageFailed);
         Logs().e(
           'copySingleEventAction(): failed to copy file ${matrixFile.name}',
         );
@@ -246,9 +246,9 @@ extension LocalizedBody on Event {
   }
 
   Future<void> copyTextEvent(BuildContext context, Timeline timeline) async {
-    await TwakeClipboard.instance
+    await DediClipboard.instance
         .copyText(getSelectedEventString(context, timeline));
-    TwakeSnackBar.show(
+    DediSnackBar.show(
       context,
       L10n.of(context)!.textCopiedToClipboard,
     );
@@ -316,7 +316,7 @@ extension LocalizedBody on Event {
       return Theme.of(context).textTheme.bodyLarge?.copyWith(
             fontSize: 17,
             height: 24 / 17,
-            color: LinagoraRefColors.material().tertiary[30],
+            color: DediRefColors.material().tertiary[30],
           );
     }
 

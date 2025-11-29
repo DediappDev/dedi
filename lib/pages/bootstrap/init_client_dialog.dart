@@ -101,7 +101,7 @@ class _InitClientDialogState extends State<InitClientDialog>
   }
 
   void _handleFirstLoggedIn(Client client) {
-    TwakeApp.router.go(
+    DediApp.router.go(
       '/rooms',
       extra: LoggedInBodyArgs(
         newActiveClient: client,
@@ -110,7 +110,7 @@ class _InitClientDialogState extends State<InitClientDialog>
   }
 
   void _handleAddAnotherAccount(Client client) {
-    TwakeApp.router.go(
+    DediApp.router.go(
       '/rooms',
       extra: LoggedInOtherAccountBodyArgs(
         newActiveClient: client,

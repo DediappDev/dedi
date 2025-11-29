@@ -76,7 +76,7 @@ void main() async {
 
   // Kayıtlı Matrix client'larını getir
   final clients = await ClientManager.getClients();
-  
+
   // İlk client'ı önceden yükle (performans için)
   final firstClient = clients.firstOrNull;
 
@@ -213,7 +213,7 @@ class AppStarter with WidgetsBindingObserver {
     Logs().i(
       '${AppConfig.applicationName} switches from the detached background-fetch mode to ${state.name} mode. Rendering GUI...',
     );
-    
+
     // AuthStore'u oluştur ve bootstrap et
     final authStore = AuthStore();
     final firstClient = clients.firstOrNull;
@@ -222,7 +222,7 @@ class AppStarter with WidgetsBindingObserver {
     } else {
       authStore.state = AuthState.unauthenticated;
     }
-    
+
     await startGui(clients, authStore);
 
     // GUI'nin sadece bir kez başlatılmasını garanti et

@@ -30,7 +30,7 @@ class SearchTextField extends StatelessWidget {
         },
         controller: textEditingController,
         textInputAction: TextInputAction.search,
-        contextMenuBuilder: mobileTwakeContextMenuBuilder,
+        contextMenuBuilder: mobileDediContextMenuBuilder,
         enabled: true,
         focusNode: focusNode,
         autofocus: autofocus,
@@ -44,20 +44,20 @@ class SearchTextField extends StatelessWidget {
           ),
           hintText: hintText ?? L10n.of(context)!.search,
           hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: LinagoraRefColors.material().neutral[60],
+                color: DediRefColors.material().neutral[60],
               ),
           floatingLabelBehavior: FloatingLabelBehavior.never,
           prefixIcon: Icon(
             Icons.search_outlined,
             size: SearchViewStyle.searchIconSize,
-            color: LinagoraRefColors.material().neutral[60],
+            color: DediRefColors.material().neutral[60],
           ),
           suffixIcon: ValueListenableBuilder(
             valueListenable: textEditingController,
             builder: (context, value, child) {
               return value.text.isNotEmpty ? child! : const SizedBox.shrink();
             },
-            child: TwakeIconButton(
+            child: DediIconButton(
               tooltip: L10n.of(context)!.close,
               icon: Icons.close,
               onTap: () {

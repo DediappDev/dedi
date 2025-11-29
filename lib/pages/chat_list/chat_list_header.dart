@@ -23,7 +23,7 @@ class ChatListHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TwakeHeader(
+        DediHeader(
           onClearSelection: controller.onClickClearSelection,
           client: controller.activeClient,
           selectModeNotifier: controller.selectModeNotifier,
@@ -33,7 +33,7 @@ class ChatListHeader extends StatelessWidget {
         ),
         Container(
           color: ChatListHeaderStyle.responsive.isMobile(context)
-              ? LinagoraSysColors.material().background
+              ? DediSysColors.material().background
               : Colors.transparent,
           height: ChatListHeaderStyle.searchBarContainerHeight,
           padding: ChatListHeaderStyle.searchInputPadding,
@@ -45,7 +45,7 @@ class ChatListHeader extends StatelessWidget {
           Divider(
             height: ChatListHeaderStyle.dividerHeight,
             thickness: ChatListHeaderStyle.dividerThickness,
-            color: LinagoraStateLayer(LinagoraSysColors.material().surfaceTint)
+            color: DediStateLayer(DediSysColors.material().surfaceTint)
                 .opacityLayer3,
           ),
       ],
@@ -112,7 +112,7 @@ class ChatListHeader extends StatelessWidget {
               builder: (context, value, _) {
                 return TextField(
                   textInputAction: TextInputAction.search,
-                  contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                  contextMenuBuilder: mobileDediContextMenuBuilder,
                   enabled: false,
                   decoration:
                       ChatListHeaderStyle.searchInputDecoration(context),

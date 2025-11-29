@@ -32,8 +32,8 @@ class ProfileInfoHeader extends StatelessWidget {
           user.calcDisplayname(),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: LinagoraTextStyle.material().bodyMedium2.copyWith(
-                color: LinagoraSysColors.material().onSurface,
+          style: DediTextStyle.material().bodyMedium2.copyWith(
+                color: DediSysColors.material().onSurface,
               ),
         ),
         if (presence != null) ...[

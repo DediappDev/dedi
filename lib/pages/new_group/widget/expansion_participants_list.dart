@@ -40,14 +40,14 @@ class _ExpansionParticipantsListState extends State<ExpansionParticipantsList> {
                         L10n.of(context)!
                             .participantsCount(widget.contactsList.length),
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              color: LinagoraRefColors.material().neutral[40],
+                              color: DediRefColors.material().neutral[40],
                             ),
                       ),
                     ],
                   ),
                 ),
                 const Expanded(child: SizedBox.shrink()),
-                TwakeIconButton(
+                DediIconButton(
                   paddingAll: 6,
                   buttonDecoration: BoxDecoration(
                     shape: BoxShape.circle,

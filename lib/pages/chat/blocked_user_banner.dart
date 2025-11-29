@@ -13,7 +13,7 @@ class BlockedUserBanner extends StatelessWidget {
     return Container(
       height: ChatViewBodyStyle.blockedUserBannerHeight,
       decoration: BoxDecoration(
-        color: LinagoraSysColors.material().secondaryContainer,
+        color: DediSysColors.material().secondaryContainer,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -23,14 +23,14 @@ class BlockedUserBanner extends StatelessWidget {
             width: 16,
             height: 16,
             colorFilter: ColorFilter.mode(
-              LinagoraSysColors.material().primary,
+              DediSysColors.material().primary,
               BlendMode.srcIn,
             ),
           ),
           Text(
             L10n.of(context)!.unblockUser,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: LinagoraSysColors.material().primary,
+                  color: DediSysColors.material().primary,
                 ),
           ),
         ],

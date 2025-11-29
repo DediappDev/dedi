@@ -12,13 +12,12 @@ dependencies:
   matrix:
     git:
       url: git@github.com:linagora/matrix-dart-sdk.git
-      ref: twake-supported-0.22.6
+      ref: dedi-supported-0.22.6
 
-  # TEMPORARILY DISABLED FOR BACKEND TESTING - PLUGIN HAS HEADER ISSUES
-  # receive_sharing_intent:
-  #   git:
-  #     url: https://github.com/linagora/receive_sharing_intent.git
-  #     ref: main
+  receive_sharing_intent:
+    git:
+      url: https://github.com/linagora/receive_sharing_intent.git
+      ref: main
 
   # TODO: Android native lib build error: https://github.com/jonataslaw/VideoCompress/issues/240
   # video_compress: ^3.1.1
@@ -74,7 +73,7 @@ dependencies:
   social_media_recorder:
     git:
       url: git@github.com:linagora/social_media_recorder.git
-      ref: twake_supported
+      ref: dedi_supported
 
   adaptive_dialog: ^1.8.0+1
   flutter_adaptive_scaffold: ^0.1.4
@@ -286,15 +285,15 @@ flutter:
           weight: 700
 
 msix_config:
-  display_name: Twake Chat
-  publisher_display_name: Twake Chat
-  publisher: CN=Twake, O=Linagora, C=FR
-  identity_name: app.twake.windows.chat
+  display_name: Dedi
+  publisher_display_name: Dedi
+  publisher: CN=Dedi, O=Dediapp, C=FR
+  identity_name: app.dedi.windows.chat
   logo_path: assets\logo.png
   capabilities: internetClient, location, microphone, webcam
   protocol_activation: https
   app_uri_handler_hosts: matrix.to
-  execution_alias: twake
+  execution_alias: dedi
   sign_msix: true
   install_certificate: false
 
@@ -325,7 +324,7 @@ dependency_overrides:
   matrix_link_text:
     git:
       url: https://github.com/linagora/matrix_link_text.git
-      ref: twake-supported
+      ref: dedi-supported
   # TODO: Remove this part when update matrix_homeserver_recommendations to same version as matrix_dart_sdk
   matrix_api_lite:
     git:
@@ -348,9 +347,9 @@ cider:
     tag: https://github.com/linagora/twake-on-matrix/releases/tag/%tag% # initial release link template
 
 patrol:
-  app_name: Twake Chat
+  app_name: Dedi
   android:
-    package_name: app.twake.android.chat
+    package_name: app.dedi.android.chat
   ios:
-    bundle_id: app.twake.ios.chat
-    app_name: Twake Chat
+    bundle_id: app.dedi.ios.chat
+    app_name: Dedi

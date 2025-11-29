@@ -18,12 +18,12 @@ class ChatListRobot extends HomeRobot {
   PatrolFinder noResultLabel() {
     return $("No Results");
   }
-   
-  PatrolFinder getPenIcon(){
-    return $(TwakeFloatingActionButton);
+
+  PatrolFinder getPenIcon() {
+    return $(DediFloatingActionButton);
   }
 
-  Future<void> clickOnPenIcon() async{
+  Future<void> clickOnPenIcon() async {
     await getPenIcon().tap();
     await $.waitUntilVisible($(AppBar).$("New chat"));
   }
@@ -34,20 +34,21 @@ class ChatListRobot extends HomeRobot {
     return ChatGroupDetailRobot($);
   }
 
-  Future<List<TwakeListItemRobot>> getListOfChatGroup() async {
-    final List<TwakeListItemRobot> groupList = [];
+  Future<List<DediListItemRobot>> getListOfChatGroup() async {
+    final List<DediListItemRobot> groupList = [];
 
-    // Evaluate once to find how many TwakeListItem widgets exist
-    final matches = $(TwakeListItem).evaluate();
+    // Evaluate once to find how many DediListItem widgets exist
+    final matches = $(DediListItem).evaluate();
     for (final element in matches) {
       final finder = $(element.widget.runtimeType);
-      groupList.add(TwakeListItemRobot($, finder));
+      groupList.add(DediListItemRobot($, finder));
     }
     return groupList;
   }
 
-  TwakeListItemRobot getChatGroupByTitle(String title){
-    final finder = $(TwakeListItem).containing($(ChatListItemTitle).containing($(title)));
-    return TwakeListItemRobot($,finder);
+  DediListItemRobot getChatGroupByTitle(String title) {
+    final finder =
+        $(DediListItem).containing($(ChatListItemTitle).containing($(title)));
+    return DediListItemRobot($, finder);
   }
 }

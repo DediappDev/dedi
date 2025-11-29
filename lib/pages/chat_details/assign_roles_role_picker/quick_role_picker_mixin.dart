@@ -19,7 +19,7 @@ import 'package:linagora_design_flutter/colors/linagora_ref_colors.dart';
 import 'package:linagora_design_flutter/colors/linagora_sys_colors.dart';
 import 'package:matrix/matrix.dart';
 
-mixin QuickRolePickerMixin on TwakeContextMenuMixin {
+mixin QuickRolePickerMixin on DediContextMenuMixin {
   final List<DefaultPowerLevelMember> quickRolePicker = [
     DefaultPowerLevelMember.admin,
     DefaultPowerLevelMember.moderator,
@@ -38,7 +38,7 @@ mixin QuickRolePickerMixin on TwakeContextMenuMixin {
       return ContextMenuAction(
         name: action.displayName(context),
         icon: action.powerLevel == user.powerLevel ? Icons.check : null,
-        colorIcon: LinagoraRefColors.material().neutral[30],
+        colorIcon: DediRefColors.material().neutral[30],
       );
     }).toList();
   }
@@ -69,8 +69,8 @@ mixin QuickRolePickerMixin on TwakeContextMenuMixin {
     result.fold(
       (failure) {
         if (failure is SetPermissionLevelFailure) {
-          TwakeDialog.hideLoadingDialog(context);
-          TwakeSnackBar.show(
+          DediDialog.hideLoadingDialog(context);
+          DediSnackBar.show(
             context,
             failure.exception.toString(),
           );
@@ -78,8 +78,8 @@ mixin QuickRolePickerMixin on TwakeContextMenuMixin {
         }
 
         if (failure is NoPermissionFailure) {
-          TwakeDialog.hideLoadingDialog(context);
-          TwakeSnackBar.show(
+          DediDialog.hideLoadingDialog(context);
+          DediSnackBar.show(
             context,
             L10n.of(context)!.permissionErrorChangeRole,
           );
@@ -88,12 +88,12 @@ mixin QuickRolePickerMixin on TwakeContextMenuMixin {
       },
       (success) {
         if (success is SetPermissionLevelLoading) {
-          TwakeDialog.showLoadingDialog(context);
+          DediDialog.showLoadingDialog(context);
           return;
         }
 
         if (success is SetPermissionLevelSuccess) {
-          TwakeDialog.hideLoadingDialog(context);
+          DediDialog.hideLoadingDialog(context);
 
           return;
         }
@@ -138,7 +138,7 @@ mixin QuickRolePickerMixin on TwakeContextMenuMixin {
               child: Text(
                 role.displayName(dialogContext),
                 style: dialogContext.textTheme.bodyLarge?.copyWith(
-                  color: LinagoraSysColors.material().onSurface,
+                  color: DediSysColors.material().onSurface,
                 ),
               ),
             ),
@@ -148,7 +148,7 @@ mixin QuickRolePickerMixin on TwakeContextMenuMixin {
                 height: 36,
                 child: Icon(
                   Icons.check,
-                  color: LinagoraSysColors.material().onSurface,
+                  color: DediSysColors.material().onSurface,
                 ),
               ),
           ],
@@ -169,7 +169,7 @@ mixin QuickRolePickerMixin on TwakeContextMenuMixin {
     }
     final offset = tapDownDetails.globalPosition;
 
-    final selectedActionIndex = await showTwakeContextMenu(
+    final selectedActionIndex = await showDediContextMenu(
       offset: offset,
       context: context,
       listActions: _mapPopupRolesToContextMenuActions(
@@ -229,7 +229,7 @@ mixin QuickRolePickerMixin on TwakeContextMenuMixin {
                     width: 32,
                     margin: const EdgeInsets.symmetric(vertical: 16),
                     decoration: BoxDecoration(
-                      color: LinagoraSysColors.material().outline,
+                      color: DediSysColors.material().outline,
                       borderRadius: BorderRadius.circular(100),
                     ),
                   ),

@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fluffychat/services/otp_api_service.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:fluffychat/utils/debug_toast_service.dart';
+import 'package:fluffychat/config/app_config.dart';
 
 class PhoneInputPage extends StatefulWidget {
   const PhoneInputPage({super.key});
@@ -61,7 +63,8 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
 
     // Check second digit (valid ranges)
     final secondDigit = digits[1];
-    return ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].contains(secondDigit);
+    return ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+        .contains(secondDigit);
   }
 
   Future<void> _sendOTP() async {
@@ -107,6 +110,15 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
       }
     } catch (e) {
       debugPrint('OTP request failed: $e');
+
+      // Show debug toast if enabled
+      if (AppConfig.enableDebugToasts) {
+        DebugToastService.showOTPError(
+          operation: 'Phone Input (Legacy)',
+          error: e.toString(),
+        );
+      }
+
       if (mounted) {
         String errorMsg = 'Bir hata oluştu. Lütfen tekrar deneyin.';
 
@@ -121,7 +133,8 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
         } else if (errorStr.contains('invalid_phone')) {
           errorMsg = 'Geçersiz telefon numarası.';
         } else if (errorStr.contains('rate')) {
-          errorMsg = 'Çok fazla deneme yaptınız. Lütfen kısa bir süre bekleyin.';
+          errorMsg =
+              'Çok fazla deneme yaptınız. Lütfen kısa bir süre bekleyin.';
         }
 
         setState(() {
@@ -195,9 +208,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                       color: Color(0xFF1D1D1D),
                     ),
                   ),
-
                   const SizedBox(height: 8),
-
                   TextField(
                     controller: _phoneController,
                     keyboardType: TextInputType.phone,
@@ -217,7 +228,8 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                     ],
                     decoration: InputDecoration(
                       prefixIcon: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -248,7 +260,8 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                               height: 24,
                               width: 1,
                               color: Colors.grey[300],
-                              margin: const EdgeInsets.symmetric(horizontal: 12),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 12),
                             ),
                           ],
                         ),
@@ -274,7 +287,8 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.red, width: 2),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2),
                       ),
                       contentPadding: const EdgeInsets.symmetric(vertical: 16),
                       errorText: _errorMessage.isEmpty ? null : _errorMessage,
@@ -296,9 +310,8 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                     backgroundColor: isButtonEnabled
                         ? Theme.of(context).primaryColor
                         : Colors.grey[300],
-                    foregroundColor: isButtonEnabled
-                        ? Colors.white
-                        : Colors.grey[600],
+                    foregroundColor:
+                        isButtonEnabled ? Colors.white : Colors.grey[600],
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),

@@ -23,9 +23,9 @@ class PinnedMessagesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LinagoraSysColors.material().onPrimary,
+      backgroundColor: DediSysColors.material().onPrimary,
       appBar: AppBar(
-        backgroundColor: LinagoraSysColors.material().onPrimary,
+        backgroundColor: DediSysColors.material().onPrimary,
         centerTitle: true,
         title: ValueListenableBuilder(
           valueListenable: controller.eventsNotifier,
@@ -38,7 +38,7 @@ class PinnedMessagesScreen extends StatelessWidget {
             );
           },
         ),
-        leading: TwakeIconButton(
+        leading: DediIconButton(
           tooltip: L10n.of(context)!.back,
           icon: Icons.chevron_left_outlined,
           onTap: controller.onClickBackButton,
@@ -47,7 +47,7 @@ class PinnedMessagesScreen extends StatelessWidget {
           if (!responsiveUtils.isMobile(context))
             Builder(
               builder: (context) {
-                return TwakeIconButton(
+                return DediIconButton(
                   icon: Icons.more_vert,
                   tooltip: L10n.of(context)!.more,
                   onTap: () =>

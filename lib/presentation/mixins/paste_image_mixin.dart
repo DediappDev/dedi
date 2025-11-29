@@ -17,19 +17,19 @@ mixin PasteImageMixin {
     ClipboardReader? clipboardReader,
     VoidCallback? onSendFileCallback,
   }) async {
-    if (!(await TwakeClipboard.instance
+    if (!(await DediClipboard.instance
         .isReadableImageFormat(clipboardReader: clipboardReader))) {
-      TwakeSnackBar.show(context, L10n.of(context)!.fileFormatNotSupported);
+      DediSnackBar.show(context, L10n.of(context)!.fileFormatNotSupported);
       Logs().e('PasteImageMixin::pasteImage(): not readable image format');
       return;
     }
     List<MatrixFile?>? matrixFiles;
     if (PlatformInfos.isWeb) {
-      matrixFiles = await TwakeClipboard.instance
+      matrixFiles = await DediClipboard.instance
           .pasteImagesUsingBytes(reader: clipboardReader);
     }
     if (matrixFiles == null || matrixFiles.isEmpty) {
-      TwakeSnackBar.show(context, L10n.of(context)!.pasteImageFailed);
+      DediSnackBar.show(context, L10n.of(context)!.pasteImageFailed);
       return;
     }
     final nonNullableFiles = matrixFiles
@@ -39,7 +39,7 @@ mixin PasteImageMixin {
         .map(
           (matrixFile) => MatrixFile(
             name: matrixFile!.name,
-            mimeType: MimeTypeUitls.instance.getTwakeMimeType(matrixFile.name),
+            mimeType: MimeTypeUitls.instance.getDediMimeType(matrixFile.name),
             bytes: matrixFile.bytes,
           ).detectFileType,
         )

@@ -149,7 +149,7 @@ class ChatSettingsPopupMenuState extends State<ChatSettingsPopupMenu> {
                 );
                 if (confirmed == OkCancelResult.ok) {
                   final success =
-                      await TwakeDialog.showFutureLoadingDialogFullScreen(
+                      await DediDialog.showFutureLoadingDialogFullScreen(
                     future: () => widget.room.leave(),
                   );
                   if (success.error == null) {
@@ -158,12 +158,12 @@ class ChatSettingsPopupMenuState extends State<ChatSettingsPopupMenu> {
                 }
                 break;
               case 'mute':
-                await TwakeDialog.showFutureLoadingDialogFullScreen(
+                await DediDialog.showFutureLoadingDialogFullScreen(
                   future: () => widget.room.mute(),
                 );
                 break;
               case 'unmute':
-                await TwakeDialog.showFutureLoadingDialogFullScreen(
+                await DediDialog.showFutureLoadingDialogFullScreen(
                   future: () => widget.room.unmute(),
                 );
                 break;

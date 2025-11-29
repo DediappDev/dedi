@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:fluffychat/services/otp_api_service.dart';
+import 'package:fluffychat/utils/debug_toast_service.dart';
+import 'package:fluffychat/config/app_config.dart';
 
 /// Modern phone input screen using intl_phone_field package
 /// Replaces the old basic TextField implementation
@@ -42,7 +44,7 @@ class _PhoneInputViewState extends State<PhoneInputView> {
 
     try {
       final response = await OTPApiService.requestOTP(_fullPhoneNumber);
-      
+
       if (kDebugMode) {
         debugPrint('OTP request success for $_fullPhoneNumber: $response');
       }
@@ -61,7 +63,15 @@ class _PhoneInputViewState extends State<PhoneInputView> {
       if (kDebugMode) {
         debugPrint('OTP request error: $e');
       }
-      
+
+      // Show debug toast if enabled
+      if (AppConfig.enableDebugToasts) {
+        DebugToastService.showOTPError(
+          operation: 'Phone Input',
+          error: e.toString(),
+        );
+      }
+
       setState(() {
         _errorMessage = L10n.of(context)!.otpRequestFailed;
       });
@@ -77,7 +87,7 @@ class _PhoneInputViewState extends State<PhoneInputView> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -204,8 +214,8 @@ class _PhoneInputViewState extends State<PhoneInputView> {
                 onChanged: (phone) {
                   setState(() {
                     _fullPhoneNumber = phone.completeNumber;
-                    _isValidNumber = phone.number.isNotEmpty && 
-                        phone.number.length >= 10;
+                    _isValidNumber =
+                        phone.number.isNotEmpty && phone.number.length >= 10;
                     if (_errorMessage.isNotEmpty) {
                       _errorMessage = '';
                     }
@@ -242,7 +252,8 @@ class _PhoneInputViewState extends State<PhoneInputView> {
                           height: 24,
                           child: CircularProgressIndicator(
                             strokeWidth: 2.5,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
                           ),
                         )
                       : Text(
@@ -261,4 +272,3 @@ class _PhoneInputViewState extends State<PhoneInputView> {
     );
   }
 }
-

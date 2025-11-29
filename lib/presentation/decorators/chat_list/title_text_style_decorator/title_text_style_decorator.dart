@@ -29,8 +29,8 @@ class ReadChatListTitleTextStyleDecorator
     implements ChatListTitleTextStyleComponent {
   @override
   TextStyle textStyle(Room room) {
-    return LinagoraTextStyle.material().bodyMedium2.copyWith(
-          color: LinagoraSysColors.material().onSurface,
+    return DediTextStyle.material().bodyMedium2.copyWith(
+          color: DediSysColors.material().onSurface,
         );
   }
 }
@@ -45,8 +45,8 @@ class UnreadChatListTitleTextStyleDecorator
   TextStyle textStyle(Room room) {
     if (room.isUnreadOrInvited) {
       return _interfaceTextStyleComponent.textStyle(room).merge(
-            LinagoraTextStyle.material().bodyMedium2.copyWith(
-                  color: LinagoraSysColors.material().onSurface,
+            DediTextStyle.material().bodyMedium2.copyWith(
+                  color: DediSysColors.material().onSurface,
                 ),
           );
     } else {
@@ -70,7 +70,7 @@ class MuteChatListTitleTextStyleDecorator
     final isMuted = room.pushRuleState != PushRuleState.notify;
     if (isMuted) {
       return _interfaceTextStyleComponent.textStyle(room).copyWith(
-            color: LinagoraSysColors.material().onSurface,
+            color: DediSysColors.material().onSurface,
           );
     } else {
       return _interfaceTextStyleComponent.textStyle(room);

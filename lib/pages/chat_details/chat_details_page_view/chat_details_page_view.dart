@@ -86,7 +86,7 @@ class ChatDetailsPageViewBuilder extends StatelessWidget {
       decoration: ShapeDecoration(
         color: currentIndexPageSelected != index
             ? Colors.transparent
-            : LinagoraSysColors.material().primary,
+            : DediSysColors.material().primary,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(
@@ -111,8 +111,8 @@ class ChatDetailsPageViewBuilder extends StatelessWidget {
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.titleSmall?.copyWith(
             color: currentIndexPageSelected == index
-                ? LinagoraSysColors.material().primary
-                : LinagoraSysColors.material().onSurface,
+                ? DediSysColors.material().primary
+                : DediSysColors.material().onSurface,
           ),
     );
   }
@@ -125,7 +125,7 @@ class ChatDetailsPageViewBuilder extends StatelessWidget {
       text: TextSpan(
         text: title,
         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: LinagoraSysColors.material().primary,
+              color: DediSysColors.material().primary,
             ),
       ),
       maxLines: 1,

@@ -8,7 +8,7 @@ class ChatViewBodyStyle {
   static ResponsiveUtils responsive = getIt.get<ResponsiveUtils>();
 
   static double bottomSheetPadding(BuildContext context) =>
-      TwakeThemes.isColumnMode(context) ? 16.0 : 8.0;
+      DediThemes.isColumnMode(context) ? 16.0 : 8.0;
 
   static double chatScreenMaxWidth = 800.0;
 
@@ -18,8 +18,8 @@ class ChatViewBodyStyle {
 
   static Color chatViewBackgroundColor(BuildContext context) =>
       responsive.isMobile(context)
-          ? LinagoraSysColors.material().background
-          : LinagoraSysColors.material().onPrimary;
+          ? DediSysColors.material().background
+          : DediSysColors.material().onPrimary;
 
   static EdgeInsets inputBarPadding(BuildContext context) => EdgeInsets.only(
         left: responsive.isMobile(context) ? 8.0 : 16.0,

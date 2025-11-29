@@ -39,7 +39,7 @@ class ForwardMessageInteractor {
   ) async* {
     final shareFile = message.tryGet<MatrixFile>('file');
     if (message.tryGet<String>('msgtype') ==
-            TwakeEventTypes.shareFileEventType &&
+            DediEventTypes.shareFileEventType &&
         shareFile != null) {
       yield Right(
         ForwardMessageIsShareFileState(shareFile: shareFile, room: room),

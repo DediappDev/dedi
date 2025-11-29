@@ -123,7 +123,7 @@ void main() {
                 GlobalWidgetsLocalizations.delegate,
               ],
               supportedLocales: LocalizationService.supportedLocales,
-              theme: TwakeThemes.buildTheme(
+              theme: DediThemes.buildTheme(
                 context,
                 Brightness.light,
                 primaryColor,

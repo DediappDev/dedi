@@ -34,7 +34,7 @@ mixin SingleImagePickerMixin on CommonMediaPickerMixin {
         backgroundImageCamera: const AssetImage("assets/verification.png"),
         initialChildSize: MediaPickerStyle.initialChildSize,
         permissionStatus: permissionStatusPhotos,
-        assetBackgroundColor: LinagoraSysColors.material().background,
+        assetBackgroundColor: DediSysColors.material().background,
         expandedWidget:
             const SizedBox(height: MediaPickerStyle.expandedWidgetHeight),
         counterImageBuilder: (_) => const SizedBox.shrink(),
@@ -49,7 +49,7 @@ mixin SingleImagePickerMixin on CommonMediaPickerMixin {
             Text(
               L10n.of(context)!.tapToAllowAccessToYourGallery,
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: LinagoraRefColors.material().neutral,
+                    color: DediRefColors.material().neutral,
                     fontWeight: MediaPickerStyle.photoPermissionFontWeight,
                     fontSize: MediaPickerStyle.photoPermissionFontSize,
                   ),

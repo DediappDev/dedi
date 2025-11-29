@@ -62,7 +62,7 @@
 //   void addCallingOverlay(String callId, CallSession call) {
 //     final context = kIsWeb
 //         ? ChatList.contextForVoip!
-//         : TwakeApp.routerKey.currentContext!; // web is weird
+//         : DediApp.routerKey.currentContext!; // web is weird
 //     if (overlayEntry != null) {
 //       Logs().e('[VOIP] addCallingOverlay: The call session already exists?');
 //       overlayEntry!.remove();
@@ -166,8 +166,8 @@
 //         addCallingOverlay(call.callId, call);
 //         try {
 //           if (!hasCallingAccount) {
-//             TwakeSnackBar.show(
-//               TwakeApp.routerKey.currentContext!,
+//             DediSnackBar.show(
+//               DediApp.routerKey.currentContext!,
 //               'No calling accounts found (used for native calls UI)',
 //             );
 //           }

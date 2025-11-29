@@ -140,7 +140,7 @@ class CenterVideoButton extends StatelessWidget {
       alignment: Alignment.center,
       child: Icon(
         icon,
-        color: LinagoraRefColors.material().primary[100],
+        color: DediRefColors.material().primary[100],
         size: iconSize ?? MessageContentStyle.iconInsideVideoButtonSize,
       ),
     );

@@ -6,7 +6,7 @@ typedef OnTapDownIconButtonCallbackAction = void Function(
   TapDownDetails,
 );
 
-class TwakeIconButton extends StatelessWidget {
+class DediIconButton extends StatelessWidget {
   final BoxDecoration? buttonDecoration;
 
   final IconData? icon;
@@ -45,7 +45,7 @@ class TwakeIconButton extends StatelessWidget {
 
   final void Function()? onLongPress;
 
-  const TwakeIconButton({
+  const DediIconButton({
     super.key,
     this.tooltip,
     this.onTap,

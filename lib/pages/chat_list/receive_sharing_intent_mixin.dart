@@ -2,7 +2,6 @@ import 'package:app_links/app_links.dart';
 import 'package:fluffychat/config/app_config.dart';
 import 'package:fluffychat/event/twake_event_types.dart';
 import 'package:fluffychat/pages/share/share.dart';
-import 'package:fluffychat/presentation/extensions/shared_media_file_extension.dart';
 import 'package:fluffychat/utils/platform_infos.dart';
 import 'package:fluffychat/utils/url_launcher.dart';
 import 'package:fluffychat/widgets/layouts/agruments/receive_content_args.dart';
@@ -49,7 +48,7 @@ mixin ReceiveSharingIntentMixin<T extends StatefulWidget> on State<T> {
           'ReceiveSharingIntentMixin::_processIncomingSharedFiles: Size ${file.size}',
         );
         return {
-          'msgtype': TwakeEventTypes.shareFileEventType,
+          'msgtype': DediEventTypes.shareFileEventType,
           'file': file,
         };
       },
@@ -58,11 +57,11 @@ mixin ReceiveSharingIntentMixin<T extends StatefulWidget> on State<T> {
   }
 
   void openSharePage() {
-    if (TwakeApp.isCurrentPageIsNotRooms()) {
+    if (DediApp.isCurrentPageIsNotRooms()) {
       return;
     }
-    if (TwakeApp.isCurrentPageIsInRooms()) {
-      TwakeApp.router.go(
+    if (DediApp.isCurrentPageIsInRooms()) {
+      DediApp.router.go(
         '/rooms',
         extra: ReceiveContentArgs(
           newActiveClient: matrixState.client,
@@ -71,7 +70,7 @@ mixin ReceiveSharingIntentMixin<T extends StatefulWidget> on State<T> {
       );
     }
 
-    Navigator.of(TwakeApp.routerKey.currentContext!).push(
+    Navigator.of(DediApp.routerKey.currentContext!).push(
       MaterialPageRoute(
         builder: (context) => const Share(),
       ),
@@ -103,7 +102,7 @@ mixin ReceiveSharingIntentMixin<T extends StatefulWidget> on State<T> {
       return;
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      UrlLauncher(TwakeApp.routerKey.currentContext!, url: text)
+      UrlLauncher(DediApp.routerKey.currentContext!, url: text)
           .openMatrixToUrl();
     });
   }
@@ -131,8 +130,8 @@ mixin ReceiveSharingIntentMixin<T extends StatefulWidget> on State<T> {
     intentUriStreamSubscription =
         appLinks.stringLinkStream.listen(_processIncomingUris);
 
-    if (TwakeApp.gotInitialLink == false) {
-      TwakeApp.gotInitialLink = true;
+    if (DediApp.gotInitialLink == false) {
+      DediApp.gotInitialLink = true;
       appLinks.getInitialLinkString().then(_processIncomingUris);
     }
   }

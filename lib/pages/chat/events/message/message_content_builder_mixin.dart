@@ -126,7 +126,7 @@ mixin MessageContentBuilderMixin {
               TextStyle(
                 color: event.timelineOverlayMessage
                     ? Colors.white
-                    : LinagoraRefColors.material().tertiary[30],
+                    : DediRefColors.material().tertiary[30],
                 letterSpacing: 0.4,
               ),
             ),

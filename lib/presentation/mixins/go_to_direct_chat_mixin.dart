@@ -43,7 +43,7 @@ mixin GoToDraftChatMixin {
         contactPresentationSearch: contactPresentationSearch,
       );
     } else {
-      TwakeDialog.showFutureLoadingDialogFullScreen(
+      DediDialog.showFutureLoadingDialogFullScreen(
         future: () async {
           if (contactPresentationSearch.matrixId != null &&
               contactPresentationSearch.matrixId!.isNotEmpty) {
@@ -95,7 +95,7 @@ mixin GoToDraftChatMixin {
   }) async {
     Logs()
         .d('SearchController::getContactAndRecentChatStream() - event: $user');
-    final roomIdResult = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final roomIdResult = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => user.startDirectChat(),
     );
     if (roomIdResult.error != null) return;

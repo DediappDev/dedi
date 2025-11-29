@@ -40,7 +40,7 @@ class PinnedEventsView extends StatelessWidget {
               case const (ChatGetPinnedEventsSuccess):
                 final data = success as ChatGetPinnedEventsSuccess;
                 return Material(
-                  color: LinagoraSysColors.material().onPrimary,
+                  color: DediSysColors.material().onPrimary,
                   child: InkWell(
                     onTap: () => controller.pinnedEventsController
                         .jumpToPinnedMessageAction(
@@ -92,14 +92,13 @@ class PinnedEventsView extends StatelessWidget {
                                               currentEvent: currentEvent,
                                               scrollController: controller
                                                   .pinnedMessageScrollController,
-                                              color:
-                                                  LinagoraSysColors.material()
-                                                      .secondary
-                                                      .withOpacity(
-                                                        isCurrentPinnedEvent
-                                                            ? 1
-                                                            : 0.48,
-                                                      ),
+                                              color: DediSysColors.material()
+                                                  .secondary
+                                                  .withOpacity(
+                                                    isCurrentPinnedEvent
+                                                        ? 1
+                                                        : 0.48,
+                                                  ),
                                               index: index,
                                               height: PinnedEventsStyle
                                                   .calcHeightIndicator(
@@ -122,7 +121,7 @@ class PinnedEventsView extends StatelessWidget {
                                       ),
                                       currentEvent: currentEvent,
                                     ),
-                                    TwakeIconButton(
+                                    DediIconButton(
                                       tooltip: L10n.of(context)!
                                           .pinnedMessagesTooltip,
                                       icon: Icons.list,
@@ -222,7 +221,7 @@ class _PinnedEventsContentWidget extends StatelessWidget {
             Text(
               L10n.of(context)!.countPinnedMessage(countPinnedEvents),
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: LinagoraSysColors.material().secondary,
+                    color: DediSysColors.material().secondary,
                   ),
             ),
             FutureBuilder<String>(
@@ -236,16 +235,15 @@ class _PinnedEventsContentWidget extends StatelessWidget {
                   return LinkText(
                     text: currentEvent.filename,
                     maxLines: 1,
-                    textStyle:
-                        LinagoraTextStyle.material().bodyMedium3.copyWith(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.onSurfaceVariant,
-                              overflow: TextOverflow.ellipsis,
-                              decoration: currentEvent.redacted
-                                  ? TextDecoration.lineThrough
-                                  : null,
-                            ),
+                    textStyle: DediTextStyle.material().bodyMedium3.copyWith(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurfaceVariant,
+                          overflow: TextOverflow.ellipsis,
+                          decoration: currentEvent.redacted
+                              ? TextDecoration.lineThrough
+                              : null,
+                        ),
                   );
                 }
                 return LinkText(
@@ -256,7 +254,7 @@ class _PinnedEventsContentWidget extends StatelessWidget {
                         hideReply: true,
                       ),
                   maxLines: 1,
-                  textStyle: LinagoraTextStyle.material().bodyMedium3.copyWith(
+                  textStyle: DediTextStyle.material().bodyMedium3.copyWith(
                         color: Theme.of(
                           context,
                         ).colorScheme.onSurfaceVariant,
@@ -265,7 +263,7 @@ class _PinnedEventsContentWidget extends StatelessWidget {
                             ? TextDecoration.lineThrough
                             : null,
                       ),
-                  linkStyle: LinagoraTextStyle.material().bodyMedium3.copyWith(
+                  linkStyle: DediTextStyle.material().bodyMedium3.copyWith(
                         color: Theme.of(
                           context,
                         ).colorScheme.onSurfaceVariant,

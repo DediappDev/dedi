@@ -346,7 +346,7 @@ mixin ChatDetailsTabMixin<T extends StatefulWidget>
     if (!PlatformInfos.isMobile) return;
 
     if (!user.canBan) {
-      TwakeSnackBar.show(context, L10n.of(context)!.removeMemberSelectionError);
+      DediSnackBar.show(context, L10n.of(context)!.removeMemberSelectionError);
       return;
     }
 
@@ -359,8 +359,8 @@ mixin ChatDetailsTabMixin<T extends StatefulWidget>
       result.fold(
         (failure) {
           if (failure is BanUserFailure) {
-            TwakeDialog.hideLoadingDialog(context);
-            TwakeSnackBar.show(
+            DediDialog.hideLoadingDialog(context);
+            DediSnackBar.show(
               context,
               failure.exception.toString(),
             );
@@ -368,8 +368,8 @@ mixin ChatDetailsTabMixin<T extends StatefulWidget>
           }
 
           if (failure is NoPermissionForBanFailure) {
-            TwakeDialog.hideLoadingDialog(context);
-            TwakeSnackBar.show(
+            DediDialog.hideLoadingDialog(context);
+            DediSnackBar.show(
               context,
               L10n.of(context)!.permissionErrorBanUser,
             );
@@ -378,12 +378,12 @@ mixin ChatDetailsTabMixin<T extends StatefulWidget>
         },
         (success) async {
           if (success is BanUserLoading) {
-            TwakeDialog.showLoadingDialog(context);
+            DediDialog.showLoadingDialog(context);
             return;
           }
 
           if (success is BanUserSuccess) {
-            TwakeDialog.hideLoadingDialog(context);
+            DediDialog.hideLoadingDialog(context);
             return;
           }
         },

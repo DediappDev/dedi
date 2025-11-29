@@ -2,7 +2,7 @@ import 'package:fluffychat/di/global/get_it_initializer.dart';
 import 'package:fluffychat/utils/responsive/responsive_utils.dart';
 import 'package:flutter/material.dart';
 
-class TwakeTextButtonStyle {
+class DediTextButtonStyle {
   static final ResponsiveUtils _responsiveUtils = getIt.get<ResponsiveUtils>();
 
   static const double maxWidthDialogButtonMobile = 112;

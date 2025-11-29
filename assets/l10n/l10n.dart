@@ -97,7 +97,8 @@ import 'l10n_zh.dart';
 /// be consistent with the languages listed in the L10n.supportedLocales
 /// property.
 abstract class L10n {
-  L10n(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  L10n(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -117,7 +118,8 @@ abstract class L10n {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -201,7 +203,7 @@ abstract class L10n {
   /// No description provided for @updateAvailable.
   ///
   /// In en, this message translates to:
-  /// **'Twake Chat update available'**
+  /// **'Dedi update available'**
   String get updateAvailable;
 
   /// No description provided for @updateNow.
@@ -394,7 +396,8 @@ abstract class L10n {
   ///
   /// In en, this message translates to:
   /// **'The homeserver supports the login types:\n{serverVersions}\nBut this app supports only:\n{supportedVersions}'**
-  String badServerLoginTypesException(Object serverVersions, Object supportedVersions, Object suportedVersions);
+  String badServerLoginTypesException(
+      Object serverVersions, Object supportedVersions, Object suportedVersions);
 
   /// No description provided for @sendOnEnter.
   ///
@@ -406,7 +409,8 @@ abstract class L10n {
   ///
   /// In en, this message translates to:
   /// **'The homeserver supports the Spec versions:\n{serverVersions}\nBut this app supports only {supportedVersions}'**
-  String badServerVersionsException(Object serverVersions, Object supportedVersions, Object serverVerions, Object suportedVersions);
+  String badServerVersionsException(Object serverVersions,
+      Object supportedVersions, Object serverVerions, Object suportedVersions);
 
   /// No description provided for @banFromChat.
   ///
@@ -1662,11 +1666,11 @@ abstract class L10n {
   /// **'New chat'**
   String get newChat;
 
-  /// No description provided for @newMessageInTwake.
+  /// No description provided for @newMessageInDedi.
   ///
   /// In en, this message translates to:
   /// **'You have 1 encrypted message'**
-  String get newMessageInTwake;
+  String get newMessageInDedi;
 
   /// No description provided for @newVerificationRequest.
   ///
@@ -3624,11 +3628,11 @@ abstract class L10n {
   /// **'New message'**
   String get chatMessage;
 
-  /// No description provided for @welcomeToTwake.
+  /// No description provided for @welcomeToDedi.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Twake, {user}'**
-  String welcomeToTwake(Object user);
+  /// **'Welcome to Dedi, {user}'**
+  String welcomeToDedi(Object user);
 
   /// No description provided for @startNewChatMessage.
   ///
@@ -3660,11 +3664,11 @@ abstract class L10n {
   /// **'New Group Chat'**
   String get newGroupChat;
 
-  /// No description provided for @twakeUsers.
+  /// No description provided for @dediUsers.
   ///
   /// In en, this message translates to:
-  /// **'Twake users'**
-  String get twakeUsers;
+  /// **'Dedi users'**
+  String get dediUsers;
 
   /// No description provided for @expand.
   ///
@@ -3864,11 +3868,11 @@ abstract class L10n {
   /// **'You can enable camera access in the Settings app to make video calls in'**
   String get tapToAllowAccessToYourCamera;
 
-  /// No description provided for @twake.
+  /// No description provided for @dedi.
   ///
   /// In en, this message translates to:
-  /// **'Twake Chat'**
-  String get twake;
+  /// **'Dedi'**
+  String get dedi;
 
   /// No description provided for @permissionAccess.
   ///
@@ -3885,13 +3889,13 @@ abstract class L10n {
   /// No description provided for @explainStoragePermission.
   ///
   /// In en, this message translates to:
-  /// **'Twake need access to your storage to preview file'**
+  /// **'Dedi need access to your storage to preview file'**
   String get explainStoragePermission;
 
   /// No description provided for @explainGoToStorageSetting.
   ///
   /// In en, this message translates to:
-  /// **'Twake need access to your storage to preview file, go to settings to allow this permission'**
+  /// **'Dedi need access to your storage to preview file, go to settings to allow this permission'**
   String get explainGoToStorageSetting;
 
   /// No description provided for @gallery.
@@ -4383,7 +4387,7 @@ abstract class L10n {
   /// No description provided for @encryptionWarning.
   ///
   /// In en, this message translates to:
-  /// **'You might lose your messages if you access Twake app on the another device.'**
+  /// **'You might lose your messages if you access Dedi app on the another device.'**
   String get encryptionWarning;
 
   /// No description provided for @selectedUsers.
@@ -4467,7 +4471,7 @@ abstract class L10n {
   /// No description provided for @contactsWarningBannerTitle.
   ///
   /// In en, this message translates to:
-  /// **'To ensure you can connect with all your friends, please allow Twake to access your device’s contacts. We appreciate your understanding.'**
+  /// **'To ensure you can connect with all your friends, please allow Dedi to access your device’s contacts. We appreciate your understanding.'**
   String get contactsWarningBannerTitle;
 
   /// No description provided for @contactsCount.
@@ -4476,11 +4480,11 @@ abstract class L10n {
   /// **'Contacts ({count})'**
   String contactsCount(Object count);
 
-  /// No description provided for @linagoraContactsCount.
+  /// No description provided for @dediContactsCount.
   ///
   /// In en, this message translates to:
-  /// **'Linagora contacts ({count})'**
-  String linagoraContactsCount(Object count);
+  /// **'Dedi contacts ({count})'**
+  String dediContactnt(Object count);
 
   /// No description provided for @fetchingPhonebookContacts.
   ///
@@ -4515,7 +4519,7 @@ abstract class L10n {
   /// No description provided for @settingsLanguageDescription.
   ///
   /// In en, this message translates to:
-  /// **'Set the language you use on Twake Chat'**
+  /// **'Set the language you use on Dedi'**
   String get settingsLanguageDescription;
 
   /// No description provided for @sendImages.
@@ -4644,11 +4648,11 @@ abstract class L10n {
   /// **'Sign in'**
   String get signIn;
 
-  /// No description provided for @createTwakeId.
+  /// No description provided for @createDediId.
   ///
   /// In en, this message translates to:
-  /// **'Create Twake ID'**
-  String get createTwakeId;
+  /// **'Create Dedi ID'**
+  String get createDediId;
 
   /// No description provided for @useYourCompanyServer.
   ///
@@ -4656,11 +4660,11 @@ abstract class L10n {
   /// **'Use your company server'**
   String get useYourCompanyServer;
 
-  /// No description provided for @descriptionTwakeId.
+  /// No description provided for @descriptionDediId.
   ///
   /// In en, this message translates to:
   /// **'An open source messenger encrypt\nyour data with matrix protocol'**
-  String get descriptionTwakeId;
+  String get descriptionDediId;
 
   /// No description provided for @countFilesSendPerDialog.
   ///
@@ -4716,11 +4720,11 @@ abstract class L10n {
   /// **'Hi {user}! I would like to chat with you.'**
   String draftChatHookPhrase(String user);
 
-  /// No description provided for @twakeChatUser.
+  /// No description provided for @dediChatUser.
   ///
   /// In en, this message translates to:
-  /// **'Twake Chat User'**
-  String get twakeChatUser;
+  /// **'Dedi User'**
+  String get dediChatUser;
 
   /// No description provided for @sharedMediaAndLinks.
   ///
@@ -4815,25 +4819,25 @@ abstract class L10n {
   /// No description provided for @explainPermissionToAccessContacts.
   ///
   /// In en, this message translates to:
-  /// **'Twake Chat DOES NOT collect your contacts. Twake Chat sends only contact hashes to the Twake Chat servers to understand who from your friends already joined Twake Chat, enabling connection with them. Your contacts ARE NOT synchronized with our server.'**
+  /// **'Dedi DOES NOT collect your contacts. Dedi sends only contact hashes to the Dedi servers to understand who from your friends already joined Dedi, enabling connection with them. Your contacts ARE NOT synchronized with our server.'**
   String get explainPermissionToAccessContacts;
 
   /// No description provided for @explainPermissionToAccessMedias.
   ///
   /// In en, this message translates to:
-  /// **'Twake Chat does not synchronize data between your device and our servers. We only store media that you have sent to the chat room. All media files sent to chat are encrypted and stored securely. Go to Settings > Permissions and activate the Storage: Photos and Videos permission. You can also deny access to your media library at any time.'**
+  /// **'Dedi does not synchronize data between your device and our servers. We only store media that you have sent to the chat room. All media files sent to chat are encrypted and stored securely. Go to Settings > Permissions and activate the Storage: Photos and Videos permission. You can also deny access to your media library at any time.'**
   String get explainPermissionToAccessMedias;
 
   /// No description provided for @explainPermissionToAccessPhotos.
   ///
   /// In en, this message translates to:
-  /// **'Twake Chat does not synchronize data between your device and our servers. We only store media that you have sent to the chat room. All media files sent to chat are encrypted and stored securely. Go to Settings > Permissions and activate the Storage: Photos permission. You can also deny access to your media library at any time.'**
+  /// **'Dedi does not synchronize data between your device and our servers. We only store media that you have sent to the chat room. All media files sent to chat are encrypted and stored securely. Go to Settings > Permissions and activate the Storage: Photos permission. You can also deny access to your media library at any time.'**
   String get explainPermissionToAccessPhotos;
 
   /// No description provided for @explainPermissionToAccessVideos.
   ///
   /// In en, this message translates to:
-  /// **'Twake Chat does not synchronize data between your device and our servers. We only store media that you have sent to the chat room. All media files sent to chat are encrypted and stored securely. Go to Settings > Permissions and activate the Storage: Videos permission. You can also deny access to your media library at any time.'**
+  /// **'Dedi does not synchronize data between your device and our servers. We only store media that you have sent to the chat room. All media files sent to chat are encrypted and stored securely. Go to Settings > Permissions and activate the Storage: Videos permission. You can also deny access to your media library at any time.'**
   String get explainPermissionToAccessVideos;
 
   /// No description provided for @downloading.
@@ -4842,11 +4846,11 @@ abstract class L10n {
   /// **'Downloading'**
   String get downloading;
 
-  /// No description provided for @settingUpYourTwake.
+  /// No description provided for @settingUpYourDedi.
   ///
   /// In en, this message translates to:
-  /// **'Setting up your Twake\nIt could take a while'**
-  String get settingUpYourTwake;
+  /// **'Setting up your Dedi\nIt could take a while'**
+  String get settingUpYourDedi;
 
   /// No description provided for @performingAutomaticalLogin.
   ///
@@ -5733,7 +5737,7 @@ abstract class L10n {
   /// No description provided for @explainPermissionToAccessMicrophone.
   ///
   /// In en, this message translates to:
-  /// **'To send voice messages, allow Twake Chat to access the microphone.'**
+  /// **'To send voice messages, allow Dedi to access the microphone.'**
   String get explainPermissionToAccessMicrophone;
 
   /// No description provided for @allowMicrophoneAccess.
@@ -5950,80 +5954,158 @@ class _L10nDelegate extends LocalizationsDelegate<L10n> {
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'ca', 'cs', 'de', 'en', 'eo', 'es', 'et', 'eu', 'fa', 'fi', 'fr', 'ga', 'gl', 'he', 'hr', 'hu', 'id', 'ie', 'it', 'ja', 'ko', 'lt', 'nb', 'nl', 'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'sr', 'sv', 'tr', 'uk', 'vi', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+        'ar',
+        'ca',
+        'cs',
+        'de',
+        'en',
+        'eo',
+        'es',
+        'et',
+        'eu',
+        'fa',
+        'fi',
+        'fr',
+        'ga',
+        'gl',
+        'he',
+        'hr',
+        'hu',
+        'id',
+        'ie',
+        'it',
+        'ja',
+        'ko',
+        'lt',
+        'nb',
+        'nl',
+        'pl',
+        'pt',
+        'ro',
+        'ru',
+        'sk',
+        'sl',
+        'sr',
+        'sv',
+        'tr',
+        'uk',
+        'vi',
+        'zh'
+      ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_L10nDelegate old) => false;
 }
 
 L10n lookupL10n(Locale locale) {
-
   // Lookup logic when language+script codes are specified.
   switch (locale.languageCode) {
-    case 'zh': {
-  switch (locale.scriptCode) {
-    case 'Hant': return L10nZhHant();
-   }
-  break;
-   }
+    case 'zh':
+      {
+        switch (locale.scriptCode) {
+          case 'Hant':
+            return L10nZhHant();
+        }
+        break;
+      }
   }
 
   // Lookup logic when language+country codes are specified.
   switch (locale.languageCode) {
-    case 'pt': {
-  switch (locale.countryCode) {
-    case 'BR': return L10nPtBr();
-case 'PT': return L10nPtPt();
-   }
-  break;
-   }
+    case 'pt':
+      {
+        switch (locale.countryCode) {
+          case 'BR':
+            return L10nPtBr();
+          case 'PT':
+            return L10nPtPt();
+        }
+        break;
+      }
   }
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return L10nAr();
-    case 'ca': return L10nCa();
-    case 'cs': return L10nCs();
-    case 'de': return L10nDe();
-    case 'en': return L10nEn();
-    case 'eo': return L10nEo();
-    case 'es': return L10nEs();
-    case 'et': return L10nEt();
-    case 'eu': return L10nEu();
-    case 'fa': return L10nFa();
-    case 'fi': return L10nFi();
-    case 'fr': return L10nFr();
-    case 'ga': return L10nGa();
-    case 'gl': return L10nGl();
-    case 'he': return L10nHe();
-    case 'hr': return L10nHr();
-    case 'hu': return L10nHu();
-    case 'id': return L10nId();
-    case 'ie': return L10nIe();
-    case 'it': return L10nIt();
-    case 'ja': return L10nJa();
-    case 'ko': return L10nKo();
-    case 'lt': return L10nLt();
-    case 'nb': return L10nNb();
-    case 'nl': return L10nNl();
-    case 'pl': return L10nPl();
-    case 'pt': return L10nPt();
-    case 'ro': return L10nRo();
-    case 'ru': return L10nRu();
-    case 'sk': return L10nSk();
-    case 'sl': return L10nSl();
-    case 'sr': return L10nSr();
-    case 'sv': return L10nSv();
-    case 'tr': return L10nTr();
-    case 'uk': return L10nUk();
-    case 'vi': return L10nVi();
-    case 'zh': return L10nZh();
+    case 'ar':
+      return L10nAr();
+    case 'ca':
+      return L10nCa();
+    case 'cs':
+      return L10nCs();
+    case 'de':
+      return L10nDe();
+    case 'en':
+      return L10nEn();
+    case 'eo':
+      return L10nEo();
+    case 'es':
+      return L10nEs();
+    case 'et':
+      return L10nEt();
+    case 'eu':
+      return L10nEu();
+    case 'fa':
+      return L10nFa();
+    case 'fi':
+      return L10nFi();
+    case 'fr':
+      return L10nFr();
+    case 'ga':
+      return L10nGa();
+    case 'gl':
+      return L10nGl();
+    case 'he':
+      return L10nHe();
+    case 'hr':
+      return L10nHr();
+    case 'hu':
+      return L10nHu();
+    case 'id':
+      return L10nId();
+    case 'ie':
+      return L10nIe();
+    case 'it':
+      return L10nIt();
+    case 'ja':
+      return L10nJa();
+    case 'ko':
+      return L10nKo();
+    case 'lt':
+      return L10nLt();
+    case 'nb':
+      return L10nNb();
+    case 'nl':
+      return L10nNl();
+    case 'pl':
+      return L10nPl();
+    case 'pt':
+      return L10nPt();
+    case 'ro':
+      return L10nRo();
+    case 'ru':
+      return L10nRu();
+    case 'sk':
+      return L10nSk();
+    case 'sl':
+      return L10nSl();
+    case 'sr':
+      return L10nSr();
+    case 'sv':
+      return L10nSv();
+    case 'tr':
+      return L10nTr();
+    case 'uk':
+      return L10nUk();
+    case 'vi':
+      return L10nVi();
+    case 'zh':
+      return L10nZh();
   }
 
   throw FlutterError(
-    'L10n.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'L10n.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

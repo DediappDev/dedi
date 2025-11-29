@@ -12,10 +12,10 @@ mixin OnProfileChangeMixin {
     void Function(Profile newProfile)? onProfileChanged,
   }) {
     onAccountDataSubscription = client.onAccountData.stream.listen((event) {
-      if (event.type == TwakeInappEventTypes.uploadAvatarEvent) {
+      if (event.type == DediInappEventTypes.uploadAvatarEvent) {
         final newProfile = Profile.fromJson(event.content);
         Logs().d(
-          'TwakeHeader::_handleOnAccountDataSubscription() - newProfileAvatar: ${newProfile.avatarUrl}, newProfileDisplayName: ${newProfile.displayName}',
+          'DediHeader::_handleOnAccountDataSubscription() - newProfileAvatar: ${newProfile.avatarUrl}, newProfileDisplayName: ${newProfile.displayName}',
         );
         if (newProfile.avatarUrl != currentProfile?.avatarUrl ||
             newProfile.displayName != currentProfile?.displayName) {

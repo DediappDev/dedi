@@ -104,7 +104,7 @@ class AppAdaptiveScaffoldBodyView extends StatelessWidget {
                       borderRadius: AppScaffoldViewStyle.borderRadiusBody,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: LinagoraRefColors.material().primary[100],
+                          color: DediRefColors.material().primary[100],
                         ),
                         child: Navigator(
                           key: !responsiveUtils.isSingleColumnLayout(context)

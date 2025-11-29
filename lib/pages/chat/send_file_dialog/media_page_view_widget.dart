@@ -51,7 +51,7 @@ class MediaPageViewWidget extends StatelessWidget {
                 SendFileDialogStyle.imageBorderRadius,
               ),
               child: thumbnails[firstFile] == null && firstFile.bytes == null
-                  ? const TwakeLoadingIndicator()
+                  ? const DediLoadingIndicator()
                   : Image.memory(
                       firstFile.bytes ??
                           thumbnails[firstFile]?.bytes ??

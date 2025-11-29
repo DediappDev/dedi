@@ -41,7 +41,7 @@ class LoginView extends StatelessWidget {
                     autocorrect: false,
                     autofocus: true,
                     onChanged: controller.checkWellKnownWithCoolDown,
-                    contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                    contextMenuBuilder: mobileDediContextMenuBuilder,
                     controller: controller.usernameController,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
@@ -62,7 +62,7 @@ class LoginView extends StatelessWidget {
                     autocorrect: false,
                     autofillHints:
                         controller.loading ? null : [AutofillHints.password],
-                    contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                    contextMenuBuilder: mobileDediContextMenuBuilder,
                     controller: controller.passwordController,
                     textInputAction: TextInputAction.go,
                     obscureText: !controller.showPassword,

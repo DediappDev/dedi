@@ -12,7 +12,7 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:linagora_design_flutter/linagora_design_flutter.dart';
 import 'package:matrix/matrix.dart';
 
-class TwakeHeader extends StatefulWidget implements PreferredSizeWidget {
+class DediHeader extends StatefulWidget implements PreferredSizeWidget {
   final VoidCallback onClearSelection;
   final ValueNotifier<SelectMode> selectModeNotifier;
   final ValueNotifier<List<ConversationSelectionPresentation>>
@@ -20,7 +20,7 @@ class TwakeHeader extends StatefulWidget implements PreferredSizeWidget {
   final VoidCallback onClickAvatar;
   final Client client;
 
-  const TwakeHeader({
+  const DediHeader({
     super.key,
     required this.onClearSelection,
     required this.client,
@@ -30,14 +30,14 @@ class TwakeHeader extends StatefulWidget implements PreferredSizeWidget {
   });
 
   @override
-  State<TwakeHeader> createState() => _TwakeHeaderState();
+  State<DediHeader> createState() => _DediHeaderState();
 
   @override
   Size get preferredSize =>
-      const Size.fromHeight(TwakeHeaderStyle.toolbarHeight);
+      const Size.fromHeight(DediHeaderStyle.toolbarHeight);
 }
 
-class _TwakeHeaderState extends State<TwakeHeader>
+class _DediHeaderState extends State<DediHeader>
     with ShowDialogMixin, OnProfileChangeMixin {
   final ValueNotifier<Profile> currentProfileNotifier = ValueNotifier(
     Profile(userId: ''),
@@ -58,7 +58,7 @@ class _TwakeHeaderState extends State<TwakeHeader>
   }
 
   @override
-  void didUpdateWidget(covariant TwakeHeader oldWidget) {
+  void didUpdateWidget(covariant DediHeader oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (Matrix.of(context).isValidActiveClient &&
         widget.client != oldWidget.client) {
@@ -102,28 +102,28 @@ class _TwakeHeaderState extends State<TwakeHeader>
       valueListenable: widget.selectModeNotifier,
       builder: (context, selectMode, _) {
         return selectMode == SelectMode.normal
-            ? TwakeAppBar(
+            ? DediAppBar(
                 title: L10n.of(context)!.chats,
                 context: context,
               )
             : AppBar(
                 backgroundColor: responsive.isMobile(context)
-                    ? LinagoraSysColors.material().background
-                    : LinagoraSysColors.material().onPrimary,
-                toolbarHeight: TwakeHeaderStyle.toolbarHeight,
+                    ? DediSysColors.material().background
+                    : DediSysColors.material().onPrimary,
+                toolbarHeight: DediHeaderStyle.toolbarHeight,
                 automaticallyImplyLeading: false,
-                leadingWidth: TwakeHeaderStyle.leadingWidth,
+                leadingWidth: DediHeaderStyle.leadingWidth,
                 title: Align(
-                  alignment: TwakeHeaderStyle.alignment,
+                  alignment: DediHeaderStyle.alignment,
                   child: Row(
                     mainAxisAlignment: responsive.isMobile(context)
-                        ? TwakeHeaderStyle.mobileTitleAllignement
+                        ? DediHeaderStyle.mobileTitleAllignement
                         : MainAxisAlignment.start,
                     children: [
                       Expanded(
-                        flex: TwakeHeaderStyle.flexActions,
+                        flex: DediHeaderStyle.flexActions,
                         child: Padding(
-                          padding: TwakeHeaderStyle.leadingPadding,
+                          padding: DediHeaderStyle.leadingPadding,
                           child: Row(
                             children: [
                               InkWell(
@@ -131,11 +131,11 @@ class _TwakeHeaderState extends State<TwakeHeader>
                                     ? widget.onClearSelection
                                     : null,
                                 borderRadius: BorderRadius.circular(
-                                  TwakeHeaderStyle.closeIconSize,
+                                  DediHeaderStyle.closeIconSize,
                                 ),
                                 child: Icon(
                                   Icons.close,
-                                  size: TwakeHeaderStyle.closeIconSize,
+                                  size: DediHeaderStyle.closeIconSize,
                                   color: selectMode == SelectMode.select
                                       ? Theme.of(context)
                                           .colorScheme
@@ -148,8 +148,8 @@ class _TwakeHeaderState extends State<TwakeHeader>
                                     widget.conversationSelectionNotifier,
                                 builder: (context, conversationSelection, _) {
                                   return Padding(
-                                    padding: TwakeHeaderStyle
-                                        .counterSelectionPadding,
+                                    padding:
+                                        DediHeaderStyle.counterSelectionPadding,
                                     child: Text(
                                       conversationSelection.length.toString(),
                                       style: Theme.of(context)

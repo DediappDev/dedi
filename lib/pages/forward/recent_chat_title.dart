@@ -14,7 +14,7 @@ class RecentChatsTitle extends StatelessWidget {
         Text(
           L10n.of(context)!.recentChat,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: LinagoraRefColors.material().neutral,
+                color: DediRefColors.material().neutral,
               ),
         ),
       ],

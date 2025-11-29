@@ -1,16 +1,16 @@
 {
   "project_info": {
     "project_number": "492265884073",
-    "firebase_url": "https://twake-195010.firebaseio.com",
-    "project_id": "twake-195010",
-    "storage_bucket": "twake-195010.appspot.com"
+    "firebase_url": "https://dedi-195010.firebaseio.com",
+    "project_id": "dedi-195010",
+    "storage_bucket": "dedi-195010.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:492265884073:android:da793d03162cb7db6b5cb8",
         "android_client_info": {
-          "package_name": "app.twake.android.chat"
+          "package_name": "app.dedi.android.chat"
         }
       },
       "oauth_client": [
@@ -38,7 +38,7 @@
               "client_id": "492265884073-758idkadb1l2kh348fk84rn13su5rks6.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.linagora.twake"
+                "bundle_id": "com.dediapp.dedi"
               }
             }
           ]
@@ -49,7 +49,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:492265884073:android:fba0d50aace57d8d",
         "android_client_info": {
-          "package_name": "com.twake.twake"
+          "package_name": "com.dedi.dedi"
         }
       },
       "oauth_client": [
@@ -57,7 +57,7 @@
           "client_id": "492265884073-4s9mhnk9281tpitd9s9v35rc65iace3l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.twake.twake",
+            "package_name": "com.dedi.dedi",
             "certificate_hash": "48feee1175a3f98d1a08db10c70fe631eac1dfd3"
           }
         },
@@ -65,7 +65,7 @@
           "client_id": "492265884073-e89325dclv982tp2tbjpmi57l95r1r4o.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.twake.twake",
+            "package_name": "com.dedi.dedi",
             "certificate_hash": "4a7b9a321569fbdb610e8cd8b4fe6bc1ae7d2a9a"
           }
         },
@@ -93,7 +93,7 @@
               "client_id": "492265884073-758idkadb1l2kh348fk84rn13su5rks6.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.linagora.twake"
+                "bundle_id": "com.dediapp.dedi"
               }
             }
           ]

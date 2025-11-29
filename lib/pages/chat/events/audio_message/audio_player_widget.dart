@@ -339,7 +339,7 @@ class AudioPlayerState extends State<AudioPlayerWidget>
           Text(
             duration,
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: LinagoraRefColors.material().tertiary[30],
+                  color: DediRefColors.material().tertiary[30],
                 ),
           ),
         ] else ...[
@@ -359,13 +359,13 @@ class AudioPlayerState extends State<AudioPlayerWidget>
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 if (widget.event.isPinned) ...[
-                  TwakeIconButton(
+                  DediIconButton(
                     tooltip: L10n.of(context)!.pin,
                     icon: Icons.push_pin_outlined,
                     size: MessageStyle.pushpinIconSize,
                     paddingAll: MessageStyle.paddingAllPushpin,
                     margin: EdgeInsets.zero,
-                    iconColor: LinagoraRefColors.material().neutral[50],
+                    iconColor: DediRefColors.material().neutral[50],
                   ),
                   const SizedBox(width: 4.0),
                 ],
@@ -378,7 +378,7 @@ class AudioPlayerState extends State<AudioPlayerWidget>
                   ),
                   style: Theme.of(context).textTheme.bodySmall?.merge(
                         TextStyle(
-                          color: LinagoraRefColors.material().tertiary[30],
+                          color: DediRefColors.material().tertiary[30],
                           letterSpacing: 0.4,
                         ),
                       ),
@@ -416,8 +416,8 @@ class AudioPlayerState extends State<AudioPlayerWidget>
       ),
       decoration: BoxDecoration(
         color: index < wavePosition
-            ? LinagoraSysColors.material().primary
-            : LinagoraSysColors.material().primary.withAlpha(70),
+            ? DediSysColors.material().primary
+            : DediSysColors.material().primary.withAlpha(70),
         borderRadius: BorderRadius.circular(
           64,
         ),

@@ -1,3 +1,3 @@
-class TwakeInappEventTypes {
-  static const String uploadAvatarEvent = 'app.twake.inapp.profile.avatar';
+class DediInappEventTypes {
+  static const String uploadAvatarEvent = 'app.dedi.inapp.profile.avatar';
 }

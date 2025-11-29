@@ -70,13 +70,13 @@ class ChatListItemSubtitle extends StatelessWidget with ChatListItemMixin {
                     ? Icon(
                         Icons.done_all,
                         color: lastEvent.receipts.isEmpty
-                            ? LinagoraRefColors.material().tertiary[30]
-                            : LinagoraSysColors.material().secondary,
+                            ? DediRefColors.material().tertiary[30]
+                            : DediSysColors.material().secondary,
                         size: 20,
                       )
                     : AnimatedContainer(
-                        duration: TwakeThemes.animationDuration,
-                        curve: TwakeThemes.animationCurve,
+                        duration: DediThemes.animationDuration,
+                        curve: DediThemes.animationCurve,
                         padding: const EdgeInsets.only(bottom: 4),
                         height: ChatListItemStyle.mentionIconWidth,
                         width: isMentionned && room.isUnreadOrInvited
@@ -112,8 +112,8 @@ class ChatListItemSubtitle extends StatelessWidget with ChatListItemMixin {
             ),
             const SizedBox(width: 4),
             AnimatedContainer(
-              duration: TwakeThemes.animationDuration,
-              curve: TwakeThemes.animationCurve,
+              duration: DediThemes.animationDuration,
+              curve: DediThemes.animationCurve,
               padding: const EdgeInsets.symmetric(horizontal: 7),
               height: unreadBadgeSize,
               width: ChatListItemStyle.notificationBadgeSize(

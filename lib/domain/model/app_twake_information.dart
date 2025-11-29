@@ -5,20 +5,20 @@ import 'package:json_annotation/json_annotation.dart';
 part 'app_twake_information.g.dart';
 
 @JsonSerializable()
-class AppTwakeInformation with EquatableMixin {
-  static const String appTwakeInformationKey = 'app.twake.chat';
+class AppDediInformation with EquatableMixin {
+  static const String appDediInformationKey = 'app.dedi.chat';
 
   @JsonKey(name: 'common_settings')
   CommonSettingsInformation? commonSettingsInformation;
 
-  AppTwakeInformation({
+  AppDediInformation({
     this.commonSettingsInformation,
   });
 
-  factory AppTwakeInformation.fromJson(Map<String, dynamic> json) =>
-      _$AppTwakeInformationFromJson(json);
+  factory AppDediInformation.fromJson(Map<String, dynamic> json) =>
+      _$AppDediInformationFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AppTwakeInformationToJson(this);
+  Map<String, dynamic> toJson() => _$AppDediInformationToJson(this);
 
   @override
   List<Object?> get props => [commonSettingsInformation];

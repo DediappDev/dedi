@@ -30,7 +30,7 @@ class SettingsStoriesController extends State<SettingsStories> {
       // Kick user from stories room and add to block list
       final blockList = room.client.storiesBlockList;
       blockList.add(user.id);
-      await TwakeDialog.showFutureLoadingDialogFullScreen(
+      await DediDialog.showFutureLoadingDialogFullScreen(
         future: () async {
           await user.kick();
           await room.client.setStoriesBlockList(blockList.toSet().toList());
@@ -45,7 +45,7 @@ class SettingsStoriesController extends State<SettingsStories> {
     // Invite user to stories room and remove from block list
     final blockList = room.client.storiesBlockList;
     blockList.remove(user.id);
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         await room.client.setStoriesBlockList(blockList);
         await room.invite(user.id);

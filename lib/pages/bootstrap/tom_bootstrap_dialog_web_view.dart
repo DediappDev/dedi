@@ -26,16 +26,16 @@ class TomBootstrapDialogWebView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  L10n.of(context)!.settingUpYourTwake,
+                  L10n.of(context)!.settingUpYourDedi,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: LinagoraSysColors.material().onBackground,
+                        color: DediSysColors.material().onBackground,
                       ),
                   textAlign: TextAlign.center,
                 ),
                 Padding(
                   padding: TomBootstrapDialogStyle.lottiePadding,
                   child: LottieBuilder.asset(
-                    ImagePaths.lottieTwakeLoading,
+                    ImagePaths.lottieDediLoading,
                     width: TomBootstrapDialogStyle.lottieSize,
                     height: TomBootstrapDialogStyle.lottieSize,
                   ),
@@ -43,7 +43,7 @@ class TomBootstrapDialogWebView extends StatelessWidget {
                 Text(
                   description,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: LinagoraSysColors.material().onBackground,
+                        color: DediSysColors.material().onBackground,
                       ),
                   textAlign: TextAlign.center,
                 ),

@@ -26,7 +26,7 @@ class ChatDetailsEditOptionStyle {
       EdgeInsetsDirectional.symmetric(horizontal: 8.0);
 
   static TextStyle? titleTextStyle(BuildContext context, Color? titleColor) {
-    return LinagoraTextStyle.material().bodyMedium2.copyWith(
+    return DediTextStyle.material().bodyMedium2.copyWith(
           color: titleColor ?? Theme.of(context).colorScheme.onSurface,
         );
   }
@@ -36,7 +36,7 @@ class ChatDetailsEditOptionStyle {
     Color? subtitleColor,
   ) {
     return Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: subtitleColor ?? LinagoraRefColors.material().neutral[40],
+          color: subtitleColor ?? DediRefColors.material().neutral[40],
         );
   }
 }

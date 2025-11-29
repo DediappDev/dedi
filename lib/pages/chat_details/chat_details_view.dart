@@ -25,9 +25,9 @@ class ChatDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     if (controller.room == null) {
       return Scaffold(
-        backgroundColor: LinagoraSysColors.material().onPrimary,
+        backgroundColor: DediSysColors.material().onPrimary,
         appBar: AppBar(
-          backgroundColor: LinagoraSysColors.material().onPrimary,
+          backgroundColor: DediSysColors.material().onPrimary,
           title: Text(L10n.of(context)!.oopsSomethingWentWrong),
         ),
         body: Center(
@@ -50,10 +50,10 @@ class ChatDetailsView extends StatelessWidget {
             },
             child: _AddMembersButton(controller: controller),
           ),
-          backgroundColor: LinagoraSysColors.material().onPrimary,
-          appBar: TwakeAppBar(
+          backgroundColor: DediSysColors.material().onPrimary,
+          appBar: DediAppBar(
             title: L10n.of(context)!.groupInformation,
-            leading: TwakeIconButton(
+            leading: DediIconButton(
               paddingAll: 8,
               splashColor: Colors.transparent,
               hoverColor: Colors.transparent,
@@ -90,7 +90,7 @@ class ChatDetailsView extends StatelessWidget {
                   handle:
                       NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                   sliver: SliverAppBar(
-                    backgroundColor: LinagoraSysColors.material().onPrimary,
+                    backgroundColor: DediSysColors.material().onPrimary,
                     toolbarHeight:
                         ChatDetailViewStyle.groupToolbarHeightSliverAppBar,
                     title: Column(
@@ -110,8 +110,7 @@ class ChatDetailsView extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color:
-                                    LinagoraRefColors.material().neutral[90]!,
+                                color: DediRefColors.material().neutral[90]!,
                               ),
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -303,7 +302,7 @@ class _RemoveMembersButton extends StatelessWidget {
 
     return InkWell(
       onTap: () async {
-        final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+        final result = await DediDialog.showFutureLoadingDialogFullScreen(
           future: () => Future.wait(
             controller.removeUsersChangeNotifier.usersList.map(
               (user) => user.ban(),
@@ -311,7 +310,7 @@ class _RemoveMembersButton extends StatelessWidget {
           ),
         );
         if (result.error != null) {
-          TwakeSnackBar.show(context, result.error!.message);
+          DediSnackBar.show(context, result.error!.message);
         }
 
         await controller.onUpdateMembers();
@@ -453,7 +452,7 @@ class _GroupInformation extends StatelessWidget {
               Text(
                 displayName ?? '',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: LinagoraSysColors.material().onSurface,
+                      color: DediSysColors.material().onSurface,
                     ),
                 maxLines: 2,
                 textAlign: TextAlign.center,
@@ -463,7 +462,7 @@ class _GroupInformation extends StatelessWidget {
                     ? L10n.of(context)!.countMembers(membersCount!)
                     : '',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: LinagoraRefColors.material().tertiary[30],
+                      color: DediRefColors.material().tertiary[30],
                     ),
                 maxLines: 2,
                 textAlign: TextAlign.center,

@@ -60,7 +60,7 @@ class SettingsProfileItemBuilder extends StatelessWidget {
                     Text(
                       title,
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                            color: LinagoraRefColors.material().neutral[40],
+                            color: DediRefColors.material().neutral[40],
                           ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -73,7 +73,7 @@ class SettingsProfileItemBuilder extends StatelessWidget {
                               onChange!(value, settingsProfileEnum),
                           readOnly: isReadOnly,
                           autofocus: false,
-                          contextMenuBuilder: mobileTwakeContextMenuBuilder,
+                          contextMenuBuilder: mobileDediContextMenuBuilder,
                           focusNode: focusNode,
                           controller: textEditingController,
                           decoration: InputDecoration(
@@ -99,8 +99,8 @@ class SettingsProfileItemBuilder extends StatelessWidget {
                     ),
                     Divider(
                       height: SettingsProfileItemStyle.dividerSize,
-                      color: LinagoraStateLayer(
-                        LinagoraSysColors.material().surfaceTint,
+                      color: DediStateLayer(
+                        DediSysColors.material().surfaceTint,
                       ).opacityLayer3,
                     ),
                   ],

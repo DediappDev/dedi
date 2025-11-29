@@ -38,7 +38,7 @@ class ChatViewBody extends StatelessWidget with MessageContentMixin {
       onDragExited: controller.onDragExited,
       child: Container(
         color: controller.responsive.isMobile(context)
-            ? LinagoraSysColors.material().surface
+            ? DediSysColors.material().surface
             : null,
         child: Stack(
           children: <Widget>[
@@ -160,7 +160,7 @@ class ChatViewBody extends StatelessWidget with MessageContentMixin {
                         if (!isBlockedUser) return const SizedBox.shrink();
                         return Column(
                           children: [
-                            TwakeInkWell(
+                            DediInkWell(
                               onTap: () async => controller.onTapUnblockUser(
                                 context: context,
                                 client: controller.client,
@@ -239,7 +239,7 @@ class ChatViewBody extends StatelessWidget with MessageContentMixin {
                       width: ChatController.defaultMaxWidthReactionPicker,
                       height: ChatController.defaultMaxHeightReactionPicker,
                       decoration: BoxDecoration(
-                        color: LinagoraRefColors.material().primary[100],
+                        color: DediRefColors.material().primary[100],
                         borderRadius: BorderRadius.circular(
                           24,
                         ),
@@ -270,8 +270,7 @@ class ChatViewBody extends StatelessWidget with MessageContentMixin {
                               .textTheme
                               .labelMedium!
                               .copyWith(
-                                color:
-                                    LinagoraRefColors.material().tertiary[30],
+                                color: DediRefColors.material().tertiary[30],
                               ),
                           searchEmptyWidget: SvgPicture.asset(
                             ImagePaths.icSearchEmojiEmpty,
@@ -322,11 +321,11 @@ class ChatViewBody extends StatelessWidget with MessageContentMixin {
     return Container(
       decoration: controller.responsive.isMobile(context)
           ? BoxDecoration(
-              color: LinagoraSysColors.material().surface,
+              color: DediSysColors.material().surface,
               border: Border(
                 top: BorderSide(
-                  color: LinagoraStateLayer(
-                    LinagoraSysColors.material().surfaceTint,
+                  color: DediStateLayer(
+                    DediSysColors.material().surfaceTint,
                   ).opacityLayer3,
                 ),
               ),

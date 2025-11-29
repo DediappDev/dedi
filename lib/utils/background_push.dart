@@ -51,7 +51,7 @@ class NoTokenException implements Exception {
 
 class BackgroundPush {
   static BackgroundPush? _instance;
-  static const apnChannel = MethodChannel('twake_apn');
+  static const apnChannel = MethodChannel('dedi_apn');
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   Client client;
@@ -72,7 +72,7 @@ class BackgroundPush {
   }
 
   bool isCurrentRoomActive(String? roomId) =>
-      roomId != null && TwakeApp.router.activeRoomId?.contains(roomId) == true;
+      roomId != null && DediApp.router.activeRoomId?.contains(roomId) == true;
 
   final pendingTests = <String, Completer<void>>{};
 
@@ -230,7 +230,7 @@ class BackgroundPush {
                           "badge": 1,
                           "sound": "default",
                           "alert": {
-                            "loc-key": "newMessageInTwake",
+                            "loc-key": "newMessageInDedi",
                             "loc-args": [],
                           },
                         },
@@ -631,13 +631,13 @@ class BackgroundPush {
   }
 
   Future<void> _handleInnerNavigation() async {
-    if (TwakeApp.isCurrentPageIsNotRooms()) {
+    if (DediApp.isCurrentPageIsNotRooms()) {
       return;
     }
 
-    if (TwakeApp.isCurrentPageIsInRooms()) {
+    if (DediApp.isCurrentPageIsInRooms()) {
       Logs().d("BackgroundPush::_handleInnerNavigation():  CurrentRoomActive");
-      TwakeApp.router.go(
+      DediApp.router.go(
         '/rooms',
         extra: ReceiveContentArgs(
           newActiveClient: client,
@@ -652,7 +652,7 @@ class BackgroundPush {
     String? roomId,
   }) async {
     Logs().d(
-      "BackgroundPush:: - Current active room id ${TwakeApp.router.activeRoomId}",
+      "BackgroundPush:: - Current active room id ${DediApp.router.activeRoomId}",
     );
     if (isCurrentRoomActive(roomId)) {
       return;
@@ -666,9 +666,9 @@ class BackgroundPush {
     String? eventId,
   }) {
     if (eventId != null) {
-      TwakeApp.router.go('/rooms/$roomId?event=$eventId');
+      DediApp.router.go('/rooms/$roomId?event=$eventId');
       return;
     }
-    TwakeApp.router.go('/rooms/$roomId');
+    DediApp.router.go('/rooms/$roomId');
   }
 }

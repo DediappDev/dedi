@@ -5,7 +5,7 @@ class MessageTimeStyle {
   static Color? timelineColor(bool timelineOverlayMessage) =>
       timelineOverlayMessage
           ? Colors.white
-          : LinagoraRefColors.material().neutral[50];
+          : DediRefColors.material().neutral[50];
 
   static double get timelineLetterSpacing => 0.4;
 
@@ -17,14 +17,14 @@ class MessageTimeStyle {
   ) =>
       timelineOverlayMessage
           ? Colors.white
-          : LinagoraSysColors.material().secondary;
+          : DediSysColors.material().secondary;
   static Color? seenByRowIconSecondaryColor(
     bool timelineOverlayMessage,
     BuildContext context,
   ) =>
       timelineOverlayMessage
           ? Theme.of(context).colorScheme.onPrimary
-          : LinagoraRefColors.material().neutral[50];
+          : DediRefColors.material().neutral[50];
 
   static TextStyle? textStyle(
     BuildContext context,

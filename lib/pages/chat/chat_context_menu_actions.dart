@@ -98,7 +98,7 @@ enum ChatContextMenuActions {
       return Theme.of(context).colorScheme.onSurface;
     }
     if (action == ChatContextMenuActions.delete) {
-      return LinagoraSysColors.material().error;
+      return DediSysColors.material().error;
     }
     return null;
   }

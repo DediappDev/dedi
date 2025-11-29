@@ -83,7 +83,7 @@ class DevicesSettingsController extends State<DevicesSettings> {
       ],
     );
     if (displayName == null) return;
-    final success = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final success = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => Matrix.of(context)
           .client
           .updateDevice(device.deviceId, displayName: displayName.single),

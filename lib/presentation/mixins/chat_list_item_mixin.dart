@@ -137,7 +137,7 @@ mixin ChatListItemMixin {
           style: ListItemStyle.subtitleTextStyle(
             fontFamily: 'Inter',
           ).copyWith(
-            color: LinagoraSysColors.material().onSurface,
+            color: DediSysColors.material().onSurface,
           ),
         ),
         event.messageType == MessageTypes.Image ||
@@ -238,7 +238,7 @@ mixin ChatListItemMixin {
     BuildContext context,
   ) {
     if (room.pushRuleState == PushRuleState.mentionsOnly) {
-      return LinagoraRefColors.material().tertiary[30];
+      return DediRefColors.material().tertiary[30];
     } else {
       return Theme.of(context).colorScheme.primary;
     }
@@ -249,7 +249,7 @@ mixin ChatListItemMixin {
     required Room room,
   }) {
     if (room.pushRuleState == PushRuleState.mentionsOnly) {
-      return LinagoraRefColors.material().tertiary[30];
+      return DediRefColors.material().tertiary[30];
     } else {
       return Theme.of(context).colorScheme.primary;
     }

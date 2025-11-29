@@ -39,7 +39,7 @@ class MessageTime extends StatelessWidget {
       decoration: timelineOverlayMessage
           ? BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: LinagoraStateLayer(Colors.black).opacityLayer3,
+              color: DediStateLayer(Colors.black).opacityLayer3,
             )
           : null,
       child: Row(
@@ -48,7 +48,7 @@ class MessageTime extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           if (event.isPinned) ...[
-            TwakeIconButton(
+            DediIconButton(
               tooltip: L10n.of(context)!.pin,
               icon: Icons.push_pin_outlined,
               size: MessageStyle.pushpinIconSize,
@@ -56,7 +56,7 @@ class MessageTime extends StatelessWidget {
               margin: EdgeInsets.zero,
               iconColor: timelineOverlayMessage
                   ? Colors.white
-                  : LinagoraRefColors.material().neutral[50],
+                  : DediRefColors.material().neutral[50],
             ),
             const SizedBox(width: 4.0),
           ],
@@ -71,7 +71,7 @@ class MessageTime extends StatelessWidget {
                     TextStyle(
                       color: timelineOverlayMessage
                           ? Colors.white
-                          : LinagoraRefColors.material().tertiary[30],
+                          : DediRefColors.material().tertiary[30],
                       letterSpacing: 0.4,
                     ),
                   ),
@@ -83,7 +83,7 @@ class MessageTime extends StatelessWidget {
                   TextStyle(
                     color: timelineOverlayMessage
                         ? Colors.white
-                        : LinagoraRefColors.material().tertiary[30],
+                        : DediRefColors.material().tertiary[30],
                     letterSpacing: 0.4,
                   ),
                 ),

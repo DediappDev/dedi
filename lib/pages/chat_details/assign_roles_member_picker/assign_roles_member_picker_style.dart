@@ -22,5 +22,5 @@ class AssignRolesMemberPickerStyle {
   static TextStyle? roleNameTextStyle(BuildContext context) => Theme.of(context)
       .textTheme
       .labelMedium
-      ?.copyWith(color: LinagoraRefColors.material().tertiary[30]);
+      ?.copyWith(color: DediRefColors.material().tertiary[30]);
 }

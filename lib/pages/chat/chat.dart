@@ -126,9 +126,9 @@ class ChatController extends State<Chat>
         GoToDraftChatMixin,
         PasteImageMixin,
         HandleClipboardActionMixin,
-        TwakeContextMenuMixin,
+        DediContextMenuMixin,
         MessageContentMixin,
-        SaveFileToTwakeAndroidDownloadsFolderMixin,
+        SaveFileToDediAndroidDownloadsFolderMixin,
         SaveMediaToGalleryAndroidMixin,
         LeaveChatMixin,
         DeleteEventMixin,
@@ -394,7 +394,7 @@ class ChatController extends State<Chat>
         'Try to recreate a room with is not a DM room. This should not be possible from the UI!',
       );
     }
-    final success = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final success = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         final client = room.client;
         final waitForSync = client.onSync.stream
@@ -673,12 +673,12 @@ class ChatController extends State<Chat>
   }
 
   Future<void> sendVoiceMessageAction({
-    required TwakeAudioFile audioFile,
+    required DediAudioFile audioFile,
     required Duration time,
     required List<int> waveform,
   }) async {
     if (audioFile.filePath == null || audioFile.filePath?.isEmpty == true) {
-      TwakeSnackBar.show(context, L10n.of(context)!.audioMessageFailedToSend);
+      DediSnackBar.show(context, L10n.of(context)!.audioMessageFailedToSend);
       return;
     }
     final fileInfo = FileInfo(
@@ -712,7 +712,7 @@ class ChatController extends State<Chat>
     );
 
     if (fakeImageEvent == null) {
-      TwakeSnackBar.show(context, L10n.of(context)!.audioMessageFailedToSend);
+      DediSnackBar.show(context, L10n.of(context)!.audioMessageFailedToSend);
       Logs().e('Failed to create fake event for voice message');
       return;
     }
@@ -729,7 +729,7 @@ class ChatController extends State<Chat>
         .then((_) {
       room?.sendingFilePlaceholders.remove(txid);
     }).catchError((e) {
-      TwakeSnackBar.show(context, L10n.of(context)!.audioMessageFailedToSend);
+      DediSnackBar.show(context, L10n.of(context)!.audioMessageFailedToSend);
       Logs().e('Failed to send voice message', e);
       return null;
     });
@@ -766,14 +766,14 @@ class ChatController extends State<Chat>
     }
     final l10n = L10n.of(context)!;
     final options = MessageReportReason.values.map((reportReason) {
-      return LinagoraDialogOption(
+      return DediDialogOption(
         name: reportReason.getReason(l10n),
         value: reportReason,
         trailingIcon: reportReason.getTrailingIcon(),
       );
     }).toList();
     final selectedOption =
-        await showDialog<LinagoraDialogOption<MessageReportReason>>(
+        await showDialog<DediDialogOption<MessageReportReason>>(
       context: context,
       builder: (context) {
         return OptionsDialog(
@@ -810,7 +810,7 @@ class ChatController extends State<Chat>
       if (comment == null) return;
       additionalReason = comment;
     }
-    final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final result = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         final state = await getIt
             .get<ReportContentInteractor>()
@@ -838,13 +838,13 @@ class ChatController extends State<Chat>
     showEmojiPickerNotifier.value = false;
     _clearSelectEvent();
     if (result.error != null) {
-      TwakeSnackBar.show(
+      DediSnackBar.show(
         context,
         result.error.toLocalizedString(context),
       );
       return;
     }
-    TwakeSnackBar.show(context, l10n.contentHasBeenReported);
+    DediSnackBar.show(context, l10n.contentHasBeenReported);
   }
 
   void redactEventsAction() async {
@@ -858,7 +858,7 @@ class ChatController extends State<Chat>
         OkCancelResult.ok;
     if (!confirmed) return;
     for (final event in selectedEvents) {
-      await TwakeDialog.showFutureLoadingDialogFullScreen(
+      await DediDialog.showFutureLoadingDialogFullScreen(
         future: () async {
           if (event.status.isSent) {
             if (event.canRedact) {
@@ -1157,7 +1157,7 @@ class ChatController extends State<Chat>
   }
 
   void forgetRoom() async {
-    final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final result = await DediDialog.showFutureLoadingDialogFullScreen(
       future: room!.forget,
     );
     if (result.error != null) return;
@@ -1254,7 +1254,7 @@ class ChatController extends State<Chat>
         )) {
       return;
     }
-    final result = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    final result = await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => room!.client.joinRoom(
         room!
             .getState(EventTypes.RoomTombstone)!
@@ -1262,7 +1262,7 @@ class ChatController extends State<Chat>
             .replacementRoom,
       ),
     );
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: room!.leave,
     );
     if (result.error == null) {
@@ -1322,7 +1322,7 @@ class ChatController extends State<Chat>
     if (response == OkCancelResult.ok) {
       final events = room!.pinnedEventIds
         ..removeWhere((oldEvent) => oldEvent == eventId);
-      TwakeDialog.showFutureLoadingDialogFullScreen(
+      DediDialog.showFutureLoadingDialogFullScreen(
         future: () => room!.setPinnedEvents(events),
       );
     }
@@ -1339,7 +1339,7 @@ class ChatController extends State<Chat>
     } else {
       pinnedEventIds.add(selectedEventIds);
     }
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () => room.setPinnedEvents(pinnedEventIds),
     );
     _getPinnedEvents(
@@ -1434,7 +1434,7 @@ class ChatController extends State<Chat>
     // );
     // if (callType == null) return;
 
-    // final success = await TwakeDialog.showFutureLoadingDialogFullScreen(
+    // final success = await DediDialog.showFutureLoadingDialogFullScreen(
     //   future: () =>
     //       Matrix.of(context).voipPlugin!.voip.requestTurnServerCredentials(),
     // );
@@ -1443,7 +1443,7 @@ class ChatController extends State<Chat>
     //   try {
     //     await voipPlugin!.voip.inviteToCall(room!.id, callType);
     //   } catch (e) {
-    //     TwakeSnackBar.show(context, e.toLocalizedString(context));
+    //     DediSnackBar.show(context, e.toLocalizedString(context));
     //   }
     // } else {
     //   await showOkAlertDialog(
@@ -1616,7 +1616,7 @@ class ChatController extends State<Chat>
         styleName: action == ChatContextMenuActions.delete
             ? PopupMenuWidgetStyle.defaultItemTextStyle(context)?.merge(
                 TextStyle(
-                  color: LinagoraSysColors.material().error,
+                  color: DediSysColors.material().error,
                 ),
               )
             : null,
@@ -1681,7 +1681,7 @@ class ChatController extends State<Chat>
       event,
     );
     _handleStateContextMenu();
-    final selectedActionIndex = await showTwakeContextMenu(
+    final selectedActionIndex = await showDediContextMenu(
       offset: offset,
       context: context,
       listActions: listContextMenuActions,
@@ -1771,8 +1771,7 @@ class ChatController extends State<Chat>
                                 width: defaultMaxWidthReactionPicker,
                                 height: defaultMaxHeightReactionPicker,
                                 decoration: BoxDecoration(
-                                  color:
-                                      LinagoraRefColors.material().primary[100],
+                                  color: DediRefColors.material().primary[100],
                                   borderRadius: BorderRadius.circular(
                                     24,
                                   ),
@@ -1807,7 +1806,7 @@ class ChatController extends State<Chat>
                                         .textTheme
                                         .labelMedium!
                                         .copyWith(
-                                          color: LinagoraRefColors.material()
+                                          color: DediRefColors.material()
                                               .tertiary[30],
                                         ),
                                     searchEmptyWidget: SvgPicture.asset(
@@ -1959,7 +1958,7 @@ class ChatController extends State<Chat>
   }
 
   void onAcceptInvitation() async {
-    await TwakeDialog.showFutureLoadingDialogFullScreen(
+    await DediDialog.showFutureLoadingDialogFullScreen(
       future: () async {
         final waitForRoom = room?.client.waitForRoomInSync(
           room!.id,
@@ -1973,7 +1972,7 @@ class ChatController extends State<Chat>
 
   void onRejectInvitation(BuildContext context) async {
     final result = await showDialog<DialogRejectInviteResult>(
-      context: TwakeApp.routerKey.currentContext ?? context,
+      context: DediApp.routerKey.currentContext ?? context,
       useRootNavigator: PlatformInfos.isWeb,
       builder: (c) => const DialogRejectInviteWidget(),
     );
@@ -2267,7 +2266,7 @@ class ChatController extends State<Chat>
     final listContextMenuActions =
         _mapAppbarMenuActionToContextMenuAction(listAppBarActions);
 
-    final selectedActionIndex = await showTwakeContextMenu(
+    final selectedActionIndex = await showDediContextMenu(
       offset: offset,
       context: context,
       listActions: listContextMenuActions,
@@ -2464,8 +2463,8 @@ class ChatController extends State<Chat>
                                     width: 326,
                                     height: 360,
                                     decoration: BoxDecoration(
-                                      color: LinagoraRefColors.material()
-                                          .primary[100],
+                                      color:
+                                          DediRefColors.material().primary[100],
                                       borderRadius: BorderRadius.circular(
                                         24,
                                       ),
@@ -2500,9 +2499,8 @@ class ChatController extends State<Chat>
                                             .textTheme
                                             .labelMedium!
                                             .copyWith(
-                                              color:
-                                                  LinagoraRefColors.material()
-                                                      .tertiary[30],
+                                              color: DediRefColors.material()
+                                                  .tertiary[30],
                                             ),
                                         searchEmptyWidget: SvgPicture.asset(
                                           ImagePaths.icSearchEmojiEmpty,
@@ -2603,33 +2601,33 @@ class ChatController extends State<Chat>
                             Offstage(
                               offstage: showFullEmojiPickerOnWeb,
                               child: Card(
-                                elevation: TwakeContextMenuStyle.menuElevation,
+                                elevation: DediContextMenuStyle.menuElevation,
                                 margin: EdgeInsets.zero,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(
-                                    TwakeContextMenuStyle.menuBorderRadius,
+                                    DediContextMenuStyle.menuBorderRadius,
                                   ),
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(
-                                    TwakeContextMenuStyle.menuBorderRadius,
+                                    DediContextMenuStyle.menuBorderRadius,
                                   ),
                                   child: Material(
                                     color:
-                                        TwakeContextMenuStyle.defaultMenuColor(
+                                        DediContextMenuStyle.defaultMenuColor(
                                       context,
                                     ),
                                     child: ConstrainedBox(
                                       constraints: const BoxConstraints(
                                         minWidth:
-                                            TwakeContextMenuStyle.menuMinWidth,
+                                            DediContextMenuStyle.menuMinWidth,
                                         maxWidth:
-                                            TwakeContextMenuStyle.menuMaxWidth,
+                                            DediContextMenuStyle.menuMaxWidth,
                                       ),
                                       child: IntrinsicWidth(
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
-                                            vertical: TwakeContextMenuStyle
+                                            vertical: DediContextMenuStyle
                                                 .defaultVerticalPadding,
                                           ),
                                           child: Column(

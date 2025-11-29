@@ -18,6 +18,6 @@ class ChatBlankStyle {
       Theme.of(context).textTheme.bodyLarge?.copyWith(
             fontSize: ChatBlankStyle.textFontSize,
             fontWeight: ChatBlankStyle.textFontWeight,
-            color: LinagoraRefColors.material().tertiary[20],
+            color: DediRefColors.material().tertiary[20],
           );
 }

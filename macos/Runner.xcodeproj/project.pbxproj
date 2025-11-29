@@ -56,7 +56,7 @@
 		2D20EFA3D49BBBDA1F07645D /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		333000ED22D3DE5D00554162 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
 		335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedPluginRegistrant.swift; sourceTree = "<group>"; };
-		33CC10ED2044A3C60003C045 /* Twake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twake.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		33CC10ED2044A3C60003C045 /* Dedi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dedi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33CC10F02044A3C60003C045 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33CC10F22044A3C60003C045 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Runner/Assets.xcassets; sourceTree = "<group>"; };
 		33CC10F52044A3C60003C045 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 		33CC10EE2044A3C60003C045 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				33CC10ED2044A3C60003C045 /* Twake.app */,
+				33CC10ED2044A3C60003C045 /* Dedi.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,7 +193,7 @@
 			);
 			name = Runner;
 			productName = Runner;
-			productReference = 33CC10ED2044A3C60003C045 /* Twake.app */;
+			productReference = 33CC10ED2044A3C60003C045 /* Dedi.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -589,15 +589,15 @@
 					"$(PROJECT_DIR)/Flutter/ephemeral",
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Twake;
+				INFOPLIST_KEY_CFBundleDisplayName = Dedi;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				OTHER_CODE_SIGN_FLAGS = "\"--timestamp\"";
-				PRODUCT_BUNDLE_IDENTIFIER = app.twake.macos.chat;
-				PRODUCT_COPYRIGHT = "Copyright © 2023 Linagora. All rights reserved.";
-				PRODUCT_NAME = Twake;
+				PRODUCT_BUNDLE_IDENTIFIER = app.dedi.macos.chat;
+				PRODUCT_COPYRIGHT = "Copyright © 2023 Dedi. All rights reserved.";
+				PRODUCT_NAME = Dedi;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
@@ -730,15 +730,15 @@
 					"$(PROJECT_DIR)/Flutter/ephemeral",
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Twake;
+				INFOPLIST_KEY_CFBundleDisplayName = Dedi;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				OTHER_CODE_SIGN_FLAGS = "\"--timestamp\"";
-				PRODUCT_BUNDLE_IDENTIFIER = app.twake.macos.chat;
-				PRODUCT_COPYRIGHT = "Copyright © 2023 Linagora. All rights reserved.";
-				PRODUCT_NAME = Twake;
+				PRODUCT_BUNDLE_IDENTIFIER = app.dedi.macos.chat;
+				PRODUCT_COPYRIGHT = "Copyright © 2023 Dedi. All rights reserved.";
+				PRODUCT_NAME = Dedi;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -765,15 +765,15 @@
 					"$(PROJECT_DIR)/Flutter/ephemeral",
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Twake;
+				INFOPLIST_KEY_CFBundleDisplayName = Dedi;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				OTHER_CODE_SIGN_FLAGS = "\"--timestamp\"";
-				PRODUCT_BUNDLE_IDENTIFIER = app.twake.macos.chat;
-				PRODUCT_COPYRIGHT = "Copyright © 2023 Linagora. All rights reserved.";
-				PRODUCT_NAME = Twake;
+				PRODUCT_BUNDLE_IDENTIFIER = app.dedi.macos.chat;
+				PRODUCT_COPYRIGHT = "Copyright © 2023 Dedi. All rights reserved.";
+				PRODUCT_NAME = Dedi;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};

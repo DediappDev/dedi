@@ -34,7 +34,7 @@ class StorageDirectoryManager {
     return '$fileStoreDirectory/$eventId/$fileName';
   }
 
-  Future<String?> getTwakeDownloadsFolderInDevice() async {
+  Future<String?> getDediDownloadsFolderInDevice() async {
     try {
       final downloadPath = await ExternalPath.getExternalStoragePublicDirectory(
         ExternalPath.DIRECTORY_DOWNLOADS,
