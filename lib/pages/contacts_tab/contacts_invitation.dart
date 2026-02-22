@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart' hide State;
+import 'package:dio/dio.dart';
 import 'package:fluffychat/app_state/failure.dart';
 import 'package:fluffychat/app_state/success.dart';
 import 'package:fluffychat/data/model/invitation/invitation_status_response.dart';
@@ -136,11 +139,12 @@ class ContactsInvitationController extends State<ContactsInvitation> {
           return;
         }
         if (failure is SendInvitationFailureState) {
+          final failureMessage = failure.message?.trim().isNotEmpty == true
+              ? failure.message!.trim()
+              : _extractServerMessage(failure.exception);
           DediSnackBar.show(
             context,
-            (failure.message?.trim().isNotEmpty == true)
-                ? failure.message!
-                : L10n.of(context)!.failedToSendInvitation,
+            failureMessage ?? L10n.of(context)!.failedToSendInvitation,
           );
           return;
         }
@@ -183,9 +187,12 @@ class ContactsInvitationController extends State<ContactsInvitation> {
         DediDialog.hideLoadingDialog(context);
 
         if (failure is GenerateInvitationLinkFailureState) {
+          final failureMessage = failure.message?.trim().isNotEmpty == true
+              ? failure.message!.trim()
+              : _extractServerMessage(failure.exception);
           DediSnackBar.show(
             context,
-            failure.message ?? L10n.of(context)!.failedToSendFiles,
+            failureMessage ?? L10n.of(context)!.failedToGenerateInvitationLink,
           );
           return;
         }
@@ -269,5 +276,32 @@ class ContactsInvitationController extends State<ContactsInvitation> {
       controller: this,
       contact: widget.contact,
     );
+  }
+
+  String? _extractServerMessage(dynamic exception) {
+    if (exception is! DioException) return null;
+    final data = exception.response?.data;
+
+    if (data is Map && data['message'] is String) {
+      final message = (data['message'] as String).trim();
+      return message.isEmpty ? null : message;
+    }
+
+    if (data is String) {
+      final text = data.trim();
+      if (text.isEmpty) return null;
+      try {
+        final decoded = jsonDecode(text);
+        if (decoded is Map && decoded['message'] is String) {
+          final message = (decoded['message'] as String).trim();
+          return message.isEmpty ? null : message;
+        }
+      } catch (_) {
+        // Keep raw response text as fallback when body is not JSON.
+      }
+      return text;
+    }
+
+    return null;
   }
 }

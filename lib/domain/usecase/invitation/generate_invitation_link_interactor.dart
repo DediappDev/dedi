@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:fluffychat/app_state/failure.dart';
@@ -39,31 +41,21 @@ class GenerateInvitationLinkInteractor {
       );
     } catch (e) {
       Logs().e('GenerateInvitationLinkInteractor::execute', e);
-      if (e is DioException &&
-          e.response?.statusCode == 400 &&
-          e.response?.data is Map<String, dynamic>) {
-        if (e.response?.data['message'] ==
-            Constants.alreadySentInvitationMessage) {
+      final message = _extractServerMessage(e);
+      if (e is DioException && e.response?.statusCode == 400) {
+        if (message == Constants.alreadySentInvitationMessage) {
           yield const Left(InvitationAlreadySentState());
           return;
-        } else if (e.response?.data['message']
-                ?.contains(Constants.invalidPhoneNumberMessage) ==
+        } else if (message?.contains(Constants.invalidPhoneNumberMessage) ==
             true) {
           yield const Left(InvalidPhoneNumberFailureState());
           return;
-        } else if (e.response?.data['message']
-                ?.contains(Constants.invalidEmailMessage) ==
-            true) {
+        } else if (message?.contains(Constants.invalidEmailMessage) == true) {
           yield const Left(InvalidEmailFailureState());
           return;
         }
       }
 
-      final message = e is DioException
-          ? e.response?.data is Map<String, dynamic>
-              ? e.response?.data['message']
-              : null
-          : null;
       yield Left(
         GenerateInvitationLinkFailureState(
           exception: e,
@@ -72,5 +64,32 @@ class GenerateInvitationLinkInteractor {
       );
       return;
     }
+  }
+
+  String? _extractServerMessage(Object error) {
+    if (error is! DioException) return null;
+    final data = error.response?.data;
+
+    if (data is Map && data['message'] is String) {
+      final message = (data['message'] as String).trim();
+      return message.isEmpty ? null : message;
+    }
+
+    if (data is String) {
+      final text = data.trim();
+      if (text.isEmpty) return null;
+      try {
+        final decoded = jsonDecode(text);
+        if (decoded is Map && decoded['message'] is String) {
+          final message = (decoded['message'] as String).trim();
+          return message.isEmpty ? null : message;
+        }
+      } catch (_) {
+        // Keep raw response text as fallback when body is not JSON.
+      }
+      return text;
+    }
+
+    return null;
   }
 }
