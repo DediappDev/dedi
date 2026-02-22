@@ -86,6 +86,12 @@ class SendInvitationInteractor {
       return text;
     }
 
+    final requestPath = error.requestOptions.path;
+    if (error.response?.statusCode == 400 &&
+        requestPath.contains('/_dedi/v1/invite')) {
+      return 'Invitations are not enabled';
+    }
+
     return null;
   }
 
