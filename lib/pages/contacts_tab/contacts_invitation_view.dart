@@ -43,33 +43,46 @@ class ContactsInvitationView extends StatelessWidget {
                       ),
                   textAlign: TextAlign.center,
                 ),
-                InkWell(
-                  onTap: () => controller.onGenerateInvitationLink(),
-                  highlightColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 24,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          L10n.of(context)!.shareInvitationLink,
-                          style:
-                              Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    color: DediSysColors.material().primary,
-                                  ),
-                          textAlign: TextAlign.center,
+                ValueListenableBuilder(
+                  valueListenable: controller.sendInvitationNotifier,
+                  builder: (context, _, __) => ValueListenableBuilder(
+                    valueListenable: controller.generateInvitationLinkNotifier,
+                    builder: (context, _, __) => InkWell(
+                      onTap: controller.isBusy
+                          ? null
+                          : () => controller.onGenerateInvitationLink(),
+                      highlightColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      child: Opacity(
+                        opacity: controller.isBusy ? 0.5 : 1,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 24,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                L10n.of(context)!.shareInvitationLink,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(
+                                      color: DediSysColors.material().primary,
+                                    ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(width: 8),
+                              Icon(
+                                Icons.share_outlined,
+                                color: DediSysColors.material().primary,
+                              ),
+                            ],
+                          ),
                         ),
-                        const SizedBox(width: 8),
-                        Icon(
-                          Icons.share_outlined,
-                          color: DediSysColors.material().primary,
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
@@ -336,66 +349,81 @@ class ContactsInvitationView extends StatelessWidget {
                     if (selectedContact == null) {
                       return const SizedBox.shrink();
                     }
-                    return InkWell(
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onTap: () => controller.onSendInvitation(selectedContact),
-                      child: Padding(
-                        padding: ContactsInvitationStyle.verticalPadding,
-                        child: Container(
-                          width: double.infinity,
-                          height: ContactsInvitationStyle.heightSendButton,
-                          decoration: BoxDecoration(
-                            color: DediSysColors.material().primary,
-                            borderRadius: ContactsInvitationStyle.borderRadius,
-                          ),
-                          child: ValueListenableBuilder(
-                            valueListenable: controller.sendInvitationNotifier,
-                            builder: (context, state, child) => state.fold(
-                              (failure) => child!,
-                              (success) {
-                                if (success is SendInvitationLoadingState) {
-                                  return Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: 28,
-                                        height: 28,
-                                        child:
-                                            CircularProgressIndicator.adaptive(
-                                          strokeWidth: 2,
-                                          backgroundColor:
-                                              DediSysColors.material()
-                                                  .onPrimary,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                }
-                                return child!;
-                              },
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  L10n.of(context)!.sendInvitation,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelLarge
-                                      ?.copyWith(
-                                        color:
-                                            DediSysColors.material().onPrimary,
-                                      ),
+                    return ValueListenableBuilder(
+                      valueListenable: controller.sendInvitationNotifier,
+                      builder: (context, _, __) => ValueListenableBuilder(
+                        valueListenable:
+                            controller.generateInvitationLinkNotifier,
+                        builder: (context, _, __) => InkWell(
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          onTap: controller.isBusy
+                              ? null
+                              : () =>
+                                  controller.onSendInvitation(selectedContact),
+                          child: Padding(
+                            padding: ContactsInvitationStyle.verticalPadding,
+                            child: Container(
+                              width: double.infinity,
+                              height: ContactsInvitationStyle.heightSendButton,
+                              decoration: BoxDecoration(
+                                color: controller.isBusy
+                                    ? DediSysColors.material().outline
+                                    : DediSysColors.material().primary,
+                                borderRadius:
+                                    ContactsInvitationStyle.borderRadius,
+                              ),
+                              child: ValueListenableBuilder(
+                                valueListenable:
+                                    controller.sendInvitationNotifier,
+                                builder: (context, state, child) => state.fold(
+                                  (failure) => child!,
+                                  (success) {
+                                    if (success is SendInvitationLoadingState) {
+                                      return Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            width: 28,
+                                            height: 28,
+                                            child: CircularProgressIndicator
+                                                .adaptive(
+                                              strokeWidth: 2,
+                                              backgroundColor:
+                                                  DediSysColors.material()
+                                                      .onPrimary,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                    return child!;
+                                  },
                                 ),
-                                const SizedBox(width: 8),
-                                Icon(
-                                  Icons.send_outlined,
-                                  color: DediSysColors.material().onPrimary,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      L10n.of(context)!.sendInvitation,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge
+                                          ?.copyWith(
+                                            color: DediSysColors.material()
+                                                .onPrimary,
+                                          ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Icon(
+                                      Icons.send_outlined,
+                                      color: DediSysColors.material().onPrimary,
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
                         ),

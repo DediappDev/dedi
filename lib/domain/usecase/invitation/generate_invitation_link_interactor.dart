@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
@@ -16,6 +17,7 @@ import 'package:matrix/matrix.dart';
 class GenerateInvitationLinkInteractor {
   final InvitationRepository _invitationRepository =
       getIt.get<InvitationRepository>();
+  static const _requestTimeout = Duration(seconds: 20);
 
   Stream<Either<Failure, Success>> execute({
     String? contact,
@@ -23,12 +25,14 @@ class GenerateInvitationLinkInteractor {
   }) async* {
     try {
       yield const Right(GenerateInvitationLinkLoadingState());
-      final res = await _invitationRepository.generateInvitationLink(
-        request: InvitationRequest(
-          contact: contact,
-          medium: medium?.value,
-        ),
-      );
+      final res = await _invitationRepository
+          .generateInvitationLink(
+            request: InvitationRequest(
+              contact: contact,
+              medium: medium?.value,
+            ),
+          )
+          .timeout(_requestTimeout);
 
       if (res.link.isEmpty == true) {
         yield const Left(GenerateInvitationLinkIsEmptyState());
@@ -39,6 +43,15 @@ class GenerateInvitationLinkInteractor {
           id: res.id,
         ),
       );
+    } on TimeoutException catch (e) {
+      Logs().e('GenerateInvitationLinkInteractor::execute', e);
+      yield Left(
+        GenerateInvitationLinkFailureState(
+          exception: e,
+          message: 'Request timed out. Please try again.',
+        ),
+      );
+      return;
     } catch (e) {
       Logs().e('GenerateInvitationLinkInteractor::execute', e);
       final message = _extractServerMessage(e);

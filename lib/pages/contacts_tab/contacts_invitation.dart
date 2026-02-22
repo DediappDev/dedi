@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 
 import 'package:dartz/dartz.dart' hide State;
 import 'package:dio/dio.dart';
@@ -56,7 +57,25 @@ class ContactsInvitationController extends State<ContactsInvitation> {
   final ValueNotifier<Either<Failure, Success>> generateInvitationLinkNotifier =
       ValueNotifier(const Right(GenerateInvitationLinkInitial()));
 
+  StreamSubscription<Either<Failure, Success>>? _sendInvitationSubscription;
+  StreamSubscription<Either<Failure, Success>>?
+      _generateInvitationLinkSubscription;
+
+  bool get isSendingInvitation => sendInvitationNotifier.value.fold(
+        (_) => false,
+        (success) => success is SendInvitationLoadingState,
+      );
+
+  bool get isGeneratingInvitationLink =>
+      generateInvitationLinkNotifier.value.fold(
+        (_) => false,
+        (success) => success is GenerateInvitationLinkLoadingState,
+      );
+
+  bool get isBusy => isSendingInvitation || isGeneratingInvitationLink;
+
   void onSelectContact(PresentationThirdPartyContact contact) {
+    if (isBusy) return;
     if (widget.invitationStatus?.invitation?.medium != null) return;
     if (selectedContact.value == null) {
       selectedContact.value = contact;
@@ -87,10 +106,13 @@ class ContactsInvitationController extends State<ContactsInvitation> {
   }
 
   void onSendInvitation(PresentationThirdPartyContact contact) {
+    if (isBusy) return;
+
     final invitationData = _getInvitationData(contact);
 
     if (invitationData != null) {
-      _sendInvitationInteractor
+      _sendInvitationSubscription?.cancel();
+      _sendInvitationSubscription = _sendInvitationInteractor
           .execute(
         contact: invitationData.contact,
         medium: invitationData.medium,
@@ -168,6 +190,8 @@ class ContactsInvitationController extends State<ContactsInvitation> {
   }
 
   void onGenerateInvitationLink() {
+    if (isBusy) return;
+
     final contact = widget.contact.primaryContact;
     if (contact == null) {
       return;
@@ -175,7 +199,9 @@ class ContactsInvitationController extends State<ContactsInvitation> {
     final invitationData = _getInvitationData(contact);
 
     if (invitationData != null) {
-      _generateInvitationLinkInteractor.execute().listen((state) {
+      _generateInvitationLinkSubscription?.cancel();
+      _generateInvitationLinkSubscription =
+          _generateInvitationLinkInteractor.execute().listen((state) {
         generateInvitationLinkNotifier.value = state;
       });
     }
@@ -261,13 +287,24 @@ class ContactsInvitationController extends State<ContactsInvitation> {
   @override
   void initState() {
     _onSelectContactDefault(widget.contact);
-    sendInvitationNotifier.addListener(() {
-      _onSendInvitationStateListener();
-    });
-    generateInvitationLinkNotifier.addListener(() {
-      _onGenerateInvitationLinkStateListener();
-    });
+    sendInvitationNotifier.addListener(_onSendInvitationStateListener);
+    generateInvitationLinkNotifier
+        .addListener(_onGenerateInvitationLinkStateListener);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _sendInvitationSubscription?.cancel();
+    _generateInvitationLinkSubscription?.cancel();
+    DediDialog.hideLoadingDialog(context);
+    sendInvitationNotifier.removeListener(_onSendInvitationStateListener);
+    generateInvitationLinkNotifier
+        .removeListener(_onGenerateInvitationLinkStateListener);
+    selectedContact.dispose();
+    sendInvitationNotifier.dispose();
+    generateInvitationLinkNotifier.dispose();
+    super.dispose();
   }
 
   @override

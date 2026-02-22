@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
@@ -16,6 +17,7 @@ import 'package:matrix/matrix.dart';
 class SendInvitationInteractor {
   final InvitationRepository _invitationRepository =
       getIt.get<InvitationRepository>();
+  static const _requestTimeout = Duration(seconds: 20);
 
   Stream<Either<Failure, Success>> execute({
     required String contact,
@@ -24,18 +26,29 @@ class SendInvitationInteractor {
   }) async* {
     try {
       yield const Right(SendInvitationLoadingState());
-      final res = await _invitationRepository.sendInvitation(
-        request: InvitationRequest(
-          contact: _tryToNormalizePhoneNumber(contact, medium),
-          medium: medium.value,
-        ),
-      );
+      final res = await _invitationRepository
+          .sendInvitation(
+            request: InvitationRequest(
+              contact: _tryToNormalizePhoneNumber(contact, medium),
+              medium: medium.value,
+            ),
+          )
+          .timeout(_requestTimeout);
       yield Right(
         SendInvitationSuccessState(
           sendInvitationResponse: res,
           contactId: contactId,
         ),
       );
+    } on TimeoutException catch (e) {
+      Logs().e('SendInvitationInteractor::execute', e);
+      yield Left(
+        SendInvitationFailureState(
+          exception: e,
+          message: 'Request timed out. Please try again.',
+        ),
+      );
+      return;
     } catch (e) {
       Logs().e('SendInvitationInteractor::execute', e);
       final message = _extractServerMessage(e);
