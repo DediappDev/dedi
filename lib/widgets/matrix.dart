@@ -31,8 +31,10 @@ import 'package:fluffychat/domain/model/tom_server_information.dart';
 import 'package:fluffychat/domain/repository/multiple_account/multiple_account_repository.dart';
 import 'package:fluffychat/domain/repository/tom_configurations_repository.dart';
 import 'package:fluffychat/pages/chat_list/receive_sharing_intent_mixin.dart';
+import 'package:fluffychat/services/session_credentials_storage.dart';
 import 'package:fluffychat/utils/client_manager.dart';
 import 'package:fluffychat/utils/localized_exception_extension.dart';
+import 'package:fluffychat/utils/matrix_session_hydrator.dart';
 import 'package:fluffychat/utils/platform_infos.dart';
 import 'package:fluffychat/utils/twake_snackbar.dart';
 import 'package:fluffychat/utils/uia_request_manager.dart';
@@ -59,6 +61,7 @@ import '../utils/account_bundles.dart';
 import '../utils/background_push.dart';
 import '../utils/famedlysdk_store.dart';
 import 'local_notifications_extension.dart';
+import 'package:fluffychat/utils/voip_plugin.dart';
 
 class Matrix extends StatefulWidget {
   final Widget? child;
@@ -142,10 +145,10 @@ class MatrixState extends State<Matrix>
     return widget.clients[_activeClient];
   }
 
-  // TODO: 28Dec2023 Disable until support voip
+  // TODO: 28Dec2025 Disable until support voip
   bool get webrtcIsSupported => false;
 
-  // VoipPlugin? voipPlugin;
+  VoipPlugin? voipPlugin;
 
   bool get isMultiAccount => widget.clients.length > 1;
 
@@ -156,21 +159,151 @@ class MatrixState extends State<Matrix>
   RequestTokenResponse? currentThreepidCreds;
 
   Future<SetActiveClientState> setActiveClient(Client? newClient) async {
-    final index = widget.clients.indexWhere(
-      (client) => newClient != null && client.userID == newClient.userID,
+    if (newClient == null) {
+      Logs().w('Tried to set a null client as active');
+      return SetActiveClientState.unknownClient;
+    }
+    final hydratedClient = await _hydrateClientFromStoredSession(newClient);
+    if (hydratedClient == null ||
+        !hydratedClient.isLogged() ||
+        hydratedClient.userID == null ||
+        hydratedClient.userID!.isEmpty) {
+      Logs().w(
+        'Tried to set client ${newClient.clientName} as active but it has no active session',
+      );
+      return SetActiveClientState.unknownClient;
+    }
+
+    var index = widget.clients.indexWhere(
+      (client) => identical(client, hydratedClient),
     );
+    if (index == -1 && hydratedClient.userID != null) {
+      final sameUserClients = widget.clients
+          .where((client) => client.userID == hydratedClient.userID)
+          .toList();
+      final preferredClient = sameUserClients.firstWhereOrNull(
+        (client) => client.isLogged(),
+      );
+      if (preferredClient != null) {
+        index = widget.clients.indexOf(preferredClient);
+      } else if (sameUserClients.isNotEmpty) {
+        index = widget.clients.indexOf(sameUserClients.first);
+      }
+    }
+    if (index == -1) {
+      index = widget.clients.indexWhere(
+        (client) => client.clientName == hydratedClient.clientName,
+      );
+    }
+    if (index == -1 && hydratedClient.isLogged()) {
+      widget.clients.add(hydratedClient);
+      await ClientManager.addClientNameToStore(hydratedClient.clientName);
+      _registerSubs(hydratedClient.clientName);
+      index = widget.clients.length - 1;
+    }
+
     if (index != -1) {
-      _activeClient = index;
+      final selectedClient = widget.clients[index];
+      if (mounted) {
+        setState(() {
+          _activeClient = index;
+          waitForFirstSync = false;
+        });
+      } else {
+        _activeClient = index;
+        waitForFirstSync = false;
+      }
       // TODO: Multi-client VoiP support
       createVoipPlugin();
-      await _setUpToMServicesWhenChangingActiveClient(newClient);
-      await _storePersistActiveAccount(newClient!);
-      await _getUserInfoWithActiveClient(newClient);
-      await _getHomeserverInformation(newClient);
+      if (selectedClient.isLogged()) {
+        selectedClient.backgroundSync = true;
+        selectedClient.syncPresence = null;
+        try {
+          selectedClient.sync(setPresence: selectedClient.syncPresence);
+        } catch (e, s) {
+          Logs().e(
+            'MatrixState::setActiveClient(): Unable to trigger sync for ${selectedClient.userID}',
+            e,
+            s,
+          );
+        }
+      }
+      await _setUpToMServicesWhenChangingActiveClient(selectedClient);
+      await tryToGetFederationConfigurations();
+      await _storePersistActiveAccount(selectedClient);
+      await _getUserInfoWithActiveClient(selectedClient);
+      await _getHomeserverInformation(selectedClient);
+      if (!onActiveClientChanged.isClosed) {
+        onActiveClientChanged.add(selectedClient);
+      }
       return SetActiveClientState.success;
     } else {
-      Logs().w('Tried to set an unknown client ${newClient!.userID} as active');
+      Logs().w(
+        'Tried to set an unknown client ${hydratedClient.userID ?? hydratedClient.clientName} as active',
+      );
       return SetActiveClientState.unknownClient;
+    }
+  }
+
+  Future<void> registerAndActivateAddedAccount(Client newClient) async {
+    final hydratedClient = await _hydrateClientFromStoredSession(newClient);
+    final candidateClient = hydratedClient ?? newClient;
+
+    if (!widget.clients.contains(candidateClient)) {
+      widget.clients.add(candidateClient);
+    }
+    await ClientManager.addClientNameToStore(candidateClient.clientName);
+    _registerSubs(candidateClient.clientName);
+    waitForFirstSync = false;
+    await setUpToMServicesInLogin(candidateClient);
+    await setUpFederationServicesInLogin(candidateClient);
+    await setActiveClient(candidateClient);
+    await matrixState.cancelListenSynchronizeContacts();
+    matrixState.reSyncContacts();
+    _loginClientCandidate = null;
+  }
+
+  Future<Client?> _hydrateClientFromStoredSession(Client client) async {
+    if (client.isLogged() &&
+        client.userID != null &&
+        client.userID!.isNotEmpty) {
+      return client;
+    }
+    final sessionsByClientName =
+        await SessionCredentialsStorage.loadAllByClientName();
+    SessionCredentials? session = sessionsByClientName[client.clientName];
+
+    if (session == null) {
+      final clientUserId = client.userID;
+      if (clientUserId != null && clientUserId.isNotEmpty) {
+        session = sessionsByClientName.values.firstWhereOrNull(
+          (value) => value.userId == clientUserId,
+        );
+      }
+    }
+
+    if (session == null) {
+      return null;
+    }
+
+    try {
+      await MatrixSessionHydrator.fromAccessToken(
+        client: client,
+        homeserverBaseUrl: session.homeserver,
+        userId: session.userId,
+        accessToken: session.accessToken,
+        deviceId: session.deviceId,
+        verifyHomeserver: false,
+        startSync: false,
+      );
+      return client;
+    } catch (e, s) {
+      Logs().w(
+        'MatrixState::_hydrateClientFromStoredSession(): failed for ${client.clientName}',
+        e,
+        s,
+      );
+      return null;
     }
   }
 
@@ -288,6 +421,8 @@ class MatrixState extends State<Matrix>
   final onLoginStateChanged = <String, StreamSubscription<LoginState>>{};
   final onUiaRequest = <String, StreamSubscription<UiaRequest>>{};
   final StreamController<ClientLoginStateEvent> onClientLoginStateChanged =
+      StreamController.broadcast();
+  final StreamController<Client> onActiveClientChanged =
       StreamController.broadcast();
   StreamSubscription<html.Event>? onFocusSub;
   StreamSubscription<html.Event>? onBlurSub;
@@ -441,17 +576,18 @@ class MatrixState extends State<Matrix>
   }
 
   void _listenLoginStateChanged(LoginState state, Client client) async {
+    if (state == LoginState.loggedIn) {
+      Logs().v('[MATRIX]:_listenLoginStateChanged:: First Log in successful');
+      _handleFirstLoggedIn(client, state);
+      return;
+    }
+
     final loggedInWithMultipleClients = widget.clients.length > 1;
-    if (loggedInWithMultipleClients && state != LoginState.loggedIn) {
+    if (loggedInWithMultipleClients) {
       _handleLogoutWithMultipleAccount(state, client);
     } else {
-      if (state == LoginState.loggedIn) {
-        Logs().v('[MATRIX]:_listenLoginStateChanged:: First Log in successful');
-        _handleFirstLoggedIn(client, state);
-      } else {
-        Logs().v('[MATRIX]:_listenLoginStateChanged:: Last Log out successful');
-        await _handleLastLogout();
-      }
+      Logs().v('[MATRIX]:_listenLoginStateChanged:: Last Log out successful');
+      await _handleLastLogout(client);
     }
   }
 
@@ -459,15 +595,23 @@ class MatrixState extends State<Matrix>
     LoginState state,
     Client currentClient,
   ) async {
-    await _cancelSubs(currentClient.clientName);
-    widget.clients.remove(currentClient);
-    await ClientManager.removeClientNameFromStore(currentClient.clientName);
+    final removedClientNames = await _resolveLoggedOutAccountClientNames(
+      currentClient,
+    );
+    await _removeClientEntries(removedClientNames);
     await matrixState.cancelListenSynchronizeContacts();
     matrixState.reSyncContacts();
     DediSnackBar.show(
       DediApp.routerKey.currentContext!,
       L10n.of(context)!.oneClientLoggedOut,
     );
+    if (widget.clients.isEmpty) {
+      await _handleLastLogout(
+        currentClient,
+        skipClientCleanup: true,
+      );
+      return;
+    }
     final result = await setActiveClient(widget.clients.first);
     Logs().v(
       '[MATRIX]:_handleLogoutWithMultipleAccount:: Log out Client ${currentClient.clientName} successful',
@@ -513,7 +657,7 @@ class MatrixState extends State<Matrix>
     if (!widget.clients.contains(_loginClientCandidate)) {
       widget.clients.add(_loginClientCandidate!);
     }
-    ClientManager.addClientNameToStore(_loginClientCandidate!.clientName);
+    await ClientManager.addClientNameToStore(_loginClientCandidate!.clientName);
     Logs().d('MatrixState::_handleAddAnotherAccount() - Registering subs');
     _registerSubs(_loginClientCandidate!.clientName);
     final activeClient = getClientByName(
@@ -624,11 +768,11 @@ class MatrixState extends State<Matrix>
   }
 
   void createVoipPlugin() async {
-    // if (await store.getItemBool(SettingKeys.experimentalVoip) == false) {
-    //   voipPlugin = null;
-    //   return;
-    // }
-    // voipPlugin = webrtcIsSupported ? VoipPlugin(client) : null;
+    if (await store.getItemBool(SettingKeys.experimentalVoip) == false) {
+      voipPlugin = null;
+      return;
+    }
+    voipPlugin = webrtcIsSupported ? VoipPlugin(client) : null;
   }
 
   Future<ToMConfigurations?> getTomConfigurations(String userID) async {
@@ -639,7 +783,7 @@ class MatrixState extends State<Matrix>
           await tomConfigurationRepository.getTomConfigurations(userID);
       return toMConfigurations;
     } catch (e) {
-      Logs().e('MatrixState::_getTomConfigurations: $e');
+      Logs().w('MatrixState::_getTomConfigurations: $e');
     }
     return null;
   }
@@ -654,7 +798,7 @@ class MatrixState extends State<Matrix>
           .getFederationConfigurations(userId);
       return federationConfigurations;
     } catch (e) {
-      Logs().e('MatrixState::_getFederationConfigurations: $e');
+      Logs().w('MatrixState::_getFederationConfigurations: $e');
     }
     return null;
   }
@@ -762,10 +906,10 @@ class MatrixState extends State<Matrix>
 
       await _tryStoreFederationConfiguration();
     } catch (e) {
-      Logs().e('MatrixState::tryToGetFederationConfigurations: $e');
+      Logs().w('MatrixState::tryToGetFederationConfigurations: $e');
 
       if (e is FederationConfigurationNotFound) {
-        Logs().e(
+        Logs().w(
           'MatrixState::tryToGetFederationConfigurations: FederationConfigurationNotFound',
         );
 
@@ -814,10 +958,13 @@ class MatrixState extends State<Matrix>
     final tomServerUrlInterceptor = getIt.get<DynamicUrlInterceptors>(
       instanceName: NetworkDI.tomServerUrlInterceptorName,
     );
+    final fallbackTomBaseUrl =
+        tomServerUrlInterceptor.baseUrl ?? AppConfig.tomServerUrl;
+    final nextTomBaseUrl = tomServer?.baseUrl?.toString() ?? fallbackTomBaseUrl;
     Logs().d(
-      'MatrixState::_setUpToMServer: ${tomServerUrlInterceptor.hashCode}',
+      'MatrixState::_setUpToMServer: ${tomServerUrlInterceptor.hashCode} -> $nextTomBaseUrl',
     );
-    tomServerUrlInterceptor.changeBaseUrl(tomServer?.baseUrl?.toString());
+    tomServerUrlInterceptor.changeBaseUrl(nextTomBaseUrl);
   }
 
   void _setUpHomeServer(Uri homeServerUri) {
@@ -975,11 +1122,10 @@ class MatrixState extends State<Matrix>
       'Matrix::_getHomeserverInformation: client homeserver = ${newClient.homeserver}',
     );
     if (newClient.homeserver == null) return;
-    loginHomeserverSummary =
-        await newClient.checkHomeserver(newClient.homeserver!);
-    Logs().d(
-      'Matrix::_getHomeserverInformation: appDediInformation ${loginHomeserverSummary?.appDediInformation}',
-    );
+    // Active sessions are already authenticated; re-running checkHomeserver()
+    // may fail on servers that do not expose password/sso flows and can
+    // destabilize the active client state.
+    return;
   }
 
   Future<void> _storePersistActiveAccount(Client newClient) async {
@@ -996,6 +1142,22 @@ class MatrixState extends State<Matrix>
       await multipleAccountRepository.storePersistActiveAccount(
         newClient.userID!,
       );
+      final homeserver = newClient.homeserver?.toString();
+      final accessToken = newClient.accessToken;
+      if (homeserver != null &&
+          homeserver.isNotEmpty &&
+          accessToken != null &&
+          accessToken.isNotEmpty) {
+        await SessionCredentialsStorage.save(
+          SessionCredentials(
+            accessToken: accessToken,
+            userId: newClient.userID!,
+            homeserver: homeserver,
+            deviceId: newClient.deviceID,
+          ),
+          clientName: newClient.clientName,
+        );
+      }
     } catch (e) {
       Logs().e(
         'Matrix::_storePersistActiveAccount(): Error - $e',
@@ -1015,14 +1177,14 @@ class MatrixState extends State<Matrix>
     String? url,
   }) {
     if (url != null) {
-      Logs().e(
+      Logs().d(
         'Matrix::_setupAuthUrl: newAuthUrl - $url',
       );
       _authUrl = url;
     } else {
       final newAuthUrl = loginHomeserverSummary?.discoveryInformation
           ?.additionalProperties["m.authentication"]?["issuer"];
-      Logs().e(
+      Logs().d(
         'Matrix::_setupAuthUrl: newAuthUrl - $newAuthUrl',
       );
       _authUrl = newAuthUrl is String ? newAuthUrl : url;
@@ -1030,14 +1192,32 @@ class MatrixState extends State<Matrix>
   }
 
   Future<void> _deleteAllTomConfigurations() async {
+    if (!getIt.isRegistered<HiveCollectionToMDatabase>()) {
+      return;
+    }
     final hiveCollectionToMDatabase = getIt.get<HiveCollectionToMDatabase>();
-    await hiveCollectionToMDatabase.clear();
+    await hiveCollectionToMDatabase.clear().catchError((e, s) {
+      Logs().w(
+        'MatrixState::_deleteAllTomConfigurations failed: $e',
+        e,
+        s,
+      );
+    });
     Logs().d(
       'MatrixState::_deleteAllTomConfigurations: Delete ToM database success',
     );
   }
 
-  Future<void> _handleLastLogout() async {
+  Future<void> _handleLastLogout(
+    Client currentClient, {
+    bool skipClientCleanup = false,
+  }) async {
+    if (!skipClientCleanup) {
+      final removedClientNames = await _resolveLoggedOutAccountClientNames(
+        currentClient,
+      );
+      await _removeClientEntries(removedClientNames);
+    }
     matrixState.reSyncContacts();
     await matrixState.cancelListenSynchronizeContacts();
     if (PlatformInfos.isMobile) {
@@ -1047,6 +1227,59 @@ class MatrixState extends State<Matrix>
       DediApp.router.go('/home', extra: true);
     }
     await _deleteAllTomConfigurations();
+  }
+
+  Future<Set<String>> _resolveLoggedOutAccountClientNames(
+    Client currentClient,
+  ) async {
+    final sessionsByClientName =
+        await SessionCredentialsStorage.loadAllByClientName();
+    final removedClientNames = <String>{currentClient.clientName};
+
+    final currentUserId = currentClient.userID;
+    final persistedUserId =
+        sessionsByClientName[currentClient.clientName]?.userId;
+    final targetUserId = (currentUserId != null && currentUserId.isNotEmpty)
+        ? currentUserId
+        : persistedUserId;
+
+    if (targetUserId == null || targetUserId.isEmpty) {
+      return removedClientNames;
+    }
+
+    for (final client in widget.clients) {
+      final clientUserId = client.userID;
+      final persistedForClient =
+          sessionsByClientName[client.clientName]?.userId;
+      if (clientUserId == targetUserId || persistedForClient == targetUserId) {
+        removedClientNames.add(client.clientName);
+      }
+    }
+
+    sessionsByClientName.forEach((clientName, session) {
+      if (session.userId == targetUserId) {
+        removedClientNames.add(clientName);
+      }
+    });
+
+    return removedClientNames;
+  }
+
+  Future<void> _removeClientEntries(Set<String> clientNames) async {
+    if (clientNames.isEmpty) return;
+
+    for (final clientName in clientNames) {
+      await _cancelSubs(clientName);
+    }
+
+    widget.clients.removeWhere(
+      (client) => clientNames.contains(client.clientName),
+    );
+
+    for (final clientName in clientNames) {
+      await ClientManager.removeClientNameFromStore(clientName);
+      await SessionCredentialsStorage.removeClientSession(clientName);
+    }
   }
 
   Future<void> reSyncContacts() async {
@@ -1087,16 +1320,26 @@ class MatrixState extends State<Matrix>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     Logs().i('didChangeAppLifecycleState: AppLifecycleState = $state');
     Logs().i('didChangeAppLifecycleState: currentTime: ${DateTime.now()}');
-    if (!client.isLogged()) {
+    final activeClient = client;
+    final homeserver = activeClient.homeserver;
+    final canSync = activeClient.isLogged() &&
+        homeserver != null &&
+        homeserver.scheme.isNotEmpty &&
+        homeserver.host.isNotEmpty;
+    if (!canSync) {
       Logs().w('Skip lifecycle sync - client not logged in');
       return;
     }
     final foreground = state != AppLifecycleState.detached &&
         state != AppLifecycleState.paused;
-    client.backgroundSync = foreground;
-    client.syncPresence = foreground ? null : PresenceType.unavailable;
-    client.sync(setPresence: client.syncPresence);
-    client.requestHistoryOnLimitedTimeline = !foreground;
+    activeClient.backgroundSync = foreground;
+    activeClient.syncPresence = foreground ? null : PresenceType.unavailable;
+    try {
+      activeClient.sync(setPresence: activeClient.syncPresence);
+    } catch (e, s) {
+      Logs().e('Lifecycle sync failed', e, s);
+    }
+    activeClient.requestHistoryOnLimitedTimeline = !foreground;
     backgroundPush?.clearAllNotifications();
   }
 
@@ -1168,6 +1411,7 @@ class MatrixState extends State<Matrix>
     onLoginStateChanged.values.map((s) => s.cancel());
     onNotification.values.map((s) => s.cancel());
     onClientLoginStateChanged.close();
+    onActiveClientChanged.close();
     client.httpClient.close();
     onFocusSub?.cancel();
     onBlurSub?.cancel();
