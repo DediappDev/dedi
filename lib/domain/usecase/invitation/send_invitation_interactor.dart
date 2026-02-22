@@ -55,9 +55,15 @@ class SendInvitationInteractor {
           return;
         }
       }
+      final message = e is DioException
+          ? e.response?.data is Map<String, dynamic>
+              ? e.response?.data['message'] as String?
+              : null
+          : null;
       yield Left(
         SendInvitationFailureState(
           exception: e,
+          message: message,
         ),
       );
       return;

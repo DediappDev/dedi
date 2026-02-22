@@ -138,7 +138,9 @@ class ContactsInvitationController extends State<ContactsInvitation> {
         if (failure is SendInvitationFailureState) {
           DediSnackBar.show(
             context,
-            L10n.of(context)!.failedToSendInvitation,
+            (failure.message?.trim().isNotEmpty == true)
+                ? failure.message!
+                : L10n.of(context)!.failedToSendInvitation,
           );
           return;
         }
