@@ -3,6 +3,7 @@ import 'package:fluffychat/pages/chat/chat_input_row_send_btn.dart';
 import 'package:fluffychat/pages/chat/chat_input_row_style.dart';
 import 'package:fluffychat/pages/chat/chat_input_row_web.dart';
 import 'package:fluffychat/pages/chat/reply_display.dart';
+import 'package:collection/collection.dart';
 import 'package:fluffychat/presentation/mixins/audio_mixin.dart';
 import 'package:fluffychat/resource/image_paths.dart';
 import 'package:fluffychat/utils/android_utils.dart';
@@ -63,9 +64,7 @@ class ChatInputRow extends StatelessWidget {
                               onTap: () => controller.onSendFileClick(context),
                             ),
                           ),
-                        if (controller.matrix!.isMultiAccount &&
-                            controller.matrix!.hasComplexBundles &&
-                            controller.matrix!.currentBundle!.length > 1)
+                        if (controller.currentRoomBundle.length > 1)
                           Container(
                             height: ChatInputRowStyle.chatInputRowHeight,
                             alignment: Alignment.center,
@@ -135,15 +134,28 @@ class ChatInputRow extends StatelessWidget {
                               }
                               controller.stopRecording.call();
                             },
-                            sendRequestFunction: (soundFile, time, waveFrom) {
+                            sendRequestFunction:
+                                (soundFile, time, waveFrom) async {
                               Logs().d(
                                 'ChatInputRowMobile:: sendRequestFunction $soundFile',
                               );
                               controller.stopRecording.call();
 
+                              int? fileSize;
+                              try {
+                                fileSize = await soundFile.length();
+                              } catch (_) {
+                                fileSize = null;
+                              }
+                              final fileName =
+                                  soundFile.uri.pathSegments.isNotEmpty
+                                      ? soundFile.uri.pathSegments.last
+                                      : soundFile.path;
                               final file = DediAudioFile(
-                                name: soundFile.path,
+                                name: fileName,
+                                mimeType: 'audio/mp4',
                                 filePath: soundFile.path,
+                                sizeInBytes: fileSize,
                                 duration: time.inMilliseconds,
                               );
                               controller.sendVoiceMessageAction(
@@ -403,8 +415,9 @@ class ChatAccountPicker extends StatelessWidget {
   const ChatAccountPicker(this.controller, {super.key});
 
   void _popupMenuButtonSelected(String mxid) {
-    final client = controller.matrix!.currentBundle!
-        .firstWhere((cl) => cl!.userID == mxid, orElse: () => null);
+    final client = controller.currentRoomBundle.firstWhereOrNull(
+      (cl) => cl.userID == mxid,
+    );
     if (client == null) {
       Logs().w('Attempted to switch to a non-existing client $mxid');
       return;
@@ -425,7 +438,7 @@ class ChatAccountPicker extends StatelessWidget {
           itemBuilder: (BuildContext context) => clients
               .map(
                 (client) => PopupMenuItem<String>(
-                  value: client!.userID,
+                  value: client.userID,
                   child: FutureBuilder<Profile>(
                     future: client.fetchOwnProfile(),
                     builder: (context, snapshot) => ListTile(

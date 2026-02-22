@@ -81,7 +81,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:linagora_design_flutter/dialog/options_dialog.dart';
 import 'package:linagora_design_flutter/images_picker/asset_counter.dart';
 import 'package:linagora_design_flutter/linagora_design_flutter.dart'
     hide ImagePicker;
@@ -413,10 +412,17 @@ class ChatController extends State<Chat>
     int? historyCount,
     StateFilter? filter,
   }) async {
-    if (!timeline!.canRequestHistory) return;
+    final currentTimeline = timeline;
+    if (currentTimeline == null || !currentTimeline.canRequestHistory) return;
+    if (!_hasPrevBatchToken()) {
+      Logs().w(
+        'Chat::requestHistory(): Skip requesting history without prev_batch token',
+      );
+      return;
+    }
     Logs().v('Chat::requestHistory(): Requesting history...');
     try {
-      return timeline!.requestHistory(
+      return currentTimeline.requestHistory(
         historyCount: historyCount ?? _loadHistoryCount,
         filter: filter,
       );
@@ -452,6 +458,7 @@ class ChatController extends State<Chat>
   }
 
   void _handleRequestHistory() {
+    if (!_hasPrevBatchToken()) return;
     if (scrollController.position.pixels ==
             scrollController.position.maxScrollExtent ||
         scrollController.position.pixels + _isPortionAvailableToScroll ==
@@ -461,6 +468,11 @@ class ChatController extends State<Chat>
         requestHistory();
       }
     }
+  }
+
+  bool _hasPrevBatchToken() {
+    final prevBatchToken = room?.prev_batch;
+    return prevBatchToken != null && prevBatchToken.isNotEmpty;
   }
 
   void _loadDraft() async {
@@ -591,6 +603,14 @@ class ChatController extends State<Chat>
     scrollDown();
     showEmojiPickerNotifier.value = false;
 
+    if (room?.isCurrentUserReadOnlyException == true) {
+      DediSnackBar.show(
+        context,
+        L10n.of(context)!.noChatPermissionMessage,
+      );
+      return;
+    }
+
     if (sendController.text.trim().isEmpty) return;
     _storeInputTimeoutTimer?.cancel();
     final prefs = await SharedPreferences.getInstance();
@@ -679,6 +699,13 @@ class ChatController extends State<Chat>
   }) async {
     if (audioFile.filePath == null || audioFile.filePath?.isEmpty == true) {
       DediSnackBar.show(context, L10n.of(context)!.audioMessageFailedToSend);
+      return;
+    }
+    if (audioFile.size <= 0) {
+      DediSnackBar.show(context, L10n.of(context)!.audioMessageFailedToSend);
+      Logs().e(
+        'Chat::sendVoiceMessageAction(): Invalid voice message size ${audioFile.size}',
+      );
       return;
     }
     final fileInfo = FileInfo(
@@ -864,9 +891,8 @@ class ChatController extends State<Chat>
             if (event.canRedact) {
               await event.redactEvent();
             } else {
-              final client = currentRoomBundle.firstWhere(
-                (cl) => selectedEvents.first.senderId == cl!.userID,
-                orElse: () => null,
+              final client = currentRoomBundle.firstWhereOrNull(
+                (cl) => selectedEvents.first.senderId == cl.userID,
               );
               if (client == null) {
                 return;
@@ -884,18 +910,29 @@ class ChatController extends State<Chat>
     _clearSelectEvent();
   }
 
-  List<Client?> get currentRoomBundle {
-    final clients = matrix!.currentBundle!;
-    clients.removeWhere((c) => c!.getRoomById(roomId!) == null);
-    return clients;
+  List<Client> get currentRoomBundle {
+    final matrixState = matrix;
+    final currentRoomId = roomId;
+    if (matrixState == null || currentRoomId == null || currentRoomId.isEmpty) {
+      return const [];
+    }
+
+    final dedupedClientsByUserId = <String, Client>{};
+    for (final candidate in matrixState.widget.clients) {
+      final userId = candidate.userID;
+      if (userId == null || userId.isEmpty || !candidate.isLogged()) continue;
+      if (candidate.getRoomById(currentRoomId) == null) continue;
+      dedupedClientsByUserId.putIfAbsent(userId, () => candidate);
+    }
+
+    return dedupedClientsByUserId.values.toList();
   }
 
   bool get canRedactSelectedEvents {
     if (isArchived) return false;
-    final clients = matrix!.currentBundle;
     for (final event in selectedEvents) {
       if (event.canRedact == false &&
-          !(clients!.any((cl) => event.senderId == cl!.userID))) {
+          !currentRoomBundle.any((cl) => event.senderId == cl.userID)) {
         return false;
       }
     }
@@ -908,8 +945,9 @@ class ChatController extends State<Chat>
         !selectedEvents.first.status.isSent) {
       return false;
     }
-    return currentRoomBundle
-        .any((cl) => selectedEvents.first.senderId == cl!.userID);
+    return currentRoomBundle.any(
+      (cl) => selectedEvents.first.senderId == cl.userID,
+    );
   }
 
   void forwardEventsAction({Event? event}) async {
@@ -1215,9 +1253,8 @@ class ChatController extends State<Chat>
   }
 
   void editSelectedEventAction() {
-    final client = currentRoomBundle.firstWhere(
-      (cl) => selectedEvents.first.senderId == cl!.userID,
-      orElse: () => null,
+    final client = currentRoomBundle.firstWhereOrNull(
+      (cl) => selectedEvents.first.senderId == cl.userID,
     );
     if (client == null) {
       return;
@@ -1366,7 +1403,7 @@ class ChatController extends State<Chat>
     if (text.endsWith(' ') && matrix!.hasComplexBundles) {
       final clients = currentRoomBundle;
       for (final client in clients) {
-        final prefix = client!.sendPrefix;
+        final prefix = client.sendPrefix;
         if ((prefix.isNotEmpty) &&
             text.toLowerCase() == '${prefix.toLowerCase()} ') {
           setSendingClient(client);
@@ -2118,17 +2155,20 @@ class ChatController extends State<Chat>
       ];
 
   Future<void> _tryRequestHistory() async {
-    if (timeline == null) return;
+    final currentTimeline = timeline;
+    if (currentTimeline == null) return;
+    if (!_hasPrevBatchToken()) {
+      _updateOpeningChatViewStateNotifier(ViewEventListSuccess());
+      return;
+    }
 
-    final allMembershipEvents = timeline!.events.every(
-      (event) => event.type == EventTypes.RoomMember,
-    );
+    final events = currentTimeline.events;
+    final allMembershipEvents = events.isNotEmpty &&
+        events.every((event) => event.type == EventTypes.RoomMember);
 
-    final canRequestHistory = timeline!.events
-            .where((event) => event.isVisibleInGui)
-            .toList()
-            .length <
-        _defaultEventCountDisplay;
+    final canRequestHistory =
+        events.where((event) => event.isVisibleInGui).length <
+            _defaultEventCountDisplay;
 
     if (allMembershipEvents || canRequestHistory) {
       try {
@@ -2777,6 +2817,7 @@ class ChatController extends State<Chat>
     showScrollDownButtonNotifier.dispose();
     editEventNotifier.dispose();
     focusHover.dispose();
+    stopRecording();
     disposeAudioMixin();
     super.dispose();
   }
