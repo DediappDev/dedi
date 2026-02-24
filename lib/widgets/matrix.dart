@@ -906,15 +906,16 @@ class MatrixState extends State<Matrix>
 
       await _tryStoreFederationConfiguration();
     } catch (e) {
-      Logs().w('MatrixState::tryToGetFederationConfigurations: $e');
-
       if (e is FederationConfigurationNotFound) {
-        Logs().w(
-          'MatrixState::tryToGetFederationConfigurations: FederationConfigurationNotFound',
+        Logs().d(
+          'MatrixState::tryToGetFederationConfigurations: FederationConfigurationNotFound, trying well-known fallback',
         );
 
         await _tryStoreFederationConfiguration();
+        return;
       }
+
+      Logs().w('MatrixState::tryToGetFederationConfigurations: $e');
     }
   }
 

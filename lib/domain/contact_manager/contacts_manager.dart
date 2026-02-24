@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fluffychat/app_state/failure.dart';
 import 'package:fluffychat/app_state/success.dart';
 import 'package:fluffychat/config/app_config.dart';
+import 'package:fluffychat/config/environment.dart';
 import 'package:fluffychat/data/network/interceptor/authorization_interceptor.dart';
 import 'package:fluffychat/data/network/interceptor/dynamic_url_interceptor.dart';
 import 'package:fluffychat/di/global/get_it_initializer.dart';
@@ -25,6 +26,7 @@ import 'package:fluffychat/domain/usecase/contacts/twake_look_up_argument.dart';
 import 'package:fluffychat/domain/usecase/contacts/twake_look_up_phonebook_contact_interactor.dart';
 import 'package:fluffychat/presentation/extensions/value_notifier_custom.dart';
 import 'package:fluffychat/utils/platform_infos.dart';
+import 'package:dio/dio.dart';
 import 'package:fluffychat/utils/twake_snackbar.dart';
 import 'package:fluffychat/widgets/twake_app.dart';
 import 'package:matrix/matrix.dart';
@@ -35,6 +37,8 @@ class ContactsManager {
 
   final GetTomContactsInteractor getTomContactsInteractor =
       getIt.get<GetTomContactsInteractor>();
+  bool _directoryUnsupported = false;
+  bool _federationConfigUnavailable = false;
 
   final FederationLookUpPhonebookContactInteractor
       federationLookUpPhonebookContactInteractor =
@@ -256,6 +260,7 @@ class ContactsManager {
     required String withMxId,
   }) async {
     if (!isAvailableSupportPhonebookContacts) {
+      _isSynchronizing = false;
       return;
     }
     await _handleLookUpPhonebookContacts(withMxId: withMxId);
@@ -291,17 +296,32 @@ class ContactsManager {
         );
   }
 
-  Future<void> _handleDediLookUpPhoneBookContacts() async {
+  Future<void> _handleDediLookUpPhoneBookContacts({
+    required String withMxId,
+  }) async {
+    if (_directoryUnsupported) {
+      _isSynchronizing = false;
+      _phonebookContactsNotifier.value = const Left(
+        GetPhonebookContactsFailure(
+          exception: 'Directory lookup is not available on this server.',
+          contacts: [],
+        ),
+      );
+      return;
+    }
     final authorizationInterceptor = getIt.get<AuthorizationInterceptor>();
 
     final identityServerUrlInterceptor = getIt.get<DynamicUrlInterceptors>(
       instanceName: NetworkDI.identityServerUrlInterceptorName,
     );
+    final identityBaseUrl =
+        identityServerUrlInterceptor.baseUrl ?? Environment.identityServer;
     dediPhonebookContactsSubscription = dediLookupPhonebookContactInteractor
         .execute(
       argument: DediLookUpArgument(
-        homeServerUrl: identityServerUrlInterceptor.baseUrl ?? '',
+        homeServerUrl: identityBaseUrl,
         withAccessToken: authorizationInterceptor.getAccessToken ?? '',
+        withMxId: withMxId,
       ),
     )
         .listen(
@@ -321,9 +341,17 @@ class ContactsManager {
       })
       ..onError((error) async {
         Logs().d(
-          'ContactsManager::_handleDediLookUpPhoneBookContacts: onError',
+          'ContactsManager::_handleDediLookUpPhoneBookContacts: onError $error',
         );
         _isSynchronizing = false;
+        // Gracefully handle missing endpoints (404) without crashing UI.
+        _directoryUnsupported = true;
+        _phonebookContactsNotifier.value = const Left(
+          GetPhonebookContactsFailure(
+            exception: 'Directory lookup is not available on this server.',
+            contacts: [],
+          ),
+        );
       });
   }
 
@@ -331,19 +359,37 @@ class ContactsManager {
     required String withMxId,
   }) async {
     try {
+      if (_federationConfigUnavailable) {
+        await _handleDediLookUpPhoneBookContacts(withMxId: withMxId);
+        return;
+      }
+
+      if (_directoryUnsupported) {
+        _isSynchronizing = false;
+        _phonebookContactsNotifier.value = const Left(
+          GetPhonebookContactsFailure(
+            exception: 'Directory lookup is not available on this server.',
+            contacts: [],
+          ),
+        );
+        return;
+      }
       _isSynchronizing = true;
       final federationConfigurationRepository =
           getIt.get<FederationConfigurationsRepository>();
       final federationConfigurations = await federationConfigurationRepository
           .getFederationConfigurations(withMxId);
       if (!federationConfigurations.fedServerInformation.hasBaseUrls) {
-        await _handleDediLookUpPhoneBookContacts();
+        _federationConfigUnavailable = true;
+        await _handleDediLookUpPhoneBookContacts(withMxId: withMxId);
         return;
       }
 
       final homeServerUrlInterceptor = getIt.get<DynamicUrlInterceptors>(
         instanceName: NetworkDI.homeServerUrlInterceptorName,
       );
+      final homeBaseUrl =
+          homeServerUrlInterceptor.baseUrl ?? Environment.matrixHomeserver;
 
       final authorizationInterceptor = getIt.get<AuthorizationInterceptor>();
 
@@ -352,7 +398,7 @@ class ContactsManager {
               .execute(
         lookupChunkSize: _lookupChunkSize,
         argument: FederationLookUpArgument(
-          homeServerUrl: homeServerUrlInterceptor.baseUrl ?? '',
+          homeServerUrl: homeBaseUrl,
           federationUrl: federationConfigurations
                   .fedServerInformation.baseUrls?.first
                   .toString() ??
@@ -383,11 +429,16 @@ class ContactsManager {
               _isSynchronizing = false;
             });
     } catch (e) {
-      Logs().e('ContactsManager::_handleLookUpPhonebookContacts', e);
-
       if (e is FederationConfigurationNotFound) {
-        await _handleDediLookUpPhoneBookContacts();
+        _federationConfigUnavailable = true;
+        Logs().d(
+          'ContactsManager::_handleLookUpPhonebookContacts: FederationConfigurationNotFound, switching to Dedi lookup',
+        );
+        await _handleDediLookUpPhoneBookContacts(withMxId: withMxId);
+        return;
       }
+
+      Logs().w('ContactsManager::_handleLookUpPhonebookContacts: $e');
     }
   }
 
@@ -411,12 +462,44 @@ class ContactsManager {
     if (failure is GetPhonebookContactsFailure ||
         failure is RequestTokenFailure ||
         failure is RegisterTokenFailure) {
+      _directoryUnsupported = true;
       _progressPhoneBookState.value = null;
     }
+
+    if (failure is GetHashDetailsFailure) {
+      _progressPhoneBookState.value = null;
+      _phonebookContactsNotifier.value = Left(
+        GetPhonebookContactsFailure(
+          exception: failure.exception,
+          contacts: const [],
+        ),
+      );
+    }
+
+    // If the failure came from a 404, suppress further lookups this session.
+    try {
+      if (failure is GetPhonebookContactsFailure &&
+          failure.exception is DioException &&
+          (failure.exception as DioException).response?.statusCode == 404) {
+        _directoryUnsupported = true;
+        _phonebookContactsNotifier.value = Left(failure);
+      }
+      if (failure is GetHashDetailsFailure &&
+          failure.exception is DioException &&
+          (failure.exception as DioException).response?.statusCode == 404) {
+        _directoryUnsupported = true;
+        _phonebookContactsNotifier.value = Left(
+          GetPhonebookContactsFailure(
+            exception: failure.exception,
+            contacts: const [],
+          ),
+        );
+      }
+    } catch (_) {}
   }
 
   void _handleLookUpSuccessState(Success success) {
-    Logs().e('ContactsManager::_handleLookUpSuccessState', success);
+    Logs().d('ContactsManager::_handleLookUpSuccessState', success);
     if (success is GetPhonebookContactsLoading) {
       _progressPhoneBookState.value = 0;
     }

@@ -13,17 +13,16 @@ import 'package:fluffychat/domain/model/extensions/contact/contact_extension.dar
 import 'package:fluffychat/domain/repository/contact/hive_contact_repository.dart';
 import 'package:fluffychat/domain/repository/phonebook_contact_repository.dart';
 import 'package:fluffychat/domain/usecase/contacts/twake_look_up_argument.dart';
+import 'package:fluffychat/data/network/identity_endpoint.dart';
 import 'package:fluffychat/modules/federation_identity_lookup/domain/models/federation_hash_details_response.dart';
 import 'package:fluffychat/modules/federation_identity_lookup/domain/models/federation_lookup_mxid_request.dart';
 import 'package:fluffychat/modules/federation_identity_lookup/domain/models/federation_lookup_mxid_response.dart';
-import 'package:fluffychat/modules/federation_identity_lookup/manager/identity_lookup_manager.dart';
+import 'package:dio/dio.dart';
 import 'package:matrix/matrix.dart';
 
 class DediLookupPhonebookContactInteractor {
   final PhonebookContactRepository _phonebookContactRepository =
       getIt.get<PhonebookContactRepository>();
-  final IdentityLookupManager _identityLookupManager =
-      getIt.get<IdentityLookupManager>();
 
   final HiveContactRepository _hiveContactRepository =
       getIt.get<HiveContactRepository>();
@@ -66,9 +65,9 @@ class DediLookupPhonebookContactInteractor {
     FederationHashDetailsResponse? hashDetails;
 
     try {
-      final res = await _identityLookupManager.getHashDetails(
-        federationUrl: argument.homeServerUrl,
-        registeredToken: argument.withAccessToken,
+      final res = await _getHashDetails(
+        homeServerUrl: argument.homeServerUrl,
+        accessToken: argument.withAccessToken,
       );
 
       Logs().d(
@@ -77,9 +76,10 @@ class DediLookupPhonebookContactInteractor {
 
       if (res.lookupPepper?.isEmpty == true &&
           res.algorithms?.isEmpty == true) {
-        yield const Left(
-          GetHashDetailsFailure(
-            exception: 'Hash details is empty',
+        yield Right(
+          GetPhonebookContactsSuccess(
+            progress: 100,
+            contacts: contacts,
           ),
         );
         return;
@@ -87,6 +87,18 @@ class DediLookupPhonebookContactInteractor {
 
       hashDetails = res;
     } catch (e) {
+      if (e is DioException && e.response?.statusCode == 404) {
+        Logs().d(
+          'DediLookupPhonebookContactInteractor::execute: hash_details not available, falling back to local contacts',
+        );
+        yield Right(
+          GetPhonebookContactsSuccess(
+            progress: 100,
+            contacts: contacts,
+          ),
+        );
+        return;
+      }
       Logs().e(
         'FederationLookUpPhonebookContactInteractor::execute: GetHashDetails: $e',
       );
@@ -156,10 +168,10 @@ class DediLookupPhonebookContactInteractor {
         );
         FederationLookupMxidResponse? response;
 
-        response = await _identityLookupManager.lookupMxid(
-          federationUrl: argument.homeServerUrl,
+        response = await _lookupMxid(
+          homeServerUrl: argument.homeServerUrl,
           request: request,
-          registeredToken: argument.withAccessToken,
+          accessToken: argument.withAccessToken,
         );
 
         final Set<Contact> contactsFromMappings = {};
@@ -185,7 +197,7 @@ class DediLookupPhonebookContactInteractor {
 
         _storeContactsInHive(
           contacts: combinedContacts,
-          userId: argument.withAccessToken,
+          userId: argument.withMxId,
         );
 
         updatedContact.addAll(combinedContacts);
@@ -274,5 +286,54 @@ class DediLookupPhonebookContactInteractor {
         'DediLookupPhonebookContactInteractor::storeContactsInHive: $e',
       );
     }
+  }
+
+  Future<FederationHashDetailsResponse> _getHashDetails({
+    required String homeServerUrl,
+    required String accessToken,
+  }) async {
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: homeServerUrl,
+        headers: {
+          'accept': 'application/json',
+          'content-type': 'application/json',
+          'authorization': 'Bearer $accessToken',
+        },
+      ),
+    );
+
+    final response = await dio.get(
+      IdentityEndpoint.hashDetailsServicePath.generateDediIdentityEndpoint(),
+    );
+    return FederationHashDetailsResponse.fromJson(
+      Map<String, dynamic>.from(response.data as Map),
+    );
+  }
+
+  Future<FederationLookupMxidResponse> _lookupMxid({
+    required String homeServerUrl,
+    required FederationLookupMxidRequest request,
+    required String accessToken,
+  }) async {
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: homeServerUrl,
+        headers: {
+          'accept': 'application/json',
+          'content-type': 'application/json',
+          'authorization': 'Bearer $accessToken',
+        },
+      ),
+    );
+
+    final response = await dio.post(
+      IdentityEndpoint.matchListUserIdsServicePath
+          .generateDediIdentityEndpoint(),
+      data: request.toJson(),
+    );
+    return FederationLookupMxidResponse.fromJson(
+      Map<String, dynamic>.from(response.data as Map),
+    );
   }
 }
