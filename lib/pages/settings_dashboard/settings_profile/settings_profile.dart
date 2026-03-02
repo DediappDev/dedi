@@ -32,6 +32,7 @@ import 'package:fluffychat/utils/dialog/twake_dialog.dart';
 import 'package:fluffychat/utils/extension/value_notifier_extension.dart';
 import 'package:fluffychat/utils/platform_infos.dart';
 import 'package:fluffychat/utils/twake_snackbar.dart';
+import 'package:fluffychat/services/session_credentials_storage.dart';
 import 'package:fluffychat/widgets/matrix.dart';
 import 'package:fluffychat/widgets/mixins/on_account_data_listen_mixin.dart';
 import 'package:fluffychat/widgets/mixins/popup_context_menu_action_mixin.dart';
@@ -160,12 +161,6 @@ class SettingsProfileController extends State<SettingsProfile>
       _clearImageInLocal();
     } else {
       DediDialog.showLoadingDialog(context);
-      final newProfile = Profile(
-        userId: client.userID!,
-        displayName: displayName,
-        avatarUrl: null,
-      );
-      currentProfile.value = newProfile;
       _uploadProfile(isDeleteAvatar: true);
     }
   }
@@ -376,11 +371,13 @@ class SettingsProfileController extends State<SettingsProfile>
         Logs().e(
           'SettingsProfile::_handleUploadAvatarOnData() - failure: $failure',
         );
+        _clearImageInLocal();
+        isEditedProfileNotifier.value = false;
         if (failure is UploadContentFailed) {
           DediDialog.hideLoadingDialog(context);
           DediSnackBar.show(
             context,
-            failure.exception.toString(),
+            _normalizeUploadErrorMessage(failure.exception),
           );
         } else if (failure is FileTooBigMatrix) {
           DediDialog.hideLoadingDialog(context);
@@ -448,11 +445,25 @@ class SettingsProfileController extends State<SettingsProfile>
     Logs().d('SettingsProfile::_handleUploadProfileOnData()');
     event.fold(
       (failure) {
-        Logs().e(
-          'SettingsProfile::_handleUploadProfileOnData() - failure: $failure',
-        );
+        final rawError = failure.toString();
+        final isProfileCapabilityForbidden = rawError.contains('M_FORBIDDEN') &&
+            (rawError.toLowerCase().contains('avatar') ||
+                rawError.toLowerCase().contains('displayname') ||
+                rawError.toLowerCase().contains('display name'));
+
+        if (isProfileCapabilityForbidden) {
+          Logs().w(
+            'SettingsProfile::_handleUploadProfileOnData() - blocked by server capability: $failure',
+          );
+        } else {
+          Logs().e(
+            'SettingsProfile::_handleUploadProfileOnData() - failure: $failure',
+          );
+        }
         if (failure is UpdateProfileFailure) {
-          _handleUpdateProfileFailure(failure.exception.toString());
+          _handleUpdateProfileFailure(
+            _normalizeProfileErrorMessage(failure.exception.toString()),
+          );
         }
       },
       (success) {
@@ -460,13 +471,25 @@ class SettingsProfileController extends State<SettingsProfile>
           'SettingsProfile::_handleUploadProfileOnData() - success: $success',
         );
         if (success is UpdateProfileSuccess) {
+          final editedDisplayName = displayNameEditingController.text.trim();
+          final resolvedDisplayName = success.displayName ??
+              (editedDisplayName.isNotEmpty ? editedDisplayName : displayName);
+          final resolvedAvatar =
+              success.avatar ?? currentProfile.value?.avatarUrl;
           final newProfile = Profile(
             userId: client.userID!,
-            displayName: success.displayName ?? displayName,
-            avatarUrl: success.avatar ?? currentProfile.value?.avatarUrl,
+            displayName: resolvedDisplayName,
+            avatarUrl: resolvedAvatar,
           );
+          currentProfile.value = newProfile;
+          pickAvatarUIState.value = Right<Failure, Success>(
+            GetAvatarInitialUIState(),
+          );
+          _clearImageInLocal();
           _sendAccountDataEvent(profile: newProfile);
-          isEditedProfileNotifier.toggle();
+          if (isEditedProfileNotifier.value) {
+            isEditedProfileNotifier.toggle();
+          }
           _getCurrentProfile(client, isUpdated: true);
           DediDialog.hideLoadingDialog(context);
         }
@@ -495,13 +518,21 @@ class SettingsProfileController extends State<SettingsProfile>
     Client client, {
     isUpdated = false,
   }) async {
+    final userId = client.userID;
+    if (userId == null || userId.isEmpty) {
+      Logs().w(
+        'SettingsProfileController::_getCurrentProfile() skipped: client has no userID',
+      );
+      return;
+    }
     final profile = await client.getProfileFromUserId(
-      client.userID!,
-      cache: !isUpdated,
+      userId,
+      cache: false,
       getFromRooms: false,
     );
+    if (!mounted) return;
     Logs().d(
-      'SettingsProfileController::_getCurrentProfile() - currentProfile: $profile',
+      'SettingsProfileController::_getCurrentProfile() - userId=${profile.userId} displayName=${profile.displayName} avatarUrl=${profile.avatarUrl}',
     );
     currentProfile.value = profile;
     if (profile.avatarUrl == null) {
@@ -580,19 +611,97 @@ class SettingsProfileController extends State<SettingsProfile>
 
   Future<List<ClientProfilePresentation?>> _getClientProfiles() async {
     try {
+      final matrixClients = Matrix.of(context).widget.clients;
+      final sessionsByClientName =
+          await SessionCredentialsStorage.loadAllByClientName();
+      final signedOutClientNames =
+          await SessionCredentialsStorage.loadSignedOutClientNames();
+      final uniqueByUserId = <String, Client>{};
+
+      String? resolveUserId(Client client) {
+        if (signedOutClientNames.contains(client.clientName)) {
+          return null;
+        }
+        final persistedSession = sessionsByClientName[client.clientName];
+        if (!client.isLogged()) {
+          // Logged-out clients without a persisted session are stale entries and
+          // must not be shown in the switch-account list.
+          return persistedSession?.userId;
+        }
+        final fromClient = client.userID;
+        if (fromClient != null && fromClient.isNotEmpty) return fromClient;
+        return persistedSession?.userId;
+      }
+
+      void upsertClientByUserId(Client client) {
+        final userId = resolveUserId(client);
+        if (userId == null || userId.isEmpty) return;
+        final existing = uniqueByUserId[userId];
+        if (existing == null) {
+          uniqueByUserId[userId] = client;
+          return;
+        }
+        if (!existing.isLogged() && client.isLogged()) {
+          uniqueByUserId[userId] = client;
+          return;
+        }
+        if ((existing.userID?.isEmpty ?? true) &&
+            (client.userID?.isNotEmpty ?? false)) {
+          uniqueByUserId[userId] = client;
+        }
+      }
+
+      for (final client in matrixClients) {
+        upsertClientByUserId(client);
+      }
+
+      final storedClients = await ClientManager.getClients();
+      for (final client in storedClients) {
+        upsertClientByUserId(client);
+      }
+      final availableClients = uniqueByUserId.values.toList();
+
       final profiles = await Future.wait(
-        (await ClientManager.getClients()).map((client) async {
-          final profileBundle = await client.fetchOwnProfile();
-          Logs().d(
-            'SettingsProfileController::getProfileBundles() - ClientName - ${client.clientName}',
-          );
-          Logs().d(
-            'SettingsProfileController::getProfileBundles() - UserId - ${client.userID}',
-          );
-          return ClientProfilePresentation(
-            profile: profileBundle,
-            client: client,
-          );
+        availableClients.map((client) async {
+          final resolvedUserId = resolveUserId(client);
+          if (resolvedUserId == null || resolvedUserId.isEmpty) return null;
+
+          if (!client.isLogged()) {
+            return ClientProfilePresentation(
+              profile: Profile(
+                userId: resolvedUserId,
+                displayName: resolvedUserId,
+              ),
+              client: client,
+            );
+          }
+
+          try {
+            final profileBundle = await client.fetchOwnProfile();
+            Logs().d(
+              'SettingsProfileController::getProfileBundles() - ClientName - ${client.clientName}',
+            );
+            Logs().d(
+              'SettingsProfileController::getProfileBundles() - UserId - ${client.userID}',
+            );
+            return ClientProfilePresentation(
+              profile: profileBundle,
+              client: client,
+            );
+          } catch (e, s) {
+            Logs().e(
+              'SettingsProfileController::getProfileBundles() - Failed to fetch profile for ${client.clientName}: $e',
+              e,
+              s,
+            );
+            return ClientProfilePresentation(
+              profile: Profile(
+                userId: resolvedUserId,
+                displayName: resolvedUserId,
+              ),
+              client: client,
+            );
+          }
         }),
       );
 
@@ -605,12 +714,22 @@ class SettingsProfileController extends State<SettingsProfile>
     }
   }
 
-  void onBottomButtonTap({
+  Future<void> onBottomButtonTap({
     required List<DediChatPresentationAccount> multipleAccounts,
-  }) {
+  }) async {
+    await _getMultipleAccounts(client);
+    final latestAccounts = settingsMultiAccountsUIState.value.fold(
+      (_) => multipleAccounts,
+      (success) {
+        if (success is GetClientsSuccessUIState) {
+          return success.multipleAccounts;
+        }
+        return multipleAccounts;
+      },
+    );
     MultipleAccountsPickerController(
       context: context,
-      multipleAccounts: multipleAccounts,
+      multipleAccounts: latestAccounts,
     ).showMultipleAccountsPicker(
       client,
       onGoToAccountSettings: () {
@@ -662,9 +781,31 @@ class SettingsProfileController extends State<SettingsProfile>
       errorMessage,
     );
     _clearImageInLocal();
+    isEditedProfileNotifier.value = false;
     if (currentProfile.value != null) {
       _sendAccountDataEvent(profile: currentProfile.value!);
     }
+  }
+
+  String _normalizeProfileErrorMessage(String rawError) {
+    if (rawError.contains('Changing avatar is disabled on this server')) {
+      return 'Changing avatar is disabled on this server';
+    }
+    if (rawError.contains('Changing displayname is disabled on this server')) {
+      return 'Changing display name is disabled on this server';
+    }
+    if (rawError.contains('M_FORBIDDEN')) {
+      return 'Profile update is blocked by server policy';
+    }
+    return rawError;
+  }
+
+  String _normalizeUploadErrorMessage(Object exception) {
+    final raw = exception.toString();
+    if (raw.contains('DioException') || raw.contains('http error response')) {
+      return 'Avatar upload failed. Please try again.';
+    }
+    return raw;
   }
 
   void _clearImageInLocal() {

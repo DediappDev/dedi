@@ -49,6 +49,7 @@ class AppAdaptiveScaffoldBodyController extends State<AppAdaptiveScaffoldBody>
   final activeRoomIdNotifier = ValueNotifier<String?>(null);
   final currentProfileNotifier = ValueNotifier<Profile?>(Profile(userId: ''));
   StreamSubscription? onAccountDataSubscription;
+  StreamSubscription<Client>? onActiveClientChangedSubscription;
 
   final PageController pageController =
       PageController(initialPage: 1, keepPage: true);
@@ -118,7 +119,7 @@ class AppAdaptiveScaffoldBodyController extends State<AppAdaptiveScaffoldBody>
     }
   }
 
-  void _handleLogout(AppAdaptiveScaffoldBody oldWidget) {
+  void _handleLogout() {
     activeNavigationBarNotifier.value = AdaptiveDestinationEnum.rooms;
     pageController.jumpToPage(AdaptiveDestinationEnum.rooms.index);
     getCurrentProfile();
@@ -126,18 +127,36 @@ class AppAdaptiveScaffoldBodyController extends State<AppAdaptiveScaffoldBody>
     _handleProfileDataChange();
   }
 
-  void _handleSwitchAccount(AppAdaptiveScaffoldBody oldWidget) {
+  void _handleSwitchAccount() {
     activeNavigationBarNotifier.value = AdaptiveDestinationEnum.rooms;
     pageController.jumpToPage(AdaptiveDestinationEnum.rooms.index);
     getCurrentProfile();
     onAccountDataSubscription?.cancel();
     _handleProfileDataChange();
+    setState(() {});
   }
 
   void getCurrentProfile() async {
-    final profile =
-        await matrix.client.fetchOwnProfile(getFromRooms: false, cache: false);
-    currentProfileNotifier.value = profile;
+    try {
+      final activeClient = matrix.client;
+      if (!activeClient.isLogged() || activeClient.homeserver == null) {
+        Logs().w(
+          'AppAdaptiveScaffoldBodyController::getCurrentProfile() skipped: active client is not ready',
+        );
+        return;
+      }
+      final profile = await activeClient.fetchOwnProfile(
+        getFromRooms: false,
+        cache: false,
+      );
+      currentProfileNotifier.value = profile;
+    } catch (e, s) {
+      Logs().e(
+        'AppAdaptiveScaffoldBodyController::getCurrentProfile() failed: $e',
+        e,
+        s,
+      );
+    }
   }
 
   void _handleProfileDataChange() {
@@ -170,6 +189,11 @@ class AppAdaptiveScaffoldBodyController extends State<AppAdaptiveScaffoldBody>
         await matrix.retrievePersistedActiveClient();
         getCurrentProfile();
         _handleProfileDataChange();
+        onActiveClientChangedSubscription =
+            matrix.onActiveClientChanged.stream.listen((_) {
+          if (!mounted) return;
+          _handleSwitchAccount();
+        });
       }
     });
   }
@@ -184,7 +208,7 @@ class AppAdaptiveScaffoldBodyController extends State<AppAdaptiveScaffoldBody>
       'AppAdaptiveScaffoldBodyController::didUpdateWidget():newWidget - ${widget.args}',
     );
     if (oldWidget.args != widget.args && widget.args is LogoutBodyArgs) {
-      _handleLogout(oldWidget);
+      _handleLogout();
     }
 
     if (oldWidget.args != widget.args &&
@@ -195,7 +219,7 @@ class AppAdaptiveScaffoldBodyController extends State<AppAdaptiveScaffoldBody>
 
     if (oldWidget.args != widget.args &&
         widget.args is SwitchActiveAccountBodyArgs) {
-      _handleSwitchAccount(oldWidget);
+      _handleSwitchAccount();
     }
 
     if (widget.args is ReceiveContentArgs) {
@@ -211,6 +235,7 @@ class AppAdaptiveScaffoldBodyController extends State<AppAdaptiveScaffoldBody>
     pageController.dispose();
     currentProfileNotifier.dispose();
     onAccountDataSubscription?.cancel();
+    onActiveClientChangedSubscription?.cancel();
     super.dispose();
   }
 

@@ -35,15 +35,7 @@ Future<http.Client> buildOtpHttpClient() async {
       // In debug mode, bypass certificate verification for development server
       final httpClient = HttpClient()
         ..connectionTimeout = const Duration(seconds: 20)
-        ..badCertificateCallback = (cert, host, port) {
-          if (kDebugMode) {
-            debugPrint(
-              'OTPHttpClientFactory: Bypassing certificate verification for $host:$port (debug mode).',
-            );
-            return true; // Accept all certificates in debug mode
-          }
-          return false;
-        };
+
 
       final ioClient = IOClient(httpClient);
       _cachedOtpClient = ioClient;

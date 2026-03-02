@@ -3,12 +3,27 @@ import 'package:flutter/foundation.dart';
 class Environment {
   Environment._();
 
-  // Matrix and Identity Services
-  static const String matrixHomeserver = 'https://matrix.dedim.com.tr';
-  static const String identityServer = 'https://identity.dedim.com.tr';
+  // Matrix and Identity Services (env-backed)
+  static const String matrixHomeserver = String.fromEnvironment(
+    'MATRIX_HOMESERVER',
+    defaultValue: 'https://matrix.dedim.com.tr',
+  );
+  static const String identityServer = String.fromEnvironment(
+    'IDENTITY_BASE',
+    defaultValue: 'https://matrix.dedim.com.tr',
+  );
 
-  // ✅ ToM Server URL - Added for DEDI Server integration
-  static const String tomServer = 'https://tom.dedim.com.tr';
+  // ✅ ToM/OTP Server URL - Added for DEDI Server integration (env-backed)
+  static const String tomServer = String.fromEnvironment(
+    'OTP_BASE',
+    defaultValue: 'https://tom.dedim.com.tr',
+  );
+
+  // Dedi API base (/_dedi/*) (env-backed)
+  static const String dediApiBase = String.fromEnvironment(
+    'DEDI_API_BASE',
+    defaultValue: 'https://matrix.dedim.com.tr',
+  );
 
   // Web and User Services
   static const String chatWeb = 'https://chat.dedim.com.tr';

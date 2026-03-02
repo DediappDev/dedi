@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:fluffychat/pages/twake_welcome/twake_welcome.dart';
 import 'package:fluffychat/presentation/multiple_account/twake_chat_presentation_account.dart';
 import 'package:fluffychat/widgets/layouts/agruments/switch_active_account_body_args.dart';
 import 'package:fluffychat/widgets/matrix.dart';
@@ -80,25 +79,24 @@ class MultipleAccountsPickerController {
   }
 
   void _onAddAnotherAccount() {
-    context.push(
-      '/rooms/addaccount',
-      extra: const DediWelcomeArg(
-        dediIdType: DediWelcomeType.otherAccounts,
-      ),
-    );
+    context.push('/rooms/addaccount');
   }
 
   Future<void> _setActiveClient(Client newClient) async {
     final result = await _matrixState.setActiveClient(newClient);
-    if (result.isSuccess) {
-      await _matrixState.cancelListenSynchronizeContacts();
-      _matrixState.reSyncContacts();
-      context.go(
-        '/rooms',
-        extra: SwitchActiveAccountBodyArgs(
-          newActiveClient: newClient,
-        ),
-      );
+    if (!result.isSuccess) {
+      // If this client is persisted but not yet attached to MatrixState.clients,
+      // register it first, then continue with the normal switch flow.
+      await _matrixState.registerAndActivateAddedAccount(newClient);
     }
+
+    await _matrixState.cancelListenSynchronizeContacts();
+    _matrixState.reSyncContacts();
+    context.go(
+      '/rooms',
+      extra: SwitchActiveAccountBodyArgs(
+        newActiveClient: _matrixState.client,
+      ),
+    );
   }
 }

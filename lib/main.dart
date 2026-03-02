@@ -74,11 +74,36 @@ void main() async {
   // iOS hariç tüm platformlarda native renkleri kullan
   Logs().nativeColors = !PlatformInfos.isIOS;
 
-  // Kayıtlı Matrix client'larını getir
-  final clients = await ClientManager.getClients();
+  // Kayıtlı Matrix client'larını getir (corrupted data handling added)
+  List<Client> clients = [];
+  try {
+    clients = await ClientManager.getClients();
+  } catch (e, stack) {
+    Logs().e('[MAIN] ClientManager.getClients() failed: $e');
+    Logs().e('[MAIN] Stack trace: $stack');
 
-  // İlk client'ı önceden yükle (performans için)
-  final firstClient = clients.firstOrNull;
+    // Clear all corrupted data to allow fresh start
+    Logs().w('[MAIN] Clearing all storage due to client init failure...');
+    try {
+      await const FlutterSecureStorage().deleteAll();
+      Logs().i('[MAIN] SecureStorage cleared successfully');
+    } catch (e2) {
+      // iOS Keychain can throw -34018 error, which is safe to ignore
+      Logs()
+          .w('[MAIN] SecureStorage.deleteAll() failed (iOS -34018 safe): $e2');
+    }
+
+    try {
+      await Hive.deleteFromDisk();
+      Logs().i('[MAIN] Hive database cleared successfully');
+    } catch (e3) {
+      Logs().w('[MAIN] Hive.deleteFromDisk() failed: $e3');
+    }
+  }
+
+  // İlk logged client'ı seç (logged yoksa ilk client fallback)
+  final firstClient =
+      clients.firstWhereOrNull((c) => c.isLogged()) ?? clients.firstOrNull;
 
   // Web hariç tüm platformlarda collection silme özelliğini etkinleştir
   firstClient?.isSupportDeleteCollections = !PlatformInfos.isWeb;
@@ -118,15 +143,18 @@ void main() async {
   // ADIM 8: Auth bootstrap ve GUI'yi Başlat (Foreground Modu)
   // ============================================================================
   final authStore = AuthStore();
-  if (firstClient != null) {
+  try {
     await authStore.bootstrap(client: firstClient);
-  } else {
+  } catch (e, stack) {
+    Logs().e('[MAIN] AuthStore.bootstrap() failed: $e');
+    Logs().e('[MAIN] Stack trace: $stack');
     authStore.state = AuthState.unauthenticated;
   }
   Logs().i(
     '${AppConfig.applicationName} started in foreground mode. Rendering GUI...',
   );
-  await startGui(clients, authStore);
+  final mergedClients = _mergeClients(clients, authStore.client);
+  await startGui(mergedClients, authStore);
 }
 
 /// ============================================================================
@@ -216,16 +244,35 @@ class AppStarter with WidgetsBindingObserver {
 
     // AuthStore'u oluştur ve bootstrap et
     final authStore = AuthStore();
-    final firstClient = clients.firstOrNull;
-    if (firstClient != null) {
+    final firstClient =
+        clients.firstWhereOrNull((c) => c.isLogged()) ?? clients.firstOrNull;
+    try {
       await authStore.bootstrap(client: firstClient);
-    } else {
+    } catch (e, stack) {
+      Logs()
+          .e('[MAIN] AuthStore.bootstrap() failed during lifecycle change: $e');
+      Logs().e('[MAIN] Stack trace: $stack');
       authStore.state = AuthState.unauthenticated;
     }
 
-    await startGui(clients, authStore);
+    final mergedClients = _mergeClients(clients, authStore.client);
+    await startGui(mergedClients, authStore);
 
     // GUI'nin sadece bir kez başlatılmasını garanti et
     guiStarted = true;
   }
+}
+
+List<Client> _mergeClients(List<Client> existing, Client? primary) {
+  if (primary == null) {
+    return List<Client>.from(existing);
+  }
+
+  final merged = <Client>[primary];
+  for (final c in existing) {
+    if (!identical(c, primary)) {
+      merged.add(c);
+    }
+  }
+  return merged;
 }

@@ -190,6 +190,7 @@ class DraftChatController extends State<DraftChat>
     disposeUnblockUserSubscription();
     ignoredUsersStreamSub?.cancel();
     isBlockedUserNotifier.dispose();
+    stopRecording();
     disposeAudioMixin();
     super.dispose();
   }
@@ -240,6 +241,16 @@ class DraftChatController extends State<DraftChat>
           DediSnackBar.show(
             context,
             L10n.of(context)!.audioMessageFailedToSend,
+          );
+          return;
+        }
+        if (audioFile.size <= 0) {
+          DediSnackBar.show(
+            context,
+            L10n.of(context)!.audioMessageFailedToSend,
+          );
+          Logs().e(
+            'DraftChat::sendVoiceMessageAction(): Invalid voice message size ${audioFile.size}',
           );
           return;
         }

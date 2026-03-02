@@ -29,7 +29,7 @@ class ChatEventList extends StatelessWidget {
   Widget build(BuildContext context) {
     final horizontalPadding = DediThemes.isColumnMode(context) ? 16.0 : 0.0;
 
-    final events = controller.timeline!.events;
+    final events = _filterDuplicateSendingEvents(controller.timeline!.events);
     // create a map of eventId --> index to greatly improve performance of
     // ListView's findChildIndexCallback
     final thisEventsKeyMap = <String, int>{};
@@ -252,6 +252,38 @@ class ChatEventList extends StatelessWidget {
         );
       },
     );
+  }
+
+  List<Event> _filterDuplicateSendingEvents(List<Event> events) {
+    if (events.isEmpty) return events;
+
+    final acknowledgedTransactionIds = events
+        .where((event) => !event.status.isSending)
+        .map(_transactionIdOf)
+        .whereType<String>()
+        .toSet();
+
+    if (acknowledgedTransactionIds.isEmpty) return events;
+
+    return events.where((event) {
+      if (!event.status.isSending) return true;
+
+      final txid = _transactionIdOf(event);
+      if (acknowledgedTransactionIds.contains(event.eventId)) return false;
+      if (txid != null && acknowledgedTransactionIds.contains(txid)) {
+        return false;
+      }
+
+      return true;
+    }).toList(growable: false);
+  }
+
+  String? _transactionIdOf(Event event) {
+    final txid = event.unsigned?['transaction_id'];
+    if (txid is String && txid.isNotEmpty) {
+      return txid;
+    }
+    return null;
   }
 
   Set<PointerDeviceKind>? dragDevicesSupported() {

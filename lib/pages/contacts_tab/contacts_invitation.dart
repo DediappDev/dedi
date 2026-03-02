@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:async';
 
 import 'package:dartz/dartz.dart' hide State;
-import 'package:dio/dio.dart';
 import 'package:fluffychat/app_state/failure.dart';
 import 'package:fluffychat/app_state/success.dart';
 import 'package:fluffychat/data/model/invitation/invitation_status_response.dart';
@@ -16,6 +14,7 @@ import 'package:fluffychat/domain/usecase/invitation/store_invitation_status_int
 import 'package:fluffychat/pages/contacts_tab/contacts_invitation_view.dart';
 import 'package:fluffychat/presentation/model/contact/presentation_contact.dart';
 import 'package:fluffychat/utils/dialog/twake_dialog.dart';
+import 'package:fluffychat/utils/dio_error_message_extractor.dart';
 import 'package:fluffychat/utils/twake_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -137,6 +136,7 @@ class ContactsInvitationController extends State<ContactsInvitation> {
   }
 
   void _onSendInvitationStateListener() {
+    if (!mounted) return;
     sendInvitationNotifier.value.fold(
       (failure) {
         if (failure is InvitationAlreadySentState) {
@@ -208,9 +208,11 @@ class ContactsInvitationController extends State<ContactsInvitation> {
   }
 
   void _onGenerateInvitationLinkStateListener() {
+    if (!mounted) return;
     generateInvitationLinkNotifier.value.fold(
       (failure) {
-        DediDialog.hideLoadingDialog(context);
+        _hideLoadingDialogIfNeeded();
+        if (!mounted) return;
 
         if (failure is GenerateInvitationLinkFailureState) {
           final failureMessage = failure.message?.trim().isNotEmpty == true
@@ -246,15 +248,24 @@ class ContactsInvitationController extends State<ContactsInvitation> {
       },
       (success) async {
         if (success is GenerateInvitationLinkLoadingState) {
-          DediDialog.showLoadingDialog(context);
+          if (mounted) {
+            DediDialog.showLoadingDialog(context);
+          }
           return;
         } else {
-          DediDialog.hideLoadingDialog(context);
+          _hideLoadingDialogIfNeeded();
         }
+        if (!mounted) return;
         if (success is GenerateInvitationLinkSuccessState) {
+          final box = context.findRenderObject() as RenderBox?;
+          final sharePositionOrigin = box != null
+              ? box.localToGlobal(Offset.zero) & box.size
+              : const Rect.fromLTWH(0, 0, 1, 1);
           await Share.shareUri(
             Uri.parse(success.link),
+            sharePositionOrigin: sharePositionOrigin,
           );
+          if (!mounted) return;
           Navigator.of(context).pop();
           return;
         }
@@ -297,7 +308,6 @@ class ContactsInvitationController extends State<ContactsInvitation> {
   void dispose() {
     _sendInvitationSubscription?.cancel();
     _generateInvitationLinkSubscription?.cancel();
-    DediDialog.hideLoadingDialog(context);
     sendInvitationNotifier.removeListener(_onSendInvitationStateListener);
     generateInvitationLinkNotifier
         .removeListener(_onGenerateInvitationLinkStateListener);
@@ -316,29 +326,11 @@ class ContactsInvitationController extends State<ContactsInvitation> {
   }
 
   String? _extractServerMessage(dynamic exception) {
-    if (exception is! DioException) return null;
-    final data = exception.response?.data;
+    return DioErrorMessageExtractor.extract(exception);
+  }
 
-    if (data is Map && data['message'] is String) {
-      final message = (data['message'] as String).trim();
-      return message.isEmpty ? null : message;
-    }
-
-    if (data is String) {
-      final text = data.trim();
-      if (text.isEmpty) return null;
-      try {
-        final decoded = jsonDecode(text);
-        if (decoded is Map && decoded['message'] is String) {
-          final message = (decoded['message'] as String).trim();
-          return message.isEmpty ? null : message;
-        }
-      } catch (_) {
-        // Keep raw response text as fallback when body is not JSON.
-      }
-      return text;
-    }
-
-    return null;
+  void _hideLoadingDialogIfNeeded() {
+    if (!mounted) return;
+    DediDialog.hideLoadingDialog(context);
   }
 }

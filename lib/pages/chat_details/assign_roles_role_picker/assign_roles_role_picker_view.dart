@@ -105,8 +105,7 @@ class AssignRolesRolePickerView extends StatelessWidget {
                           },
                         );
                       },
-                      itemCount:
-                          controller.widget.rolePickerType.assignRoles.length,
+                      itemCount: controller.availableRoles.length,
                     ),
                   ],
                 ),
@@ -183,28 +182,24 @@ class AssignRolesRolePickerView extends StatelessWidget {
     required int index,
     DefaultPowerLevelMember? isSelected,
   }) {
+    final role = controller.availableRoles[index];
     return ExpandableWidget(
       dividerPadding:
           isDialog ? const EdgeInsets.symmetric(horizontal: 16) : null,
-      isExpanded:
-          isSelected == controller.widget.rolePickerType.assignRoles[index],
+      isExpanded: isSelected == role,
       parentWidget: Row(
         children: [
           Container(
             width: AssignRolesRolePickerStyle.assignRoleIconSize,
             height: AssignRolesRolePickerStyle.assignRoleIconSize,
             decoration: BoxDecoration(
-              color: controller.colorBackgroundForRoles(
-                controller.widget.rolePickerType.assignRoles[index],
-              ),
+              color: controller.colorBackgroundForRoles(role),
               borderRadius: BorderRadius.circular(
                 AssignRolesRolePickerStyle.assignRoleIconSize / 2,
               ),
             ),
             child: Center(
-              child: controller.iconForRoles(
-                controller.widget.rolePickerType.assignRoles[index],
-              ),
+              child: controller.iconForRoles(role),
             ),
           ),
           const SizedBox(width: 8.0),
@@ -213,16 +208,13 @@ class AssignRolesRolePickerView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  controller.widget.rolePickerType.assignRoles[index]
-                      .displayName(context),
+                  role.displayName(context),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: DediSysColors.material().onSurface,
                       ),
                 ),
                 Text(
-                  controller.subtitleForRoles(
-                    controller.widget.rolePickerType.assignRoles[index],
-                  ),
+                  controller.subtitleForRoles(role),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: DediRefColors.material().tertiary[20],
                       ),
@@ -241,8 +233,7 @@ class AssignRolesRolePickerView extends StatelessWidget {
               width: 24,
               height: 24,
               child: SvgPicture.asset(
-                isSelected ==
-                        controller.widget.rolePickerType.assignRoles[index]
+                isSelected == role
                     ? ImagePaths.icRadioChecked
                     : ImagePaths.icRadioUnchecked,
               ),
@@ -250,13 +241,9 @@ class AssignRolesRolePickerView extends StatelessWidget {
           ),
         ],
       ),
-      childWidget: controller.permissionsWidgetForRoles(
-        controller.widget.rolePickerType.assignRoles[index],
-      ),
+      childWidget: controller.permissionsWidgetForRoles(role),
       onTap: () {
-        controller.onSelectedRole(
-          controller.widget.rolePickerType.assignRoles[index],
-        );
+        controller.onSelectedRole(role);
       },
     );
   }

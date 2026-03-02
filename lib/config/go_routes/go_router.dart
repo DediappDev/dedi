@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:fluffychat/config/first_column_inner_routes.dart';
 import 'package:fluffychat/di/global/get_it_initializer.dart';
 import 'package:fluffychat/pages/add_story/add_story.dart';
@@ -22,7 +23,7 @@ import 'package:fluffychat/pages/splash/splash.dart';
 import 'package:fluffychat/pages/story/story_page.dart';
 import 'package:fluffychat/pages/twake_welcome/twake_welcome.dart';
 import 'package:fluffychat/pages/phone_auth/splash/splash_view.dart';
-import 'package:fluffychat/pages/phone_auth/onboarding_screen.dart';
+import 'package:fluffychat/pages/phone_auth/onboarding/onboarding_view.dart';
 import 'package:fluffychat/pages/phone_auth/phone_input/phone_input_view.dart';
 import 'package:fluffychat/pages/phone_auth/otp_verify/otp_verify_view.dart';
 import 'package:fluffychat/presentation/model/chat/chat_router_input_argument.dart';
@@ -49,13 +50,13 @@ import 'package:fluffychat/pages/settings_dashboard/settings_style/settings_styl
 import 'package:fluffychat/pages/sign_up/signup.dart';
 import 'package:fluffychat/widgets/layouts/agruments/app_adaptive_scaffold_body_args.dart';
 import 'package:fluffychat/widgets/log_view.dart';
-import 'package:fluffychat/widgets/matrix.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:fluffychat/state/auth_store.dart';
 import 'package:matrix/matrix.dart';
+import '../feature_flags.dart';
 
 abstract class AppRoutes {
   static FutureOr<String?> loggedInRedirect(
@@ -65,7 +66,9 @@ abstract class AppRoutes {
     final auth = context.read<AuthStore>();
     // Debug trace for guard decisions
     // ignore: avoid_print
-    print('[REDIRECT] (loggedInRedirect) state=${auth.state} from=${state.matchedLocation}');
+    print(
+      '[REDIRECT] (loggedInRedirect) state=${auth.state} from=${state.matchedLocation}',
+    );
     if (auth.state == AuthState.authenticated) return '/rooms';
     if (auth.state == AuthState.hydrating || auth.state == AuthState.unknown) {
       return '/splash';
@@ -79,7 +82,9 @@ abstract class AppRoutes {
   ) {
     final auth = context.read<AuthStore>();
     // ignore: avoid_print
-    print('[REDIRECT] (loggedOutRedirect) state=${auth.state} from=${state.matchedLocation}');
+    print(
+      '[REDIRECT] (loggedOutRedirect) state=${auth.state} from=${state.matchedLocation}',
+    );
     if (auth.state == AuthState.authenticated) return null;
     if (auth.state == AuthState.hydrating || auth.state == AuthState.unknown) {
       return '/splash';
@@ -104,7 +109,7 @@ abstract class AppRoutes {
       path: '/onboarding',
       pageBuilder: (context, state) => defaultPageBuilder(
         context,
-        const OnboardingScreen(),
+        const OnboardingView(),
       ),
     ),
     GoRoute(
@@ -120,12 +125,14 @@ abstract class AppRoutes {
         final extra = state.extra as Map<String, dynamic>?;
         final phone = extra?['phone'] as String? ?? '';
         final devOTP = extra?['dev_otp'] as String?;
+        final addAccountMode = extra?['add_account_mode'] as bool? ?? false;
 
         return defaultPageBuilder(
           context,
           OTPVerifyView(
             phoneNumber: phone,
             devOTP: devOTP,
+            addAccountMode: addAccountMode,
           ),
         );
       },
@@ -144,7 +151,9 @@ abstract class AppRoutes {
       redirect: (context, state) {
         final auth = context.read<AuthStore>();
         // ignore: avoid_print
-        print('[REDIRECT] (root) state=${auth.state} from=${state.matchedLocation}');
+        print(
+          '[REDIRECT] (root) state=${auth.state} from=${state.matchedLocation}',
+        );
         switch (auth.state) {
           case AuthState.authenticated:
             return '/rooms';
@@ -174,7 +183,7 @@ abstract class AppRoutes {
             context,
             const Login(),
           ),
-          redirect: loggedInRedirect,
+          redirect: (_, __) => '/phone-input',
         ),
         GoRoute(
           path: 'dediWelcome',
@@ -216,6 +225,7 @@ abstract class AppRoutes {
         context,
         const SignupPage(),
       ),
+      redirect: (_, __) => '/phone-input',
     ),
     GoRoute(
       path: '/logs',
@@ -457,20 +467,35 @@ abstract class AppRoutes {
               redirect: loggedOutRedirect,
               pageBuilder: (context, state) => defaultPageBuilder(
                 context,
-                DediWelcome(
-                  arg: state.extra is DediWelcomeArg?
-                      ? state.extra as DediWelcomeArg?
-                      : null,
+                const PhoneInputView(
+                  otpVerifyRoute: '/rooms/addaccount/otp-verify',
+                  addAccountMode: true,
                 ),
               ),
               routes: [
+                GoRoute(
+                  path: 'otp-verify',
+                  pageBuilder: (context, state) {
+                    final extra = state.extra as Map<String, dynamic>?;
+                    final phone = extra?['phone'] as String? ?? '';
+                    final devOTP = extra?['dev_otp'] as String?;
+                    return defaultPageBuilder(
+                      context,
+                      OTPVerifyView(
+                        phoneNumber: phone,
+                        devOTP: devOTP,
+                        addAccountMode: true,
+                      ),
+                    );
+                  },
+                ),
                 GoRoute(
                   path: 'login',
                   pageBuilder: (context, state) => defaultPageBuilder(
                     context,
                     const Login(),
                   ),
-                  redirect: loggedOutRedirect,
+                  redirect: (_, __) => '/phone-input',
                 ),
                 GoRoute(
                   path: 'homeserverpicker',
@@ -680,4 +705,76 @@ abstract class AppRoutes {
                     child: child,
                   ),
       );
+}
+
+class AppRouter {
+  static String? redirectFor({
+    required AuthStore auth,
+    required String location,
+  }) {
+    final authState = auth.state;
+    final isAuthFlow = location.startsWith('/auth') ||
+        location.startsWith('/phone') ||
+        location.startsWith('/onboarding') ||
+        location.startsWith('/otp') ||
+        location.startsWith('/splash');
+
+    if (FeatureFlags.enableDebugLogs) {
+      debugPrint(
+        '[REDIRECT] state=$authState from=$location onboardingDone=${auth.onboardingDone}',
+      );
+    }
+
+    // Unknown/Hydrating state → splash
+    if (authState == AuthState.unknown || authState == AuthState.hydrating) {
+      return location == '/splash' ? null : '/splash';
+    }
+
+    final effectiveUserId = auth.client?.userID ?? auth.userId;
+
+    // Authenticated → rooms (skip auth flow)
+    if (authState == AuthState.authenticated) {
+      if (auth.client == null || effectiveUserId == null) {
+        Logs().e('[REDIRECT] AuthState=authenticated but client/user is null');
+        auth.logout();
+        return '/phone-input';
+      }
+      return isAuthFlow ? '/rooms' : null;
+    }
+
+    // Unauthenticated → check onboarding
+    if (!auth.onboardingDone) {
+      if (location == '/onboarding') {
+        return null;
+      }
+      return '/onboarding';
+    }
+
+    if (location.startsWith('/phone') || location.startsWith('/otp')) {
+      return null;
+    }
+    return '/phone-input';
+  }
+
+  static GoRouter build(
+    AuthStore auth, {
+    GlobalKey<NavigatorState>? navigatorKey,
+  }) {
+    return GoRouter(
+      routes: AppRoutes.routes,
+      navigatorKey: navigatorKey,
+      debugLogDiagnostics: FeatureFlags.enableDebugLogs,
+      initialLocation: '/splash',
+      refreshListenable: auth,
+      redirect: (ctx, state) =>
+          redirectFor(auth: auth, location: state.matchedLocation),
+      onException: (context, state, router) {
+        Logs().e('GoRouter exception: ${state.error}');
+        if (kDebugMode) {
+          debugPrint('[ROUTER ERROR] ${state.error}');
+        }
+        return router.go('/error');
+      },
+    );
+  }
 }

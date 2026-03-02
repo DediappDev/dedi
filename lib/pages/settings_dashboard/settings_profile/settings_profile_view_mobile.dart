@@ -308,9 +308,7 @@ class SettingsProfileViewMobile extends StatelessWidget {
                           ),
                           SettingsProfileViewMobileStyle.paddingIconAndText,
                           Text(
-                            success.haveMultipleAccounts
-                                ? L10n.of(context)!.switchAccounts
-                                : L10n.of(context)!.addAnotherAccount,
+                            L10n.of(context)!.switchAccounts,
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge

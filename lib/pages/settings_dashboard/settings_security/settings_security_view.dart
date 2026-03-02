@@ -81,9 +81,7 @@ class SettingsSecurityView extends StatelessWidget {
                             ),
                           ),
                           onTap: () {
-                            if (ignoredUsers.isNotEmpty) {
-                              context.push('/rooms/security/blockedUsers');
-                            }
+                            context.push('/rooms/security/blockedUsers');
                           },
                         );
                       },

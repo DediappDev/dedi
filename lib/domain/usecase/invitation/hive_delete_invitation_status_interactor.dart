@@ -29,7 +29,7 @@ class HiveDeleteInvitationStatusInteractor {
         ),
       );
     } catch (e) {
-      Logs().e('HiveGetInvitationStatusInteractor::execute', e);
+      Logs().w('HiveDeleteInvitationStatusInteractor::execute', e);
       yield Left(
         HiveDeleteInvitationStatusFailureState(
           exception: e,

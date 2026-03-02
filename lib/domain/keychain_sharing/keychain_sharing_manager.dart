@@ -37,9 +37,18 @@ class KeychainSharingManager {
 
   static Future delete({required String? userId}) {
     if (userId != null) {
-      return _secureStorage.delete(key: userId);
+      return _secureStorage.delete(key: userId).catchError(
+        (e, s) {
+          Logs().w('KeychainSharingManager::delete failed: $e', e, s);
+        },
+      );
     } else {
-      return _secureStorage.deleteAll();
+      return _secureStorage.deleteAll().catchError(
+        (e, s) {
+          Logs().w(
+              'KeychainSharingManager::deleteAll failed (ignored): $e', e, s);
+        },
+      );
     }
   }
 }

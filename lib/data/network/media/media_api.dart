@@ -18,20 +18,57 @@ class MediaAPI {
 
   MediaAPI();
 
+  Future<int> _resolveStableFileLength(
+    File file, {
+    int maxAttempts = 8,
+    Duration step = const Duration(milliseconds: 120),
+  }) async {
+    var current = await file.length();
+    if (current <= 0) return current;
+    for (var i = 0; i < maxAttempts; i++) {
+      await Future.delayed(step);
+      final next = await file.length();
+      if (next == current) {
+        return next;
+      }
+      current = next;
+    }
+    return current;
+  }
+
   Future<UploadFileResponse> uploadFileMobile({
     required FileInfo fileInfo,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
   }) async {
+    final file = File(fileInfo.filePath);
+    final hasLocalFile = fileInfo.filePath.isNotEmpty && await file.exists();
+    final contentLength = hasLocalFile
+        ? await _resolveStableFileLength(file)
+        : fileInfo.fileSize;
+    if (contentLength <= 0) {
+      throw ArgumentError(
+        'uploadFileMobile(): invalid content length for ${fileInfo.filePath}',
+      );
+    }
+
     final dioHeaders = _client.getHeaders();
-    dioHeaders[HttpHeaders.contentLengthHeader] =
-        await File(fileInfo.filePath).length();
+    dioHeaders[HttpHeaders.contentLengthHeader] = contentLength;
     dioHeaders[HttpHeaders.contentTypeHeader] = fileInfo.mimeType;
+
+    final requestBody =
+        hasLocalFile ? file.openRead(0, contentLength) : fileInfo.readStream;
+    if (requestBody == null) {
+      throw ArgumentError(
+        'uploadFileMobile(): missing upload stream for ${fileInfo.filePath}',
+      );
+    }
+
     final response = await _client
         .postToGetBody(
       HomeserverEndpoint.uploadMediaServicePath
           .generateHomeserverMediaEndpoint(),
-      data: fileInfo.readStream ?? File(fileInfo.filePath).openRead(),
+      data: requestBody,
       queryParameters: {
         'fileName': fileInfo.fileName,
       },
@@ -42,9 +79,18 @@ class MediaAPI {
         .onError((error, stackTrace) {
       if (error is DioException && error.type == DioExceptionType.cancel) {
         throw CancelRequestException();
-      } else {
-        throw Exception(error);
       }
+      if (error is DioException) {
+        Logs().e(
+          'uploadFileMobile() failed: ${error.response?.statusCode} ${error.response?.data}',
+          error,
+          stackTrace,
+        );
+      }
+      if (error is Object) {
+        throw error;
+      }
+      throw Exception('uploadFileMobile(): unknown upload error');
     });
 
     return UploadFileResponse.fromJson(response);
@@ -55,8 +101,15 @@ class MediaAPI {
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
   }) async {
+    final contentLength = file.bytes?.length ?? file.size;
+    if (contentLength <= 0) {
+      throw ArgumentError(
+        'uploadFileWeb(): invalid content length for ${file.name}',
+      );
+    }
+
     final dioHeaders = _client.getHeaders();
-    dioHeaders[HttpHeaders.contentLengthHeader] = file.bytes?.length;
+    dioHeaders[HttpHeaders.contentLengthHeader] = contentLength;
     dioHeaders[HttpHeaders.contentTypeHeader] = file.mimeType;
     final response = await _client
         .postToGetBody(
@@ -73,9 +126,18 @@ class MediaAPI {
         .onError((error, stackTrace) {
       if (error is DioException && error.type == DioExceptionType.cancel) {
         throw CancelRequestException();
-      } else {
-        throw Exception(error);
       }
+      if (error is DioException) {
+        Logs().e(
+          'uploadFileWeb() failed: ${error.response?.statusCode} ${error.response?.data}',
+          error,
+          stackTrace,
+        );
+      }
+      if (error is Object) {
+        throw error;
+      }
+      throw Exception('uploadFileWeb(): unknown upload error');
     });
 
     return UploadFileResponse.fromJson(response);

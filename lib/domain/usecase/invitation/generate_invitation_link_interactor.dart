@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -12,6 +11,7 @@ import 'package:fluffychat/domain/app_state/invitation/send_invitation_state.dar
 import 'package:fluffychat/domain/model/invitation/invitation_medium_enum.dart';
 import 'package:fluffychat/domain/repository/invitation/invitation_repository.dart';
 import 'package:fluffychat/domain/usecase/invitation/constants.dart';
+import 'package:fluffychat/utils/dio_error_message_extractor.dart';
 import 'package:matrix/matrix.dart';
 
 class GenerateInvitationLinkInteractor {
@@ -53,8 +53,14 @@ class GenerateInvitationLinkInteractor {
       );
       return;
     } catch (e) {
-      Logs().e('GenerateInvitationLinkInteractor::execute', e);
-      final message = _extractServerMessage(e);
+      final message = DioErrorMessageExtractor.extract(e);
+      if (e is DioException) {
+        Logs().e(
+          'GenerateInvitationLinkInteractor::execute: status=${e.response?.statusCode}, path=${e.requestOptions.path}, message=${message ?? e.message ?? 'unknown error'}',
+        );
+      } else {
+        Logs().e('GenerateInvitationLinkInteractor::execute', e);
+      }
       if (e is DioException && e.response?.statusCode == 400) {
         if (message == Constants.alreadySentInvitationMessage) {
           yield const Left(InvitationAlreadySentState());
@@ -77,38 +83,5 @@ class GenerateInvitationLinkInteractor {
       );
       return;
     }
-  }
-
-  String? _extractServerMessage(Object error) {
-    if (error is! DioException) return null;
-    final data = error.response?.data;
-
-    if (data is Map && data['message'] is String) {
-      final message = (data['message'] as String).trim();
-      return message.isEmpty ? null : message;
-    }
-
-    if (data is String) {
-      final text = data.trim();
-      if (text.isEmpty) return null;
-      try {
-        final decoded = jsonDecode(text);
-        if (decoded is Map && decoded['message'] is String) {
-          final message = (decoded['message'] as String).trim();
-          return message.isEmpty ? null : message;
-        }
-      } catch (_) {
-        // Keep raw response text as fallback when body is not JSON.
-      }
-      return text;
-    }
-
-    final requestPath = error.requestOptions.path;
-    if (error.response?.statusCode == 400 &&
-        requestPath.contains('/_dedi/v1/invite')) {
-      return 'Invitations are not enabled';
-    }
-
-    return null;
   }
 }

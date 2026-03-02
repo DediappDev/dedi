@@ -126,6 +126,21 @@ class FlutterHiveCollectionsDatabase extends HiveCollectionsDatabase {
   bool get supportsFileStoring => !kIsWeb;
 
   @override
+  Future<Map<String, dynamic>?> getClient(String name) async {
+    final client = await super.getClient(name);
+    if (client == null) return null;
+    final homeserverUrl = client['homeserver_url'];
+    final token = client['token'];
+    final userId = client['user_id'];
+    if (homeserverUrl == null || token == null || userId == null) {
+      // Hive may contain partial keys (for example only prev_batch).
+      // Returning null prevents Client.init() from parsing an incomplete record.
+      return null;
+    }
+    return client;
+  }
+
+  @override
   Future<Uint8List?> getFile(String eventId, String fileName) async {
     if (!supportsFileStoring) return null;
     final file = File(
@@ -262,7 +277,15 @@ class FlutterHiveCollectionsDatabase extends HiveCollectionsDatabase {
   Future<void> clear({bool supportDeleteCollections = false}) async {
     if (PlatformInfos.isIOS) {
       // TODO: Should pass userId here when support multiple accounts
-      await KeychainSharingManager.delete(userId: null);
+      try {
+        await KeychainSharingManager.delete(userId: null);
+      } catch (e, s) {
+        Logs().w(
+          'KeychainSharingManager::delete failed during clear (ignored)',
+          e,
+          s,
+        );
+      }
     }
     return super.clear(supportDeleteCollections: supportDeleteCollections);
   }

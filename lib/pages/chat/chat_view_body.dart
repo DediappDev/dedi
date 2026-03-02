@@ -1,4 +1,5 @@
 import 'package:desktop_drop/desktop_drop.dart';
+import 'package:fluffychat/domain/model/room/room_extension.dart';
 import 'package:fluffychat/pages/chat/blocked_user_banner.dart';
 import 'package:fluffychat/pages/chat/chat.dart';
 import 'package:fluffychat/pages/chat/chat_event_list.dart';
@@ -31,6 +32,11 @@ class ChatViewBody extends StatelessWidget with MessageContentMixin {
 
   @override
   Widget build(BuildContext context) {
+    final room = controller.room!;
+    final canSendMessages = room.membership == Membership.join &&
+        !room.isCurrentUserReadOnlyException &&
+        (room.canSendDefaultMessages || room.canSendEvent(EventTypes.Message));
+
     return DropTarget(
       onDragDone: (details) => controller.handleDragDone(details),
       onDragEntered: controller.onDragEntered,
@@ -87,8 +93,7 @@ class ChatViewBody extends StatelessWidget with MessageContentMixin {
                         ),
                       ),
                     ),
-                    if (controller.room!.canSendDefaultMessages &&
-                        controller.room!.membership == Membership.join) ...[
+                    if (canSendMessages) ...[
                       Center(
                         child: Container(
                           alignment: Alignment.center,

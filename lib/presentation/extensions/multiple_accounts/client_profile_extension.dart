@@ -8,13 +8,16 @@ extension ClientProfileExtension on ClientProfilePresentation {
   DediChatPresentationAccount toDediChatPresentationAccount(
     Client currentActiveClient,
   ) {
+    final accountDisplayName = profile.displayName?.trim().isNotEmpty == true
+        ? profile.displayName!.trim()
+        : profile.userId;
     return DediChatPresentationAccount(
       clientAccount: client,
       accountId: profile.userId,
-      accountName: profile.displayName ?? '',
+      accountName: accountDisplayName,
       avatar: Avatar(
         mxContent: profile.avatarUrl,
-        name: profile.displayName ?? '',
+        name: accountDisplayName,
       ),
       accountActiveStatus: profile.userId == currentActiveClient.userID
           ? AccountActiveStatus.active

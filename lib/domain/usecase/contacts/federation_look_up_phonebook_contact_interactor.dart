@@ -27,6 +27,7 @@ import 'package:fluffychat/modules/federation_identity_request_token/domain/mode
 import 'package:fluffychat/modules/federation_identity_request_token/domain/state/federation_identity_request_token_state.dart';
 import 'package:fluffychat/modules/federation_identity_request_token/manager/federation_identity_request_token_manager.dart';
 import 'package:matrix/matrix.dart';
+import 'package:dio/dio.dart';
 
 class FederationLookUpPhonebookContactInteractor {
   final PhonebookContactRepository _phonebookContactRepository =
@@ -159,11 +160,13 @@ class FederationLookUpPhonebookContactInteractor {
 
         if (res.lookupPepper?.isEmpty == true &&
             res.algorithms?.isEmpty == true) {
-          yield const Left(
-            GetHashDetailsFailure(
-              exception: 'Hash details is empty',
+          yield Right(
+            GetPhonebookContactsSuccess(
+              progress: 100,
+              contacts: contacts,
             ),
           );
+          return;
         }
 
         hashDetails = res;
@@ -171,11 +174,24 @@ class FederationLookUpPhonebookContactInteractor {
         Logs().e(
           'FederationLookUpPhonebookContactInteractor::execute: GetHashDetails: $e',
         );
+        if (e is DioException && e.response?.statusCode == 404) {
+          // Federation identity lookup endpoint is not available.
+          // Fall back to local phonebook contacts instead of keeping UI in
+          // a failed/loading loop.
+          yield Right(
+            GetPhonebookContactsSuccess(
+              progress: 100,
+              contacts: contacts,
+            ),
+          );
+          return;
+        }
         yield Left(
           GetHashDetailsFailure(
             exception: e,
           ),
         );
+        return;
       }
 
       final contactIdToHashMap = {
@@ -232,8 +248,8 @@ class FederationLookUpPhonebookContactInteractor {
           final request = FederationLookupMxidRequest(
             addresses:
                 hashToContactIdMappings.values.expand((hash) => hash).toSet(),
-            algorithm: hashDetails?.algorithms?.firstOrNull,
-            pepper: hashDetails?.lookupPepper,
+            algorithm: hashDetails.algorithms?.firstOrNull,
+            pepper: hashDetails.lookupPepper,
           );
           FederationLookupMxidResponse? response;
           response = await _identityLookupManager.lookupMxid(

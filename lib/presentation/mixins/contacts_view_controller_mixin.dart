@@ -458,6 +458,16 @@ mixin class ContactsViewControllerMixin {
           }
         }
 
+        if (failure is GetHashDetailsFailure ||
+            failure is GetPhoneBookContactFailure ||
+            failure is LookUpContactFailure) {
+          return Left(
+            GetPresentationContactsEmpty(
+              keyword: keyword,
+            ),
+          );
+        }
+
         return Left(failure);
       },
       (success) {

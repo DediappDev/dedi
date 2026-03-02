@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:fluffychat/services/session_credentials_storage.dart';
 import 'package:fluffychat/utils/matrix_session_hydrator.dart';
 import 'package:fluffychat/widgets/matrix.dart';
@@ -26,7 +25,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    
+
     // Fade-in animation
     _fadeController = AnimationController(
       vsync: this,
@@ -36,7 +35,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
       parent: _fadeController,
       curve: Curves.easeIn,
     );
-    
+
     // Scale animation for logo
     _scaleController = AnimationController(
       vsync: this,
@@ -46,7 +45,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
       parent: _scaleController,
       curve: Curves.elasticOut,
     );
-    
+
     // Pulse animation for loading indicator
     _pulseController = AnimationController(
       vsync: this,
@@ -55,7 +54,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     _pulseAnimation = Tween<double>(begin: 0.8, end: 1.2).animate(
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
-    
+
     _fadeController.forward();
     _scaleController.forward();
     _initializeApp();
@@ -98,10 +97,14 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
         // Validate token; route accordingly
         final isValid = await MatrixSessionHydrator.validateAccessToken(client);
         if (isValid) {
+          client.backgroundSync = true;
+          client.syncPresence = null;
+          client.requestHistoryOnLimitedTimeline = true;
+          client.sync();
           if (mounted) context.go('/rooms');
           return;
         } else {
-          await SessionCredentialsStorage.clear();
+          await SessionCredentialsStorage.clear(preserveClientSessions: true);
         }
       }
 
@@ -124,7 +127,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -192,9 +195,9 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                               ),
                             ),
                           ),
-                          
+
                           const SizedBox(height: 60),
-                          
+
                           // Pulsing loading indicator
                           AnimatedBuilder(
                             animation: _pulseAnimation,
@@ -205,7 +208,9 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                                   width: 40,
                                   height: 40,
                                   child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white,
+                                    ),
                                     strokeWidth: 3.5,
                                   ),
                                 ),
@@ -217,7 +222,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                
+
                 // Tagline at bottom (matching LaunchScreen style)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -245,7 +250,9 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: screenHeight * 0.05), // 5% of screen height
+                      SizedBox(
+                        height: screenHeight * 0.05,
+                      ), // 5% of screen height
                     ],
                   ),
                 ),

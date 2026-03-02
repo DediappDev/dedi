@@ -2,22 +2,30 @@
   "_comment": "✅ DEDI Chat - Base Configuration Template",
   "_version": "1.0.0",
   "_description": "Base configuration template for DEDI Chat application",
-  
+
   "application_name": "Dedi Chat",
   "application_welcome_message": "Welcome to Dedi Chat!",
   "default_homeserver": "matrix.dedim.com.tr",
   "homeserver": "https://matrix.dedim.com.tr",
   "registration_url": "https://sign-up.dedim.com.tr/",
   "dedi_workplace_homeserver": "https://matrix.dedim.com.tr",
+
+  "tom_server_url": "https://tom.dedim.com.tr",
+  "identity_server_url": "https://identity.dedim.com.tr",
+  "otp_api_base_url": "https://tom.dedim.com.tr",
+  "otp_request_endpoint": "/otp/request",
+  "otp_verify_endpoint": "/otp/verify",
+  "otp_matrix_token_endpoint": "/otp/matrix-token",
+
   "privacy_url": "https://dedim.com.tr/en/privacy/",
   "web_base_url": "https://chat.dedim.com.tr",
   "support_url": "https://dedim.com.tr/support",
   "qr_code_download_url": "https://sign-up.dedim.com.tr/download/chat",
-  
+
   "dev_mode": false,
   "enable_logs": false,
   "enable_debug_toasts": true,
-  
+
   "render_html": true,
   "hide_redacted_events": false,
   "hide_unknown_events": false,

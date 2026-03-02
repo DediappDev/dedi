@@ -23,7 +23,7 @@ class ProfileInfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DediAppBar(
-        title: L10n.of(context)?.profileInfo ?? "",
+        title: L10n.of(context)?.profileInfo ?? "",// TODO: add translation
         leading: DediIconButton(
           paddingAll: 8,
           splashColor: Colors.transparent,

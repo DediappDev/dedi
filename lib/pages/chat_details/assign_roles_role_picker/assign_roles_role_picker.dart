@@ -4,7 +4,6 @@ import 'package:fluffychat/app_state/success.dart';
 import 'package:fluffychat/config/default_power_level_member.dart';
 import 'package:fluffychat/di/global/get_it_initializer.dart';
 import 'package:fluffychat/domain/app_state/room/set_permission_level_state.dart';
-import 'package:fluffychat/domain/model/room/room_extension.dart';
 import 'package:fluffychat/domain/usecase/room/set_permission_level_interactor.dart';
 import 'package:fluffychat/pages/chat_details/assign_roles_role_picker/assign_roles_role_picker_style.dart';
 import 'package:fluffychat/pages/chat_details/assign_roles_role_picker/assign_roles_role_picker_view.dart';
@@ -45,6 +44,12 @@ class AssignRolesEditorController extends State<AssignRolesRolePicker> {
 
   final setPermissionLevelInteractor =
       getIt.get<SetPermissionLevelInteractor>();
+
+  List<DefaultPowerLevelMember> get availableRoles {
+    return widget.rolePickerType.assignRoles.where((role) {
+      return role.powerLevel < widget.room.ownPowerLevel;
+    }).toList();
+  }
 
   Color colorBackgroundForRoles(DefaultPowerLevelMember role) {
     switch (role) {
@@ -167,14 +172,15 @@ class AssignRolesEditorController extends State<AssignRolesRolePicker> {
   }
 
   void onTapToDoneButton() {
-    if (roleSelectedNotifier.value == null) {
+    final selectedRole = roleSelectedNotifier.value;
+    if (selectedRole == null || !availableRoles.contains(selectedRole)) {
       return;
     }
 
     final Map<User, int> userPermissionLevels = {};
 
     for (final user in widget.assignedUsers) {
-      userPermissionLevels[user] = roleSelectedNotifier.value!.powerLevel;
+      userPermissionLevels[user] = selectedRole.powerLevel;
     }
 
     setPermissionLevelInteractor
@@ -233,13 +239,16 @@ class AssignRolesEditorController extends State<AssignRolesRolePicker> {
   }
 
   void _handleGetDefaultPowerLevelSelected() {
-    if (widget.rolePickerType == RolePickerTypeEnum.addAdminOrModerator) {
+    if (availableRoles.isEmpty) {
+      roleSelectedNotifier.value = null;
+      return;
+    }
+
+    if (widget.rolePickerType == RolePickerTypeEnum.addAdminOrModerator &&
+        availableRoles.contains(DefaultPowerLevelMember.moderator)) {
       roleSelectedNotifier.value = DefaultPowerLevelMember.moderator;
     } else {
-      roleSelectedNotifier.value =
-          DefaultPowerLevelMember.getDefaultPowerLevelByUsersDefault(
-        usersDefault: widget.room.getUserDefaultLevel(),
-      );
+      roleSelectedNotifier.value = availableRoles.first;
     }
   }
 

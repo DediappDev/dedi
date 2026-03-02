@@ -27,13 +27,10 @@ class TomContactAPI {
           offset: offset,
         );
 
-    final response = await _client
-        .postToGetBody(
-          IdentityEndpoint.matchUserIdServicePath
-              .generateDediIdentityEndpoint(),
-          data: requestBody.toJson(),
-        )
-        .onError((error, stackTrace) => throw Exception(error));
+    final response = await _client.postToGetBody(
+      IdentityEndpoint.matchUserIdServicePath.generateDediIdentityEndpoint(),
+      data: requestBody.toJson(),
+    );
 
     return LookupMxidResponse.fromJson(response);
   }

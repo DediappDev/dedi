@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:fluffychat/app_state/failure.dart';
 import 'package:fluffychat/app_state/success.dart';
+import 'package:fluffychat/config/environment.dart';
 import 'package:fluffychat/data/network/dio_client.dart';
 import 'package:fluffychat/modules/federation_identity_lookup/data/datasource_impl/federation_identity_lookup_datasource_impl.dart';
 import 'package:fluffychat/modules/federation_identity_lookup/data/network/federation_identity_endpoint.dart';
@@ -17,6 +18,8 @@ class FederationIdentityLookupManager {
   DioClient _bindingDio({
     required String federationUrl,
   }) {
+    final base =
+        federationUrl.isNotEmpty ? federationUrl : Environment.identityServer;
     final headers = {
       HttpHeaders.acceptHeader: FederationIdentityEndpoint.acceptHeaderDefault,
       HttpHeaders.contentTypeHeader:
@@ -25,7 +28,7 @@ class FederationIdentityLookupManager {
 
     final dio = Dio(
       BaseOptions(
-        baseUrl: federationUrl,
+        baseUrl: base,
         headers: headers,
       ),
     );

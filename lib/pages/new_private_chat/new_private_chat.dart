@@ -48,10 +48,7 @@ class NewPrivateChatController extends State<NewPrivateChat>
         );
       }
     });
-    // FIXME: Find out solution for disable load more in search
-    // searchContactsController.onSearchKeywordChanged = (searchKey) {
-    //   disableLoadMoreInSearch();
-    // };
+
   }
 
   void onContactAction(

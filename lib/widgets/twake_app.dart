@@ -1,5 +1,5 @@
 import 'package:fluffychat/config/app_config.dart';
-import 'package:fluffychat/config/go_routes/go_router.dart';
+import 'package:fluffychat/config/go_routes/go_router.dart' as app_router;
 import 'package:fluffychat/config/localizations/localization_service.dart';
 import 'package:fluffychat/config/themes.dart';
 import 'package:fluffychat/di/global/get_it_initializer.dart';
@@ -25,6 +25,16 @@ class DediApp extends StatefulWidget {
   final List<Client> clients;
   static GlobalKey<NavigatorState> routerKey = GlobalKey<NavigatorState>();
 
+  static DediAppState? _instance;
+
+  static GoRouter get router {
+    final instance = _instance;
+    if (instance == null) {
+      throw StateError('Router not initialized yet');
+    }
+    return instance._router;
+  }
+
   const DediApp({
     super.key,
     this.testWidget,
@@ -36,14 +46,20 @@ class DediApp extends StatefulWidget {
   /// in with qr code or magic link.
   static bool gotInitialLink = false;
 
-  // Router is (re)built with AuthStore as refreshListenable to react to auth changes
-  static late GoRouter router;
+  static bool isCurrentPageIsInRooms() {
+    final instance = _instance;
+    if (instance == null) return false;
+    return instance._router.routeInformationProvider.value.uri.path.startsWith(
+      '/rooms/',
+    );
+  }
 
-  static bool isCurrentPageIsInRooms() =>
-      router.routeInformationProvider.value.uri.path.startsWith('/rooms/');
-
-  static bool isCurrentPageIsNotRooms() =>
-      !router.routeInformationProvider.value.uri.path.startsWith('/rooms');
+  static bool isCurrentPageIsNotRooms() {
+    final instance = _instance;
+    if (instance == null) return true;
+    return !instance._router.routeInformationProvider.value.uri.path
+        .startsWith('/rooms');
+  }
 
   @override
   DediAppState createState() => DediAppState();
@@ -56,6 +72,7 @@ class DediAppState extends State<DediApp> {
   @override
   void initState() {
     super.initState();
+    DediApp._instance = this;
     networkConnectionService.onInit();
 
     // 🔧 Debug: Boot log
@@ -66,51 +83,10 @@ class DediAppState extends State<DediApp> {
 
     // Router'ı bir kere oluştur (AuthStore ile)
     final auth = context.read<AuthStore>();
-    _router = GoRouter(
-      routes: AppRoutes.routes,
-      debugLogDiagnostics: true,
+    _router = app_router.AppRouter.build(
+      auth,
       navigatorKey: DediApp.routerKey,
-      refreshListenable: auth,
-      initialLocation: PlatformInfos.isIOS ? '/splash' : null,
-      redirect: (ctx, state) {
-        final s = auth.state;
-        final loc = state.matchedLocation;
-
-        // 🔍 Debug: Redirect log
-        if (kDebugMode) {
-          debugPrint('[REDIRECT] authState=$s from=$loc');
-        }
-
-        final isAuthFlow = loc.startsWith('/auth') ||
-            loc.startsWith('/phone') ||
-            loc.startsWith('/onboarding') ||
-            loc.startsWith('/otp') ||
-            loc.startsWith('/splash');
-
-        // Unknown/Hydrating state → splash
-        if (s == AuthState.unknown || s == AuthState.hydrating) {
-          return loc == '/splash' ? null : '/splash';
-        }
-
-        // Authenticated → rooms (skip auth flow)
-        if (s == AuthState.authenticated) {
-          return isAuthFlow ? '/rooms' : null;
-        }
-
-        // Unauthenticated → phone input (skip other screens)
-        return isAuthFlow ? null : '/phone-input';
-      },
-      onException: (context, state, router) {
-        Logs().e('GoRouter exception: ${state.error}');
-        if (kDebugMode) {
-          debugPrint('[ROUTER ERROR] ${state.error}');
-        }
-        return router.go('/error');
-      },
     );
-
-    // Static referansı güncelle (geriye dönük uyumluluk için)
-    DediApp.router = _router;
 
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await LocalizationService.initializeLanguage(context);
@@ -119,9 +95,10 @@ class DediAppState extends State<DediApp> {
 
   @override
   void dispose() {
-    super.dispose();
+    DediApp._instance = null;
     networkConnectionService.onDispose();
     _router.dispose();
+    super.dispose();
   }
 
   @override

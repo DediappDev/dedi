@@ -5,6 +5,7 @@ import 'package:fluffychat/data/model/federation_server/federation_configuration
 import 'package:fluffychat/data/model/federation_server/federation_server_information.dart';
 import 'package:fluffychat/domain/contact_manager/contacts_manager.dart';
 import 'package:fluffychat/domain/exception/federation_configuration_not_found.dart';
+import 'package:fluffychat/domain/exception/tom_configuration_not_found.dart';
 import 'package:fluffychat/domain/repository/federation_configurations_repository.dart';
 import 'package:fluffychat/domain/repository/user_info/user_info_repository.dart';
 import 'package:fluffychat/event/twake_event_types.dart';
@@ -775,7 +776,10 @@ class MatrixState extends State<Matrix>
     voipPlugin = webrtcIsSupported ? VoipPlugin(client) : null;
   }
 
-  Future<ToMConfigurations?> getTomConfigurations(String userID) async {
+  Future<ToMConfigurations?> getTomConfigurations(
+    String userID, {
+    Client? fallbackClient,
+  }) async {
     try {
       final tomConfigurationRepository =
           getIt.get<ToMConfigurationsRepository>();
@@ -783,6 +787,22 @@ class MatrixState extends State<Matrix>
           await tomConfigurationRepository.getTomConfigurations(userID);
       return toMConfigurations;
     } catch (e) {
+      if (e is ToMConfigurationNotFound) {
+        Logs().d(
+          'MatrixState::_getTomConfigurations: ToMConfigurationNotFound for $userID, rebuilding configuration',
+        );
+        final restoredConfiguration = await _tryRebuildToMConfigurations(
+          userID: userID,
+          sourceClient: fallbackClient ?? getClientByUserId(userID) ?? client,
+        );
+        if (restoredConfiguration != null) {
+          return restoredConfiguration;
+        }
+        Logs().w(
+          'MatrixState::_getTomConfigurations: could not rebuild ToM configuration for $userID',
+        );
+        return null;
+      }
       Logs().w('MatrixState::_getTomConfigurations: $e');
     }
     return null;
@@ -806,7 +826,10 @@ class MatrixState extends State<Matrix>
   void _retrieveLocalToMConfiguration() async {
     if (client.userID == null) return;
     try {
-      final toMConfigurations = await getTomConfigurations(client.userID!);
+      final toMConfigurations = await getTomConfigurations(
+        client.userID!,
+        fallbackClient: client,
+      );
       if (toMConfigurations == null) {
         _setupAuthUrl();
         return;
@@ -1046,9 +1069,12 @@ class MatrixState extends State<Matrix>
     Logs().d(
       'Matrix::_setUpToMServicesWhenChangingActiveClient: Old dediSupported - $dediSupported',
     );
-    if (client == null && client?.userID == null) return;
+    if (client?.userID == null) return;
     try {
-      final toMConfigurations = await getTomConfigurations(client!.userID!);
+      final toMConfigurations = await getTomConfigurations(
+        client!.userID!,
+        fallbackClient: client,
+      );
       Logs().d(
         'Matrix::_setUpToMServicesWhenChangingActiveClient: toMConfigurations - $toMConfigurations',
       );
@@ -1177,19 +1203,156 @@ class MatrixState extends State<Matrix>
   void _setupAuthUrl({
     String? url,
   }) {
-    if (url != null) {
+    final explicitUrl = url?.trim();
+    if (explicitUrl != null && explicitUrl.isNotEmpty) {
       Logs().d(
-        'Matrix::_setupAuthUrl: newAuthUrl - $url',
+        'Matrix::_setupAuthUrl: newAuthUrl - $explicitUrl',
       );
-      _authUrl = url;
-    } else {
-      final newAuthUrl = loginHomeserverSummary?.discoveryInformation
-          ?.additionalProperties["m.authentication"]?["issuer"];
+      _authUrl = explicitUrl;
+      return;
+    }
+
+    final newAuthUrl = _extractAuthIssuer(
+      loginHomeserverSummary?.discoveryInformation,
+    );
+    if (newAuthUrl != null) {
       Logs().d(
         'Matrix::_setupAuthUrl: newAuthUrl - $newAuthUrl',
       );
-      _authUrl = newAuthUrl is String ? newAuthUrl : url;
+      _authUrl = newAuthUrl;
+      return;
     }
+
+    if (_authUrl != null && _authUrl!.isNotEmpty) {
+      Logs().d(
+        'Matrix::_setupAuthUrl: keep existing authUrl - $_authUrl',
+      );
+      return;
+    }
+
+    Logs().d(
+      'Matrix::_setupAuthUrl: auth issuer is not provided by discovery',
+    );
+  }
+
+  Future<ToMConfigurations?> _tryRebuildToMConfigurations({
+    required String userID,
+    required Client sourceClient,
+  }) async {
+    if (sourceClient.userID == null) {
+      return null;
+    }
+
+    final rebuiltFromDiscovery =
+        await _buildToMConfigurationsFromDiscovery(sourceClient);
+    final rebuiltConfiguration =
+        rebuiltFromDiscovery ?? _buildDefaultToMConfigurations(sourceClient);
+    if (rebuiltConfiguration == null) {
+      return null;
+    }
+
+    await _storeToMConfiguration(sourceClient, rebuiltConfiguration);
+    Logs().d(
+      'MatrixState::_getTomConfigurations: rebuilt and stored ToM configuration for $userID using ${rebuiltFromDiscovery != null ? 'discovery' : 'default'} source',
+    );
+    return rebuiltConfiguration;
+  }
+
+  Future<ToMConfigurations?> _buildToMConfigurationsFromDiscovery(
+    Client sourceClient,
+  ) async {
+    try {
+      final discoveryInformation = await sourceClient.getWellknown();
+      final tomServer = _parseToMServerInformation(
+            discoveryInformation
+                .additionalProperties[ToMServerInformation.tomServerKey],
+          ) ??
+          _buildDefaultToMServerInformation();
+      if (tomServer == null) {
+        return null;
+      }
+      return ToMConfigurations(
+        tomServerInformation: tomServer,
+        identityServerInformation: discoveryInformation.mIdentityServer,
+        authUrl: _extractAuthIssuer(discoveryInformation) ?? _authUrl,
+        loginType: loginType,
+      );
+    } catch (e) {
+      Logs().d(
+        'MatrixState::_buildToMConfigurationsFromDiscovery: unable to read discovery information - $e',
+      );
+      return null;
+    }
+  }
+
+  ToMConfigurations? _buildDefaultToMConfigurations(Client sourceClient) {
+    final tomServer = _buildDefaultToMServerInformation();
+    if (tomServer == null) {
+      return null;
+    }
+
+    final homeserver = sourceClient.homeserver;
+    final identityServer = homeserver != null
+        ? IdentityServerInformation(baseUrl: homeserver)
+        : null;
+
+    return ToMConfigurations(
+      tomServerInformation: tomServer,
+      identityServerInformation: identityServer,
+      authUrl: _authUrl,
+      loginType: loginType,
+    );
+  }
+
+  ToMServerInformation? _parseToMServerInformation(dynamic json) {
+    if (json is Map) {
+      try {
+        return ToMServerInformation.fromJson(Map<String, dynamic>.from(json));
+      } catch (e) {
+        Logs().d(
+          'MatrixState::_parseToMServerInformation: failed to parse $json, error=$e',
+        );
+      }
+    } else if (json is String && json.isNotEmpty) {
+      final parsed = Uri.tryParse(json);
+      if (parsed != null) {
+        return ToMServerInformation(
+          baseUrl: parsed,
+          serverName: parsed.host.isNotEmpty ? parsed.host : null,
+        );
+      }
+    }
+    return null;
+  }
+
+  ToMServerInformation? _buildDefaultToMServerInformation() {
+    final configuredTomUrl = AppConfig.tomServerUrl.trim();
+    if (configuredTomUrl.isEmpty) {
+      return null;
+    }
+
+    final parsedTomUrl = Uri.tryParse(configuredTomUrl);
+    if (parsedTomUrl == null) {
+      Logs().w(
+        'MatrixState::_buildDefaultToMServerInformation: invalid AppConfig.tomServerUrl=$configuredTomUrl',
+      );
+      return null;
+    }
+
+    return ToMServerInformation(
+      baseUrl: parsedTomUrl,
+      serverName: parsedTomUrl.host.isNotEmpty ? parsedTomUrl.host : null,
+    );
+  }
+
+  String? _extractAuthIssuer(DiscoveryInformation? discoveryInformation) {
+    final authenticationSection =
+        discoveryInformation?.additionalProperties['m.authentication'];
+    final issuer = (authenticationSection as Map<Object?, Object?>?)?['issuer'];
+    if (issuer is String && issuer.trim().isNotEmpty) {
+      return issuer.trim();
+    }
+    return null;
   }
 
   Future<void> _deleteAllTomConfigurations() async {

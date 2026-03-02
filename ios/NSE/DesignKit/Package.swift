@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "DesignKit",
     platforms: [
-        .iOS(.v16)
+        .iOS(.v16),
+        .macOS(.v10_15)
     ],
     products: [
         .library(name: "DesignKit", targets: ["DesignKit"])

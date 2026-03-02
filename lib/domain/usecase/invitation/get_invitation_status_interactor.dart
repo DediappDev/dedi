@@ -5,6 +5,7 @@ import 'package:fluffychat/app_state/success.dart';
 import 'package:fluffychat/di/global/get_it_initializer.dart';
 import 'package:fluffychat/domain/app_state/invitation/get_invitation_status_state.dart';
 import 'package:fluffychat/domain/repository/invitation/invitation_repository.dart';
+import 'package:fluffychat/utils/dio_error_message_extractor.dart';
 import 'package:matrix/matrix.dart';
 
 class GetInvitationStatusInteractor {
@@ -45,7 +46,9 @@ class GetInvitationStatusInteractor {
           contactId: contactId,
           userId: userId,
           invitationId: invitationId,
-          message: e is DioException ? e.response?.data['message'] ?? '' : null,
+          message: e is DioException
+              ? DioErrorMessageExtractor.extractFromDio(e)
+              : null,
         ),
       );
     }

@@ -25,6 +25,7 @@ class UploadContentInBytesInteractor {
               FileTooBigMatrixException(fileSize, maxMediaSize),
             ),
           );
+          return;
         }
 
         if (matrixFile.bytes != null) {
@@ -45,6 +46,7 @@ class UploadContentInBytesInteractor {
         );
       }
     } catch (exception) {
+      Logs().e('UploadContentWebInteractor::execute() failed', exception);
       yield Left(UploadContentFailed(exception: exception));
     }
   }

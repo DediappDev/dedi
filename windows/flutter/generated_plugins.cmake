@@ -15,6 +15,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_avif_windows
   flutter_inappwebview_windows
   flutter_secure_storage_windows
+  flutter_webrtc
   gal
   irondash_engine_context
   media_kit_libs_windows_video

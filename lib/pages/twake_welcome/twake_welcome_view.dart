@@ -134,7 +134,7 @@ class DediWelcomeView extends StatelessWidget {
                 GestureDetector(
                   onTap: controller.onClickPrivacyPolicy,
                   child: Text(
-                    '${l10n.byContinuingYourAgreeingToOur} ${l10n.privacyPolicy}',
+                    '${l10n.byContinuingYourAgreeingToOur} ${l10n.privacyPolicy}',// TODO: add translation
                     style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 12,

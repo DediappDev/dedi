@@ -87,6 +87,16 @@ class AudioPlayerState extends State<AudioPlayerWidget>
     if (widget.event.isSending()) {
       return;
     }
+    if (widget.event.attachmentOrThumbnailMxcUrl() == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            L10n.of(context)!.audioMessageFailedToSend,
+          ),
+        ),
+      );
+      return;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ScaffoldMessenger.of(matrix.context).clearMaterialBanners();
     });
@@ -113,13 +123,23 @@ class AudioPlayerState extends State<AudioPlayerWidget>
       matrixFile = await widget.event.downloadAndDecryptAttachment();
 
       if (!kIsWeb) {
-        final tempDir = await getTemporaryDirectory();
-        final fileName = Uri.encodeComponent(
-          widget.event.attachmentOrThumbnailMxcUrl()!.pathSegments.last,
-        );
-        file = File('${tempDir.path}/${fileName}_${matrixFile.name}');
+        final existingPath = matrixFile.filePath;
+        if (existingPath != null &&
+            existingPath.isNotEmpty &&
+            await File(existingPath).exists()) {
+          file = File(existingPath);
+        } else {
+          if (matrixFile.bytes == null || matrixFile.bytes!.isEmpty) {
+            throw Exception('Audio file bytes are empty');
+          }
+          final tempDir = await getTemporaryDirectory();
+          final fileName = Uri.encodeComponent(
+            widget.event.attachmentOrThumbnailMxcUrl()!.pathSegments.last,
+          );
+          file = File('${tempDir.path}/${fileName}_${matrixFile.name}');
 
-        await file.writeAsBytes(matrixFile.bytes ?? []);
+          await file.writeAsBytes(matrixFile.bytes!);
+        }
 
         if (Platform.isIOS &&
             matrixFile.mimeType.toLowerCase() == 'audio/ogg') {
@@ -135,29 +155,32 @@ class AudioPlayerState extends State<AudioPlayerWidget>
           content: Text(e.toLocalizedString(context)),
         ),
       );
-      rethrow;
+      audioStatus.value = AudioPlayerStatus.notDownloaded;
+      matrix.voiceMessageEventId.value = null;
+      return;
     }
     if (!context.mounted) return;
     if (matrix.voiceMessageEventId.value != widget.event.eventId) return;
     final audioPlayer = matrix.audioPlayer = AudioPlayer();
 
     if (file != null) {
-      audioPlayer.setFilePath(file.path);
+      await audioPlayer.setFilePath(file.path);
     } else {
       await audioPlayer.setAudioSource(MatrixFileAudioSource(matrixFile));
     }
-
-    matrix.audioPlayer.play().onError((e, s) {
+    try {
+      await audioPlayer.seek(Duration.zero);
+      await audioPlayer.play();
+    } catch (e, s) {
       Logs().e('Could not play audio file', e, s);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            e?.toLocalizedString(context) ??
-                L10n.of(context)!.couldNotPlayAudioFile,
+            e.toLocalizedString(context),
           ),
         ),
       );
-    });
+    }
   }
 
   Future<File> handleOggAudioFileIniOS(File file) async {
@@ -201,8 +224,9 @@ class AudioPlayerState extends State<AudioPlayerWidget>
       );
 
       if (_calculatedWaveform.isEmpty) {
-        _calculatedWaveform.addAll(waveFromHeight);
-        audioStatus.value = AudioPlayerStatus.downloaded;
+        setState(() {
+          _calculatedWaveform.addAll(waveFromHeight);
+        });
       }
 
       if (matrix.voiceMessageEventId.value == widget.event.eventId) {
@@ -275,21 +299,7 @@ class AudioPlayerState extends State<AudioPlayerWidget>
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  if (fileName.isEmpty) ...[
-                                    Text(
-                                      fileName,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSurface,
-                                          ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ] else
+                                  if (_calculatedWaveform.isNotEmpty) ...[
                                     Row(
                                       children: List.generate(
                                         _calculatedWaveform.length,
@@ -303,6 +313,21 @@ class AudioPlayerState extends State<AudioPlayerWidget>
                                         },
                                       ),
                                     ),
+                                  ] else ...[
+                                    Text(
+                                      fileName,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                          ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
                                   const SizedBox(height: 8),
                                   _audioMessageTimeBuilder(
                                     duration: audioPlayer == null

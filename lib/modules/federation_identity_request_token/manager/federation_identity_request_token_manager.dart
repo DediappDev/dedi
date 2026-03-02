@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:fluffychat/app_state/failure.dart';
 import 'package:fluffychat/app_state/success.dart';
+import 'package:fluffychat/config/environment.dart';
 import 'package:fluffychat/data/network/dio_client.dart';
 import 'package:fluffychat/modules/federation_identity_request_token/data/datasource_impl/federation_identity_request_token_datasource_impl.dart';
 import 'package:fluffychat/modules/federation_identity_request_token/data/network/federation_identity_request_token_api.dart';
@@ -17,6 +18,9 @@ class FederationIdentityRequestTokenManager {
   DioClient _bindingDio({
     required FederationTokenRequest federationTokenRequest,
   }) {
+    final base = federationTokenRequest.homeserverUrl.isNotEmpty
+        ? federationTokenRequest.homeserverUrl
+        : Environment.identityServer;
     final headers = {
       HttpHeaders.acceptHeader:
           FederationIdentityRequestTokenEndpoint.acceptHeaderDefault,
@@ -28,7 +32,7 @@ class FederationIdentityRequestTokenManager {
 
     final dio = Dio(
       BaseOptions(
-        baseUrl: federationTokenRequest.homeserverUrl,
+        baseUrl: base,
         headers: headers,
       ),
     );
