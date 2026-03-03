@@ -231,3 +231,11 @@ github_config.json
 # tasks/ 
 reports
 test_driver
+# Local one-off cleanup artifacts
+analyze.py
+analyze_deep.py
+deep_report.md
+report.md
+generate_final_report.py
+ios/Runner.xcodeproj/project.pbxproj.bak.*
+macos/Runner.xcodeproj/project.pbxproj.bak.*
