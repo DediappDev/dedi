@@ -154,26 +154,15 @@ class DraftChatInputRow extends StatelessWidget {
                 }
                 stopRecording?.call();
               },
-              sendRequestFunction: (soundFile, time, waveFrom) async {
+              sendRequestFunction: (soundFile, time, waveFrom) {
                 Logs().d(
                   'ChatInputRowMobile:: sendRequestFunction $soundFile',
                 );
                 stopRecording?.call();
 
-                int? fileSize;
-                try {
-                  fileSize = await soundFile.length();
-                } catch (_) {
-                  fileSize = null;
-                }
-                final fileName = soundFile.uri.pathSegments.isNotEmpty
-                    ? soundFile.uri.pathSegments.last
-                    : soundFile.path;
                 final file = DediAudioFile(
-                  name: fileName,
-                  mimeType: 'audio/mp4',
+                  name: soundFile.path,
                   filePath: soundFile.path,
-                  sizeInBytes: fileSize,
                   duration: time.inMilliseconds,
                 );
                 sendVoiceMessageAction?.call(file, time, waveFrom);

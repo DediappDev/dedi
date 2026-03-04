@@ -620,7 +620,6 @@
 				5046FC052E71342000FB466C /* Resources */,
 				5046FC142E7136AC00FB466C /* xcode_backend embed_and_thin */,
 				FC14BD679395C3E3E1BDB060 /* [CP] Embed Pods Frameworks */,
-				4EA9CC7ACC9F518C8A66EF6C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -645,7 +644,6 @@
 				C1005C4D261071B5002F4F32 /* Embed App Extensions */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				13185B46FAEDB24B6783C95D /* [CP] Embed Pods Frameworks */,
-				46FC19C41E613AFAB3E280C8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -834,40 +832,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
-		};
-		46FC19C41E613AFAB3E280C8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4EA9CC7ACC9F518C8A66EF6C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner-RunnerUITests/Pods-Runner-RunnerUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		5046FC132E7136A000FB466C /* xcode_backend build */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1238,7 +1202,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
-				DEVELOPMENT_TEAM = N5NSBK846Z;
+				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1282,7 +1246,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
-				DEVELOPMENT_TEAM = N5NSBK846Z;
+				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1323,7 +1287,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
-				DEVELOPMENT_TEAM = N5NSBK846Z;
+				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1393,10 +1357,9 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1414,7 +1377,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
-				DEVELOPMENT_TEAM = N5NSBK846Z;
+				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1433,7 +1396,6 @@
 				MARKETING_VERSION = 0.32.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.dedi.ios.chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-					SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1455,7 +1417,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N5NSBK846Z;
+				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1486,7 +1448,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N5NSBK846Z;
+				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1516,7 +1478,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N5NSBK846Z;
+				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1582,10 +1544,9 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = auto;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1634,10 +1595,9 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1657,7 +1617,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
-				DEVELOPMENT_TEAM = N5NSBK846Z;
+				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1676,7 +1636,6 @@
 				MARKETING_VERSION = 0.32.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.dedi.ios.chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-					SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1697,7 +1656,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
-				DEVELOPMENT_TEAM = N5NSBK846Z;
+				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1716,7 +1675,6 @@
 				MARKETING_VERSION = 0.32.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.dedi.ios.chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-					SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1740,7 +1698,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
-				DEVELOPMENT_TEAM = N5NSBK846Z;
+				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1785,7 +1743,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
-				DEVELOPMENT_TEAM = N5NSBK846Z;
+				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1827,7 +1785,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				CUSTOM_GROUP_ID = group.app.dedi.ios.chat;
-				DEVELOPMENT_TEAM = N5NSBK846Z;
+				DEVELOPMENT_TEAM = 26H5FV8KAQ;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;

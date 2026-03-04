@@ -1,441 +1,405 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:fluffychat/config/environment.dart';
-import 'package:fluffychat/domain/exception/auth/otp_exceptions.dart';
-import 'package:fluffychat/services/models/otp_responses.dart';
-import 'package:fluffychat/utils/debug_toast_service.dart';
+import '../config/app_config.dart';
+import '../config/environment.dart';
+import '../utils/debug_toast_service.dart';
 
-const _otpBase = String.fromEnvironment(
-  'OTP_BASE',
-  defaultValue: 'https://tom.dedim.com.tr',
-);
-const _otpRequestEndpoint = '/otp/request';
-const _otpVerifyEndpoint = '/otp/verify';
-const _otpMatrixTokenEndpoint = '/otp/matrix-token';
-
-/// Service for handling OTP-based authentication with the backend
-///
-/// This service provides three main operations:
-/// 1. Request OTP code for a phone number
-/// 2. Verify OTP code and get JWT token
-/// 3. Exchange JWT for Matrix access token
-///
-/// Features:
-/// - Automatic retry with exponential backoff for network errors
-/// - Rate limit detection and handling
-/// - Structured error responses with specific exception types
-/// - Comprehensive debug logging
 class OTPApiService {
-  /// Maximum number of retry attempts for failed requests
-  static const int maxRetries = 3;
-
-  /// Initial delay before first retry
-  static const Duration initialRetryDelay = Duration(seconds: 1);
-
-  /// Request timeout duration
-  static const Duration requestTimeout = Duration(seconds: 15);
-
-  /// Builds a URI for the given endpoint
   static Uri _buildUri(String endpoint) {
-    final uri = Uri.parse('$_otpBase$endpoint');
+    final uri = Uri.parse('${AppConfig.otpApiBaseUrl}$endpoint');
 
+    // ✅ Enhanced debug logging for URL construction
     if (kDebugMode && Environment.enableDebugLogging) {
       debugPrint('🌐 OTPApiService: Building URI for DEDI Server:');
-      debugPrint('   - Base URL: $_otpBase');
+      debugPrint('   - Base URL: ${AppConfig.otpApiBaseUrl}');
       debugPrint('   - Endpoint: $endpoint');
       debugPrint('   - Full URI: $uri');
+      debugPrint('   - Scheme: ${uri.scheme}');
+      debugPrint('   - Host: ${uri.host}');
+      debugPrint('   - Path: ${uri.path}');
     }
 
     return uri;
   }
 
-  /// Request OTP code for a phone number
-  ///
-  /// Sends a POST request to /otp/request with the phone number.
-  /// In development mode, the response includes a dev_otp field for testing.
-  ///
-  /// Throws:
-  /// - [InvalidPhoneNumberException] if phone format is invalid
-  /// - [OTPRateLimitException] if too many requests
-  /// - [OTPNetworkException] if network error
-  /// - [OTPTimeoutException] if request times out
-  /// - [OTPRequestFailedException] for other errors
-  static Future<OTPRequestResponse> requestOTP(String phoneNumber) async {
-    if (kDebugMode && Environment.enableDebugLogging) {
-      debugPrint('📤 OTPApiService: Starting OTP request');
-      debugPrint('   - Phone (masked): ${_maskPhone(phoneNumber)}');
-      debugPrint('   - Timestamp: ${DateTime.now().toIso8601String()}');
-    }
+  static Future<Map<String, dynamic>> requestOTP(String phoneNumber) async {
+    try {
+      // ✅ Enhanced debug logging for OTP request
+      if (kDebugMode && Environment.enableDebugLogging) {
+        debugPrint('📤 OTPApiService: Starting OTP request to DEDI Server');
+        debugPrint('   - Operation: Request OTP');
+        debugPrint(
+            '   - Phone (masked): ${phoneNumber.substring(0, 4)}****${phoneNumber.substring(phoneNumber.length - 2)}');
+        debugPrint('   - Endpoint: ${AppConfig.otpRequestEndpoint}');
+        debugPrint('   - Base URL: ${AppConfig.otpApiBaseUrl}');
+        debugPrint('   - Timeout: 15 seconds');
+        debugPrint(
+            '   - Request timestamp: ${DateTime.now().toIso8601String()}');
+      }
 
-    return _executeWithRetry(() async {
+      final requestBody = jsonEncode({'phone': phoneNumber});
+      final uri = _buildUri(AppConfig.otpRequestEndpoint);
+
+      if (kDebugMode && Environment.enableDebugLogging) {
+        debugPrint('📋 OTPApiService: Request details:');
+        debugPrint('   - Method: POST');
+        debugPrint('   - Headers: Content-Type: application/json');
+        debugPrint('   - Body structure: {"phone": "***"}');
+        debugPrint('   - Full URL: $uri');
+      }
+
+      final response = await http
+          .post(
+        uri,
+        headers: {'Content-Type': 'application/json'},
+        body: requestBody,
+      )
+          .timeout(
+        const Duration(seconds: 15),
+        onTimeout: () {
+          if (kDebugMode && Environment.enableDebugLogging) {
+            debugPrint('⏰ OTPApiService: Request timeout after 15 seconds');
+          }
+          throw Exception('Request timeout');
+        },
+      );
+
+      // ✅ Enhanced debug logging for response
+      if (kDebugMode && Environment.enableDebugLogging) {
+        debugPrint('📥 OTPApiService: Received response from DEDI Server:');
+        debugPrint('   - Status Code: ${response.statusCode}');
+        debugPrint('   - Status Text: ${response.reasonPhrase ?? 'Unknown'}');
+        debugPrint('   - Response Headers: ${response.headers}');
+        debugPrint(
+            '   - Response Body Length: ${response.body.length} characters');
+        debugPrint(
+            '   - Response timestamp: ${DateTime.now().toIso8601String()}');
+
+        // Log response body with length limit for readability
+        if (response.body.length <= 500) {
+          debugPrint('   - Response Body: ${response.body}');
+        } else {
+          debugPrint(
+              '   - Response Body (truncated): ${response.body.substring(0, 500)}...');
+        }
+      }
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
+        return data;
+      }
+
+      // Parse error response
+      String errorMessage = 'Failed to request OTP';
       try {
-        final response = await http
-            .post(
-          _buildUri(_otpRequestEndpoint),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({'phone': phoneNumber}),
-        )
-            .timeout(
-          requestTimeout,
-          onTimeout: () {
-            if (kDebugMode) debugPrint('⏰ OTPApiService: Request timeout');
-            throw const OTPTimeoutException('Request timeout after 15 seconds');
-          },
+        final errorData = jsonDecode(response.body) as Map<String, dynamic>;
+        errorMessage = errorData['message'] as String? ??
+            errorData['error'] as String? ??
+            'Failed to request OTP (${response.statusCode})';
+      } catch (_) {
+        errorMessage = 'Failed to request OTP (${response.statusCode})';
+      }
+
+      // Show debug toast for server error
+      DebugToastService.showOTPError(
+        operation: 'Request',
+        error: errorMessage,
+        statusCode: response.statusCode,
+        responseBody: response.body,
+      );
+
+      throw Exception(errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('OTPApiService: Request OTP error: $e');
+      }
+
+      // Show debug toast for network/timeout errors
+      final errorStr = e.toString().toLowerCase();
+      if (errorStr.contains('timeout')) {
+        DebugToastService.showTimeoutError(
+          operation: 'OTP Request',
+          error: e.toString(),
+          timeoutSeconds: 15,
         );
-
-        if (kDebugMode && Environment.enableDebugLogging) {
-          debugPrint('📥 OTPApiService: Received response');
-          debugPrint('   - Status: ${response.statusCode}');
-          debugPrint('   - Body length: ${response.body.length} chars');
-        }
-
-        if (response.statusCode == 200 || response.statusCode == 201) {
-          final data = jsonDecode(response.body) as Map<String, dynamic>;
-          return OTPRequestResponse.fromJson(data);
-        }
-
-        throw _parseError(response);
-      } on SocketException catch (e) {
-        throw OTPNetworkException(
-          'Network error: ${e.message}',
+      } else if (errorStr.contains('network') ||
+          errorStr.contains('connection')) {
+        DebugToastService.showNetworkError(
+          operation: 'OTP Request',
+          error: e.toString(),
+          url: _buildUri(AppConfig.otpRequestEndpoint).toString(),
         );
-      } on TimeoutException catch (_) {
-        throw const OTPTimeoutException(
-          'Request timeout after 15 seconds',
+      } else {
+        DebugToastService.showOTPError(
+          operation: 'Request',
+          error: e.toString(),
         );
       }
-    }, operationName: 'OTP Request');
+
+      rethrow;
+    }
   }
 
-  /// Verify OTP code and get JWT token
-  ///
-  /// Sends a POST request to /otp/verify with phone number and code.
-  /// Returns a short-lived JWT token (valid for 5 minutes) that must be
-  /// exchanged for a Matrix token.
-  ///
-  /// Throws:
-  /// - [OTPInvalidException] if code is wrong
-  /// - [OTPExpiredException] if code has expired
-  /// - [OTPRateLimitException] if too many attempts
-  /// - [OTPNetworkException] if network error
-  /// - [OTPTimeoutException] if request times out
-  static Future<OTPVerifyResponse> verifyOTP(
+  static Future<Map<String, dynamic>> verifyOTP(
     String phoneNumber,
     String code,
   ) async {
-    if (kDebugMode && Environment.enableDebugLogging) {
-      debugPrint('🔐 OTPApiService: Starting OTP verification');
-      debugPrint('   - Phone (masked): ${_maskPhone(phoneNumber)}');
-      debugPrint('   - Code (masked): ${code.substring(0, 2)}****');
-      debugPrint('   - Timestamp: ${DateTime.now().toIso8601String()}');
-    }
+    try {
+      // ✅ Enhanced debug logging for OTP verification
+      if (kDebugMode && Environment.enableDebugLogging) {
+        debugPrint(
+            '🔐 OTPApiService: Starting OTP verification with DEDI Server');
+        debugPrint('   - Operation: Verify OTP');
+        debugPrint(
+            '   - Phone (masked): ${phoneNumber.substring(0, 4)}****${phoneNumber.substring(phoneNumber.length - 2)}');
+        debugPrint('   - Code (masked): ${code.substring(0, 2)}****');
+        debugPrint('   - Endpoint: ${AppConfig.otpVerifyEndpoint}');
+        debugPrint('   - Base URL: ${AppConfig.otpApiBaseUrl}');
+        debugPrint('   - Timeout: 15 seconds');
+        debugPrint(
+            '   - Request timestamp: ${DateTime.now().toIso8601String()}');
+      }
 
-    return _executeWithRetry(() async {
+      final requestBody = jsonEncode({
+        'phone': phoneNumber,
+        'code': code,
+      });
+      final uri = _buildUri(AppConfig.otpVerifyEndpoint);
+
+      if (kDebugMode && Environment.enableDebugLogging) {
+        debugPrint('📋 OTPApiService: Verification request details:');
+        debugPrint('   - Method: POST');
+        debugPrint('   - Headers: Content-Type: application/json');
+        debugPrint('   - Body structure: {"phone": "***", "code": "****"}');
+        debugPrint('   - Full URL: $uri');
+      }
+
+      final response = await http
+          .post(
+        uri,
+        headers: {'Content-Type': 'application/json'},
+        body: requestBody,
+      )
+          .timeout(
+        const Duration(seconds: 15),
+        onTimeout: () {
+          if (kDebugMode && Environment.enableDebugLogging) {
+            debugPrint(
+                '⏰ OTPApiService: Verification request timeout after 15 seconds');
+          }
+          throw Exception('Request timeout');
+        },
+      );
+
+      // ✅ Enhanced debug logging for response
+      if (kDebugMode && Environment.enableDebugLogging) {
+        debugPrint(
+            '📥 OTPApiService: Received verification response from DEDI Server:');
+        debugPrint('   - Status Code: ${response.statusCode}');
+        debugPrint('   - Status Text: ${response.reasonPhrase ?? 'Unknown'}');
+        debugPrint('   - Response Headers: ${response.headers}');
+        debugPrint(
+            '   - Response Body Length: ${response.body.length} characters');
+        debugPrint(
+            '   - Response timestamp: ${DateTime.now().toIso8601String()}');
+
+        // Log response body with length limit for readability
+        if (response.body.length <= 500) {
+          debugPrint('   - Response Body: ${response.body}');
+        } else {
+          debugPrint(
+              '   - Response Body (truncated): ${response.body.substring(0, 500)}...');
+        }
+      }
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
+        return data;
+      }
+
+      // Parse error response
+      String errorMessage = 'INVALID_OTP';
       try {
-        final response = await http
-            .post(
-          _buildUri(_otpVerifyEndpoint),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({'phone': phoneNumber, 'code': code}),
-        )
-            .timeout(
-          requestTimeout,
-          onTimeout: () {
-            if (kDebugMode) debugPrint('⏰ OTPApiService: Verification timeout');
-            throw const OTPTimeoutException(
-                'Verification timeout after 15 seconds');
-          },
+        final errorData = jsonDecode(response.body) as Map<String, dynamic>;
+        errorMessage = errorData['message'] as String? ??
+            errorData['error'] as String? ??
+            'Invalid OTP (${response.statusCode})';
+      } catch (_) {
+        errorMessage = 'Invalid OTP (${response.statusCode})';
+      }
+
+      // Show debug toast for server error
+      DebugToastService.showOTPError(
+        operation: 'Verification',
+        error: errorMessage,
+        statusCode: response.statusCode,
+        responseBody: response.body,
+      );
+
+      throw Exception(errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('OTPApiService: Verify OTP error: $e');
+      }
+
+      // Show debug toast for network/timeout errors
+      final errorStr = e.toString().toLowerCase();
+      if (errorStr.contains('timeout')) {
+        DebugToastService.showTimeoutError(
+          operation: 'OTP Verification',
+          error: e.toString(),
+          timeoutSeconds: 15,
         );
-
-        if (kDebugMode && Environment.enableDebugLogging) {
-          debugPrint('📥 OTPApiService: Received verification response');
-          debugPrint('   - Status: ${response.statusCode}');
-        }
-
-        if (response.statusCode == 200 || response.statusCode == 201) {
-          final data = jsonDecode(response.body) as Map<String, dynamic>;
-          return OTPVerifyResponse.fromJson(data);
-        }
-
-        throw _parseError(response);
-      } on SocketException catch (e) {
-        throw OTPNetworkException(
-          'Network error: ${e.message}',
+      } else if (errorStr.contains('network') ||
+          errorStr.contains('connection')) {
+        DebugToastService.showNetworkError(
+          operation: 'OTP Verification',
+          error: e.toString(),
+          url: _buildUri(AppConfig.otpVerifyEndpoint).toString(),
         );
-      } on TimeoutException catch (_) {
-        throw const OTPTimeoutException(
-          'Verification timeout after 15 seconds',
+      } else {
+        DebugToastService.showOTPError(
+          operation: 'Verification',
+          error: e.toString(),
         );
       }
-    }, operationName: 'OTP Verification');
+
+      rethrow;
+    }
   }
 
-  /// Exchange JWT token for Matrix access token
-  ///
-  /// Sends a POST request to /otp/matrix-token with the JWT from OTP verification.
-  /// Returns a permanent Matrix access token and connection details.
-  ///
-  /// Throws:
-  /// - [MatrixTokenException] if token exchange fails
-  /// - [OTPExpiredException] if JWT has expired
-  /// - [OTPNetworkException] if network error
-  /// - [OTPTimeoutException] if request times out
-  static Future<MatrixTokenResponse> getMatrixToken(
+  static Future<Map<String, dynamic>> getMatrixToken(
     String jwtToken,
     String phoneNumber,
   ) async {
-    if (kDebugMode && Environment.enableDebugLogging) {
-      debugPrint('🔑 OTPApiService: Starting Matrix token request');
-      debugPrint('   - Phone (masked): ${_maskPhone(phoneNumber)}');
-      debugPrint('   - JWT (masked): ${_maskToken(jwtToken)}');
-      debugPrint('   - Timestamp: ${DateTime.now().toIso8601String()}');
-    }
-
-    return _executeWithRetry(() async {
-      try {
-        var response = await http
-            .post(
-          _buildUri(_otpMatrixTokenEndpoint),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $jwtToken',
-          },
-          body: jsonEncode({'phone': phoneNumber}),
-        )
-            .timeout(
-          requestTimeout,
-          onTimeout: () {
-            if (kDebugMode) debugPrint('⏰ OTPApiService: Matrix token timeout');
-            throw const OTPTimeoutException(
-                'Token request timeout after 15 seconds');
-          },
-        );
-
-        if (response.statusCode == 401 || response.statusCode == 415) {
-          // Fallback payload for stricter servers
-          response = await http
-              .post(
-            _buildUri(_otpMatrixTokenEndpoint),
-            headers: {'Content-Type': 'application/json'},
-            body: jsonEncode({'phone': phoneNumber, 'jwt_token': jwtToken}),
-          )
-              .timeout(
-            requestTimeout,
-            onTimeout: () {
-              if (kDebugMode) {
-                debugPrint('⏰ OTPApiService: Matrix token timeout (fallback)');
-              }
-              throw const OTPTimeoutException(
-                  'Token request timeout after 15 seconds');
-            },
-          );
-        }
-
-        if (kDebugMode && Environment.enableDebugLogging) {
-          debugPrint('📥 OTPApiService: Received Matrix token response');
-          debugPrint('   - Status: ${response.statusCode}');
-          debugPrint('   - Body length: ${response.body.length} chars');
-        }
-
-        if (response.statusCode == 200 || response.statusCode == 201) {
-          final data = jsonDecode(response.body) as Map<String, dynamic>;
-          return MatrixTokenResponse.fromJson(data);
-        }
-
-        throw _parseError(response);
-      } on SocketException catch (e) {
-        throw OTPNetworkException(
-          'Network error: ${e.message}',
-        );
-      } on TimeoutException catch (_) {
-        throw const OTPTimeoutException(
-          'Token request timeout after 15 seconds',
-        );
-      }
-    }, operationName: 'Matrix Token');
-  }
-
-  /// Execute an operation with retry logic for network errors
-  ///
-  /// Retries the operation up to [maxRetries] times with exponential backoff.
-  /// Only retries on network/timeout errors, not on validation errors.
-  static Future<T> _executeWithRetry<T>(
-    Future<T> Function() operation, {
-    required String operationName,
-  }) async {
-    int attempt = 0;
-    Duration delay = initialRetryDelay;
-
-    while (true) {
-      try {
-        return await operation();
-      } on OTPException catch (e) {
-        attempt++;
-
-        // Don't retry on validation errors or rate limits
-        if (e is OTPInvalidException ||
-            e is InvalidPhoneNumberException ||
-            e is OTPRateLimitException ||
-            e is OTPExpiredException) {
-          if (kDebugMode) {
-            debugPrint('❌ $operationName failed (no retry): ${e.message}');
-          }
-          _showDebugToast(operationName, e);
-          rethrow;
-        }
-
-        // Retry on network/timeout errors
-        if (e is OTPNetworkException || e is OTPTimeoutException) {
-          if (attempt >= maxRetries) {
-            if (kDebugMode) {
-              debugPrint(
-                  '❌ $operationName failed after $maxRetries attempts: ${e.message}');
-            }
-            _showDebugToast(operationName, e);
-            rethrow;
-          }
-
-          if (kDebugMode) {
-            debugPrint(
-                '🔄 Retrying $operationName (attempt $attempt/$maxRetries) after ${delay.inSeconds}s');
-          }
-
-          await Future.delayed(delay);
-          delay *= 2; // Exponential backoff
-          continue;
-        }
-
-        // Other errors, rethrow
-        _showDebugToast(operationName, e);
-        rethrow;
-      } catch (e) {
-        if (kDebugMode) {
-          debugPrint('❌ $operationName unexpected error: $e');
-        }
-        rethrow;
-      }
-    }
-  }
-
-  /// Parse error response and return appropriate exception
-  static OTPException _parseError(http.Response response) {
-    // Check for rate limiting
-    if (response.statusCode == 429) {
-      final retryAfter =
-          int.tryParse(response.headers['retry-after'] ?? '60') ?? 60;
-      return OTPRateLimitException(
-        'Too many requests. Please wait $retryAfter seconds.',
-        retryAfterSeconds: retryAfter,
-        statusCode: response.statusCode,
-      );
-    }
-
-    // Try to parse error message from response body
-    String errorMessage = 'Request failed';
-    String? errorCode;
-
     try {
-      final errorData = jsonDecode(response.body) as Map<String, dynamic>;
-      errorMessage = errorData['message'] as String? ??
-          errorData['error'] as String? ??
-          'Request failed';
-      errorCode = errorData['error'] as String?;
-    } catch (_) {
-      // If JSON parsing fails, use default message
-    }
+      // ✅ Enhanced debug logging for Matrix token request
+      if (kDebugMode && Environment.enableDebugLogging) {
+        debugPrint(
+            '🔑 OTPApiService: Starting Matrix token request with DEDI Server');
+        debugPrint('   - Operation: Get Matrix Token');
+        debugPrint(
+            '   - Phone (masked): ${phoneNumber.substring(0, 4)}****${phoneNumber.substring(phoneNumber.length - 2)}');
+        debugPrint(
+            '   - JWT Token (masked): ${jwtToken.substring(0, 10)}...${jwtToken.substring(jwtToken.length - 10)}');
+        debugPrint('   - Endpoint: ${AppConfig.otpMatrixTokenEndpoint}');
+        debugPrint('   - Base URL: ${AppConfig.otpApiBaseUrl}');
+        debugPrint('   - Timeout: 15 seconds');
+        debugPrint(
+            '   - Request timestamp: ${DateTime.now().toIso8601String()}');
+      }
 
-    // Return appropriate exception based on status code
-    switch (response.statusCode) {
-      case 400:
-        if (errorCode == 'INVALID_PHONE') {
-          return InvalidPhoneNumberException(
-            errorMessage,
-            code: errorCode,
-            statusCode: response.statusCode,
-          );
+      final requestBody = jsonEncode({
+        'jwt_token': jwtToken,
+        'phone': phoneNumber,
+      });
+      final uri = _buildUri(AppConfig.otpMatrixTokenEndpoint);
+
+      if (kDebugMode && Environment.enableDebugLogging) {
+        debugPrint('📋 OTPApiService: Matrix token request details:');
+        debugPrint('   - Method: POST');
+        debugPrint(
+            '   - Headers: Content-Type: application/json, Authorization: Bearer ***');
+        debugPrint('   - Body structure: {"jwt_token": "***", "phone": "***"}');
+        debugPrint('   - Full URL: $uri');
+      }
+
+      final response = await http
+          .post(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $jwtToken',
+        },
+        body: requestBody,
+      )
+          .timeout(
+        const Duration(seconds: 15),
+        onTimeout: () {
+          if (kDebugMode && Environment.enableDebugLogging) {
+            debugPrint(
+                '⏰ OTPApiService: Matrix token request timeout after 15 seconds');
+          }
+          throw Exception('Request timeout');
+        },
+      );
+
+      // ✅ Enhanced debug logging for response
+      if (kDebugMode && Environment.enableDebugLogging) {
+        debugPrint(
+            '📥 OTPApiService: Received Matrix token response from DEDI Server:');
+        debugPrint('   - Status Code: ${response.statusCode}');
+        debugPrint('   - Status Text: ${response.reasonPhrase ?? 'Unknown'}');
+        debugPrint('   - Response Headers: ${response.headers}');
+        debugPrint(
+            '   - Response Body Length: ${response.body.length} characters');
+        debugPrint(
+            '   - Response timestamp: ${DateTime.now().toIso8601String()}');
+
+        // Log response body with length limit for readability
+        if (response.body.length <= 500) {
+          debugPrint('   - Response Body: ${response.body}');
+        } else {
+          debugPrint(
+              '   - Response Body (truncated): ${response.body.substring(0, 500)}...');
         }
-        return OTPInvalidException(
-          errorMessage,
-          code: errorCode,
-          statusCode: response.statusCode,
-        );
+      }
 
-      case 401:
-        if (errorCode == 'INVALID_CODE' ||
-            errorCode == 'EXPIRED_CODE' ||
-            errorMessage.toLowerCase().contains('expired')) {
-          return OTPExpiredException(
-            errorMessage,
-            code: errorCode,
-            statusCode: response.statusCode,
-          );
-        }
-        return OTPInvalidException(
-          errorMessage,
-          code: errorCode,
-          statusCode: response.statusCode,
-        );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
+        return data;
+      }
 
-      case 500:
-      case 502:
-      case 503:
-        return MatrixTokenException(
-          errorMessage,
-          code: errorCode,
-          statusCode: response.statusCode,
-        );
+      // Parse error response
+      String errorMessage = 'Failed to get Matrix token';
+      try {
+        final errorData = jsonDecode(response.body) as Map<String, dynamic>;
+        errorMessage = errorData['message'] as String? ??
+            errorData['error'] as String? ??
+            'Failed to get Matrix token (${response.statusCode})';
+      } catch (_) {
+        errorMessage = 'Failed to get Matrix token (${response.statusCode})';
+      }
 
-      default:
-        return OTPRequestFailedException(
-          errorMessage,
-          code: errorCode,
-          statusCode: response.statusCode,
-        );
-    }
-  }
-
-  /// Show debug toast for errors (if enabled)
-  static void _showDebugToast(String operation, OTPException error) {
-    if (error is OTPTimeoutException) {
-      DebugToastService.showTimeoutError(
-        operation: operation,
-        error: error.message,
-        timeoutSeconds: 15,
-      );
-    } else if (error is OTPNetworkException) {
-      DebugToastService.showNetworkError(
-        operation: operation,
-        error: error.message,
-        url: _otpBase,
-      );
-    } else if (error is OTPRateLimitException) {
+      // Show debug toast for server error
       DebugToastService.showOTPError(
-        operation: operation,
-        error: 'Rate limit: wait ${error.retryAfterSeconds}s',
-        statusCode: error.statusCode,
+        operation: 'Matrix Token',
+        error: errorMessage,
+        statusCode: response.statusCode,
+        responseBody: response.body,
       );
-    } else {
-      DebugToastService.showOTPError(
-        operation: operation,
-        error: error.message,
-        statusCode: error.statusCode,
-      );
+
+      throw Exception(errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('OTPApiService: Get Matrix token error: $e');
+      }
+
+      // Show debug toast for network/timeout errors
+      final errorStr = e.toString().toLowerCase();
+      if (errorStr.contains('timeout')) {
+        DebugToastService.showTimeoutError(
+          operation: 'Matrix Token',
+          error: e.toString(),
+          timeoutSeconds: 15,
+        );
+      } else if (errorStr.contains('network') ||
+          errorStr.contains('connection')) {
+        DebugToastService.showNetworkError(
+          operation: 'Matrix Token',
+          error: e.toString(),
+          url: _buildUri(AppConfig.otpMatrixTokenEndpoint).toString(),
+        );
+      } else {
+        DebugToastService.showOTPError(
+          operation: 'Matrix Token',
+          error: e.toString(),
+        );
+      }
+
+      rethrow;
     }
-  }
-
-  /// Mask phone number for logging (show first 4 and last 2 digits)
-  static String _maskPhone(String phone) {
-    if (phone.length < 6) return '***';
-    return '${phone.substring(0, 4)}****${phone.substring(phone.length - 2)}';
-  }
-
-  /// Mask token for logging (show first 10 and last 10 characters)
-  static String _maskToken(String token) {
-    if (token.length < 20) return '***';
-    return '${token.substring(0, 10)}...${token.substring(token.length - 10)}';
   }
 }

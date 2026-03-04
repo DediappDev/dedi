@@ -10,25 +10,19 @@ import 'package:fluffychat/presentation/model/contact/get_presentation_contacts_
 import 'package:fluffychat/presentation/model/contact/get_presentation_contacts_failure.dart';
 import 'package:fluffychat/presentation/model/contact/presentation_contact.dart';
 import 'package:fluffychat/presentation/model/contact/presentation_contact_success.dart';
-import 'package:fluffychat/presentation/model/search/presentation_search.dart';
 import 'package:fluffychat/utils/platform_infos.dart';
 import 'package:fluffychat/utils/responsive/responsive_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:fluffychat/pages/new_private_chat/widget/expansion_contact_list_tile.dart';
 import 'package:fluffychat/pages/new_private_chat/widget/no_contacts_found.dart';
-import 'package:fluffychat/pages/search/recent_item_widget.dart';
 import 'package:linagora_design_flutter/linagora_design_flutter.dart';
-import 'package:matrix/matrix.dart';
 
 class ExpansionList extends StatelessWidget {
   final ValueNotifierCustom<Either<Failure, Success>>
       presentationContactsNotifier;
   final ValueNotifierCustom<Either<Failure, Success>>
       presentationPhonebookContactNotifier;
-  final ValueNotifierCustom<List<PresentationSearch>>
-      presentationRecentContactNotifier;
-  final Client client;
   final Function() goToNewGroupChat;
   final Function(BuildContext context, PresentationContact contact)
       onExternalContactTap;
@@ -42,8 +36,6 @@ class ExpansionList extends StatelessWidget {
   const ExpansionList({
     super.key,
     required this.presentationContactsNotifier,
-    required this.presentationRecentContactNotifier,
-    required this.client,
     required this.goToNewGroupChat,
     required this.onExternalContactTap,
     required this.onContactTap,
@@ -59,52 +51,9 @@ class ExpansionList extends StatelessWidget {
     return Column(
       children: [
         ..._buildResponsiveButtons(context),
-        _recentContactsList(),
         _sliverContactsList(),
         if (PlatformInfos.isMobile) _sliverPhonebookList(),
       ],
-    );
-  }
-
-  Widget _recentContactsList() {
-    return ValueListenableBuilder(
-      valueListenable: presentationRecentContactNotifier,
-      builder: (context, recentContacts, child) {
-        if (recentContacts.isEmpty) return child!;
-
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 4.0),
-              child: Text(
-                L10n.of(context)!.recent,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: recentContacts.length,
-              itemBuilder: (context, index) {
-                final recent = recentContacts[index];
-                final presentationContact = recent.toPresentationContact();
-                if (presentationContact.matrixId == null ||
-                    presentationContact.matrixId!.isEmpty) {
-                  return const SizedBox.shrink();
-                }
-                return RecentItemWidget(
-                  presentationSearch: recent,
-                  highlightKeyword: textEditingController.text,
-                  client: client,
-                  onTap: () => onContactTap(context, presentationContact),
-                );
-              },
-            ),
-          ],
-        );
-      },
-      child: const SizedBox.shrink(),
     );
   }
 
@@ -114,9 +63,6 @@ class ExpansionList extends StatelessWidget {
       builder: (context, state, child) {
         return state.fold(
           (failure) {
-            if (presentationRecentContactNotifier.value.isNotEmpty) {
-              return child!;
-            }
             final textControllerIsEmpty = textEditingController.text.isEmpty;
             if (PlatformInfos.isWeb) {
               if (failure is GetPresentationContactsFailure ||
@@ -189,15 +135,7 @@ class ExpansionList extends StatelessWidget {
 
             if (success is PresentationContactsSuccess) {
               final contacts = success.contacts;
-              final matrixContacts = contacts
-                  .where(
-                    (contact) =>
-                        contact.matrixId != null &&
-                        contact.matrixId!.isNotEmpty,
-                  )
-                  .toList();
-              if (matrixContacts.isEmpty &&
-                  textEditingController.text.isNotEmpty) {
+              if (contacts.isEmpty && textEditingController.text.isNotEmpty) {
                 return NoContactsFound(
                   keyword: textEditingController.text.isEmpty
                       ? null
@@ -207,20 +145,24 @@ class ExpansionList extends StatelessWidget {
               return ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: matrixContacts.length,
+                itemCount: contacts.length,
                 itemBuilder: (context, index) {
-                  return DediInkWell(
-                    onTap: () {
-                      onContactTap(
-                        context,
-                        matrixContacts[index],
-                      );
-                    },
-                    child: ExpansionContactListTile(
-                      contact: matrixContacts[index],
-                      highlightKeyword: textEditingController.text,
-                    ),
-                  );
+                  if (contacts[index].matrixId != null &&
+                      contacts[index].matrixId!.isNotEmpty) {
+                    return DediInkWell(
+                      onTap: () {
+                        onContactTap(
+                          context,
+                          contacts[index],
+                        );
+                      },
+                      child: ExpansionContactListTile(
+                        contact: contacts[index],
+                        highlightKeyword: textEditingController.text,
+                      ),
+                    );
+                  }
+                  return child!;
                 },
               );
             }
@@ -243,30 +185,28 @@ class ExpansionList extends StatelessWidget {
           },
           (success) {
             if (success is PresentationContactsSuccess) {
-              final contacts = success.contacts
-                  .where(
-                    (contact) =>
-                        contact.matrixId != null &&
-                        contact.matrixId!.isNotEmpty,
-                  )
-                  .toList();
+              final contacts = success.contacts;
               return ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: contacts.length,
                 itemBuilder: (context, index) {
-                  return DediInkWell(
-                    onTap: () {
-                      onContactTap(
-                        context,
-                        contacts[index],
-                      );
-                    },
-                    child: ExpansionContactListTile(
-                      contact: contacts[index],
-                      highlightKeyword: textEditingController.text,
-                    ),
-                  );
+                  if (contacts[index].matrixId != null &&
+                      contacts[index].matrixId!.isNotEmpty) {
+                    return DediInkWell(
+                      onTap: () {
+                        onContactTap(
+                          context,
+                          contacts[index],
+                        );
+                      },
+                      child: ExpansionContactListTile(
+                        contact: contacts[index],
+                        highlightKeyword: textEditingController.text,
+                      ),
+                    );
+                  }
+                  return child!;
                 },
               );
             }

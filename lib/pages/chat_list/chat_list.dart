@@ -93,7 +93,6 @@ class ChatListController extends State<ChatList>
   final ScrollController scrollController = ScrollController();
 
   final StreamController<Client> _clientStream = StreamController.broadcast();
-  StreamSubscription<Client>? _activeClientChangedSubscription;
 
   String? activeSpaceId;
 
@@ -772,9 +771,8 @@ class ChatListController extends State<ChatList>
     if (newActiveClient != null && newActiveClient.userID != null) {
       setState(() {
         _clientStream.add(newActiveClient);
+        _handleRecovery();
       });
-      _handleRecovery();
-      unawaited(_waitForFirstSync());
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -783,15 +781,6 @@ class ChatListController extends State<ChatList>
   void initState() {
     activeRoomIdNotifier.value = widget.activeRoomIdNotifier.value;
     scrollController.addListener(_onScroll);
-    _activeClientChangedSubscription =
-        matrixState.onActiveClientChanged.stream.listen((newActiveClient) {
-      if (!mounted) return;
-      setState(() {
-        matrixState.waitForFirstSync = false;
-        _clientStream.add(newActiveClient);
-      });
-      unawaited(_waitForFirstSync());
-    });
     if (!matrixState.waitForFirstSync) {
       _trySync();
     }
@@ -870,8 +859,6 @@ class ChatListController extends State<ChatList>
   @override
   void dispose() {
     scrollController.removeListener(_onScroll);
-    _activeClientChangedSubscription?.cancel();
-    _clientStream.close();
     super.dispose();
   }
 

@@ -14,9 +14,8 @@ class LocalizationService {
   static const List<Locale> supportedLocales = <Locale>[
     Locale(LanguageCodeConstants.turkish),
     Locale(LanguageCodeConstants.english),
-    Locale(LanguageCodeConstants.arabic),
+    Locale(LanguageCodeConstants.vietnamese),
     Locale(LanguageCodeConstants.french),
-    Locale(LanguageCodeConstants.persian),
     Locale(LanguageCodeConstants.russian),
   ];
 

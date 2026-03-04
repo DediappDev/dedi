@@ -2907,6 +2907,12 @@
       "count": {}
     }
   },
+  "languageVietnamese": "Вьетнамский",
+  "@languageVietnamese": {
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
   "sendImages": "{count, plural, =1{Отправлено 1 изображение} other{Отправлены {count} изображений}}",
   "@sendImages": {},
   "activeNow": "Активен",

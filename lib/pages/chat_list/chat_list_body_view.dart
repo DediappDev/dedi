@@ -49,6 +49,7 @@ class ChatListBodyView extends StatelessWidget {
                   controller.activeSpaceId.toString(),
             ),
             stream: controller.activeClient.onSync.stream
+                .where((s) => s.hasRoomUpdate)
                 .rateLimit(const Duration(seconds: 1)),
             builder: (context, _) {
               if (controller.activeFilter == ActiveFilter.spaces) {
@@ -58,120 +59,122 @@ class ChatListBodyView extends StatelessWidget {
                   key: Key(controller.activeSpaceId ?? 'Spaces'),
                 );
               }
-              if (!controller.matrixState.waitForFirstSync) {
-                return const ChatListSkeletonizerWidget();
-              }
-
-              if (controller.chatListBodyIsEmpty) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: ChatListBodyViewStyle.paddingIconSkeletons,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            ImagePaths.icSkeletons,
-                          ),
-                        ],
+              if (controller.activeClient.prevBatch != null) {
+                if (controller.chatListBodyIsEmpty) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: ChatListBodyViewStyle.paddingIconSkeletons,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              ImagePaths.icSkeletons,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: ChatListBodyViewStyle.paddingOwnProfile,
-                      child: FutureBuilder<Profile?>(
-                        future: controller.activeClient
-                            .fetchOwnProfile(getFromRooms: false),
-                        builder: (context, snapshotProfile) {
-                          if (snapshotProfile.connectionState !=
-                              ConnectionState.done) {
-                            return const SizedBox();
-                          }
-                          final name =
-                              snapshotProfile.data?.displayName ?? '👋';
-                          return Column(
-                            children: [
-                              Text(
-                                L10n.of(context)!.welcomeToDedi(name),
-                                style: Theme.of(context).textTheme.titleLarge,
-                                textAlign: TextAlign.center,
-                              ),
-                              Padding(
-                                padding: ChatListBodyViewStyle
-                                    .paddingTextStartNewChatMessage,
-                                child: Text(
-                                  L10n.of(context)!.startNewChatMessage,
-                                  style: Theme.of(context).textTheme.bodyMedium,
+                      Padding(
+                        padding: ChatListBodyViewStyle.paddingOwnProfile,
+                        child: FutureBuilder<Profile?>(
+                          future: controller.activeClient
+                              .fetchOwnProfile(getFromRooms: false),
+                          builder: (context, snapshotProfile) {
+                            if (snapshotProfile.connectionState !=
+                                ConnectionState.done) {
+                              return const SizedBox();
+                            }
+                            final name =
+                                snapshotProfile.data?.displayName ?? '👋';
+                            return Column(
+                              children: [
+                                Text(
+                                  L10n.of(context)!.welcomeToDedi(name),
+                                  style: Theme.of(context).textTheme.titleLarge,
                                   textAlign: TextAlign.center,
                                 ),
-                              ),
-                            ],
-                          );
-                        },
+                                Padding(
+                                  padding: ChatListBodyViewStyle
+                                      .paddingTextStartNewChatMessage,
+                                  child: Text(
+                                    L10n.of(context)!.startNewChatMessage,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  );
+                }
+                return SingleChildScrollView(
+                  controller: controller.scrollController,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const ConnectionStatusHeader(),
+                      AnimatedContainer(
+                        height: ChatListBodyViewStyle.heightIsTorBrowser(
+                          controller.isTorBrowser,
+                        ),
+                        duration: DediThemes.animationDuration,
+                        curve: DediThemes.animationCurve,
+                        clipBehavior: Clip.hardEdge,
+                        decoration: const BoxDecoration(),
+                        child: Material(
+                          color: Theme.of(context).colorScheme.surface,
+                          child: ListTile(
+                            leading: const Icon(Icons.vpn_key),
+                            title: Text(L10n.of(context)!.dehydrateTor),
+                            subtitle: Text(L10n.of(context)!.dehydrateTorLong),
+                            trailing: const Icon(Icons.chevron_right_outlined),
+                            onTap: controller.dehydrate,
+                          ),
+                        ),
+                      ),
+                      if (!controller.filteredRoomsForPinIsEmpty)
+                        ValueListenableBuilder(
+                          valueListenable: controller.expandRoomsForPinNotifier,
+                          builder: (context, isExpanded, child) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                child!,
+                              ],
+                            );
+                          },
+                          child: ChatListViewBuilder(
+                            controller: controller,
+                            rooms: controller.filteredRoomsForPin,
+                          ),
+                        ),
+                      if (!controller.filteredRoomsForAllIsEmpty)
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ChatListViewBuilder(
+                              controller: controller,
+                              rooms: controller.filteredRoomsForAll,
+                            ),
+                          ],
+                        ),
+                    ],
+                  ),
                 );
               }
-
-              return SingleChildScrollView(
-                controller: controller.scrollController,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const ConnectionStatusHeader(),
-                    AnimatedContainer(
-                      height: ChatListBodyViewStyle.heightIsTorBrowser(
-                        controller.isTorBrowser,
-                      ),
-                      duration: DediThemes.animationDuration,
-                      curve: DediThemes.animationCurve,
-                      clipBehavior: Clip.hardEdge,
-                      decoration: const BoxDecoration(),
-                      child: Material(
-                        color: Theme.of(context).colorScheme.surface,
-                        child: ListTile(
-                          leading: const Icon(Icons.vpn_key),
-                          title: Text(L10n.of(context)!.dehydrateTor),
-                          subtitle: Text(L10n.of(context)!.dehydrateTorLong),
-                          trailing: const Icon(Icons.chevron_right_outlined),
-                          onTap: controller.dehydrate,
-                        ),
-                      ),
-                    ),
-                    if (!controller.filteredRoomsForPinIsEmpty)
-                      ValueListenableBuilder(
-                        valueListenable: controller.expandRoomsForPinNotifier,
-                        builder: (context, isExpanded, child) {
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              child!,
-                            ],
-                          );
-                        },
-                        child: ChatListViewBuilder(
-                          controller: controller,
-                          rooms: controller.filteredRoomsForPin,
-                        ),
-                      ),
-                    if (!controller.filteredRoomsForAllIsEmpty)
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ChatListViewBuilder(
-                            controller: controller,
-                            rooms: controller.filteredRoomsForAll,
-                          ),
-                        ],
-                      ),
-                  ],
-                ),
-              );
+              if (controller.matrixState.waitForFirstSync) {
+                return const ChatListSkeletonizerWidget();
+              }
+              return const SizedBox.shrink();
             },
           ),
         ),

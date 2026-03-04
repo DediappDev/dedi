@@ -2959,6 +2959,12 @@
     "placeholders_order": [],
     "placeholders": {}
   },
+  "languageVietnamese": "Tiếng Việt",
+  "@languageVietnamese": {
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
   "languageFrench": "Tiếng Pháp",
   "@languageFrench": {
     "type": "text",

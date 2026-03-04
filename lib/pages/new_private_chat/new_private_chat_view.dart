@@ -6,7 +6,6 @@ import 'package:fluffychat/widgets/app_bars/searchable_app_bar.dart';
 import 'package:fluffychat/widgets/app_bars/searchable_app_bar_style.dart';
 import 'package:fluffychat/widgets/contacts_warning_banner/contacts_warning_banner_view.dart';
 import 'package:fluffychat/widgets/phone_book_loading/phone_book_loading_view.dart';
-import 'package:fluffychat/widgets/matrix.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:linagora_design_flutter/colors/linagora_sys_colors.dart';
@@ -56,9 +55,6 @@ class NewPrivateChatView extends StatelessWidget {
                   controller.presentationContactNotifier,
               presentationPhonebookContactNotifier:
                   controller.presentationPhonebookContactNotifier,
-              presentationRecentContactNotifier:
-                  controller.presentationRecentContactNotifier,
-              client: Matrix.of(context).client,
               goToNewGroupChat: () => controller.goToNewGroupChat(context),
               onContactTap: controller.onContactAction,
               onExternalContactTap: controller.onExternalContactAction,

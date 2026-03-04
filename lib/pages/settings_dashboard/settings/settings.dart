@@ -163,21 +163,12 @@ class SettingsController extends State<Settings> with ConnectPageMixin {
   Client get client => Matrix.of(context).client;
 
   void _getCurrentProfile(Client client) async {
-    final userId = client.userID;
-    if (userId == null || userId.isEmpty) {
-      Logs().w(
-        'SettingsController::_getCurrentProfile() skipped: client has no userID',
-      );
-      return;
-    }
     final profile = await client.getProfileFromUserId(
-      userId,
-      cache: false,
+      client.userID!,
       getFromRooms: false,
     );
-    if (!mounted) return;
     Logs().d(
-      'Settings::_getCurrentProfile() - userId=${profile.userId} displayName=${profile.displayName} avatarUrl=${profile.avatarUrl}',
+      'Settings::_getCurrentProfile() - currentProfile: $profile',
     );
     avatarUriNotifier.value = profile.avatarUrl;
     displayNameNotifier.value = profile.displayName;
@@ -328,13 +319,12 @@ class SettingsController extends State<Settings> with ConnectPageMixin {
 
   Future<void> _deleteTomConfigurations(Client currentClient) async {
     try {
-      final userId = currentClient.userID;
-      if (userId == null || userId.isEmpty) return;
       Logs().d(
         'SettingsController::_deleteTomConfigurations - Client ID: ${currentClient.userID}',
       );
       if (matrix.dediSupported) {
-        await tomConfigurationRepository.deleteTomConfigurations(userId);
+        await tomConfigurationRepository
+            .deleteTomConfigurations(currentClient.userID!);
       }
       Logs().d(
         'SettingsController::_deleteTomConfigurations - Success',
@@ -348,14 +338,11 @@ class SettingsController extends State<Settings> with ConnectPageMixin {
 
   Future<void> _deleteFederationConfigurations(Client currentClient) async {
     try {
-      final userId = currentClient.userID;
-      if (userId == null || userId.isEmpty) return;
       Logs().d(
         'SettingsController::_deleteFederationConfigurations - Client ID: ${currentClient.userID}',
       );
-      await federationConfigurationsRepository.deleteFederationConfigurations(
-        userId,
-      );
+      await federationConfigurationsRepository
+          .deleteFederationConfigurations(currentClient.userID!);
       Logs().d(
         'SettingsController::_deleteFederationConfigurations - Success',
       );

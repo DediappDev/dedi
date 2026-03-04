@@ -2444,6 +2444,12 @@
   "@unsupportedAndroidVersionLong": {},
   "documents": "Doiciméid",
   "@documents": {},
+  "languageVietnamese": "Vítneaimis",
+  "@languageVietnamese": {
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
   "dehydrateShare": "Is é seo do onnmhairiú príobháideach FluffyChat. Cinntigh nach gcailleann tú é agus coinnigh príobháideach é.",
   "@dehydrateShare": {},
   "enterInviteLinkOrMatrixId": "Iontráil an nasc cuireadh nó Aitheantas Maitríse...",

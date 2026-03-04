@@ -40,7 +40,7 @@ enum DefaultPowerLevelMember {
   int get powerLevel {
     switch (this) {
       case DefaultPowerLevelMember.guest:
-        return -1;
+        return 0;
       case DefaultPowerLevelMember.member:
         return 10;
       case DefaultPowerLevelMember.moderator:

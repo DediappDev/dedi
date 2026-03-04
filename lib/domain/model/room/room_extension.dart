@@ -338,24 +338,6 @@ extension RoomExtension on Room {
   }
 
   bool get canReportContent => membership.isJoin;
-
-  bool get isCurrentUserReadOnlyException {
-    final powerLevelsContent = getState(EventTypes.RoomPowerLevels)?.content;
-    if (powerLevelsContent is! Map<String, dynamic>) return false;
-
-    final users = powerLevelsContent['users'];
-    if (users is! Map) return false;
-
-    final currentUserId = client.userID;
-    if (currentUserId == null || !users.containsKey(currentUserId)) {
-      return false;
-    }
-
-    final explicitPowerLevel = users[currentUserId];
-    if (explicitPowerLevel is! num) return false;
-
-    return explicitPowerLevel < DefaultPowerLevelMember.member.powerLevel;
-  }
 }
 
 extension SortByPowerLevel on List<User> {

@@ -46,19 +46,11 @@ class _DediHeaderState extends State<DediHeader>
   static ResponsiveUtils responsive = getIt.get<ResponsiveUtils>();
 
   void getCurrentProfile(Client client) async {
-    final userId = client.userID;
-    if (userId == null || userId.isEmpty) {
-      Logs().w(
-        'DediHeader::getCurrentProfile() skipped: client has no userID',
-      );
-      return;
-    }
     currentProfileNotifier.value = Profile(userId: '');
     final profile = await client.getProfileFromUserId(
-      userId,
+      widget.client.userID!,
       getFromRooms: false,
     );
-    if (!mounted) return;
     Logs().d(
       'ChatList::_getCurrentProfile() - currentProfile1: $profile',
     );

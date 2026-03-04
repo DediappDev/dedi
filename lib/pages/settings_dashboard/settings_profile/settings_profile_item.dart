@@ -73,11 +73,7 @@ class SettingsProfileItemBuilder extends StatelessWidget {
                               onChange!(value, settingsProfileEnum),
                           readOnly: isReadOnly,
                           autofocus: false,
-                          showCursor: !isReadOnly,
-                          enableInteractiveSelection: !isReadOnly,
-                          contextMenuBuilder: isReadOnly
-                              ? null
-                              : mobileDediContextMenuBuilder,
+                          contextMenuBuilder: mobileDediContextMenuBuilder,
                           focusNode: focusNode,
                           controller: textEditingController,
                           decoration: InputDecoration(

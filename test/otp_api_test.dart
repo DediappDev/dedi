@@ -7,21 +7,20 @@ void main() {
 
     test('Complete OTP flow using mock server', () async {
       final requestResponse = await OTPApiService.requestOTP(phoneNumber);
-      expect(requestResponse.status, equals('sent'));
-      expect(requestResponse.devOTP, isNotNull);
-      expect(RegExp(r'^\d{6}$').hasMatch(requestResponse.devOTP!), isTrue);
+      expect(requestResponse['status'], equals('sent'));
+      expect(requestResponse['dev_otp'], equals('123456'));
 
       final verifyResponse =
-          await OTPApiService.verifyOTP(phoneNumber, requestResponse.devOTP!);
-      expect(verifyResponse.userId, contains(phoneNumber.replaceAll('+', '')));
+          await OTPApiService.verifyOTP(phoneNumber, '123456');
+      expect(verifyResponse['user_id'], contains(phoneNumber.replaceAll('+', '')));
 
-      final jwtToken = verifyResponse.accessToken;
-      expect(jwtToken.isNotEmpty, isTrue);
+      final jwtToken = verifyResponse['access_token'] as String;
+      expect(jwtToken, startsWith('mock_jwt_'));
 
       final matrixResponse =
           await OTPApiService.getMatrixToken(jwtToken, phoneNumber);
-      expect(matrixResponse.userId, verifyResponse.userId);
-      expect(matrixResponse.accessToken.isNotEmpty, isTrue);
+      expect(matrixResponse['user_id'], verifyResponse['user_id']);
+      expect(matrixResponse['access_token'], startsWith('syt_'));
     });
   });
 }

@@ -3,51 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:provider/provider.dart';
-
-import 'package:fluffychat/pages/phone_auth/phone_input/phone_input_controller.dart';
+import 'package:fluffychat/services/otp_api_service.dart';
+import 'package:fluffychat/utils/debug_toast_service.dart';
+import 'package:fluffychat/config/app_config.dart';
 
 /// Modern phone input screen using intl_phone_field package
-///
-/// This screen uses [PhoneInputController] for state management,
-/// separating business logic from UI.
-class PhoneInputView extends StatelessWidget {
-  final String otpVerifyRoute;
-  final bool addAccountMode;
-
-  const PhoneInputView({
-    super.key,
-    this.otpVerifyRoute = '/otp-verify',
-    this.addAccountMode = false,
-  });
+/// Replaces the old basic TextField implementation
+class PhoneInputView extends StatefulWidget {
+  const PhoneInputView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => PhoneInputController(),
-      child: _PhoneInputViewBody(
-        otpVerifyRoute: otpVerifyRoute,
-        addAccountMode: addAccountMode,
-      ),
-    );
-  }
+  State<PhoneInputView> createState() => _PhoneInputViewState();
 }
 
-class _PhoneInputViewBody extends StatefulWidget {
-  final String otpVerifyRoute;
-  final bool addAccountMode;
-
-  const _PhoneInputViewBody({
-    required this.otpVerifyRoute,
-    required this.addAccountMode,
-  });
-
-  @override
-  State<_PhoneInputViewBody> createState() => _PhoneInputViewBodyState();
-}
-
-class _PhoneInputViewBodyState extends State<_PhoneInputViewBody> {
+class _PhoneInputViewState extends State<PhoneInputView> {
   final _phoneController = TextEditingController();
+  bool _isLoading = false;
+  String _errorMessage = '';
+  String _fullPhoneNumber = '';
+  bool _isValidNumber = false;
 
   @override
   void dispose() {
@@ -55,57 +29,67 @@ class _PhoneInputViewBodyState extends State<_PhoneInputViewBody> {
     super.dispose();
   }
 
-  Future<void> _handleSendOTP() async {
-    final controller = context.read<PhoneInputController>();
-    final response = await controller.sendOTP();
-
-    if (response != null && mounted) {
-      // Navigate to OTP verification with phone number and dev OTP
-      context.push(
-        widget.otpVerifyRoute,
-        extra: {
-          'phone': controller.state.phoneNumber,
-          'dev_otp': response.devOTP,
-          'add_account_mode': widget.addAccountMode,
-        },
-      );
-    }
-  }
-
-  void _handleCancelAddAccount() {
-    if (context.canPop()) {
-      context.pop();
+  Future<void> _sendOTP() async {
+    if (_fullPhoneNumber.isEmpty || !_isValidNumber) {
+      setState(() {
+        _errorMessage = L10n.of(context)!.pleaseEnterValidPhone;
+      });
       return;
     }
-    context.go('/rooms/profile');
+
+    setState(() {
+      _isLoading = true;
+      _errorMessage = '';
+    });
+
+    try {
+      final response = await OTPApiService.requestOTP(_fullPhoneNumber);
+
+      if (kDebugMode) {
+        debugPrint('OTP request success for $_fullPhoneNumber: $response');
+      }
+
+      if (mounted) {
+        // Navigate to OTP verification with phone number and dev OTP
+        context.push(
+          '/otp-verify',
+          extra: {
+            'phone': _fullPhoneNumber,
+            'dev_otp': response['dev_otp'] as String?,
+          },
+        );
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('OTP request error: $e');
+      }
+
+      // Show debug toast if enabled
+      if (AppConfig.enableDebugToasts) {
+        DebugToastService.showOTPError(
+          operation: 'Phone Input',
+          error: e.toString(),
+        );
+      }
+
+      setState(() {
+        _errorMessage = L10n.of(context)!.otpRequestFailed;
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final controller = context.watch<PhoneInputController>();
-    final state = controller.state;
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: widget.addAccountMode
-          ? AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              leading: IconButton(
-                icon: const Icon(Icons.close, color: Color(0xFF1D1D1D)),
-                onPressed: _handleCancelAddAccount,
-              ),
-              title: Text(
-                L10n.of(context)!.addAnotherAccount,
-                style: const TextStyle(
-                  color: Color(0xFF1D1D1D),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            )
-          : null,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
@@ -139,7 +123,7 @@ class _PhoneInputViewBodyState extends State<_PhoneInputViewBody> {
 
               const SizedBox(height: 32),
 
-              // Title: Sign In
+              // Title: Giriş Yap
               Text(
                 L10n.of(context)!.loginTitle,
                 style: const TextStyle(
@@ -151,7 +135,7 @@ class _PhoneInputViewBodyState extends State<_PhoneInputViewBody> {
 
               const SizedBox(height: 8),
 
-              // Subtitle: Welcome!
+              // Subtitle: Hoş geldiniz!
               Text(
                 L10n.of(context)!.welcomeMessage,
                 style: const TextStyle(
@@ -216,9 +200,7 @@ class _PhoneInputViewBodyState extends State<_PhoneInputViewBody> {
                     horizontal: 16,
                     vertical: 16,
                   ),
-                  errorText: state.errorMessage?.isNotEmpty == true
-                      ? state.errorMessage
-                      : null,
+                  errorText: _errorMessage.isNotEmpty ? _errorMessage : null,
                 ),
                 initialCountryCode: 'TR',
                 flagsButtonMargin: const EdgeInsets.only(left: 12),
@@ -230,10 +212,14 @@ class _PhoneInputViewBodyState extends State<_PhoneInputViewBody> {
                 showCountryFlag: true,
                 showDropdownIcon: true,
                 onChanged: (phone) {
-                  controller.updatePhoneNumber(
-                    phone.completeNumber,
-                    phone.number.isNotEmpty && phone.number.length >= 10,
-                  );
+                  setState(() {
+                    _fullPhoneNumber = phone.completeNumber;
+                    _isValidNumber =
+                        phone.number.isNotEmpty && phone.number.length >= 10;
+                    if (_errorMessage.isNotEmpty) {
+                      _errorMessage = '';
+                    }
+                  });
                 },
                 onCountryChanged: (country) {
                   if (kDebugMode) {
@@ -249,7 +235,7 @@ class _PhoneInputViewBodyState extends State<_PhoneInputViewBody> {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton(
-                  onPressed: state.isLoading ? null : _handleSendOTP,
+                  onPressed: _isLoading ? null : _sendOTP,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF2196F3),
                     foregroundColor: Colors.white,
@@ -260,7 +246,7 @@ class _PhoneInputViewBodyState extends State<_PhoneInputViewBody> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: state.isLoading
+                  child: _isLoading
                       ? const SizedBox(
                           width: 24,
                           height: 24,

@@ -34,14 +34,10 @@ mixin QuickRolePickerMixin on DediContextMenuMixin {
     BuildContext context, {
     required User user,
   }) {
-    final selectedRole =
-        DefaultPowerLevelMember.getDefaultPowerLevelByUsersDefault(
-      usersDefault: user.powerLevel,
-    );
     return quickRolePicker.map((action) {
       return ContextMenuAction(
         name: action.displayName(context),
-        icon: action == selectedRole ? Icons.check : null,
+        icon: action.powerLevel == user.powerLevel ? Icons.check : null,
         colorIcon: DediRefColors.material().neutral[30],
       );
     }).toList();
@@ -113,10 +109,6 @@ mixin QuickRolePickerMixin on DediContextMenuMixin {
     required User user,
     VoidCallback? onHandledResult,
   }) {
-    final selectedRole =
-        DefaultPowerLevelMember.getDefaultPowerLevelByUsersDefault(
-      usersDefault: user.powerLevel,
-    );
     return InkWell(
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
@@ -150,7 +142,7 @@ mixin QuickRolePickerMixin on DediContextMenuMixin {
                 ),
               ),
             ),
-            if (role == selectedRole)
+            if (role.powerLevel == user.powerLevel)
               SizedBox(
                 width: 36,
                 height: 36,

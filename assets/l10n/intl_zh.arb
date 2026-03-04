@@ -2729,6 +2729,12 @@
     "placeholders_order": [],
     "placeholders": {}
   },
+  "languageVietnamese": "越南语",
+  "@languageVietnamese": {
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
   "languageFrench": "法语",
   "@languageFrench": {
     "type": "text",

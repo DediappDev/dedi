@@ -149,7 +149,7 @@ class SettingsProfileView extends StatelessWidget {
                   ),
                   onImageLoaded: controller.updateMatrixFile,
                   currentProfile: controller.currentProfile,
-                  canEditAvatar: true,
+                  canEditAvatar: capabilities?.canEditAvatar == true,
                 );
               },
             ),
@@ -244,7 +244,7 @@ class SettingsProfileView extends StatelessWidget {
                     },
                     itemCount: controller.getListProfileBasicInfo.length,
                   ),
-                  canEditAvatar: true,
+                  canEditAvatar: capabilities?.canEditAvatar == true,
                 );
               },
             ),

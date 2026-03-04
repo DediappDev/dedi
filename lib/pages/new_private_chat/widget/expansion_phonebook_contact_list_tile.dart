@@ -72,7 +72,7 @@ class _ExpansionPhonebookContactListTileState
       widget.onContactTap?.call();
       return;
     }
-    if (client.userID == null || client.userID?.isEmpty == true) return;
+    if (client.userID == null && client.userID?.isEmpty == true) return;
     final result = await showAdaptiveBottomSheet<String?>(
       context: context,
       builder: (context) => ContactsInvitation(

@@ -2127,7 +2127,10 @@
     "placeholders": {}
   },
   "verify": "Verify",
-  "@verify": {},
+  "@verify": {
+    "type": "text",
+    "placeholders": {}
+  },
   "verifyStart": "Start Verification",
   "@verifyStart": {
     "type": "text",
@@ -2359,7 +2362,7 @@
   "@unsupportedAndroidVersionLong": {},
   "videoCallsBetaWarning": "Please note that video calls are currently in beta. They might not work as expected or work at all on all platforms.",
   "@videoCallsBetaWarning": {},
-  "experimentalVideoCalls": "Video calls",
+  "experimentalVideoCalls": "Experimental video calls",
   "@experimentalVideoCalls": {},
   "emailOrUsername": "Email or username",
   "@emailOrUsername": {},
@@ -2488,13 +2491,13 @@
   "@callingPermissions": {},
   "callingAccount": "Calling account",
   "@callingAccount": {},
-  "callingAccountDetails": "Allows Dedi to use native calling integration.",
+  "callingAccountDetails": "Allows FluffyChat to use the native android dialer app.",
   "@callingAccountDetails": {},
   "appearOnTop": "Appear on top",
   "@appearOnTop": {},
-  "appearOnTopDetails": "Allows the app to appear on top when call UI needs to be shown.",
+  "appearOnTopDetails": "Allows the app to appear on top (not needed if you already have Fluffychat setup as a calling account)",
   "@appearOnTopDetails": {},
-  "otherCallingPermissions": "Microphone, camera and other Dedi permissions",
+  "otherCallingPermissions": "Microphone, camera and other FluffyChat permissions",
   "@otherCallingPermissions": {},
   "whyIsThisMessageEncrypted": "Why is this message unreadable?",
   "@whyIsThisMessageEncrypted": {},
@@ -2935,6 +2938,12 @@
   "@fetchingPhonebookContacts": {},
   "languageEnglish": "English",
   "@languageEnglish": {
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
+  "languageVietnamese": "Vietnamese",
+  "@languageVietnamese": {
     "type": "text",
     "placeholders_order": [],
     "placeholders": {}
@@ -3454,22 +3463,8 @@
   "@codeSendFailed": {},
   "loginSuccess": "✅ Login successful!",
   "@loginSuccess": {},
+  "verify": "Verify",
+  "@verify": {},
   "seconds": "s",
-  "@seconds": {},
-  "rateLimitError": "Too many attempts. Please wait {seconds} seconds.",
-  "@rateLimitError": {
-    "type": "text",
-    "placeholders": {
-      "seconds": {}
-    }
-  },
-  "networkTimeoutError": "Request timed out. Please try again.",
-  "@networkTimeoutError": {},
-  "unknownServerError": "Server error. Please try again later.",
-  "@unknownServerError": {},
-  "tokenValidationFailed": "Login token validation failed. Please try again.",
-  "@tokenValidationFailed": {},
-  "languageTurkish": "Turkish",
-  "languageArabic": "Arabic",
-  "languagePersian": "Persian"
+  "@seconds": {}
 }

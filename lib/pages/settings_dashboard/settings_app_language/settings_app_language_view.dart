@@ -51,20 +51,9 @@ class SettingsAppLanguageView extends StatelessWidget {
               padding: SettingsAppLanguageViewStyle.paddingListItems,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                final locales = controller.supportedLocales;
-                if (index >= locales.length) {
-                  return const SizedBox.shrink();
-                }
                 return ValueListenableBuilder(
                   valueListenable: controller.currentLocale,
                   builder: (context, locale, child) {
-                    final localeOption = locales[index];
-                    final languageName =
-                        localeOption.getLanguageNameByCurrentLocale(context);
-                    final safeTitle = languageName.isNotEmpty
-                        ? languageName.capitalize()
-                        : localeOption.languageCode;
-                    final sourceName = localeOption.getSourceLanguageName();
                     return ListTile(
                       splashColor: Colors.transparent,
                       shape: RoundedRectangleBorder(
@@ -73,18 +62,21 @@ class SettingsAppLanguageView extends StatelessWidget {
                         ),
                       ),
                       title: Text(
-                        safeTitle,
+                        controller.supportedLocales[index]
+                            .getLanguageNameByCurrentLocale(context)
+                            .capitalize(),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       subtitle: Text(
-                        sourceName.isNotEmpty
-                            ? sourceName
-                            : localeOption.languageCode,
+                        controller.supportedLocales[index]
+                            .getSourceLanguageName(),
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               color: DediRefColors.material().neutral[40],
                             ),
                       ),
-                      trailing: localeOption.languageCode == locale.languageCode
+                      trailing: controller
+                                  .supportedLocales[index].languageCode ==
+                              locale.languageCode
                           ? Icon(
                               Icons.check,
                               color: Theme.of(context).colorScheme.secondary,
@@ -93,7 +85,7 @@ class SettingsAppLanguageView extends StatelessWidget {
                           : null,
                       onTap: () {
                         controller.changeLanguage(
-                          localeOption,
+                          controller.supportedLocales[index],
                         );
                       },
                     );

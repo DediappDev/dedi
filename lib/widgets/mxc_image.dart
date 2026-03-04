@@ -126,37 +126,6 @@ class _MxcImageState extends State<MxcImage> {
 
   bool? _isCached;
 
-  Uri? _buildAuthenticatedMediaUri(
-    Client client,
-    Uri mxcUri, {
-    required bool isThumbnail,
-    int? width,
-    int? height,
-    ThumbnailMethod method = ThumbnailMethod.scale,
-    bool animated = false,
-  }) {
-    final homeserver = client.homeserver;
-    if (homeserver == null) return null;
-    final serverName = mxcUri.host;
-    final mediaId =
-        mxcUri.pathSegments.isNotEmpty ? mxcUri.pathSegments.first : null;
-    if (serverName.isEmpty || mediaId == null || mediaId.isEmpty) {
-      return null;
-    }
-    final endpoint = isThumbnail ? 'thumbnail' : 'download';
-    final query = <String, String>{
-      if (isThumbnail && width != null) 'width': width.toString(),
-      if (isThumbnail && height != null) 'height': height.toString(),
-      if (isThumbnail) 'method': method.name,
-      if (isThumbnail && animated) 'animated': 'true',
-    };
-    return homeserver.replace(
-      path:
-          '/_matrix/client/v1/media/$endpoint/${Uri.encodeComponent(serverName)}/${Uri.encodeComponent(mediaId)}',
-      queryParameters: query.isEmpty ? null : query,
-    );
-  }
-
   Future<({Uint8List? imageData, String? filePath})> _load(
     BuildContext context,
   ) async {
@@ -193,37 +162,12 @@ class _MxcImageState extends State<MxcImage> {
         _isCached = false;
       }
 
-      var response = await http.get(httpUri);
-      if (response.statusCode != 200 && client.accessToken != null) {
-        final authenticatedUri = _buildAuthenticatedMediaUri(
-          client,
-          uri,
-          isThumbnail: widget.isThumbnail,
-          width: realWidth,
-          height: realHeight,
-          method: widget.thumbnailMethod,
-          animated: widget.animated,
-        );
-        if (authenticatedUri != null) {
-          final fallbackResponse = await http.get(
-            authenticatedUri,
-            headers: {
-              HttpHeaders.authorizationHeader: 'Bearer ${client.accessToken}',
-            },
-          );
-          Logs().d(
-            'MxcImage::_load() media fallback status primary=${response.statusCode}, auth=${fallbackResponse.statusCode}, uri=$authenticatedUri',
-          );
-          if (fallbackResponse.statusCode == 200) {
-            response = fallbackResponse;
-          }
-        }
-      }
+      final response = await http.get(httpUri);
       if (response.statusCode != 200) {
         if (response.statusCode == 404) {
           return (imageData: null, filePath: null);
         }
-        throw Exception('MxcImage http status ${response.statusCode}');
+        throw Exception();
       }
       final remoteData = response.bodyBytes;
 

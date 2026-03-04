@@ -99,10 +99,6 @@ class NewGroupChatInfoController extends State<NewGroupChatInfo>
   void createNewGroup({String? urlAvatar}) {
     final client = Matrix.of(context).client;
     final powerLevelManager = getIt.get<PowerLevelManager>();
-    final memberPowerLevel = powerLevelManager.getUserPowerLevel();
-    final adminPowerLevel = powerLevelManager.getAdminPowerLevel();
-    final creatorUserId = client.userID;
-
     createNewGroupChatAction(
       matrixClient: client,
       createNewGroupChatRequest: CreateNewGroupChatRequest(
@@ -114,16 +110,9 @@ class NewGroupChatInfoController extends State<NewGroupChatInfo>
         enableEncryption: enableEncryptionNotifier.value,
         urlAvatar: urlAvatar,
         powerLevelContentOverride: {
-          'users_default': memberPowerLevel,
-          'events_default': memberPowerLevel,
-          'state_default': adminPowerLevel,
           'events': powerLevelManager.getDefaultPowerLevelEventForMember(),
-          'invite': adminPowerLevel,
-          'kick': adminPowerLevel,
-          'ban': adminPowerLevel,
-          'redact': memberPowerLevel,
-          if (creatorUserId != null && creatorUserId.isNotEmpty)
-            'users': {creatorUserId: adminPowerLevel},
+          'invite': powerLevelManager.getAdminPowerLevel(),
+          'kick': powerLevelManager.getAdminPowerLevel(),
         },
       ),
     );

@@ -2396,6 +2396,12 @@
   },
   "contactInfo": "Información de contacto",
   "@contactInfo": {},
+  "languageVietnamese": "Vietnamita",
+  "@languageVietnamese": {
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
   "showMore": "Mostrar más",
   "@showMore": {},
   "welcomeTo": "Le damos la bienvenida a",
