@@ -13,14 +13,24 @@ import 'famedlysdk_store.dart';
 
 abstract class ClientManager {
   static const String clientNamespace = 'im.fluffychat.store.clients';
+
   static Future<List<Client>> getClients({bool initialize = true}) async {
     final clientNames = <String>{};
     try {
       final rawClientNames = await Store().getItem(clientNamespace);
       if (rawClientNames != null) {
-        final clientNamesList =
-            (jsonDecode(rawClientNames) as List).cast<String>();
-        clientNames.addAll(clientNamesList);
+        final decodedClientNames = jsonDecode(rawClientNames);
+        if (decodedClientNames is List) {
+          for (final name in decodedClientNames) {
+            if (name is String && name.trim().isNotEmpty) {
+              clientNames.add(name.trim());
+            }
+          }
+        } else {
+          throw const FormatException(
+            'Client namespace must be a JSON list',
+          );
+        }
       }
     } catch (e, s) {
       Logs().w('Client names in store are corrupted', e, s);
@@ -49,6 +59,12 @@ abstract class ClientManager {
           }),
         ),
       );
+
+      for (final client in clients) {
+        if (!_hasBrokenLoggedSession(client)) continue;
+        corruptedClientNames.add(client.clientName);
+        await client.clear().catchError((_, __) => null);
+      }
 
       if (corruptedClientNames.isNotEmpty) {
         clientNames.removeWhere(corruptedClientNames.contains);
@@ -80,29 +96,61 @@ abstract class ClientManager {
   static bool _isCorruptedClientStateError(Object error) {
     final message = error.toString().toLowerCase();
     return message.contains("type 'null' is not a subtype of type 'string'") ||
-        message.contains('no host specified in uri');
+        message.contains("type 'null' is not a subtype of type 'string?'") ||
+        message.contains('no host specified in uri') ||
+        message.contains('invalid argument(s): no host specified in uri');
+  }
+
+  static bool _hasBrokenLoggedSession(Client client) {
+    if (!client.isLogged()) return false;
+    final userId = client.userID;
+    final accessToken = client.accessToken;
+    final homeserver = client.homeserver;
+    final hasValidHomeserver = homeserver != null &&
+        homeserver.scheme.isNotEmpty &&
+        homeserver.host.isNotEmpty;
+    return userId == null ||
+        userId.isEmpty ||
+        accessToken == null ||
+        accessToken.isEmpty ||
+        !hasValidHomeserver;
   }
 
   static Future<void> addClientNameToStore(String clientName) async {
-    final clientNamesList = <String>[];
+    if (clientName.trim().isEmpty) return;
+    final clientNamesList = <String>{};
     final rawClientNames = await Store().getItem(clientNamespace);
     if (rawClientNames != null) {
-      final stored = (jsonDecode(rawClientNames) as List).cast<String>();
-      clientNamesList.addAll(stored);
+      final decoded = jsonDecode(rawClientNames);
+      if (decoded is List) {
+        for (final name in decoded) {
+          if (name is String && name.trim().isNotEmpty) {
+            clientNamesList.add(name.trim());
+          }
+        }
+      }
     }
-    clientNamesList.add(clientName);
-    await Store().setItem(clientNamespace, jsonEncode(clientNamesList));
+    clientNamesList.add(clientName.trim());
+    await Store()
+        .setItem(clientNamespace, jsonEncode(clientNamesList.toList()));
   }
 
   static Future<void> removeClientNameFromStore(String clientName) async {
-    final clientNamesList = <String>[];
+    final clientNamesList = <String>{};
     final rawClientNames = await Store().getItem(clientNamespace);
     if (rawClientNames != null) {
-      final stored = (jsonDecode(rawClientNames) as List).cast<String>();
-      clientNamesList.addAll(stored);
+      final decoded = jsonDecode(rawClientNames);
+      if (decoded is List) {
+        for (final name in decoded) {
+          if (name is String && name.trim().isNotEmpty) {
+            clientNamesList.add(name.trim());
+          }
+        }
+      }
     }
-    clientNamesList.remove(clientName);
-    await Store().setItem(clientNamespace, jsonEncode(clientNamesList));
+    clientNamesList.remove(clientName.trim());
+    await Store()
+        .setItem(clientNamespace, jsonEncode(clientNamesList.toList()));
   }
 
   static NativeImplementations get nativeImplementations => kIsWeb

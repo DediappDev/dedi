@@ -268,8 +268,6 @@ class FlutterHiveCollectionsDatabase extends HiveCollectionsDatabase {
         if (e.code == '-34018' || e.message?.contains('-34018') == true) {
           Logs().d(
             'KeychainSharingManager.delete() skipped on iOS simulator (-34018 entitlement)',
-            e,
-            s,
           );
         } else {
           Logs().w('KeychainSharingManager.delete() failed', e, s);
