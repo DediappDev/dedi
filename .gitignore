@@ -237,3 +237,11 @@ github_config.json
 # Local-only working copies (keep on disk, never track)
 reports/
 third_party/
+
+# Local private docs/artifacts restored from history
+TESTING_OTP_LOGIN.md
+WARP.md
+dedi_development_report.md
+docs/analysis/
+docs/reference/CLAUDE.md
+docs/status/TEMPORARY_PLUGIN_FIXES.md
