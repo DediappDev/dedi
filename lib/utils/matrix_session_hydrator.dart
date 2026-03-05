@@ -17,6 +17,7 @@ class MatrixSessionHydrator {
     required String accessToken,
     String? deviceId,
     bool verifyHomeserver = false,
+    bool startSync = true,
   }) async {
     final hs = Uri.parse(homeserverBaseUrl);
 
@@ -27,7 +28,8 @@ class MatrixSessionHydrator {
       } catch (e) {
         // Ignore malformed discovery on hydration path; we already trust the base URL.
         if (kDebugMode) {
-          Logs().w('MatrixSessionHydrator: checkHomeserver failed, continuing hydration anyway: $e');
+          Logs().w(
+              'MatrixSessionHydrator: checkHomeserver failed, continuing hydration anyway: $e');
         }
       }
     }
@@ -38,14 +40,18 @@ class MatrixSessionHydrator {
     client.accessToken = accessToken;
     // deviceId is not publicly settable; SDK will populate it from responses.
 
-    // Kick off background sync so timelines begin to populate.
-    client.backgroundSync = true;
-    client.syncPresence = null;
-    client.requestHistoryOnLimitedTimeline = true;
-    client.sync();
+    if (startSync) {
+      // Kick off background sync so timelines begin to populate.
+      client.backgroundSync = true;
+      client.syncPresence = null;
+      client.requestHistoryOnLimitedTimeline = true;
+      client.sync();
+    }
 
     if (kDebugMode) {
-      Logs().v('[Hydration] Background sync started');
+      Logs().v(
+        '[Hydration] ${startSync ? 'Background sync started' : 'Hydration completed without sync'}',
+      );
     }
 
     return client;

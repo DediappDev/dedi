@@ -30,6 +30,9 @@ class FederationIdentityRequestTokenManager {
       BaseOptions(
         baseUrl: federationTokenRequest.homeserverUrl,
         headers: headers,
+        connectTimeout: const Duration(seconds: 15),
+        sendTimeout: const Duration(seconds: 20),
+        receiveTimeout: const Duration(seconds: 20),
       ),
     );
 

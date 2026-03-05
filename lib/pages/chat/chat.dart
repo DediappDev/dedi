@@ -603,7 +603,7 @@ class ChatController extends State<Chat>
     scrollDown();
     showEmojiPickerNotifier.value = false;
 
-    if (room?.isCurrentUserReadOnlyException == true) {
+    if (room != null && !room!.canSendDefaultMessages) {
       DediSnackBar.show(
         context,
         L10n.of(context)!.noChatPermissionMessage,

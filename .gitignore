@@ -245,3 +245,8 @@ dedi_development_report.md
 docs/analysis/
 docs/reference/CLAUDE.md
 docs/status/TEMPORARY_PLUGIN_FIXES.md
+
+# Runtime dışı lokal artefactlar (release/push'a dahil etme)
+*.md
+!README.md
+!CHANGELOG.md

@@ -134,16 +134,27 @@ class AppAdaptiveScaffoldBodyController extends State<AppAdaptiveScaffoldBody>
     _handleProfileDataChange();
   }
 
-  void getCurrentProfile() async {
-    final profile =
-        await matrix.client.fetchOwnProfile(getFromRooms: false, cache: false);
-    currentProfileNotifier.value = profile;
+  Future<void> getCurrentProfile() async {
+    if (!mounted) return;
+    try {
+      final profile = await matrix.client.fetchOwnProfile(
+        getFromRooms: false,
+        cache: false,
+      );
+      if (!mounted) return;
+      currentProfileNotifier.value = profile;
+    } catch (e) {
+      Logs().e(
+        'AppAdaptiveScaffoldBodyController::getCurrentProfile() failed: $e',
+      );
+    }
   }
 
   void _handleProfileDataChange() {
     onAccountDataSubscription =
         matrix.client.onAccountData.stream.listen((event) {
       if (event.type == DediInappEventTypes.uploadAvatarEvent) {
+        if (!mounted) return;
         getCurrentProfile();
       }
     });
@@ -168,6 +179,7 @@ class AppAdaptiveScaffoldBodyController extends State<AppAdaptiveScaffoldBody>
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
         await matrix.retrievePersistedActiveClient();
+        if (!mounted) return;
         getCurrentProfile();
         _handleProfileDataChange();
       }
