@@ -6,8 +6,41 @@ on:
 name: Integration
 
 jobs:
+  preflight:
+    name: Integration preflight
+    runs-on: ubuntu-latest
+    outputs:
+      can_run: ${{ steps.check.outputs.can_run }}
+    steps:
+      - name: Check required secrets
+        id: check
+        env:
+          GOOGLE_CLOUD_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
+          GOOGLE_CLOUD_WORKLOAD_IDENTITY_PROVIDER_ID: ${{ secrets.GOOGLE_CLOUD_WORKLOAD_IDENTITY_PROVIDER_ID }}
+          GOOGLE_CLOUD_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_CLOUD_SERVICE_ACCOUNT }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          SERVER_URL: ${{ secrets.SERVER_URL }}
+        run: |
+          set -euo pipefail
+          missing=0
+          for key in GOOGLE_CLOUD_PROJECT_ID GOOGLE_CLOUD_WORKLOAD_IDENTITY_PROVIDER_ID GOOGLE_CLOUD_SERVICE_ACCOUNT USERNAME PASSWORD SERVER_URL; do
+            if [ -z "${!key:-}" ]; then
+              echo "::warning::Missing secret: $key"
+              missing=1
+            fi
+          done
+          if [ "$missing" -eq 0 ]; then
+            echo "can_run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "can_run=false" >> "$GITHUB_OUTPUT"
+            echo "Integration tests skipped because required secrets are missing."
+          fi
+
   integration_test:
     name: Integration Test
+    needs: preflight
+    if: ${{ needs.preflight.outputs.can_run == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       id-token: write

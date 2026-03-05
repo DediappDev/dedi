@@ -26,7 +26,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - uses: webfactory/ssh-agent@v0.9.0
+      - name: Setup SSH agent (optional)
+        if: ${{ secrets.SSH_KEY != '' }}
+        uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
@@ -53,7 +55,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push image
+      - name: Build and push image (with SSH)
+        if: ${{ secrets.SSH_KEY != '' }}
         uses: docker/build-push-action@v6
         with:
           push: true
@@ -66,6 +69,19 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           ssh: |
             default
+
+      - name: Build and push image (without SSH)
+        if: ${{ secrets.SSH_KEY == '' }}
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          platforms: "linux/amd64,linux/arm64"
+          cache-from: |
+            type=gha
+          cache-to: |
+            type=gha
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
   build_release_image:
     name: Build release image
@@ -80,7 +96,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - uses: webfactory/ssh-agent@v0.9.0
+      - name: Setup SSH agent (optional)
+        if: ${{ secrets.SSH_KEY != '' }}
+        uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
@@ -108,7 +126,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push image
+      - name: Build and push image (with SSH)
+        if: ${{ secrets.SSH_KEY != '' }}
         uses: docker/build-push-action@v6
         with:
           push: true
@@ -121,3 +140,16 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           ssh: |
             default
+
+      - name: Build and push image (without SSH)
+        if: ${{ secrets.SSH_KEY == '' }}
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          platforms: "linux/amd64,linux/arm64"
+          cache-from: |
+            type=gha
+          cache-to: |
+            type=gha
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
