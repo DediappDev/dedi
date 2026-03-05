@@ -233,3 +233,7 @@ github_config.json
 # Task files
 # tasks.json
 # tasks/ 
+
+# Local-only working copies (keep on disk, never track)
+reports/
+third_party/
