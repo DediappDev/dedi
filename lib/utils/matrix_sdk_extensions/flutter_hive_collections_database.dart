@@ -266,7 +266,7 @@ class FlutterHiveCollectionsDatabase extends HiveCollectionsDatabase {
         await KeychainSharingManager.delete(userId: null);
       } on PlatformException catch (e, s) {
         if (e.code == '-34018' || e.message?.contains('-34018') == true) {
-          Logs().w(
+          Logs().d(
             'KeychainSharingManager.delete() skipped on iOS simulator (-34018 entitlement)',
             e,
             s,

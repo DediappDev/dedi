@@ -32,18 +32,36 @@ abstract class ClientManager {
     }
     final clients = clientNames.map(createClient).toList();
     if (initialize) {
+      final corruptedClientNames = <String>{};
       await Future.wait(
         clients.map(
           (client) => client
               .init(
-                waitForFirstSync: false,
-                waitUntilLoadCompletedLoaded: false,
-              )
-              .catchError(
-                (e, s) => Logs().e('Unable to initialize client', e, s),
-              ),
+            waitForFirstSync: false,
+            waitUntilLoadCompletedLoaded: false,
+          )
+              .catchError((e, s) async {
+            Logs().e('Unable to initialize client', e, s);
+            if (_isCorruptedClientStateError(e)) {
+              corruptedClientNames.add(client.clientName);
+              await client.clear().catchError((_, __) => null);
+            }
+          }),
         ),
       );
+
+      if (corruptedClientNames.isNotEmpty) {
+        clientNames.removeWhere(corruptedClientNames.contains);
+        clients.removeWhere(
+          (client) => corruptedClientNames.contains(client.clientName),
+        );
+        if (clientNames.isEmpty) {
+          clientNames.add(PlatformInfos.clientName);
+          clients.add(createClient(PlatformInfos.clientName));
+        }
+        await Store()
+            .setItem(clientNamespace, jsonEncode(clientNames.toList()));
+      }
     }
     if (clients.length > 1 && clients.any((c) => !c.isLogged())) {
       final loggedOutClients = clients.where((c) => !c.isLogged()).toList();
@@ -57,6 +75,12 @@ abstract class ClientManager {
       await Store().setItem(clientNamespace, jsonEncode(clientNames.toList()));
     }
     return clients;
+  }
+
+  static bool _isCorruptedClientStateError(Object error) {
+    final message = error.toString().toLowerCase();
+    return message.contains("type 'null' is not a subtype of type 'string'") ||
+        message.contains('no host specified in uri');
   }
 
   static Future<void> addClientNameToStore(String clientName) async {

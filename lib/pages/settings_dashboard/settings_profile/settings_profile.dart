@@ -591,7 +591,7 @@ class SettingsProfileController extends State<SettingsProfile>
           homeserver.scheme.isNotEmpty &&
           homeserver.host.isNotEmpty;
       if (!hasValidSession) {
-        Logs().w(
+        Logs().d(
           'SettingsProfileController::getProfileBundles() - Skip invalid client ${client.clientName}',
         );
         continue;
