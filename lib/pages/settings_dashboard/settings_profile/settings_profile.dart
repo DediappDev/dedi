@@ -37,6 +37,7 @@ import 'package:fluffychat/widgets/mixins/on_account_data_listen_mixin.dart';
 import 'package:fluffychat/widgets/mixins/popup_context_menu_action_mixin.dart';
 import 'package:fluffychat/widgets/mixins/popup_menu_widget_mixin.dart';
 import 'package:fluffychat/widgets/mixins/popup_menu_widget_style.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -380,7 +381,7 @@ class SettingsProfileController extends State<SettingsProfile>
           DediDialog.hideLoadingDialog(context);
           DediSnackBar.show(
             context,
-            failure.exception.toString(),
+            _buildAvatarUploadErrorMessage(failure.exception),
           );
         } else if (failure is FileTooBigMatrix) {
           DediDialog.hideLoadingDialog(context);
@@ -404,6 +405,23 @@ class SettingsProfileController extends State<SettingsProfile>
         }
       },
     );
+  }
+
+  String _buildAvatarUploadErrorMessage(Object exception) {
+    if (exception is DioException) {
+      final responseError = exception.response?.data;
+      if (responseError is Map<String, dynamic>) {
+        final error = responseError['error']?.toString().trim();
+        if (error != null && error.isNotEmpty) {
+          return error;
+        }
+      }
+      final statusCode = exception.response?.statusCode;
+      if (statusCode != null) {
+        return '${L10n.of(context)!.failedToSendFiles} (HTTP $statusCode)';
+      }
+    }
+    return L10n.of(context)!.failedToSendFiles;
   }
 
   void _uploadProfile({

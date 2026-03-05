@@ -31,7 +31,7 @@ class MediaAPI {
           .generateHomeserverMediaEndpoint(),
       data: fileInfo.readStream ?? File(fileInfo.filePath).openRead(),
       queryParameters: {
-        'fileName': fileInfo.fileName,
+        'filename': fileInfo.fileName,
       },
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
@@ -61,7 +61,7 @@ class MediaAPI {
           .generateHomeserverMediaEndpoint(),
       data: file.bytes,
       queryParameters: {
-        'fileName': file.name,
+        'filename': file.name,
       },
       onSendProgress: onSendProgress,
       cancelToken: cancelToken,
