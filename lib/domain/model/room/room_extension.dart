@@ -188,9 +188,13 @@ extension RoomExtension on Room {
                   : b;
             });
 
-      if (lastEventAvailableInPreview == null ||
-          lastEventAvailableInPreview.shouldHideRedactedEvent() ||
-          lastEventAvailableInPreview.shouldHideBannedEvent()) {
+      final timelineLastEvent = _sanitizePreviewEvent(lastEvent);
+      lastEventAvailableInPreview = _pickNewestPreviewEvent(
+        _sanitizePreviewEvent(lastEventAvailableInPreview),
+        timelineLastEvent,
+      );
+
+      if (lastEventAvailableInPreview == null) {
         final lastState = _getLastestRoomState();
 
         if (lastState == null) return null;
@@ -202,15 +206,22 @@ extension RoomExtension on Room {
           return lastState;
         }
 
+        Event? newestTimelineEvent;
         for (final messageEvent in messageEvents) {
-          if (messageEvent.shouldHideRedactedEvent()) continue;
-          if (messageEvent.shouldHideBannedEvent()) continue;
+          final sanitizedEvent = _sanitizePreviewEvent(messageEvent);
+          if (sanitizedEvent == null) continue;
+          newestTimelineEvent = _pickNewestPreviewEvent(
+            newestTimelineEvent,
+            sanitizedEvent,
+          );
+        }
 
-          if (messageEvent.originServerTs.millisecondsSinceEpoch >
-              lastState.originServerTs.millisecondsSinceEpoch) {
-            lastEventAvailableInPreview = messageEvent;
-            break;
-          }
+        lastEventAvailableInPreview = _pickNewestPreviewEvent(
+          lastState,
+          newestTimelineEvent,
+        );
+        if (lastEventAvailableInPreview == null) {
+          return null;
         }
       }
     } catch (e) {
@@ -219,6 +230,24 @@ extension RoomExtension on Room {
     }
 
     return lastEventAvailableInPreview;
+  }
+
+  Event? _sanitizePreviewEvent(Event? event) {
+    if (event == null) return null;
+    if (event.shouldHideRedactedEvent()) return null;
+    if (event.shouldHideBannedEvent()) return null;
+    return event;
+  }
+
+  Event? _pickNewestPreviewEvent(Event? left, Event? right) {
+    final first = _sanitizePreviewEvent(left);
+    final second = _sanitizePreviewEvent(right);
+    if (first == null) return second;
+    if (second == null) return first;
+    return first.originServerTs.millisecondsSinceEpoch >=
+            second.originServerTs.millisecondsSinceEpoch
+        ? first
+        : second;
   }
 
   Event? _getLastestRoomState() {

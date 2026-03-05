@@ -9,6 +9,7 @@ import 'package:fluffychat/pages/settings_dashboard/settings_profile/settings_pr
 import 'package:fluffychat/presentation/model/settings/settings_profile_presentation.dart';
 import 'package:fluffychat/utils/responsive/responsive_utils.dart';
 import 'package:fluffychat/widgets/app_bars/twake_app_bar.dart';
+import 'package:fluffychat/widgets/matrix.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -35,6 +36,11 @@ class SettingsProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final responsive = getIt.get<ResponsiveUtils>();
+    final matrix = Matrix.of(context);
+    final canEditDisplayName =
+        matrix.dediSupported || capabilities?.canEditDisplayName == true;
+    final canEditAvatar =
+        matrix.dediSupported || capabilities?.canEditAvatar == true;
     return Scaffold(
       appBar: DediAppBar(
         title: L10n.of(context)!.profile,
@@ -138,8 +144,7 @@ class SettingsProfileView extends StatelessWidget {
                         onCopyAction: () => controller.copyEventsAction(
                           controller.getListProfileMobile[index],
                         ),
-                        canEditDisplayName:
-                            capabilities?.canEditDisplayName == true,
+                        canEditDisplayName: canEditDisplayName,
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -149,7 +154,7 @@ class SettingsProfileView extends StatelessWidget {
                   ),
                   onImageLoaded: controller.updateMatrixFile,
                   currentProfile: controller.currentProfile,
-                  canEditAvatar: capabilities?.canEditAvatar == true,
+                  canEditAvatar: canEditAvatar,
                 );
               },
             ),
@@ -192,8 +197,7 @@ class SettingsProfileView extends StatelessWidget {
                           controller
                               .handleTextEditOnChange(settingsProfileEnum);
                         },
-                        canEditDisplayName:
-                            capabilities?.canEditDisplayName == true,
+                        canEditDisplayName: canEditDisplayName,
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -235,8 +239,7 @@ class SettingsProfileView extends StatelessWidget {
                         onCopyAction: () => controller.copyEventsAction(
                           controller.getListProfileWorkIdentitiesInfo[index],
                         ),
-                        canEditDisplayName:
-                            capabilities?.canEditDisplayName == true,
+                        canEditDisplayName: canEditDisplayName,
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -244,7 +247,7 @@ class SettingsProfileView extends StatelessWidget {
                     },
                     itemCount: controller.getListProfileBasicInfo.length,
                   ),
-                  canEditAvatar: capabilities?.canEditAvatar == true,
+                  canEditAvatar: canEditAvatar,
                 );
               },
             ),
