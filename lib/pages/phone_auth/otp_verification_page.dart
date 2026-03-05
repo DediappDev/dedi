@@ -186,6 +186,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
         verifyHomeserver: false,
       );
       matrixState.setUpAuthorization(client);
+      await matrixState.setActiveClient(client);
 
       // 4) Validate token
       // TODO: Re-enable after backend implements proper token generation with Synapse admin API
@@ -212,6 +213,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
           homeserver: homeserverUrl,
           deviceId: deviceId,
         ),
+        clientName: client.clientName,
       );
 
       // 6) Update AuthState and navigate

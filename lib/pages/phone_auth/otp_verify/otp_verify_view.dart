@@ -204,6 +204,7 @@ class _OTPVerifyViewState extends State<OTPVerifyView> {
 
       // Keep app-level authorization interceptor in sync
       matrixState.setUpAuthorization(client);
+      await matrixState.setActiveClient(client);
 
       // 4) Optional token validation to catch M_UNKNOWN_TOKEN early
       // TODO: Re-enable after backend implements proper token generation with Synapse admin API
@@ -233,6 +234,7 @@ class _OTPVerifyViewState extends State<OTPVerifyView> {
           homeserver: homeserverUrl,
           deviceId: deviceId,
         ),
+        clientName: client.clientName,
       );
 
       // 6) Update AuthState and navigate

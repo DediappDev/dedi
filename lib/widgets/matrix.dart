@@ -808,6 +808,8 @@ class MatrixState extends State<Matrix>
     try {
       final toMConfigurations = await getTomConfigurations(client.userID!);
       if (toMConfigurations == null) {
+        _setUpHomeServerIfAvailable(client);
+        setUpAuthorization(client);
         _setupAuthUrl();
         return;
       }
@@ -968,6 +970,14 @@ class MatrixState extends State<Matrix>
     tomServerUrlInterceptor.changeBaseUrl(nextTomBaseUrl);
   }
 
+  void _setUpHomeServerIfAvailable(Client targetClient) {
+    final uri = targetClient.homeserver;
+    if (uri == null || uri.scheme.isEmpty || uri.host.isEmpty) {
+      return;
+    }
+    _setUpHomeServer(uri);
+  }
+
   void _setUpHomeServer(Uri homeServerUri) {
     final homeServerUrlInterceptor = getIt.get<DynamicUrlInterceptors>(
       instanceName: NetworkDI.homeServerUrlInterceptorName,
@@ -1054,6 +1064,7 @@ class MatrixState extends State<Matrix>
       );
       if (toMConfigurations == null) {
         _setUpToMServer(null);
+        _setUpHomeServerIfAvailable(client);
         _setupAuthUrl();
         setUpAuthorization(client);
       } else {
@@ -1065,8 +1076,9 @@ class MatrixState extends State<Matrix>
       }
     } catch (e) {
       _setUpToMServer(null);
+      _setUpHomeServerIfAvailable(client!);
       _setupAuthUrl();
-      setUpAuthorization(client!);
+      setUpAuthorization(client);
       Logs().e('Matrix::_setUpToMServicesWhenChangingActiveClient: error - $e');
     }
     Logs().d(

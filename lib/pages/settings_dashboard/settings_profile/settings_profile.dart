@@ -579,30 +579,46 @@ class SettingsProfileController extends State<SettingsProfile>
   }
 
   Future<List<ClientProfilePresentation?>> _getClientProfiles() async {
-    try {
-      final profiles = await Future.wait(
-        (await ClientManager.getClients()).map((client) async {
-          final profileBundle = await client.fetchOwnProfile();
-          Logs().d(
-            'SettingsProfileController::getProfileBundles() - ClientName - ${client.clientName}',
-          );
-          Logs().d(
-            'SettingsProfileController::getProfileBundles() - UserId - ${client.userID}',
-          );
-          return ClientProfilePresentation(
+    final clients = await ClientManager.getClients();
+    final profiles = <ClientProfilePresentation?>[];
+
+    for (final client in clients) {
+      final homeserver = client.homeserver;
+      final hasValidSession = client.isLogged() &&
+          client.userID != null &&
+          client.userID!.isNotEmpty &&
+          homeserver != null &&
+          homeserver.scheme.isNotEmpty &&
+          homeserver.host.isNotEmpty;
+      if (!hasValidSession) {
+        Logs().w(
+          'SettingsProfileController::getProfileBundles() - Skip invalid client ${client.clientName}',
+        );
+        continue;
+      }
+      try {
+        final profileBundle = await client.fetchOwnProfile();
+        Logs().d(
+          'SettingsProfileController::getProfileBundles() - ClientName - ${client.clientName}',
+        );
+        Logs().d(
+          'SettingsProfileController::getProfileBundles() - UserId - ${client.userID}',
+        );
+        profiles.add(
+          ClientProfilePresentation(
             profile: profileBundle,
             client: client,
-          );
-        }),
-      );
-
-      return profiles.toList();
-    } catch (e) {
-      Logs().e(
-        'SettingsProfileController::getProfileBundles() - Error: $e',
-      );
-      rethrow;
+          ),
+        );
+      } catch (e, s) {
+        Logs().e(
+          'SettingsProfileController::getProfileBundles() - Skip client ${client.clientName}: $e',
+          e,
+          s,
+        );
+      }
     }
+    return profiles;
   }
 
   void onBottomButtonTap({

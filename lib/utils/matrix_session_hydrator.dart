@@ -20,6 +20,11 @@ class MatrixSessionHydrator {
     bool startSync = true,
   }) async {
     final hs = Uri.parse(homeserverBaseUrl);
+    if (hs.scheme.isEmpty || hs.host.isEmpty) {
+      throw ArgumentError(
+        'homeserverBaseUrl must be absolute (scheme + host): $homeserverBaseUrl',
+      );
+    }
 
     // Optionally verify homeserver discovery (can throw if .well-known is HTML)
     if (verifyHomeserver) {
@@ -36,7 +41,8 @@ class MatrixSessionHydrator {
 
     // Assign session fields directly; no /login calls.
     client.homeserver = hs;
-    // userId will be learned from whoami/sync; no public setter.
+    // Keep userId available before first sync events arrive.
+    client.setUserId(userId);
     client.accessToken = accessToken;
     // deviceId is not publicly settable; SDK will populate it from responses.
 

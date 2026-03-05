@@ -262,7 +262,21 @@ class FlutterHiveCollectionsDatabase extends HiveCollectionsDatabase {
   Future<void> clear({bool supportDeleteCollections = false}) async {
     if (PlatformInfos.isIOS) {
       // TODO: Should pass userId here when support multiple accounts
-      await KeychainSharingManager.delete(userId: null);
+      try {
+        await KeychainSharingManager.delete(userId: null);
+      } on PlatformException catch (e, s) {
+        if (e.code == '-34018' || e.message?.contains('-34018') == true) {
+          Logs().w(
+            'KeychainSharingManager.delete() skipped on iOS simulator (-34018 entitlement)',
+            e,
+            s,
+          );
+        } else {
+          Logs().w('KeychainSharingManager.delete() failed', e, s);
+        }
+      } catch (e, s) {
+        Logs().w('KeychainSharingManager.delete() failed', e, s);
+      }
     }
     return super.clear(supportDeleteCollections: supportDeleteCollections);
   }
