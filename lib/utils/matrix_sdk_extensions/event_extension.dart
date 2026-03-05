@@ -351,7 +351,7 @@ extension LocalizedBody on Event {
       return false;
     }
 
-    if (!room.canSendDefaultMessages) {
+    if (!room.canSendDefaultMessagesRobust) {
       return false;
     }
 

@@ -4,6 +4,7 @@ import 'package:fluffychat/pages/chat/chat_input_row_style.dart';
 import 'package:fluffychat/pages/chat/chat_input_row_web.dart';
 import 'package:fluffychat/pages/chat/reply_display.dart';
 import 'package:collection/collection.dart';
+import 'package:fluffychat/domain/model/room/room_extension.dart';
 import 'package:fluffychat/presentation/mixins/audio_mixin.dart';
 import 'package:fluffychat/resource/image_paths.dart';
 import 'package:fluffychat/utils/android_utils.dart';
@@ -366,8 +367,8 @@ class ActionSelectModeWidget extends StatelessWidget {
                     .getDisplayEvent(controller.timeline!)
                     .status
                     .isSent &&
-                controller
-                    .selectedEvents.first.room.canSendDefaultMessages) ...[
+                controller.selectedEvents.first.room
+                    .canSendDefaultMessagesRobust) ...[
               SizedBox(
                 height: ChatInputRowStyle.chatInputRowHeight,
                 child: TextButton(

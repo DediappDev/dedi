@@ -34,6 +34,7 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 class ContactsManager {
   static const int _lookupChunkSize = 10;
+  static const Duration _tomContactsTimeout = Duration(seconds: 25);
 
   final GetTomContactsInteractor getTomContactsInteractor =
       getIt.get<GetTomContactsInteractor>();
@@ -187,7 +188,20 @@ class ContactsManager {
   }) async {
     tomContactsSubscription = getTomContactsInteractor
         .execute(limit: AppConfig.maxFetchContacts)
-        .listen(
+        .timeout(
+      _tomContactsTimeout,
+      onTimeout: (sink) {
+        sink.add(
+          const Left(
+            GetContactsFailure(
+              keyword: '',
+              exception: 'Tom contacts request timeout',
+            ),
+          ),
+        );
+        sink.close();
+      },
+    ).listen(
       (event) {
         _contactsNotifier.value = event;
       },
@@ -220,7 +234,20 @@ class ContactsManager {
   }) async {
     tomContactsSubscription = getTomContactsInteractor
         .execute(limit: AppConfig.maxFetchContacts)
-        .listen(
+        .timeout(
+      _tomContactsTimeout,
+      onTimeout: (sink) {
+        sink.add(
+          const Left(
+            GetContactsFailure(
+              keyword: '',
+              exception: 'Tom contacts request timeout',
+            ),
+          ),
+        );
+        sink.close();
+      },
+    ).listen(
       (event) {
         _contactsNotifier.value = event;
       },

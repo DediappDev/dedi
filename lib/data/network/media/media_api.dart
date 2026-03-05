@@ -24,8 +24,6 @@ class MediaAPI {
     ProgressCallback? onSendProgress,
   }) async {
     final dioHeaders = _client.getHeaders();
-    dioHeaders[HttpHeaders.contentLengthHeader] =
-        await File(fileInfo.filePath).length();
     dioHeaders[HttpHeaders.contentTypeHeader] = fileInfo.mimeType;
     final response = await _client
         .postToGetBody(
@@ -56,7 +54,6 @@ class MediaAPI {
     ProgressCallback? onSendProgress,
   }) async {
     final dioHeaders = _client.getHeaders();
-    dioHeaders[HttpHeaders.contentLengthHeader] = file.bytes?.length;
     dioHeaders[HttpHeaders.contentTypeHeader] = file.mimeType;
     final response = await _client
         .postToGetBody(

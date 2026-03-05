@@ -337,6 +337,44 @@ extension RoomExtension on Room {
     );
   }
 
+  int get ownPowerLevelRobust {
+    final powerLevelsContent = getState(EventTypes.RoomPowerLevels)?.content;
+    if (powerLevelsContent == null) {
+      return ownPowerLevel;
+    }
+    final users = powerLevelsContent['users'];
+    final currentUserId = client.userID;
+    if (currentUserId != null && users is Map) {
+      final userPowerLevel = _parsePowerLevel(users[currentUserId]);
+      if (userPowerLevel != null) {
+        return userPowerLevel;
+      }
+    }
+    return _parsePowerLevel(powerLevelsContent['users_default']) ??
+        ownPowerLevel;
+  }
+
+  bool get canSendDefaultMessagesRobust {
+    final powerLevelsContent = getState(EventTypes.RoomPowerLevels)?.content;
+    if (powerLevelsContent == null) {
+      return canSendDefaultMessages;
+    }
+    final events = powerLevelsContent['events'];
+    final messagePowerLevel =
+        events is Map ? _parsePowerLevel(events[EventTypes.Message]) : null;
+    final requiredPowerLevel = messagePowerLevel ??
+        _parsePowerLevel(powerLevelsContent['events_default']) ??
+        getDefaultPowerLevel(powerLevelsContent);
+    return ownPowerLevelRobust >= requiredPowerLevel;
+  }
+
+  int? _parsePowerLevel(dynamic raw) {
+    if (raw is int) return raw;
+    if (raw is num) return raw.toInt();
+    if (raw is String) return int.tryParse(raw);
+    return null;
+  }
+
   bool get canReportContent => membership.isJoin;
 }
 

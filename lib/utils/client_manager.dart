@@ -42,6 +42,10 @@ abstract class ClientManager {
     }
     final clients = clientNames.map(createClient).toList();
     if (initialize) {
+      for (final client in clients) {
+        await _repairCorruptedPersistedClientRecord(client);
+      }
+
       final corruptedClientNames = <String>{};
       await Future.wait(
         clients.map(
@@ -114,6 +118,45 @@ abstract class ClientManager {
         accessToken == null ||
         accessToken.isEmpty ||
         !hasValidHomeserver;
+  }
+
+  static Future<void> _repairCorruptedPersistedClientRecord(
+    Client client,
+  ) async {
+    try {
+      final database = await FlutterHiveCollectionsDatabase.databaseBuilder(
+        client,
+      );
+      final account = await database.getClient(client.clientName);
+      if (account == null) return;
+      if (_isInvalidPersistedClientRecord(account)) {
+        Logs().w(
+          'Client ${client.clientName} has invalid persisted session. Clearing local matrix database before init.',
+        );
+        await database
+            .clear(supportDeleteCollections: !PlatformInfos.isWeb)
+            .catchError((_, __) => null);
+      }
+    } catch (e, s) {
+      Logs().w(
+        'Unable to preflight persisted client record for ${client.clientName}',
+        e,
+        s,
+      );
+    }
+  }
+
+  static bool _isInvalidPersistedClientRecord(Map<String, dynamic> account) {
+    final homeserverRaw = account['homeserver_url'];
+    final tokenRaw = account['token'];
+    final userIdRaw = account['user_id'];
+    if (homeserverRaw is! String || homeserverRaw.trim().isEmpty) return true;
+    if (tokenRaw is! String || tokenRaw.trim().isEmpty) return true;
+    if (userIdRaw is! String || userIdRaw.trim().isEmpty) return true;
+    final homeserver = Uri.tryParse(homeserverRaw.trim());
+    return homeserver == null ||
+        homeserver.scheme.isEmpty ||
+        homeserver.host.isEmpty;
   }
 
   static Future<void> addClientNameToStore(String clientName) async {

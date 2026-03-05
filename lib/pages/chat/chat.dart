@@ -603,7 +603,7 @@ class ChatController extends State<Chat>
     scrollDown();
     showEmojiPickerNotifier.value = false;
 
-    if (room != null && !room!.canSendDefaultMessages) {
+    if (room != null && !room!.canSendDefaultMessagesRobust) {
       DediSnackBar.show(
         context,
         L10n.of(context)!.noChatPermissionMessage,
@@ -1571,7 +1571,7 @@ class ChatController extends State<Chat>
   ) {
     final listAction = [
       if (event.room.canSendReactions) ChatHorizontalActionMenu.reaction,
-      if (event.status.isAvailable && event.room.canSendDefaultMessages)
+      if (event.status.isAvailable && event.room.canSendDefaultMessagesRobust)
         ChatHorizontalActionMenu.reply,
       ChatHorizontalActionMenu.more,
     ];

@@ -1,4 +1,5 @@
 import 'package:desktop_drop/desktop_drop.dart';
+import 'package:fluffychat/domain/model/room/room_extension.dart';
 import 'package:fluffychat/pages/chat/blocked_user_banner.dart';
 import 'package:fluffychat/pages/chat/chat.dart';
 import 'package:fluffychat/pages/chat/chat_event_list.dart';
@@ -87,7 +88,7 @@ class ChatViewBody extends StatelessWidget with MessageContentMixin {
                         ),
                       ),
                     ),
-                    if (controller.room!.canSendDefaultMessages &&
+                    if (controller.room!.canSendDefaultMessagesRobust &&
                         controller.room!.membership == Membership.join) ...[
                       Center(
                         child: Container(

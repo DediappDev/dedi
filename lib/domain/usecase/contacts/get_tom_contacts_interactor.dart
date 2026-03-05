@@ -8,6 +8,7 @@ import 'package:fluffychat/domain/repository/contact_repository.dart';
 
 class GetTomContactsInteractor {
   final ContactRepository contactRepository = getIt.get<ContactRepository>();
+  static const _contactsFetchTimeout = Duration(seconds: 20);
 
   GetTomContactsInteractor();
 
@@ -16,10 +17,12 @@ class GetTomContactsInteractor {
   }) async* {
     try {
       yield const Right(ContactsLoading());
-      final response = await contactRepository.fetchContacts(
-        query: ContactQuery(keyword: ''),
-        limit: limit,
-      );
+      final response = await contactRepository
+          .fetchContacts(
+            query: ContactQuery(keyword: ''),
+            limit: limit,
+          )
+          .timeout(_contactsFetchTimeout);
 
       if (response.isEmpty) {
         yield const Left(GetContactsIsEmpty());

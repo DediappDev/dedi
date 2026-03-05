@@ -116,7 +116,7 @@ class _MessageContentWithTimestampBuilderState
   final ResponsiveUtils _responsiveUtils = getIt.get<ResponsiveUtils>();
 
   List<MessageContextMenuAction> _messageContextMenu(Event event) => [
-        if (event.room.canSendDefaultMessages) ...[
+        if (event.room.canSendDefaultMessagesRobust) ...[
           MessageContextMenuAction.reply,
         ],
         MessageContextMenuAction.forward,
