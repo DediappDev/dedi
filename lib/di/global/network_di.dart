@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:fluffychat/config/environment.dart';
 import 'package:fluffychat/data/network/dio_cache_option.dart';
 import 'package:fluffychat/data/network/dio_client.dart';
 import 'package:fluffychat/data/network/homeserver_endpoint.dart';
@@ -59,15 +60,16 @@ class NetworkDI extends BaseDI {
 
   void _bindInterceptor(GetIt get) {
     get.registerLazySingleton(
-      () => DynamicUrlInterceptors(),
+      () => DynamicUrlInterceptors()..changeBaseUrl(Environment.tomServer),
       instanceName: tomServerUrlInterceptorName,
     );
     get.registerLazySingleton(
-      () => DynamicUrlInterceptors(),
+      () => DynamicUrlInterceptors()..changeBaseUrl(Environment.identityServer),
       instanceName: identityServerUrlInterceptorName,
     );
     get.registerLazySingleton(
-      () => DynamicUrlInterceptors(),
+      () =>
+          DynamicUrlInterceptors()..changeBaseUrl(Environment.matrixHomeserver),
       instanceName: homeServerUrlInterceptorName,
     );
 

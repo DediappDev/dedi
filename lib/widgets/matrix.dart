@@ -5,6 +5,7 @@ import 'package:fluffychat/data/model/federation_server/federation_configuration
 import 'package:fluffychat/data/model/federation_server/federation_server_information.dart';
 import 'package:fluffychat/domain/contact_manager/contacts_manager.dart';
 import 'package:fluffychat/domain/exception/federation_configuration_not_found.dart';
+import 'package:fluffychat/domain/exception/tom_configuration_not_found.dart';
 import 'package:fluffychat/domain/repository/federation_configurations_repository.dart';
 import 'package:fluffychat/domain/repository/user_info/user_info_repository.dart';
 import 'package:fluffychat/event/twake_event_types.dart';
@@ -783,6 +784,10 @@ class MatrixState extends State<Matrix>
           await tomConfigurationRepository.getTomConfigurations(userID);
       return toMConfigurations;
     } catch (e) {
+      if (e is ToMConfigurationNotFound) {
+        Logs().d('MatrixState::_getTomConfigurations: $e');
+        return null;
+      }
       Logs().w('MatrixState::_getTomConfigurations: $e');
     }
     return null;

@@ -27,8 +27,29 @@ class UserInfo extends Equatable {
     this.timezone,
   });
 
-  factory UserInfo.fromJson(Map<String, dynamic> json) =>
-      _$UserInfoFromJson(json);
+  factory UserInfo.fromJson(Map<String, dynamic> json) {
+    List<String>? parseStringList(dynamic raw) {
+      if (raw is! List) return null;
+      return raw.whereType<String>().toList();
+    }
+
+    return UserInfo(
+      uid: json['uid'] as String? ?? json['user_id'] as String?,
+      displayName: json['displayName'] as String? ??
+          json['display_name'] as String? ??
+          json['displayname'] as String? ??
+          json['cn'] as String?,
+      avatarUrl: json['avatarUrl'] as String? ??
+          json['avatar_url'] as String? ??
+          json['avatar'] as String?,
+      phones: parseStringList(json['phones']),
+      mail: parseStringList(json['mail']) ?? parseStringList(json['mails']),
+      sn: json['sn'] as String?,
+      givenName: json['givenName'] as String? ?? json['given_name'] as String?,
+      language: json['language'] as String?,
+      timezone: json['timezone'] as String?,
+    );
+  }
 
   Map<String, dynamic> toJson() => _$UserInfoToJson(this);
 
