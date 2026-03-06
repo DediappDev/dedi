@@ -466,6 +466,8 @@ class ContactsManager {
       }
 
       Logs().w('ContactsManager::_handleLookUpPhonebookContacts: $e');
+      _federationConfigUnavailable = true;
+      await _handleDediLookUpPhoneBookContacts(withMxId: withMxId);
     }
   }
 

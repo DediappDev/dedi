@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:fluffychat/data/model/media/download_file_response.dart';
@@ -26,11 +27,15 @@ class MediaAPI {
   }) async {
     final dioHeaders = _client.getHeaders();
     dioHeaders[HttpHeaders.contentTypeHeader] = fileInfo.mimeType;
+    final streamOnlyUploadBytes =
+        fileInfo.filePath.isEmpty ? await _readFileBytes(fileInfo) : null;
     try {
       final response = await _client.postToGetBody(
         HomeserverEndpoint.uploadMediaServicePath
             .generateHomeserverMediaEndpoint(),
-        data: fileInfo.readStream ?? File(fileInfo.filePath).openRead(),
+        data: streamOnlyUploadBytes ??
+            fileInfo.readStream ??
+            File(fileInfo.filePath).openRead(),
         queryParameters: {
           'filename': fileInfo.fileName,
         },
@@ -44,22 +49,70 @@ class MediaAPI {
         throw CancelRequestException();
       }
 
-      // Some homeserver deployments reject /_matrix/media/v3/upload with 400.
-      // Fallback to matrix client's upload implementation.
-      if (error.response?.statusCode == 400 &&
-          matrixClient != null &&
-          fileInfo.filePath.isNotEmpty) {
-        final fileBytes = await File(fileInfo.filePath).readAsBytes();
-        final uri = await matrixClient.uploadContent(
-          fileBytes,
-          filename: fileInfo.fileName,
-          contentType: fileInfo.mimeType,
-        );
-        return UploadFileResponse(contentUri: uri.toString());
+      final shouldRetryWithBytes =
+          error.response?.statusCode == 400 || _isContentLengthMismatch(error);
+      if (shouldRetryWithBytes) {
+        final fileBytes =
+            streamOnlyUploadBytes ?? await _readFileBytes(fileInfo);
+        if (fileBytes != null && fileBytes.isNotEmpty) {
+          try {
+            final response = await _client.postToGetBody(
+              HomeserverEndpoint.uploadMediaServicePath
+                  .generateHomeserverMediaEndpoint(),
+              data: fileBytes,
+              queryParameters: {
+                'filename': fileInfo.fileName,
+              },
+              cancelToken: cancelToken,
+              onSendProgress: onSendProgress,
+              options: Options(headers: dioHeaders),
+            );
+            return UploadFileResponse.fromJson(response);
+          } on DioException catch (retryError) {
+            if (retryError.type == DioExceptionType.cancel) {
+              throw CancelRequestException();
+            }
+
+            // Some homeserver deployments reject /_matrix/media/v3/upload.
+            // Fallback to matrix client's upload implementation.
+            if (retryError.response?.statusCode == 400 &&
+                matrixClient != null) {
+              final uri = await matrixClient.uploadContent(
+                Uint8List.fromList(fileBytes),
+                filename: fileInfo.fileName,
+                contentType: fileInfo.mimeType,
+              );
+              return UploadFileResponse(contentUri: uri.toString());
+            }
+            rethrow;
+          }
+        }
       }
 
       rethrow;
     }
+  }
+
+  bool _isContentLengthMismatch(DioException error) {
+    final errorText = error.error?.toString() ?? '';
+    return errorText.contains('Content size exceeds specified contentLength');
+  }
+
+  Future<List<int>?> _readFileBytes(FileInfo fileInfo) async {
+    if (fileInfo.filePath.isNotEmpty) {
+      final file = File(fileInfo.filePath);
+      if (await file.exists()) {
+        return file.readAsBytes();
+      }
+    }
+
+    final readStream = fileInfo.readStream;
+    if (readStream != null) {
+      final chunks = await readStream.toList();
+      return chunks.expand((chunk) => chunk).toList();
+    }
+
+    return null;
   }
 
   Future<UploadFileResponse> uploadFileWeb({
