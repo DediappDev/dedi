@@ -110,6 +110,16 @@ class ExpansionList extends StatelessWidget {
           },
           (success) {
             if (success is ContactsLoading) {
+              final hasPhonebookData =
+                  presentationPhonebookContactNotifier.value.fold<bool>(
+                (_) => false,
+                (phonebookState) =>
+                    phonebookState is PresentationContactsSuccess &&
+                    phonebookState.contacts.isNotEmpty,
+              );
+              if (hasPhonebookData) {
+                return child!;
+              }
               return const LoadingContactWidget();
             }
 

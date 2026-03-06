@@ -20,32 +20,46 @@ class MediaAPI {
 
   Future<UploadFileResponse> uploadFileMobile({
     required FileInfo fileInfo,
+    Client? matrixClient,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
   }) async {
     final dioHeaders = _client.getHeaders();
     dioHeaders[HttpHeaders.contentTypeHeader] = fileInfo.mimeType;
-    final response = await _client
-        .postToGetBody(
-      HomeserverEndpoint.uploadMediaServicePath
-          .generateHomeserverMediaEndpoint(),
-      data: fileInfo.readStream ?? File(fileInfo.filePath).openRead(),
-      queryParameters: {
-        'filename': fileInfo.fileName,
-      },
-      cancelToken: cancelToken,
-      onSendProgress: onSendProgress,
-      options: Options(headers: dioHeaders),
-    )
-        .onError((error, stackTrace) {
-      if (error is DioException && error.type == DioExceptionType.cancel) {
+    try {
+      final response = await _client.postToGetBody(
+        HomeserverEndpoint.uploadMediaServicePath
+            .generateHomeserverMediaEndpoint(),
+        data: fileInfo.readStream ?? File(fileInfo.filePath).openRead(),
+        queryParameters: {
+          'filename': fileInfo.fileName,
+        },
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        options: Options(headers: dioHeaders),
+      );
+      return UploadFileResponse.fromJson(response);
+    } on DioException catch (error) {
+      if (error.type == DioExceptionType.cancel) {
         throw CancelRequestException();
-      } else {
-        throw Exception(error);
       }
-    });
 
-    return UploadFileResponse.fromJson(response);
+      // Some homeserver deployments reject /_matrix/media/v3/upload with 400.
+      // Fallback to matrix client's upload implementation.
+      if (error.response?.statusCode == 400 &&
+          matrixClient != null &&
+          fileInfo.filePath.isNotEmpty) {
+        final fileBytes = await File(fileInfo.filePath).readAsBytes();
+        final uri = await matrixClient.uploadContent(
+          fileBytes,
+          filename: fileInfo.fileName,
+          contentType: fileInfo.mimeType,
+        );
+        return UploadFileResponse(contentUri: uri.toString());
+      }
+
+      rethrow;
+    }
   }
 
   Future<UploadFileResponse> uploadFileWeb({
@@ -55,27 +69,26 @@ class MediaAPI {
   }) async {
     final dioHeaders = _client.getHeaders();
     dioHeaders[HttpHeaders.contentTypeHeader] = file.mimeType;
-    final response = await _client
-        .postToGetBody(
-      HomeserverEndpoint.uploadMediaServicePath
-          .generateHomeserverMediaEndpoint(),
-      data: file.bytes,
-      queryParameters: {
-        'filename': file.name,
-      },
-      onSendProgress: onSendProgress,
-      cancelToken: cancelToken,
-      options: Options(headers: dioHeaders),
-    )
-        .onError((error, stackTrace) {
-      if (error is DioException && error.type == DioExceptionType.cancel) {
-        throw CancelRequestException();
-      } else {
-        throw Exception(error);
-      }
-    });
+    try {
+      final response = await _client.postToGetBody(
+        HomeserverEndpoint.uploadMediaServicePath
+            .generateHomeserverMediaEndpoint(),
+        data: file.bytes,
+        queryParameters: {
+          'filename': file.name,
+        },
+        onSendProgress: onSendProgress,
+        cancelToken: cancelToken,
+        options: Options(headers: dioHeaders),
+      );
 
-    return UploadFileResponse.fromJson(response);
+      return UploadFileResponse.fromJson(response);
+    } on DioException catch (error) {
+      if (error.type == DioExceptionType.cancel) {
+        throw CancelRequestException();
+      }
+      rethrow;
+    }
   }
 
   Future<DownloadFileResponse> downloadFileInfo({
@@ -106,7 +119,7 @@ class MediaAPI {
         );
       } else {
         Logs().i('downloadFileInfo error: $error');
-        throw Exception(error);
+        throw (error ?? Exception('Unknown download error'));
       }
     });
 
@@ -142,7 +155,7 @@ class MediaAPI {
       if (error is DioException && error.type == DioExceptionType.cancel) {
         throw CancelRequestException();
       } else {
-        throw Exception(error);
+        throw (error ?? Exception('Unknown download stream error'));
       }
     });
 
@@ -160,7 +173,10 @@ class MediaAPI {
         'url': uri.toString(),
         if (preferredPreviewTime != null) 'ts': preferredPreviewTime,
       },
-    ).onError((error, stackTrace) => throw Exception(error));
+    ).onError(
+      (error, stackTrace) =>
+          throw (error ?? Exception('Unknown url preview error')),
+    );
 
     return UrlPreviewResponse.fromJson(response);
   }

@@ -4,7 +4,6 @@ import 'package:fluffychat/di/global/get_it_initializer.dart';
 import 'package:fluffychat/pages/search/search_debouncer_mixin.dart';
 import 'package:fluffychat/pages/settings_dashboard/settings_blocked_users/settings_blocked_users_search_state.dart';
 import 'package:fluffychat/presentation/extensions/client_extension.dart';
-import 'package:fluffychat/utils/dialog/twake_dialog.dart';
 import 'package:fluffychat/utils/responsive/responsive_utils.dart';
 import 'package:fluffychat/widgets/matrix.dart';
 import 'package:flutter/material.dart';
@@ -49,16 +48,14 @@ class SettingsIgnoreListController extends State<BlockedUsers>
 
   Future<void> initialBlockedUsers() async {
     try {
-      DediDialog.showLoadingDialog(context);
-
       if (client.ignoredUsers.isEmpty) {
         searchUserResults.value = const Left(
           BlockedUsersSearchEmptyState(keyword: ''),
         );
-        DediDialog.hideLoadingDialog(context);
         return;
       }
 
+      blockedUsers.clear();
       for (final userId in client.ignoredUsers) {
         final user = await client.getProfileFromUserId(
           userId,
@@ -72,12 +69,10 @@ class SettingsIgnoreListController extends State<BlockedUsers>
           keyword: '',
         ),
       );
-      DediDialog.hideLoadingDialog(context);
     } catch (e) {
       searchUserResults.value = const Left(
         BlockedUsersSearchEmptyState(keyword: ''),
       );
-      DediDialog.hideLoadingDialog(context);
     }
   }
 
@@ -126,27 +121,23 @@ class SettingsIgnoreListController extends State<BlockedUsers>
 
   Future<void> refreshBlockedUsers() async {
     try {
-      DediDialog.showLoadingDialog(context);
       searchUserResults.value = Right(BlockedUsersSearchInitialState());
 
       if (client.ignoredUsers.isEmpty) {
+        blockedUsers.clear();
         searchUserResults.value = const Left(
           BlockedUsersSearchEmptyState(keyword: ''),
         );
-        DediDialog.hideLoadingDialog(context);
         return;
       }
 
+      blockedUsers.clear();
       for (final userId in client.ignoredUsers) {
         final user = await client.getProfileFromUserId(
           userId,
           getFromRooms: false,
         );
-        if (!blockedUsers.any((u) => u.userId == user.userId)) {
-          blockedUsers.add(user);
-        } else {
-          blockedUsers.removeWhere((u) => u.userId != user.userId);
-        }
+        blockedUsers.add(user);
       }
       searchUserResults.value = Right(
         BlockedUsersSearchSuccessState(
@@ -154,12 +145,10 @@ class SettingsIgnoreListController extends State<BlockedUsers>
           keyword: '',
         ),
       );
-      DediDialog.hideLoadingDialog(context);
     } catch (e) {
       searchUserResults.value = const Left(
         BlockedUsersSearchEmptyState(keyword: ''),
       );
-      DediDialog.hideLoadingDialog(context);
     }
   }
 

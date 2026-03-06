@@ -300,6 +300,7 @@ extension SendFileExtension on Room {
         final mediaApi = getIt.get<MediaAPI>();
         final response = await mediaApi.uploadFileMobile(
           fileInfo: fileInfo,
+          matrixClient: client,
           cancelToken: cancelToken,
           onSendProgress: (receive, total) {
             if (uploadStreamController?.isClosed == true) return;
@@ -325,6 +326,7 @@ extension SendFileExtension on Room {
                   : thumbnail.filePath,
               thumbnail.fileSize,
             ),
+            matrixClient: client,
             cancelToken: cancelToken,
             onSendProgress: (receive, total) {
               if (uploadStreamController?.isClosed == true) return;
